@@ -1,0 +1,49 @@
+{
+  "name": "Cockroach Bay Preserve State Park",
+  "region": "Hillsborough County, Florida",
+  "type": "Estuarine Preserve / Tidal Flats",
+  "length_miles": null,
+  "habitat": "Mangrove tunnels, oyster beds, shallow flats, tidal creeks",
+  "location_description": "Cockroach Bay Preserve State Park is a remote estuarine preserve offering access to diverse ecosystems such as mangrove-lined creeks, tidal channels, oyster beds, and shallow saltwater flats. Popular among kayakers and shoreline anglers, this park is a sanctuary for both novice and expert fishers seeking a mix of solitude and productivity.",
+  "notable_event": "The preserve is a critical habitat for juvenile fish and shellfish. Its tidal flows support healthy mangroves and nursery grounds. Restoration efforts have improved native vegetation and water quality, helping species repopulate the area.",
+  "species": [
+    {
+      "name": "Redfish",
+      "habitat": "Flats, Mangroves, Shoreline",
+      "length": "30\u201361 in"
+    },
+    {
+      "name": "Snook",
+      "habitat": "Backcountry, Mangroves",
+      "length": "16\u201350 in"
+    },
+    {
+      "name": "Spotted Seatrout",
+      "habitat": "Grass Flats, Estuaries",
+      "length": "14\u201330 in"
+    },
+    {
+      "name": "Sheepshead",
+      "habitat": "Oyster Beds, Dock Pilings",
+      "length": "12\u201324 in"
+    }
+  ],
+  "gear_recommendations": [
+    "Topwater lures for morning feeding activity",
+    "Soft plastic shrimp or paddle tails near mangroves",
+    "Circle hooks for live bait under popping corks",
+    "Fluorocarbon leader to avoid spooking fish in clear water"
+  ],
+  "fishing_tips": [
+    "Fish outgoing tides near mangrove cuts and creek mouths.",
+    "Use stealthy approach \u2014 shallow water fish are easily spooked.",
+    "Sight cast over oyster bars on a rising tide.",
+    "Morning and dusk offer best chances due to cooler temps and low light."
+  ],
+  "seasonality": {
+    "prime_months": "March to October",
+    "moon_phase_notes": "Best during new and full moons when tidal movement is strongest"
+  },
+  "reflection_prompt": "What parts of you thrive when the world grows quiet?",
+  "whisper": "Still water near the mangroves hides movement, not absence. What rests there is simply waiting for you to slow down."
+}

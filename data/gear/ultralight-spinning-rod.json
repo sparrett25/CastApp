@@ -1,0 +1,23 @@
+{
+  "name": "Ultralight Spinning Rod",
+  "image": "/images/gear/ultralight-spinning-rod.png",
+  "tone": "air",
+  "description": "An ultralight rod is designed for finesse and feel, ideal for targeting smaller fish with light tackle.",
+  "purpose": "Perfect for subtle presentations and high sensitivity needed for light-biting fish.",
+  "pros": [
+    "Excellent for small species like Tilapia",
+    "High sensitivity and responsiveness",
+    "Great for long, accurate casts with light lures"
+  ],
+  "cons": [
+    "Limited power for larger fish",
+    "Requires matching light line and reel",
+    "Can break under stress or heavy hooksets"
+  ],
+  "techniques": [
+    "Pair with small jigs, worms, or dough bait",
+    "Use in calm, clear water environments",
+    "Let the rod flex do the work during hooksets"
+  ],
+  "whisper": "The ultralight rod listens to the water \u2014 a reminder that gentleness often reveals more than force."
+}

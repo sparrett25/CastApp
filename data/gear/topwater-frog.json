@@ -1,0 +1,23 @@
+{
+  "name": "Topwater Frog",
+  "image": "/images/gear/topwater-frog.png",
+  "tone": "air",
+  "description": "Designed to mimic frogs skimming the surface, perfect for explosive strikes in weedy or lily-filled waters.",
+  "purpose": "Triggers visual attacks from ambush predators like Largemouth Bass.",
+  "pros": [
+    "Highly weedless \u2014 skims across mats",
+    "Visually exciting and effective",
+    "Triggers aggressive surface strikes"
+  ],
+  "cons": [
+    "Lower hook-up ratio",
+    "Requires patience and timing",
+    "Limited to surface conditions"
+  ],
+  "techniques": [
+    "Cast deep into cover and pause",
+    "Twitch slowly across lily pads",
+    "Wait for weight before setting hook"
+  ],
+  "whisper": "The frog teaches restraint \u2014 do not strike at every ripple. Let presence become your trigger."
+}

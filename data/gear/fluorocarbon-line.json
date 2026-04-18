@@ -1,0 +1,23 @@
+{
+  "name": "Fluorocarbon Line",
+  "image": "/images/gear/fluorocarbon-line.png",
+  "tone": "water",
+  "description": "Nearly invisible in water and highly abrasion-resistant, fluorocarbon excels in clear or rocky conditions.",
+  "purpose": "Used when stealth and sensitivity are essential.",
+  "pros": [
+    "Low visibility in water",
+    "Sensitive feel for light bites",
+    "Resistant to abrasion near structure"
+  ],
+  "cons": [
+    "Stiffer than mono or braid",
+    "More expensive",
+    "Prone to memory/coiling"
+  ],
+  "techniques": [
+    "Use as a leader with braid mainline",
+    "Ideal for finesse presentations",
+    "Adjust knot choice to prevent slippage"
+  ],
+  "whisper": "In clarity, strength must become subtle. Be unseen. Be precise. Be present."
+}

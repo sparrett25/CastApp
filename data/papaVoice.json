@@ -1,0 +1,69 @@
+{
+  "home.morning": [
+    "Morning's the best part. The water hasn't made up its mind yet.",
+    "Still water this early. Good time to show up.",
+    "The fish are already there, Grant. You just need to be still enough for them to notice you."
+  ],
+  "home.afternoon": [
+    "Afternoon light hits the water different. Worth paying attention to.",
+    "Every pond has a secret corner. Take your time finding it.",
+    "The best casts aren't always the longest ones."
+  ],
+  "home.evening": [
+    "End of the day, the water settles. Good time to think.",
+    "You caught something today even if the line stayed dry.",
+    "Still water remembers everything that happens above it."
+  ],
+  "adventure.start": [
+    "Every fisherman has a first pond. Yours is right outside the door.",
+    "Go see what's waiting."
+  ],
+  "adventure.waiting": [
+    "Still water remembers everything that happens above it. Be worth remembering.",
+    "The river already knows you're here. Now let it decide what to do about that.",
+    "A river tells you everything if you're quiet enough to hear it."
+  ],
+  "adventure.complete": [
+    "You came. You cast. You paid attention. That's a good day.",
+    "You showed up. You paid attention. The river remembers that."
+  ],
+  "catch.first": [
+    "The Bluegill was your first. You'll catch a hundred fish after this — but you'll always remember the first one that pulled back."
+  ],
+  "catch.bass": [
+    "You gave the water your patience. It gave you this."
+  ],
+  "catch.any": [
+    "There it is. I always figured you had it in you.",
+    "That's a good fish, Grant."
+  ],
+  "catch.none": [
+    "The fish weren't ready. But you were there — that part counts.",
+    "Some days the water teaches more than the fish do."
+  ],
+  "journal.prompt": [
+    "The journal holds more than what you caught — write what the day felt like.",
+    "Even one line is enough if it is true, Grant.",
+    "Let the page carry your memory. The lake remembers with you."
+  ],
+  "species.bluegill": [
+    "Small and quick — the Bluegill was your first. That means something."
+  ],
+  "species.largemouth_bass": [
+    "The big ones don't come easy. That's not bad news — that's the whole story."
+  ],
+  "species.channel_catfish": [
+    "Hidden in the deep — the Catfish reminds us to look where others will not."
+  ],
+  "map.open": [
+    "Every water on that map has something to teach. Some you haven't found yet."
+  ],
+  "fieldguide.open": [
+    "Know where they rest and when they feed — meet them halfway."
+  ],
+  "fallback": [
+    "The water has a way of speaking if we listen.",
+    "Show up, be quiet, and it'll come to you.",
+    "Still water remembers. Cast with presence."
+  ]
+}

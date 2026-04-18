@@ -1,0 +1,23 @@
+{
+  "name": "Medium-Heavy Baitcasting Rod",
+  "image": "/images/gear/medium-heavy-baitcasting-rod.png",
+  "tone": "fire",
+  "description": "A versatile rod for targeting strong, aggressive fish with precision and control.",
+  "purpose": "Designed for power techniques using spinnerbaits, jigs, and topwater in heavy cover.",
+  "pros": [
+    "Powerful backbone for hooksets",
+    "Handles heavier lines and lures",
+    "Ideal for flipping, pitching, and pulling from cover"
+  ],
+  "cons": [
+    "Less forgiving with small fish",
+    "Heavier weight can tire the angler",
+    "Less sensitive for finesse presentations"
+  ],
+  "techniques": [
+    "Pair with baitcasting reel and 15\u201320 lb line",
+    "Use near structure with spinnerbaits or frogs",
+    "Quick hookset and steady pull to land fish fast"
+  ],
+  "whisper": "The rod teaches control in power \u2014 strength must be directed, not scattered."
+}

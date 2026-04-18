@@ -1,0 +1,49 @@
+{
+  "name": "Lake Manatee State Park",
+  "region": "Manatee County, Florida",
+  "type": "Freshwater Reservoir",
+  "length_miles": null,
+  "habitat": "Open lake, vegetated shoreline, submerged timber, deep channels",
+  "location_description": "Lake Manatee State Park encompasses a large freshwater reservoir located east of Bradenton. The lake supports a range of freshwater species and provides excellent shore and boat-based angling. The lake is wide and open, but its shallow shorelines and submerged structures provide strong habitat diversity.",
+  "notable_event": "Lake Manatee was created as a reservoir and now serves both recreational and ecological purposes. Stocked and sustained by Florida wildlife authorities, the lake is part of long-term aquatic resource management for the region.",
+  "species": [
+    {
+      "name": "Largemouth Bass",
+      "habitat": "Vegetation, Drop-offs",
+      "length": "15\u201332 in"
+    },
+    {
+      "name": "Crappie",
+      "habitat": "Brush Piles, Shaded Areas",
+      "length": "8\u201315 in"
+    },
+    {
+      "name": "Bluegill",
+      "habitat": "Shorelines, Weeds",
+      "length": "6\u201312 in"
+    },
+    {
+      "name": "Sunshine Bass",
+      "habitat": "Deep Channels, Open Water",
+      "length": "12\u201324 in"
+    }
+  ],
+  "gear_recommendations": [
+    "Small jigs and minnows for crappie near structure",
+    "Spinnerbaits for shoreline bass",
+    "Live worms or grubs for bluegill",
+    "Trolling crankbaits for sunshine bass in open water"
+  ],
+  "fishing_tips": [
+    "Fish near submerged timber and drop-offs for bass and crappie.",
+    "Early morning topwater bites near vegetation are common.",
+    "Use sonar if available to locate deep-holding sunshine bass.",
+    "Late afternoon is productive during warmer months."
+  ],
+  "seasonality": {
+    "prime_months": "March to June, October to December",
+    "moon_phase_notes": "Crappie schooling increases during waxing moons"
+  },
+  "reflection_prompt": "What lies beneath the still surface of your routines?",
+  "whisper": "Still waters hold rhythm \u2014 not absence. Let the lake teach you how patience becomes power."
+}

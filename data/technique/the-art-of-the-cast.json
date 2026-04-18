@@ -1,0 +1,37 @@
+{
+  "name": "The Art of the Cast",
+  "tone": "air",
+  "species": [
+    "Universal"
+  ],
+  "gear": [
+    "Spinning Reel",
+    "Baitcasting Reel",
+    "Light Action Rod",
+    "Medium-Heavy Rod"
+  ],
+  "description": "Casting is more than distance \u2014 it is a ritual of timing, awareness, and intentional release. This scroll teaches the essence of casting with presence.",
+  "difficulty": "Beginner",
+  "environment": [
+    "Open Shorelines",
+    "Confined Banks",
+    "Windy Days",
+    "Dock Spaces"
+  ],
+  "steps": [
+    "Begin with relaxed posture \u2014 grip rod lightly and with purpose.",
+    "Load the rod: bring the lure back smoothly, feeling the weight gather.",
+    "Exhale as you cast forward \u2014 it is a breath, not a launch.",
+    "Release at the apex of your motion, allowing the line to flow free.",
+    "Guide the line with your finger or thumb for controlled landing."
+  ],
+  "commonMistakes": [
+    "Casting too hard \u2014 distance comes from rhythm, not force.",
+    "Poor timing of release causing short or off-course casts.",
+    "Noisy landings that spook fish in shallow water.",
+    "Snapping wrist without loading rod correctly."
+  ],
+  "journalPrompt": "Where in your life do you throw without aiming? What would it feel like to let go with more trust, more rhythm?",
+  "tairoGuidance": "Casting is a breath. Grip, load, and release \u2014 each with intention. Let the rod speak for you.",
+  "whisper": "You are not throwing the lure \u2014 you are placing intention into the water. The cast is your offering to the unknown."
+}

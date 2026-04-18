@@ -1,0 +1,27 @@
+{
+  "name": "Catfish",
+  "image": "/images/species/catfish.png",
+  "tone": "earth",
+  "description": "Catfish are bottom-dwelling fish found in rivers, lakes, and ponds. Known for their whiskers and tough constitution.",
+  "behavior": "Slow, scent-driven feeders. Often found near submerged debris or deep channels.",
+  "conditions": {
+    "time": "Night or twilight",
+    "temperature": "70\u201385\u00b0F (21\u201329\u00b0C)",
+    "moon": "Waning moon draws them from depths",
+    "tide": "Steady flow in rivers",
+    "weather": "Warm nights, light rain"
+  },
+  "gear": [
+    "Heavy spinning rod or baitcaster",
+    "30\u201340 lb test line",
+    "Treble or circle hooks",
+    "Stink bait, chicken liver, or dip bait"
+  ],
+  "techniques": [
+    "Bottom fishing near structure",
+    "Fishing during the night with strong scent bait",
+    "Using slip sinker rigs in current",
+    "Anchor-and-wait strategy"
+  ],
+  "whisper": "The catfish knows the deep. Trust what lives below the surface \u2014 silence is not absence."
+}

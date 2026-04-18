@@ -1,0 +1,23 @@
+{
+  "name": "Spinning Reel",
+  "image": "/images/gear/spinning-reel.png",
+  "tone": "water",
+  "description": "A universal reel for beginners and experts alike, great for light lures, finesse, and adaptable tactics.",
+  "purpose": "Delivers smooth casting and line management for a wide variety of fish and techniques.",
+  "pros": [
+    "Beginner-friendly and intuitive",
+    "Versatile across species and lures",
+    "Excellent for casting light tackle"
+  ],
+  "cons": [
+    "Less power and torque than baitcasters",
+    "Line twist if misused",
+    "Drag performance varies by model"
+  ],
+  "techniques": [
+    "Use for live bait, soft plastics, or light rigs",
+    "Maintain tension to prevent line loops",
+    "Smooth retrieve with drag set moderately"
+  ],
+  "whisper": "The spinning reel teaches adaptability. There is balance in being ready for anything \u2014 but committing to nothing."
+}

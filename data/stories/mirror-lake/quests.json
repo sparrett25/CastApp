@@ -1,0 +1,102 @@
+{
+  "lake_id": "lake.mirror_lake",
+  "version": 1,
+  "updated_at": "2025-09-14T00:00:00Z",
+  "quests": [
+    {
+      "quest_id": "quest.mirrorlake.hidden_bend.v1",
+      "title": "The Hidden Bend",
+      "subtitle": "Listen for the willow’s shadow.",
+      "status": "available",
+      "lore_intro": "Beyond the old willow lies a bend few remember. The lake tests more than skill — it asks for patience, presence, and listening.",
+      "prereqs": {
+        "quests_completed": [],
+        "tags_required": ["Mirror Lake"],
+        "min_entries": 0
+      },
+      "steps": [
+        {
+          "step_id": "hidden_bend.step1",
+          "order": 1,
+          "type": "presence",
+          "title": "Ritual of Stillness",
+          "prompt": "Before you seek the bend, sit quietly at the dock. Breathe with the water until you feel its rhythm. Record what shifts.",
+          "ui_hint": "soft_timer_60_180s",
+          "completion_rule": {
+            "requires_journal_entry": true,
+            "requires_catch_entry": false,
+            "tags_to_apply": ["Mirror Lake", "Presence"],
+            "min_words": 15,
+            "catch_filters": null
+          },
+          "auto_link": { "journal": true, "catch_ledger": false },
+          "skymap": { "star_tag": "Presence", "weight": 1 }
+        },
+        {
+          "step_id": "hidden_bend.step2",
+          "order": 2,
+          "type": "technique",
+          "title": "Trial of Technique",
+          "prompt": "Try a slower retrieve. What changed in feel, line, or water response?",
+          "ui_hint": "technique_picker_note",
+          "completion_rule": {
+            "requires_journal_entry": true,
+            "requires_catch_entry": false,
+            "tags_to_apply": ["Technique", "Patience", "Mirror Lake"],
+            "min_words": 10,
+            "catch_filters": null
+          },
+          "auto_link": { "journal": true, "catch_ledger": false },
+          "skymap": { "star_tag": "Patience", "weight": 1 }
+        },
+        {
+          "step_id": "hidden_bend.step3",
+          "order": 3,
+          "type": "catch",
+          "title": "Offering of Release",
+          "prompt": "Catch and release your first fish near the willow. Note size, place, and the feeling of letting go.",
+          "ui_hint": "catch_form_release_toggle",
+          "completion_rule": {
+            "requires_journal_entry": true,
+            "requires_catch_entry": true,
+            "tags_to_apply": ["Release", "Hidden Bend", "Mirror Lake"],
+            "min_words": 10,
+            "catch_filters": { "species": [], "released": true }
+          },
+          "auto_link": { "journal": true, "catch_ledger": true },
+          "skymap": { "star_tag": "Release", "weight": 2 }
+        },
+        {
+          "step_id": "hidden_bend.step4",
+          "order": 4,
+          "type": "journal",
+          "title": "Reflection at the Bend",
+          "prompt": "The Hidden Bend is not only a place on the map, but in you. What did you discover in yourself through this path?",
+          "ui_hint": "guided_journal_with_tone_tags",
+          "completion_rule": {
+            "requires_journal_entry": true,
+            "requires_catch_entry": false,
+            "tags_to_apply": ["Hidden Bend", "Reflection", "Mirror Lake"],
+            "min_words": 50,
+            "catch_filters": null
+          },
+          "auto_link": { "journal": true, "catch_ledger": false },
+          "skymap": { "star_tag": "Reflection", "weight": 2 }
+        }
+      ],
+      "completion": {
+        "lore_outro": "You found the bend by listening. The truest curve is the spirit of the angler, arcing back toward patience.",
+        "rewards": {
+          "unlock_lore_ids": ["lore.mirrorlake.whisper_of_willow"],
+          "unlock_quest_ids": [],
+          "badges": ["Hidden Bend Initiate"]
+        }
+      },
+      "telemetry": {
+        "created_at": "2025-09-14T00:00:00Z",
+        "updated_at": "2025-09-14T00:00:00Z",
+        "version": 1
+      }
+    }
+  ]
+}

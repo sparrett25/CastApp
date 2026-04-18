@@ -1,0 +1,39 @@
+{
+  "lake_id": "lake.mirror_lake",
+  "version": 1,
+  "updated_at": "2025-09-14T00:00:00Z",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Mirror Lake Awakens",
+      "subtitle": "Dawn at the water’s edge",
+      "papa": "Patience, seeker. The lake reflects what you bring.",
+      "narration": "The surface is still, breathing with mist. Somewhere beneath, a rhythm waits for your first cast.",
+      "links": {
+        "accept_quest_id": "quest.mirrorlake.hidden_bend.v1",
+        "next_chapter_id": "willow_way"
+      }
+    },
+    {
+      "id": "willow_way",
+      "title": "The Willow’s Way",
+      "subtitle": "Shade and listening",
+      "papa": "Not all shadows hide danger. Some teach you to see.",
+      "narration": "Under the willow, water slows. Follow the quiet. Name your intention before you cast.",
+      "links": {
+        "prev_chapter_id": "intro",
+        "next_chapter_id": "hidden_bend"
+      }
+    },
+    {
+      "id": "hidden_bend",
+      "title": "The Hidden Bend",
+      "subtitle": "Curving back toward patience",
+      "papa": "The lake reveals the bend to those who listen.",
+      "narration": "The bank curves gently. You feel the pull to slow down — to retrieve with care and release with gratitude.",
+      "links": {
+        "prev_chapter_id": "willow_way"
+      }
+    }
+  ]
+}

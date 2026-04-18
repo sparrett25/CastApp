@@ -1,0 +1,35 @@
+{
+  "name": "Reading the Water",
+  "tone": "water",
+  "species": [
+    "All"
+  ],
+  "gear": [
+    "Eyes",
+    "Stillness",
+    "Observation"
+  ],
+  "description": "The skill of seeing into the surface \u2014 reading current, shadow, ripple, and structure to sense where fish dwell.",
+  "difficulty": "Beginner",
+  "environment": [
+    "Rivers",
+    "Lakes",
+    "Shorelines",
+    "Flats"
+  ],
+  "steps": [
+    "Observe the flow \u2014 fish face into current, waiting for food.",
+    "Identify structure: logs, rocks, weeds, docks \u2014 all are ambush or rest zones.",
+    "Look for ripple disturbances, swirl patterns, and jumping baitfish.",
+    "In still water, look for shade lines or subtle depth changes.",
+    "Let your eyes and presence settle \u2014 seeing takes time."
+  ],
+  "commonMistakes": [
+    "Casting blindly without observing first.",
+    "Ignoring current direction or shade.",
+    "Spooking fish by moving too fast or loud."
+  ],
+  "journalPrompt": "What have you overlooked because you rushed to act? How can you see better by being still?",
+  "tairoGuidance": "The surface speaks \u2014 but only to those who stop speaking long enough to hear.",
+  "whisper": "The water always tells you where it hides its guests \u2014 if you learn to listen."
+}

@@ -1,0 +1,37 @@
+{
+  "name": "Topwater Ambush Timing",
+  "tone": "fire",
+  "species": [
+    "Largemouth Bass",
+    "Redfish"
+  ],
+  "gear": [
+    "Topwater Frog",
+    "Spinnerbait",
+    "Medium-Heavy Baitcasting Rod",
+    "Braided Line"
+  ],
+  "description": "A technique based on timing and target prediction to trigger surface strikes from predatory fish near structure.",
+  "difficulty": "Intermediate",
+  "environment": [
+    "Shallow Cover",
+    "Weed Mats",
+    "Dawn",
+    "Dusk"
+  ],
+  "steps": [
+    "Observe surface conditions and locate cover or weed edges.",
+    "Cast slightly beyond the ambush zone, allowing bait to settle.",
+    "Twitch bait slowly into the target area, then pause.",
+    "Wait \u2014 do not retrieve immediately. Let the water breathe.",
+    "Resume twitching rhythmically. Prepare for explosive strike."
+  ],
+  "commonMistakes": [
+    "Jerking bait too quickly through the strike zone.",
+    "Setting the hook too soon on surface blowups.",
+    "Casting too close to cover and spooking the fish."
+  ],
+  "journalPrompt": "Describe a time when you knew something was about to happen \u2014 not by sight, but by instinct. What told you?",
+  "tairoGuidance": "Pause longer than you\u2019re comfortable with. When it feels empty \u2014 the strike often comes.",
+  "whisper": "The surface is not silence \u2014 it is signal. To draw the hunter, you must become the hesitation that lures them from stillness."
+}

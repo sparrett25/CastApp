@@ -1,0 +1,90 @@
+.intro-container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.intro-container h2 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.18;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: white;
+  margin: 0;
+  max-width: 760px;
+  text-wrap: balance;
+}
+
+.intro-breath-line {
+  opacity: 0.72;
+  margin-top: 1.25rem;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.9);
+}
+
+.intro-actions {
+  width: 100%;
+  max-width: 420px;
+  margin-top: 1.5rem;
+}
+
+.portal-card {
+  width: 100%;
+  background: rgba(10,6,2,0.52);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 18px;
+  padding: 1.15rem 1.25rem;
+  text-align: left;
+  color: white;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.portal-card:hover {
+  background: rgba(10,6,2,0.62);
+  border-color: rgba(255,255,255,0.24);
+  transform: translateY(-2px);
+}
+
+.portal-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.5rem;
+}
+
+.portal-header h3 {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.portal-emoji {
+  font-size: 1.05rem;
+  flex-shrink: 0;
+}
+
+.portal-desc {
+  margin: 0 0 0.65rem;
+  color: rgba(255,255,255,0.78);
+  font-size: 0.9rem;
+}
+
+.portal-enter {
+  color: rgba(255,255,255,0.88);
+  font-weight: 600;
+}
+
+.home-tip {
+  margin-top: 2.5rem;
+  font-size: 0.92rem;
+  font-style: italic;
+  color: rgba(255,255,255,0.58);
+}

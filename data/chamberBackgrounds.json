@@ -1,0 +1,14 @@
+{
+  
+  "intro":         { "src": "/images/chambers/intro.png",        "caption": "Cast Art • Dock in Daylight", "overlay": "rgba(0,0,0,0.30)" },
+  "home":         { "src": "/images/chambers/home.png",        "caption": "Cast Art • Dock in Daylight" }, 
+  "field-guide":      { "src": "/images/chambers/field-guide2.png",   "caption": "Species • beneath the surface" },
+  "catch-ledger":      { "src": "/images/chambers/catch-ledger.png",      "caption": "Record a catch" },
+  "journal":      { "src": "/images/chambers/journal.png",      "caption": "Journal • lantern and pages" },
+  
+  
+  "plan-trip":    { "src": "/images/chambers/trip-summary.png",    "caption": "Plan Trip • maps and compass" },
+  "trip-summary": { "src": "/images/chambers/trip-summary.png",      "caption": "Trip Summary • the day remembered" },
+  "locations":    { "src": "/images/chambers/locations.png",         "caption": "Locations • marked waters" }
+
+}

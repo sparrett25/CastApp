@@ -1,0 +1,36 @@
+{
+  "name": "Chumming for Catfish",
+  "tone": "earth",
+  "species": [
+    "Catfish"
+  ],
+  "gear": [
+    "Cut Mullet",
+    "Stink Bait",
+    "Treble Hooks",
+    "Heavy Catfish Rod",
+    "Slip Sinker Rig"
+  ],
+  "description": "A scent-driven approach to attract catfish using dispersed bait particles and timed placement.",
+  "difficulty": "Beginner",
+  "environment": [
+    "Deep Holes",
+    "Slow Currents",
+    "Night"
+  ],
+  "steps": [
+    "Choose a deep location near structure or known catfish channels.",
+    "Prepare chum with strong scent: soaked dog food, cheese, or fish parts.",
+    "Disperse chum in a controlled area and allow time for scent to settle.",
+    "Rig baited line with cut mullet or stink bait using a slip sinker.",
+    "Wait patiently and avoid frequent casting \u2014 let the scent draw them in."
+  ],
+  "commonMistakes": [
+    "Using too much chum too quickly \u2014 overfeeding the zone.",
+    "Casting over and over, disturbing the scent trail.",
+    "Using bait with weak scent or poor hook presentation."
+  ],
+  "journalPrompt": "What parts of your process do you rush, and how would it feel to wait longer than you usually do?",
+  "tairoGuidance": "Catfish feel through water more than they see \u2014 let your presence be still so your signal is not confused.",
+  "whisper": "The earth remembers where the scent lingers. To summon what waits below, you must first linger longer than the current."
+}

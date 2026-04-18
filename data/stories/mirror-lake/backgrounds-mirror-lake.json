@@ -1,0 +1,25 @@
+{
+  "lake_id": "lake.mirror_lake",
+  "version": 1,
+  "updated_at": "2025-09-14T00:00:00Z",
+  "backgrounds": [
+    {
+      "chapter_id": "intro",
+      "image": "/images/stories/mirror-lake/dawn-mist.jpg",
+      "credit": "Cast Art • Dawn Mist",
+      "overlay": "rgba(0,0,0,0.40)"   
+    },
+    {
+      "chapter_id": "willow_way",
+      "image": "/images/stories/mirror-lake/willow-shade.jpg",
+      "credit": "Cast Art • Willow Shade",
+      "overlay": "rgba(0,0,0,0.35)"
+    },
+    {
+      "chapter_id": "hidden_bend",
+      "image": "/images/stories/mirror-lake/hidden-bend.jpg",
+      "credit": "Cast Art • Hidden Bend",
+      "overlay": "rgba(0,0,0,0.45)"
+    }
+  ]
+}

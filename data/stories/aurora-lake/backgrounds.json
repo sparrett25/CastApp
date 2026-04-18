@@ -1,0 +1,25 @@
+{
+  "aurora-lake": [
+    { "id": "memory", "src": "/images/lakes/aurora/aurora-lake-sunrise.png",
+      "caption": "Still waters, quiet reflections.",
+      "conditions": { "chapter": "intro", "tone": "nostalgic" }
+    },
+    { "id": "exploration", "src": "/images/lakes/aurora/aurora-lake-explore.png",
+      "caption": "The dragonfly beckons.",
+      "conditions": { "chapter": "explore", "tone": "adventurous", "time": "day" }
+    },
+    { "id": "night", "src": "/images/lakes/aurora/aurora-lake-storm.png",
+      "caption": "Moonlit whispers.",
+      "conditions": { "time": "night" }
+    }
+  ],
+  "journal": [  { "id": "night", "src": "/images/lakes/aurora/aurora-lake-sample.png",
+      "caption": "Journal echoes.",
+      "conditions": { "time": "night" } 
+  ],
+
+  "plan-trip": [  { "id": "night", "src": "/images/lakes/aurora/aurora-lake-sample.png",
+      "caption": "Adventure awaits.",
+      "conditions": { "time": "day" } 
+  ]
+}

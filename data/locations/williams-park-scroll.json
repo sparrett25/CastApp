@@ -1,0 +1,49 @@
+{
+  "name": "Williams Park Boat Ramp",
+  "region": "Riverview, Florida (Hillsborough County)",
+  "type": "Estuarine Access Point / Fishing Pier / Kayak Launch",
+  "length_miles": null,
+  "habitat": "Tidal flats, boat channels, mangrove shoreline, pier pilings",
+  "location_description": "Williams Park Boat Ramp provides access to the southern reaches of the Alafia River and surrounding Tampa Bay waters. It\u2019s a popular launch point for inshore anglers targeting redfish, snook, and trout. The park includes a large boat ramp, fishing pier, kayak launch area, and restrooms.",
+  "notable_event": "Due to its accessibility, the park is popular year-round and during peak tides. Recent upgrades have improved ramp durability and shoreline stabilization, maintaining water clarity and fish habitat.",
+  "species": [
+    {
+      "name": "Redfish",
+      "habitat": "Flats, Channel Edges",
+      "length": "30\u201361 in"
+    },
+    {
+      "name": "Snook",
+      "habitat": "Pier Pilings, Mangroves",
+      "length": "16\u201350 in"
+    },
+    {
+      "name": "Spotted Seatrout",
+      "habitat": "Nearshore Grass Beds",
+      "length": "14\u201330 in"
+    },
+    {
+      "name": "Black Drum",
+      "habitat": "Deeper Channels, Mud Bottoms",
+      "length": "15\u201345 in"
+    }
+  ],
+  "gear_recommendations": [
+    "Live shrimp or cut bait near pier pilings",
+    "Paddle tail soft plastics for trout and snook",
+    "Heavy jigheads for deeper drum around the ramp drop-off",
+    "Fluorocarbon leaders in clear tide conditions"
+  ],
+  "fishing_tips": [
+    "Fish incoming tides as bait is pushed into the channel.",
+    "Target structure like pilings and seawall shadows.",
+    "Evening bites can be strong near lighted edges.",
+    "Wade fishing near mangrove corners can yield redfish at dawn."
+  ],
+  "seasonality": {
+    "prime_months": "March to October",
+    "moon_phase_notes": "Best tides occur during full and new moons for bait movement"
+  },
+  "reflection_prompt": "What structures in your life attract your energy \u2014 and which drain it?",
+  "whisper": "The pier stands still, but life moves around it. You do not need to chase what arrives in rhythm."
+}

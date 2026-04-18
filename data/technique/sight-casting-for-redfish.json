@@ -1,0 +1,35 @@
+{
+  "name": "Sight Casting for Redfish",
+  "tone": "water",
+  "species": [
+    "Redfish"
+  ],
+  "gear": [
+    "Gold Spoon",
+    "Spinning Reel",
+    "Fluorocarbon Line",
+    "Medium-Heavy Spinning Rod"
+  ],
+  "description": "An intentional and visual technique for casting to redfish you can see, often in shallow flats.",
+  "difficulty": "Advanced",
+  "environment": [
+    "Clear Flats",
+    "High Sun",
+    "Low Wind"
+  ],
+  "steps": [
+    "Stand elevated or wade slowly to scan for redfish tails or movement.",
+    "Spot fish before casting \u2014 lead the fish by several feet.",
+    "Cast softly and let the lure sink naturally.",
+    "Twitch slowly and observe fish reaction \u2014 avoid overworking the lure.",
+    "Set the hook with patience after visual confirmation of the strike."
+  ],
+  "commonMistakes": [
+    "Casting directly on top of the fish and spooking it.",
+    "Moving too quickly or creating surface disturbance.",
+    "Pulling the lure too fast, reducing realism."
+  ],
+  "journalPrompt": "Have you ever been so focused that the world went quiet? What conditions allowed that awareness?",
+  "tairoGuidance": "Let the water teach you before you cast. The fish may be seen \u2014 but your focus must be still enough to become invisible.",
+  "whisper": "To see clearly, you must first become transparent. The redfish does not react to sound \u2014 it reacts to presence."
+}

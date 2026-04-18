@@ -1,0 +1,35 @@
+{
+  "name": "Float Fishing for Tilapia",
+  "tone": "air",
+  "species": [
+    "Tilapia"
+  ],
+  "gear": [
+    "Ultralight Spinning Rod",
+    "Small Hook",
+    "Bread Ball",
+    "Float"
+  ],
+  "description": "A gentle, suspended bait technique ideal for catching light-biting Tilapia near vegetation and warm shallows.",
+  "difficulty": "Beginner",
+  "environment": [
+    "Warm Shallows",
+    "Vegetation Edges",
+    "Daylight"
+  ],
+  "steps": [
+    "Use a small hook and form a compact bread ball as bait.",
+    "Attach a float to keep bait suspended just below the surface.",
+    "Cast near submerged vegetation or known feeding areas.",
+    "Watch the float closely \u2014 Tilapia bites are subtle.",
+    "Lift the rod gently to set the hook when float twitches or moves."
+  ],
+  "commonMistakes": [
+    "Using hooks that are too large or bait that is too bulky.",
+    "Letting the float drift too far from the strike zone.",
+    "Jerking too hard on the hookset, pulling bait from Tilapia\u2019s mouth."
+  ],
+  "journalPrompt": "What lesson can be found in subtlety? Where in your life might you benefit from responding with a gentler hand?",
+  "tairoGuidance": "You are not fishing for aggression \u2014 you are listening for invitation. Meet subtlety with attention.",
+  "whisper": "Not all signs shout. The quiet signal, when heard, reveals a world just beneath the surface."
+}

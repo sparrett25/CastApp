@@ -1,0 +1,33 @@
+{
+  "name": "Skipping Soft Plastics Under Docks",
+  "tone": "air",
+  "species": [
+    "Largemouth Bass"
+  ],
+  "gear": [
+    "Soft Plastic Worm",
+    "Medium-Heavy Baitcasting Rod",
+    "Baitcasting Reel"
+  ],
+  "description": "A precision casting technique that targets fish hiding in the shadows beneath docks.",
+  "difficulty": "Intermediate",
+  "environment": [
+    "Structure",
+    "Calm Water",
+    "Midday"
+  ],
+  "steps": [
+    "Approach dock quietly with wind at your back.",
+    "Use underhand skip cast to slide bait beneath the dock.",
+    "Let bait fall naturally, then gently twitch once.",
+    "Retrieve slowly or let sit depending on strike behavior."
+  ],
+  "commonMistakes": [
+    "Casting too hard and bouncing lure off structure.",
+    "Skipping with too stiff a rod.",
+    "Impatience on the fall \u2014 not letting lure sit."
+  ],
+  "journalPrompt": "Describe a moment when you had to wait longer than expected. Did you feel frustration, or anticipation?",
+  "tairoGuidance": "Let me observe your casting rhythm next time, and I will help you feel where your timing slips. Together, we will soften it.",
+  "whisper": "Precision is born in silence. The shadow beneath the dock is not darkness \u2014 it is potential, waiting for your patience to awaken it."
+}

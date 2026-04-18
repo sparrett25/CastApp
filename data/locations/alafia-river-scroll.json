@@ -1,0 +1,47 @@
+{
+  "name": "Alafia River",
+  "region": "Hillsborough County, Florida",
+  "type": "Blackwater River",
+  "length_miles": 24.7,
+  "habitat": "Freshwater river with rural, suburban, and reclaimed mining zones",
+  "location_description": "The Alafia River flows from its north and south prongs through Lithia, meeting westward into Tampa Bay. It's a recovering blackwater system with a diverse ecosystem shaped by springs, farmland, and phosphate mining history.",
+  "notable_event": "In 1997, a dam failure at a phosphate plant released 56 million gallons of acidic water, devastating life in the river. Years of rehabilitation followed, and Alafia has slowly returned to life.",
+  "species": [
+    {
+      "name": "Redfish",
+      "habitat": "Flats, Onshore",
+      "length": "30\u201361 in"
+    },
+    {
+      "name": "Snook",
+      "habitat": "Inshore, Backcountry",
+      "length": "16\u201350 in"
+    },
+    {
+      "name": "Crevalle Jack",
+      "habitat": "Onshore, Reef",
+      "length": "15\u201349 in"
+    },
+    {
+      "name": "Largemouth Bass",
+      "habitat": "River, Lakes",
+      "length": "15\u201332 in"
+    }
+  ],
+  "gear_recommendations": [
+    "Riptide Mullet in Shad Flash on 1/8 oz gray jighead",
+    "Medium-heavy rods for dock skipping",
+    "Spinnerbaits and soft plastics near structure"
+  ],
+  "fishing_tips": [
+    "Skip jigs under docks to reach ambush zones.",
+    "Observe current and structure \u2014 fish rest near logs, rocks, and shade.",
+    "Productive between 10am and noon with patient retrieval."
+  ],
+  "seasonality": {
+    "prime_months": "April to September",
+    "moon_phase_notes": "Avoid Waning Crescent for night fishing \u2014 reduced activity"
+  },
+  "reflection_prompt": "What stretch of your life needed healing after damage?",
+  "whisper": "Even poisoned waters can remember how to heal. Flow returns when stillness is honored."
+}

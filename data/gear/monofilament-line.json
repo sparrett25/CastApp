@@ -1,0 +1,23 @@
+{
+  "name": "Monofilament Line",
+  "image": "/images/gear/monofilament-line.png",
+  "tone": "air",
+  "description": "Monofilament is a forgiving, all-purpose line that offers stretch, ease of use, and affordability.",
+  "purpose": "Great for topwater, reaction baits, and beginners learning line management.",
+  "pros": [
+    "Affordable and easy to manage",
+    "Great for topwater lures due to buoyancy",
+    "Absorbs shock on strong strikes"
+  ],
+  "cons": [
+    "Prone to memory and coiling",
+    "Lower abrasion resistance",
+    "Degrades in sunlight over time"
+  ],
+  "techniques": [
+    "Use for topwater or beginner setups",
+    "Re-spool often for best performance",
+    "Avoid use in heavy structure or rocks"
+  ],
+  "whisper": "The mono is forgiving \u2014 a teacher of rhythm and resilience. It stretches, but does not snap."
+}

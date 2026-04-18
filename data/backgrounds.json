@@ -1,0 +1,22 @@
+{
+  "mirror-lake": [
+    {
+      "id": "memory",
+      "src": "/assets/mirror-lake/mirror-lake-memory.png",
+      "caption": "Still waters, quiet reflections.",
+      "conditions": { "chapter": "intro", "tone": "nostalgic" }
+    },
+    {
+      "id": "exploration",
+      "src": "/assets/mirror-lake/mirror-lake-explore.png",
+      "caption": "The dragonfly hovers. The waters beckon.",
+      "conditions": { "chapter": "explore", "tone": "adventurous" }
+    },
+    {
+      "id": "night",
+      "src": "/assets/mirror-lake/mirror-lake-sunset.png",
+      "caption": "Moonlight dances across rippling water.",
+      "conditions": { "time": "night" }
+    }
+  ]
+}

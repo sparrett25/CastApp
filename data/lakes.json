@@ -1,0 +1,20 @@
+{
+  "mirror-lake": {
+    "title": "Mirror Lake",
+    "slug": "mirror-lake",
+    "cover": "/images/lakes/mirror/cover.png",
+    "intro": "These waters remember.",
+    "chapters": "/data/stories/mirror-lake/chapters.json",
+    "backgrounds": "/data/stories/mirror-lake/backgrounds.json",
+    "voices": "/data/stories/mirror-lake/voices.json"
+  },
+  "aurora-lake": {
+    "title": "Aurora Lake",
+    "slug": "aurora-lake",
+    "cover": "/images/lakes/aurora/cover.png",
+    "intro": "Hope dances on frozen light.",
+    "chapters": "/data/stories/aurora-lake/chapters.json",
+    "backgrounds": "/data/stories/aurora-lake/backgrounds.json",
+    "voices": "/data/stories/aurora-lake/voices.json"
+  }
+}

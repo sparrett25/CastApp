@@ -1,0 +1,31 @@
+{
+  "name": "Checking Your Drag",
+  "tone": "air",
+  "species": [
+    "All"
+  ],
+  "gear": [
+    "Spinning Reel",
+    "Baitcasting Reel"
+  ],
+  "description": "Drag is your line\u2019s resistance to force. Learn how to check, adjust, and trust it \u2014 so your line yields before it breaks.",
+  "difficulty": "Beginner",
+  "environment": [
+    "All"
+  ],
+  "steps": [
+    "Before casting, pull your line to feel resistance \u2014 it should give slightly.",
+    "For light line or small fish, use light drag to prevent breakage.",
+    "For big fish or heavy cover, tighten drag but still allow give.",
+    "Adjust during fight if needed \u2014 reel and listen.",
+    "Check frequently \u2014 especially when changing gear or bait."
+  ],
+  "commonMistakes": [
+    "Too-tight drag leads to snapped lines.",
+    "Too-loose drag prevents solid hooksets.",
+    "Never checking drag until it\u2019s too late."
+  ],
+  "journalPrompt": "Do you tend to hold on too tightly or let go too easily? What\u2019s your drag set to in life?",
+  "tairoGuidance": "The line must yield before it breaks \u2014 like the heart in patience.",
+  "whisper": "Drag is not weakness \u2014 it is wisdom in motion."
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Tilapia",
+  "image": "/images/species/tilapia.png",
+  "tone": "water",
+  "description": "Tilapia are freshwater fish known for their mild taste and adaptability. They are often found in warm, slow-moving waters.",
+  "behavior": "Tilapia graze on algae and plant material and are commonly found near shallow, vegetated areas.",
+  "conditions": {
+    "time": "Midday to afternoon",
+    "temperature": "75\u201385\u00b0F (24\u201329\u00b0C)",
+    "moon": "Quarter moons for balanced activity",
+    "tide": "Minimal impact in freshwater",
+    "weather": "Warm, sunny days"
+  },
+  "gear": [
+    "Ultralight spinning rod",
+    "Spinning reel with smooth drag",
+    "4\u20138 lb monofilament line",
+    "Small worms or dough bait",
+    "Corn or bread balls"
+  ],
+  "techniques": [
+    "Float fishing near vegetation",
+    "Still fishing with bait on bottom",
+    "Slow retrieve near structure",
+    "Fishing in aquaculture-friendly zones"
+  ],
+  "whisper": "Tilapia remind us that nourishment often comes through gentleness. Simplicity is sacred \u2014 honor it."
+}

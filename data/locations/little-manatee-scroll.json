@@ -1,0 +1,49 @@
+{
+  "name": "Little Manatee River State Park",
+  "region": "Hillsborough County, Florida",
+  "type": "Brackish River / Coastal Tidal River",
+  "length_miles": null,
+  "habitat": "Tidal creeks, sandbars, brackish flats, overhanging limbs, submerged debris",
+  "location_description": "Little Manatee River State Park surrounds one of the most pristine blackwater rivers in southwest Florida. Its brackish waters are fed by tidal influence, supporting a mix of freshwater and saltwater species. The river winds through shaded banks, sandbars, and mangrove tunnels.",
+  "notable_event": "The river\u2019s preservation is vital to regional biodiversity. Restoration efforts and careful water management have allowed native species to thrive in both the freshwater and brackish sections of the system.",
+  "species": [
+    {
+      "name": "Snook",
+      "habitat": "Mangroves, Creek Mouths",
+      "length": "16\u201350 in"
+    },
+    {
+      "name": "Redfish",
+      "habitat": "Oyster Bars, Shoreline",
+      "length": "30\u201361 in"
+    },
+    {
+      "name": "Largemouth Bass",
+      "habitat": "Freshwater Curves, Logs",
+      "length": "15\u201332 in"
+    },
+    {
+      "name": "Bluegill",
+      "habitat": "Slow Pools, Vegetation",
+      "length": "6\u201312 in"
+    }
+  ],
+  "gear_recommendations": [
+    "Topwater lures early near mangrove cuts",
+    "Soft plastics along overhanging trees and under logs",
+    "Live shrimp or minnows under corks in transition zones",
+    "Small jigs for bluegill in eddies and slack water"
+  ],
+  "fishing_tips": [
+    "Focus on creek mouths during moving tides for snook and redfish.",
+    "Target shaded bends with structure for bass.",
+    "Use natural presentations \u2014 waters here are clear and wary.",
+    "Midday can be productive in shaded areas or deeper pools."
+  ],
+  "seasonality": {
+    "prime_months": "February to July, September to November",
+    "moon_phase_notes": "Tide movement during full and new moons boosts feeding windows"
+  },
+  "reflection_prompt": "Where do you resist mixing currents \u2014 and what could integration create?",
+  "whisper": "Brackish water is not confusion \u2014 it is convergence. Let the river show you how many truths can flow as one."
+}

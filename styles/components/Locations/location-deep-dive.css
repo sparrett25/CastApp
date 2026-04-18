@@ -1,0 +1,87 @@
+
+.location-dive-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 10, 20, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(6px);
+}
+
+.location-dive-container {
+  background: radial-gradient(ellipse at center, #1c1c1c 0%, #101010 100%);
+  border: 2px solid #38bdf8;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 900px;
+  padding: 2rem;
+  color: #f3f3f3;
+  box-shadow: 0 0 20px rgba(147, 197, 253, 0.4);
+  position: relative;
+  font-family: 'Cinzel', serif;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding-right: 1rem;
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: none;
+  color: #ffffffaa;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: #ffffff;
+}
+
+.location-dive-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.location-title {
+  font-size: 2rem;
+  margin: 0;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.location-sub {
+  font-size: 1rem;
+  color: #94a3b8;
+}
+
+.location-section {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.04);
+}
+
+.location-section h3 {
+  color: #93c5fd;
+  margin-bottom: 0.5rem;
+}
+
+.location-section ul {
+  padding-left: 1.25rem;
+}
+
+.location-section blockquote {
+  font-style: italic;
+  color: #7dd3fc;
+  border-left: 4px solid #7dd3fc;
+  padding-left: 1rem;
+  margin: 0.5rem 0 0 0;
+}

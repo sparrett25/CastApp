@@ -1,0 +1,27 @@
+{
+  "name": "Redfish",
+  "image": "/images/species/redfish.png",
+  "tone": "fire",
+  "description": "Redfish, or red drum, are powerful fighters often found in coastal marshes, flats, and estuaries.",
+  "behavior": "Feeds along bottom, tailing in shallow water. Uses strength more than speed.",
+  "conditions": {
+    "time": "Early morning or dusk",
+    "temperature": "65\u201380\u00b0F (18\u201327\u00b0C)",
+    "moon": "New moon aligns stronger bites",
+    "tide": "High tide in grassy flats",
+    "weather": "Overcast with light wind"
+  },
+  "gear": [
+    "Medium-heavy spinning rod",
+    "Spool with 15\u201320 lb braid",
+    "Circle hooks with cut bait",
+    "Gold spoons and paddle tails"
+  ],
+  "techniques": [
+    "Sight fishing on shallow flats",
+    "Chumming with cut mullet",
+    "Slow rolling spoons over grass",
+    "Bottom fishing near oyster bars"
+  ],
+  "whisper": "Redfish teach strength through grounded motion. Move with weight and rhythm, not speed."
+}

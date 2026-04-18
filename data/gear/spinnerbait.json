@@ -1,0 +1,23 @@
+{
+  "name": "Spinnerbait",
+  "image": "/images/gear/spinnerbait.png",
+  "tone": "fire",
+  "description": "Spinnerbaits are flash-heavy lures that provoke aggressive strikes through vibration and visual motion.",
+  "purpose": "Ideal for targeting reactionary species near submerged structures or murky water.",
+  "pros": [
+    "Great for covering large areas quickly",
+    "Effective in murky or stained water",
+    "Attracts predatory instincts via flash and vibration"
+  ],
+  "cons": [
+    "Can be ineffective in clear, calm water",
+    "Snags easily in heavy vegetation",
+    "Less finesse than soft plastics"
+  ],
+  "techniques": [
+    "Use steady retrieve along weed lines",
+    "Burn and pause to trigger strikes",
+    "Skim just above submerged logs or grass beds"
+  ],
+  "whisper": "The spinnerbait dances with chaos \u2014 learn to move just fast enough to be seen, and wild enough to be chased."
+}

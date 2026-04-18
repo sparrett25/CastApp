@@ -1,0 +1,49 @@
+{
+  "name": "Hillsborough River State Park",
+  "region": "Hillsborough County, Florida",
+  "type": "Freshwater River / Rapids",
+  "length_miles": null,
+  "habitat": "Cypress-lined riverbanks, rocky outcroppings, deep pools, slow and fast-moving water",
+  "location_description": "Hillsborough River State Park offers one of the rare Florida river systems with Class II rapids. Surrounded by lush vegetation, this freshwater system contains diverse fishing environments, including slow deep pools, eddies, and rocky sections \u2014 ideal for targeting warm-water river species.",
+  "notable_event": "The river has undergone extensive conservation efforts to protect its natural flow, cypress groves, and aquatic biodiversity. It\u2019s a beloved spot for both anglers and hikers, known for its mixture of beauty and challenge.",
+  "species": [
+    {
+      "name": "Largemouth Bass",
+      "habitat": "Pools, Edges, Submerged Logs",
+      "length": "15\u201332 in"
+    },
+    {
+      "name": "Bluegill",
+      "habitat": "Eddies, Lily Pads",
+      "length": "6\u201312 in"
+    },
+    {
+      "name": "Bowfin",
+      "habitat": "Weedy Backwaters",
+      "length": "18\u201334 in"
+    },
+    {
+      "name": "Channel Catfish",
+      "habitat": "Deep Holes, Current Seams",
+      "length": "12\u201330 in"
+    }
+  ],
+  "gear_recommendations": [
+    "Ultralight spinning setups for panfish and bluegill",
+    "Medium baitcasting rod with soft plastics for bass",
+    "Slip sinker rigs with cut bait for catfish",
+    "Use weedless rigs around submerged logs"
+  ],
+  "fishing_tips": [
+    "Fish the slower eddies during high sun hours for bass and panfish.",
+    "Use dark soft plastics or live worms near overhanging cover.",
+    "Try fishing below the rapids where oxygenation increases feeding activity.",
+    "For catfish, fish deep holes during twilight and early night."
+  ],
+  "seasonality": {
+    "prime_months": "April to November",
+    "moon_phase_notes": "Full moons are ideal for bowfin and catfish activity"
+  },
+  "reflection_prompt": "Where in your life are you resisting flow? What would it feel like to let current carry you?",
+  "whisper": "Even a river with rapids knows when to slow. You do not need to rush to prove you're moving."
+}

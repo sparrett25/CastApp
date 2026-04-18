@@ -1,0 +1,26 @@
+{
+  "name": "Baitcasting Reel",
+  "image": "/images/gear/baitcasting-reel.png",
+  "tone": "fire",
+  "description": "A baitcasting reel offers precision and power, favored by experienced anglers for targeting larger, aggressive species with heavier lures.",
+  "purpose": "Designed for controlled casting of medium to heavy lures with pinpoint accuracy and strong retrieval torque.",
+  "pros": [
+    "High casting accuracy and distance control",
+    "Stronger drag and torque for big fish",
+    "Efficient for heavy lines and lures",
+    "Durable for long-term use"
+  ],
+  "cons": [
+    "Steeper learning curve (prone to backlash)",
+    "Not ideal for light lures",
+    "Requires more maintenance",
+    "More expensive than spinning reels"
+  ],
+  "techniques": [
+    "Use thumb to control spool during cast",
+    "Match rod and lure weight for optimal performance",
+    "Adjust spool tension and brake settings",
+    "Cast near structure for species like bass or redfish"
+  ],
+  "whisper": "The baitcaster reminds you: mastery comes through repetition, not haste. Power must be guided, not forced. Precision is a rhythm \u2014 learn it slowly, and wield it wisely."
+}

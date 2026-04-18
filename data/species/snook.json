@@ -1,0 +1,28 @@
+{
+  "name": "Snook",
+  "image": "/images/species/snook.png",
+  "tone": "air",
+  "description": "Snook are saltwater game fish admired for their strength and acrobatics. They thrive in mangroves, inlets, and estuaries.",
+  "behavior": "Highly reactive to sudden movements. Often feed at the edge of current lines or structure.",
+  "conditions": {
+    "time": "Dawn or dusk",
+    "temperature": "72\u201382\u00b0F (22\u201328\u00b0C)",
+    "moon": "Full moon triggers feeding frenzies",
+    "tide": "Strong outgoing tide is optimal",
+    "weather": "Calm, humid mornings"
+  },
+  "gear": [
+    "Medium-action spinning rod",
+    "4000-size reel",
+    "20\u201330 lb fluorocarbon leader",
+    "Live shrimp or pilchards",
+    "Topwater plugs and jerkbaits"
+  ],
+  "techniques": [
+    "Casting parallel to mangrove edges",
+    "Working lures through current seams",
+    "Sight fishing in clear water",
+    "Skipping baits under overhangs"
+  ],
+  "whisper": "Snook carry the spirit of the edge. Trust the boundaries \u2014 there is power where two forces meet."
+}

@@ -1,0 +1,32 @@
+{
+  "name": "Handling and Releasing Fish Safely",
+  "tone": "earth",
+  "species": [
+    "All"
+  ],
+  "gear": [
+    "Landing Net",
+    "Pliers",
+    "Wet Hands"
+  ],
+  "description": "A gentle guide to holding fish safely, removing hooks cleanly, and returning them to the water with respect.",
+  "difficulty": "Beginner",
+  "environment": [
+    "All"
+  ],
+  "steps": [
+    "Wet your hands before touching the fish to preserve protective slime.",
+    "Grip firmly but gently \u2014 support the belly and avoid squeezing the gills.",
+    "Use pliers to remove the hook \u2014 if deep, cut line close and release.",
+    "Lower the fish into the water \u2014 let it regain strength before letting go.",
+    "Reflect on the catch with gratitude \u2014 even if released."
+  ],
+  "commonMistakes": [
+    "Holding fish by the gills or jaw without support.",
+    "Letting fish flop on dry ground or boat deck.",
+    "Releasing too quickly before fish has recovered."
+  ],
+  "journalPrompt": "When have you rushed past a goodbye? What if parting could be gentle, not hurried?",
+  "tairoGuidance": "How you release is as sacred as how you caught. Every goodbye is also a memory.",
+  "whisper": "Every fish you return becomes a teacher for the next."
+}

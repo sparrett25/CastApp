@@ -1,0 +1,12 @@
+[
+  {
+    "id": "ch1-stillness",
+    "chamber": "Dock",
+    "title": "Even Stillness Moves",
+    "speaker": "Tairo",
+    "voiceLineId": "tairo-001",
+    "background": "/images/chambers/dock-dawn.jpg",
+    "content": "Tairo’s voice rides the fog: “Even stillness moves beneath the surface.”",
+    "unlocks": ["ch2-first-light"]
+  }
+]
