@@ -1,0 +1,202 @@
+.papa-dock-page {
+  padding: 5.5rem 1.5rem 6rem;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+
+.papa-dock-intro {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(10,6,2,0.62);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 18px;
+  padding: 1rem 1.1rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.papa-dock-avatar-wrap {
+  flex: 0 0 auto;
+}
+
+.papa-dock-avatar {
+  width: 76px;
+  height: 76px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.28);
+}
+
+.papa-dock-intro-copy {
+  min-width: 0;
+}
+
+.papa-dock-line {
+  margin: 0 0 0.2rem;
+  font-family: Georgia, serif;
+  font-size: 1.02rem;
+  font-style: italic;
+  color: rgba(255,255,255,0.94);
+}
+
+.papa-dock-subline {
+  margin: 0;
+  font-size: 0.86rem;
+  color: rgba(255,255,255,0.68);
+}
+
+.papa-dock-conversation {
+  min-height: 320px;
+  max-height: 420px;
+  overflow-y: auto;
+  background: rgba(10,6,2,0.55);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 18px;
+  padding: 1rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.papa-dock-bubble-wrap {
+  display: flex;
+  margin-bottom: 0.8rem;
+}
+
+.papa-dock-bubble-wrap--papa {
+  justify-content: flex-start;
+}
+
+.papa-dock-bubble-wrap--grant {
+  justify-content: flex-end;
+}
+
+.papa-dock-bubble {
+  max-width: 85%;
+  padding: 0.8rem 0.95rem;
+  border-radius: 16px;
+}
+
+.papa-dock-bubble--papa {
+  background: rgba(15,110,86,0.18);
+  border-left: 2px solid rgba(15,110,86,0.60);
+}
+
+.papa-dock-bubble--grant {
+  background: rgba(186,117,23,0.20);
+  border: 1px solid rgba(210,140,30,0.28);
+}
+
+.papa-dock-bubble-attr {
+  margin: 0 0 0.25rem;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.58);
+}
+
+.papa-dock-bubble-text {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.92);
+}
+
+.papa-dock-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(10,6,2,0.62);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 18px;
+  padding: 0.8rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.papa-dock-page .papa-dock-mic-btn,
+.papa-dock-page .papa-dock-mic-btn:hover,
+.papa-dock-page .papa-dock-send-btn,
+.papa-dock-page .papa-dock-send-btn:hover {
+  border-radius: 999px !important;
+}
+
+.papa-dock-page .papa-dock-mic-btn {
+  width: 46px !important;
+  height: 46px !important;
+  padding: 0 !important;
+  border: 1px solid rgba(255,255,255,0.18) !important;
+  background: rgba(255,255,255,0.08) !important;
+  color: white !important;
+  font-size: 1.1rem !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+}
+
+.papa-dock-page .papa-dock-mic-btn.is-listening {
+  background: rgba(210,140,30,0.92) !important;
+  color: white !important;
+}
+
+.papa-dock-input {
+  flex: 1;
+  min-width: 0;
+  height: 46px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+  color: white;
+  padding: 0 1rem;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.papa-dock-input::placeholder {
+  color: rgba(255,255,255,0.46);
+}
+
+.papa-dock-page .papa-dock-send-btn {
+  padding: 0.65rem 1rem !important;
+  background: rgba(186,117,23,0.90) !important;
+  border: 1px solid rgba(210,140,30,0.95) !important;
+  color: white !important;
+  font-size: 0.84rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.35) !important;
+}
+
+.papa-dock-page .papa-dock-send-btn:disabled {
+  opacity: 0.42 !important;
+  cursor: default !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 480px) {
+  .papa-dock-page {
+    padding: 0 1rem 6rem;
+  }
+
+  .papa-dock-intro {
+    align-items: flex-start;
+  }
+
+  .papa-dock-avatar {
+    width: 64px;
+    height: 64px;
+  }
+
+  .papa-dock-input-row {
+    flex-wrap: wrap;
+  }
+
+  .papa-dock-input {
+    order: 3;
+    width: 100%;
+  }
+}

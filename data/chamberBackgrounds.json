@@ -5,7 +5,7 @@
   "field-guide":      { "src": "/images/chambers/field-guide2.png",   "caption": "Species • beneath the surface" },
   "catch-ledger":      { "src": "/images/chambers/catch-ledger.png",      "caption": "Record a catch" },
   "journal":      { "src": "/images/chambers/journal.png",      "caption": "Journal • lantern and pages" },
-  
+  "papaDock":      { "src": "/images/chambers/papa-dock-bg.png",      "caption": "Speak to Papa • Papa Speaks" },
   
   "plan-trip":    { "src": "/images/chambers/trip-summary.png",    "caption": "Plan Trip • maps and compass" },
   "trip-summary": { "src": "/images/chambers/trip-summary.png",      "caption": "Trip Summary • the day remembered" },

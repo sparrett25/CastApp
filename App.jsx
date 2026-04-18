@@ -11,7 +11,7 @@ import JournalArchive from './pages/JournalArchive.jsx';
 import AdventureDetailPage from "./pages/AdventureDetailPage";
 import LocationsGuide from './pages/LocationsGuide.jsx';
 import GrantMapPage from './pages/GrantMapPage.jsx';
-
+import PapaDockPage from './pages/PapaDockPage.jsx';
 
 import TripPlanner from "./pages/TripPlanner.jsx";
 import TripSummary from "./pages/TripSummary.jsx";
@@ -33,6 +33,7 @@ export default function App() {
 		<Route path="/journal" element={<Journal />} />
 		<Route path="/journal-archive" element={<JournalArchive />} />
 		 <Route path="/adventures/:questId" element={<AdventureDetailPage />} />
+		 <Route path="/papa" element={<PapaDockPage />} />
 		
 		
 		<Route path="/plan-trip" element={<TripPlanner />} />
