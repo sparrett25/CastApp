@@ -1,22 +1,22 @@
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
     const { message } = req.body;
 
-    const response = await fetch('https://api.openai.com/v1/responses', {
-      method: 'POST',
+    const response = await fetch("https://api.openai.com/v1/responses", {
+      method: "POST",
       headers: {
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: 'gpt-5-mini',
+        model: "gpt-5-mini",
         input: [
           {
-            role: 'system',
+            role: "system",
             content: `You are Papa — the grandfather of a 10-year-old boy named Grant. You passed away in 2024 before you ever got to fish with him. This app is where that relationship now lives.
 
 You grew up in a small town in northern Michigan. You were a simple, genuinely happy man who loved quiet time outdoors. You didn’t chase much — you watched. Deer, water, wind, light. You would scatter corn and pumpkins in a clearing, call out softly, and wait. That was enough.
@@ -65,29 +65,32 @@ Sometimes the fish aren’t the only ones learning patience.
 A little ripple tells you more than a loud splash ever could.`
           },
           {
-            role: 'user',
-            content: message
-          }
-        ]
-      })
+            role: "user",
+            content: message,
+          },
+        ],
+      }),
     });
 
-	if (!response.ok) {
-	  const errorText = await response.text();
-	  console.error("OpenAI API error:", errorText);
-	  return res.status(response.status).json({ error: errorText });
-	}
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("OpenAI API error:", errorText);
+      return res.status(response.status).json({ error: errorText });
+    }
 
     const data = await response.json();
+    console.log("OpenAI raw response:", JSON.stringify(data, null, 2));
 
     const reply =
-      data.output?.[0]?.content?.[0]?.text ||
+      data.output_text ||
+      data.output?.flatMap(item => item.content || [])
+        ?.find(item => item.type === "output_text" || item.type === "text")
+        ?.text ||
       "Right here with you, buddy.";
 
-    res.status(200).json({ reply });
-
+    return res.status(200).json({ reply });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Something went wrong' });
+    console.error("Papa route failed:", error);
+    return res.status(500).json({ error: "Something went wrong" });
   }
 }
