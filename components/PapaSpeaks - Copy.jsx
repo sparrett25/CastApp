@@ -2,18 +2,37 @@ import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePapa } from "../hooks/usePapa";
 
+/**
+ * PapaSpeaks — drop this anywhere Papa should respond to a moment.
+ *
+ * Props:
+ *   context     — object passed to usePapa: { event, adventure, step, catchData }
+ *   fallbackKey — key from papaVoice.json to use if API fails
+ *   trigger     — any value; when it changes, Papa speaks again
+ *   className   — optional extra classes
+ *
+ * Usage (home screen greeting):
+ *   <PapaSpeaks context={{ event: "opened the app" }} fallbackKey="home.morning" />
+ *
+ * Usage (after a catch):
+ *   <PapaSpeaks
+ *     context={{ event: "caught a fish", catchData: { species: "Bluegill" } }}
+ *     fallbackKey="catch.first"
+ *     trigger={catchId}
+ *   />
+ */
 export default function PapaSpeaks({
   context = {},
   fallbackKey = "fallback",
   trigger,
-  mode = "mini",
   className = "",
 }) {
   const { line, loading, ask } = usePapa();
 
+  // Ask Papa whenever trigger changes (or on first mount)
   useEffect(() => {
-    ask(context, fallbackKey, mode);
-  }, [ask, context, fallbackKey, mode, trigger]);
+  ask(context, fallbackKey);
+}, [ask, context, fallbackKey, trigger]);
 
   return (
     <div className={`papa-speaks ${className}`}>

@@ -1,6 +1,10 @@
 import { useState, useCallback, useRef } from "react";
 import papaVoice from "../data/papaVoice.json";
 
+// ─────────────────────────────────────────────
+// Fallback: pull a random line from papaVoice
+// for a given context key
+// ─────────────────────────────────────────────
 function getFallbackLine(contextKey) {
   const pool =
     papaVoice[contextKey] ||
@@ -10,6 +14,9 @@ function getFallbackLine(contextKey) {
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
+// ─────────────────────────────────────────────
+// Build the user message from context
+// ─────────────────────────────────────────────
 function buildUserMessage(context) {
   const hour = new Date().getHours();
   const timeOfDay =
@@ -41,16 +48,15 @@ function buildUserMessage(context) {
   return parts.join(" ");
 }
 
+// ─────────────────────────────────────────────
+// usePapa hook
+// ─────────────────────────────────────────────
 export function usePapa() {
   const [line, setLine] = useState("");
   const [loading, setLoading] = useState(false);
   const abortRef = useRef(null);
 
-  const ask = useCallback(async (
-    context = {},
-    fallbackKey = "fallback",
-    mode = "mini"
-  ) => {
+  const ask = useCallback(async (context = {}, fallbackKey = "fallback") => {
     if (abortRef.current) abortRef.current.abort();
     abortRef.current = new AbortController();
 
@@ -65,7 +71,6 @@ export function usePapa() {
         },
         body: JSON.stringify({
           message: buildUserMessage(context),
-          mode,
         }),
       });
 

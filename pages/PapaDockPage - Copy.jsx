@@ -44,29 +44,11 @@ export default function PapaDockPage() {
     return () => recognition.stop();
   }, []);
 
-  function buildTalkPayload(text, history) {
-    const recentHistory = history.slice(-6).map((msg) => ({
-      role: msg.role,
-      text: msg.text,
-    }));
-
-    return {
-      mode: "talk",
-      message: {
-        userMessage: text,
-        history: recentHistory,
-      },
-    };
-  }
-
   async function sendMessage(textOverride) {
     const text = (textOverride ?? input).trim();
     if (!text || loading) return;
 
-    const nextGrantMessage = { role: "grant", text };
-    const nextMessages = [...messages, nextGrantMessage];
-
-    setMessages(nextMessages);
+    setMessages((prev) => [...prev, { role: "grant", text }]);
     setInput("");
     setLoading(true);
 
@@ -76,7 +58,7 @@ export default function PapaDockPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(buildTalkPayload(text, nextMessages)),
+        body: JSON.stringify({ message: text }),
       });
 
       if (!response.ok) {

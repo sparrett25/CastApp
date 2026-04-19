@@ -1,10 +1,20 @@
 import PapaSpeaks from "./PapaSpeaks";
 
+/**
+ * PapaMini — Papa's avatar + his live voice line.
+ * Used in ChamberLayout top-right on every screen.
+ *
+ * Props:
+ *   context     — passed to usePapa: { event, adventure, step }
+ *   fallbackKey — key from papaVoice.json
+ *   trigger     — re-triggers Papa when changed
+ */
 export default function PapaMini({
   context = {},
   fallbackKey,
   trigger,
 }) {
+  // Derive a sensible fallback key from time of day if none provided
   const hour = new Date().getHours();
   const timeKey =
     hour < 11 ? "home.morning" : hour < 17 ? "home.afternoon" : "home.evening";
@@ -21,7 +31,6 @@ export default function PapaMini({
         context={context}
         fallbackKey={resolvedKey}
         trigger={trigger}
-        mode="mini"
       />
     </div>
   );
