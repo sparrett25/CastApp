@@ -8,7 +8,7 @@ import React from "react";
 export default function ChamberLayout({ title, sub, papa, children }) {
   return (
     // add a little top padding for clearance
-    <div className="chamber-page pt-6 md:pt-8 min-h-[1080px]">
+    <div className="chamber-page pt-6 md:pt-8">
       <div className="chamber-header">
         <div>
           <h1 className="chamber-title">{title}</h1>
