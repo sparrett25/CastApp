@@ -92,12 +92,19 @@
 
 /* ── Paper ── */
 .journal-paper {
-  background: rgba(10,6,2,0.38);
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 16px;
+  background: linear-gradient(
+    to bottom,
+    rgba(28, 16, 8, 0.34),
+    rgba(18, 10, 5, 0.46)
+  );
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 18px;
   overflow: hidden;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  box-shadow:
+    0 12px 30px rgba(0,0,0,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.05);
 }
 
 .journal-textarea {
@@ -172,14 +179,14 @@
 }
 .journal-page .journal-archive-link {
   display: block !important;
-  margin-top: 1rem !important;
+  margin-top: 0.6rem !important;
   border: none !important;
-  color: rgba(255,255,255,0.72) !important;
-  font-size: 0.85rem !important;
+  color: rgba(255,255,255,0.76) !important;
+  font-size: 0.84rem !important;
   font-weight: 600 !important;
   cursor: pointer !important;
-  padding: 0.5rem 0 !important;
-  text-align: right !important;
+  padding: 0.35rem 0 !important;
+  text-align: center !important;
   width: 100% !important;
   transition: color 0.2s !important;
 }
@@ -389,3 +396,33 @@
 @media (max-width: 480px) {
   .journal-page { padding: 0 1rem 6rem; }
 }
+
+
+.journal-pause-line {
+  margin: 0 0 0.4rem;
+  text-align: center;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: rgba(255,255,255,0.62);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.45);
+}
+
+.journal-prompt-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.25rem;
+}
+
+
+
+.journal-paper-label {
+  margin: 1.5rem 0 0.6rem;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(220,175,65,0.78);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.45);
+}
+

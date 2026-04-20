@@ -24,8 +24,6 @@ function saveEntries(entries) {
 }
 
 // ── Scooter's optional prompts ────────────────────────────────
-
-
 const PROMPTS = [
   "What did you notice today that you usually walk past?",
   "What would you do differently next time?",
@@ -100,7 +98,6 @@ export default function JournalPage() {
                 transition={{ duration: 0.3 }}
               >
                 {/* Optional prompts */}
-				<p className="journal-pause-line">Take a breath. There’s no rush here.</p>
                 <div className="journal-prompt-row">
                   <button
                     className="journal-prompt-toggle"
@@ -134,7 +131,6 @@ export default function JournalPage() {
                 </AnimatePresence>
 
                 {/* Textarea */}
-				<p className="journal-paper-label">Your Journal</p>
                 <div className="journal-paper">
                   <textarea
                     ref={textareaRef}

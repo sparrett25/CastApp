@@ -1,14 +1,163 @@
 {
-  
-  "intro":         { "src": "/images/chambers/intro.png",        "caption": "Cast Art • Dock in Daylight", "overlay": "rgba(0,0,0,0.30)" },
-  "home":         { "src": "/images/chambers/home.png",        "caption": "Cast Art • Dock in Daylight" }, 
-  "field-guide":      { "src": "/images/chambers/field-guide2.png",   "caption": "Species • beneath the surface" },
-  "catch-ledger":      { "src": "/images/chambers/catch-ledger.png",      "caption": "Record a catch" },
-  "journal":      { "src": "/images/chambers/journal.png",      "caption": "Journal • lantern and pages" },
-  "papaDock":      { "src": "/images/chambers/papa-dock-bg.png",      "caption": "Speak to Papa • Papa Speaks" },
-  
-  "plan-trip":    { "src": "/images/chambers/trip-summary.png",    "caption": "Plan Trip • maps and compass" },
-  "trip-summary": { "src": "/images/chambers/trip-summary.png",      "caption": "Trip Summary • the day remembered" },
-  "locations":    { "src": "/images/chambers/locations.png",         "caption": "Locations • marked waters" }
+  "intro": {
+    "default": {
+      "src": "/images/chambers/intro-afternoon.webp",
+      "caption": "Species • beneath the surface"
+    },
+    "variants": {
+      "morning": {
+        "src": "/images/chambers/intro-morning.webp",
+        "caption": "Species • morning light"
+      },
+	  "afternoon": {
+        "src": "/images/chambers/intro-afternoon.webp",
+        "caption": "Journal • steady daylight"
+      },
+      "evening": {
+        "src": "/images/chambers/intro-evening.webp",
+        "caption": "Species • evening water"
+      }
+    }
+  },
 
+  "home": {
+    "default": {
+      "src": "/images/chambers/home-afternoon.webp",
+      "caption": "Species • beneath the surface"
+    },
+    "variants": {
+      "morning": {
+        "src": "/images/chambers/home-morning.webp",
+        "caption": "Species • morning light"
+      },
+	  "afternoon": {
+        "src": "/images/chambers/home-afternoon.webp",
+        "caption": "Journal • steady daylight"
+      },
+      "evening": {
+        "src": "/images/chambers/home-evening.webp",
+        "caption": "Species • evening water"
+      }
+    }
+  },
+
+  "field-guide": {
+    "default": {
+      "src": "/images/chambers/field-guide-afternoon.webp",
+      "caption": "Species • beneath the surface"
+    },
+    "variants": {
+      "morning": {
+        "src": "/images/chambers/field-guide-morning.webp",
+        "caption": "Species • morning light"
+      },
+	  "afternoon": {
+        "src": "/images/chambers/field-guide-afternoon.webp",
+        "caption": "Journal • steady daylight"
+      },
+      "evening": {
+        "src": "/images/chambers/field-guide-evening.webp",
+        "caption": "Species • evening water"
+      }
+    }
+  },
+
+  "catch-ledger": {
+    "default": {
+      "src": "/images/chambers/catch-ledger-afternoon.webp",
+      "caption": "Species • beneath the surface"
+    },
+    "variants": {
+      "morning": {
+        "src": "/images/chambers/catch-ledger-morning.webp",
+        "caption": "Species • morning light"
+      },
+	  "afternoon": {
+        "src": "/images/chambers/catch-ledger-afternoon.webp",
+        "caption": "Journal • steady daylight"
+      },
+      "evening": {
+        "src": "/images/chambers/catch-ledger-evening.webp",
+        "caption": "Species • evening water"
+      }
+    }
+  },
+
+  "journal": {
+    "default": {
+      "src": "/images/chambers/journal-afternoon.webp",
+      "caption": "Journal • lantern and pages"
+    },
+    "variants": {
+      "morning": {
+        "src": "/images/chambers/journal-morning.webp",
+        "caption": "Journal • early light"
+      },
+      "afternoon": {
+        "src": "/images/chambers/journal-afternoon.webp",
+        "caption": "Journal • steady daylight"
+      },
+      "evening": {
+        "src": "/images/chambers/journal-evening.webp",
+        "caption": "Journal • quiet evening"
+      }
+    }
+  },
+
+  "papaDock": {
+    "default": {
+      "src": "/images/chambers/papa-dock-afternoon.webp",
+      "caption": "Journal • lantern and pages"
+    },
+    "variants": {
+      "morning": {
+        "src": "/images/chambers/papa-dock-morning.webp",
+        "caption": "Journal • early light"
+      },
+      "afternoon": {
+        "src": "/images/chambers/papa-dock-afternoon.webp",
+        "caption": "Journal • steady daylight"
+      },
+      "evening": {
+        "src": "/images/chambers/papa-dock-evening.webp",
+        "caption": "Journal • quiet evening"
+      }
+    }
+  },
+
+  "plan-trip": {
+    "default": {
+      "src": "/images/chambers/plan-trip-afternoon.webp",
+      "caption": "Journal • lantern and pages"
+    },
+    "variants": {
+      "morning": {
+        "src": "/images/chambers/plan-trip-morning.webp",
+        "caption": "Journal • early light"
+      },
+      "afternoon": {
+        "src": "/images/chambers/plan-trip-afternoon.webp",
+        "caption": "Journal • steady daylight"
+      },
+      "evening": {
+        "src": "/images/chambers/plan-trip-evening.webp",
+        "caption": "Journal • quiet evening"
+      }
+    }
+  },
+
+
+  "trip-summary": {
+    "default": {
+      "src": "/images/chambers/trip-summary.webp",
+      "caption": "Trip Summary • the day remembered"
+    }
+  },
+
+  "locations": {
+    "default": {
+      "src": "/images/chambers/locations.webp",
+      "caption": "Locations • marked waters"
+    }
+  }
 }
