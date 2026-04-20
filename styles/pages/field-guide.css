@@ -324,3 +324,13 @@
 
   color: rgba(255,255,255,0.92);
 }
+
+.fg-tag-clickable {
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.fg-tag-clickable:hover {
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.30);
+}

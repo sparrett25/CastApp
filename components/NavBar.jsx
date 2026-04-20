@@ -42,6 +42,8 @@ export default function NavBar() {
     { to: "/journal",     label: "Journal"    },
     { to: "/plan-trip",   label: "Plan Trip"  },
 	{ to: "/papa",   label: "Talk to Papa"  },
+	{ to: "/locations",   label: "Location Guide"  },
+	
   ];
 
   return (

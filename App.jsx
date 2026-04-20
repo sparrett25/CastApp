@@ -9,9 +9,9 @@ import CatchLedger from './pages/CatchLedgerPage.jsx';
 import Journal from './pages/Journal.jsx';
 import JournalArchive from './pages/JournalArchive.jsx';
 import AdventureDetailPage from "./pages/AdventureDetailPage";
-import LocationsGuide from './pages/LocationsGuide.jsx';
 import GrantMapPage from './pages/GrantMapPage.jsx';
 import PapaDockPage from './pages/PapaDockPage.jsx';
+import LocationsPage from './pages/LocationsPage.jsx';
 
 import TripPlanner from "./pages/TripPlanner.jsx";
 import TripSummary from "./pages/TripSummary.jsx";
@@ -34,11 +34,11 @@ export default function App() {
 		<Route path="/journal-archive" element={<JournalArchive />} />
 		 <Route path="/adventures/:questId" element={<AdventureDetailPage />} />
 		 <Route path="/papa" element={<PapaDockPage />} />
-		
+		<Route path="/locations" element={<LocationsPage />} />
 		
 		<Route path="/plan-trip" element={<TripPlanner />} />
 		<Route path="/trip-summary" element={<TripSummary />} />
-		<Route path="/locations-guide" element={<LocationsGuide />} />
+		
 	
       
       </Route>

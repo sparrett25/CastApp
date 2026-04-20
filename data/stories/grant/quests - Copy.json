@@ -1,19 +1,17 @@
 {
   "lake_id": "grant.adventures",
-  "version": 3,
-  "updated_at": "2026-04-20T00:00:00Z",
+  "version": 2,
+  "updated_at": "2025-04-15T00:00:00Z",
   "quests": [
     {
       "quest_id": "backyard-pond",
-      "location_id": "backyard-pond",
+	  "location_id": "backyard-pond",
       "title": "The Backyard Pond",
-      "subtitle": "Backyard Pond · Riverview, FL",
+      "subtitle": "Scooter's backyard pond · Riverview, FL",
       "status": "available",
       "adventure_number": 1,
       "lore_intro": "Every fisherman has a first pond. Yours is right outside the door — and that's not small. That's where it all starts. Go see what's waiting.",
       "lore_intro_attr": "Papa",
-      "species_unlocks": ["bluegill"],
-      "badge_unlocks": ["first-cast"],
       "steps": [
         {
           "step_id": "bp.step1",
@@ -22,12 +20,7 @@
           "title": "Read the water",
           "prompt": "Before you rig up or cast a single line — stand at the bank and just look. Where is the shade? Where do you see any ripples? Where would you hide if you were a fish?",
           "scooter_tip": "Before you cast, just look. The fish tell you where they are if you pay attention. Shade, structure, still water near the edges — that's where they like to sit.",
-          "completion_rule": {
-            "requires_journal_entry": false,
-            "requires_catch_entry": false,
-            "tags_to_apply": ["Backyard Pond", "Presence"],
-            "catch_filters": null
-          }
+          "completion_rule": { "requires_journal_entry": false, "requires_catch_entry": false, "tags_to_apply": ["Backyard Pond", "Presence"], "catch_filters": null }
         },
         {
           "step_id": "bp.step2",
@@ -37,12 +30,7 @@
           "prompt": "Time to get your rod ready. Attach your hook, add a small bobber about two feet up the line, and put a piece of bait on the hook. Take your time — there's no rush.",
           "scooter_tip": "Hook first, then bobber — slide it on the line before you tie the hook. Two feet is a good starting depth for this pond. If you're not getting bites, we can move it deeper.",
           "papa_note": "Your grandfather never rushed rigging up. He said that's when you start paying attention.",
-          "completion_rule": {
-            "requires_journal_entry": false,
-            "requires_catch_entry": false,
-            "tags_to_apply": ["Backyard Pond"],
-            "catch_filters": null
-          }
+          "completion_rule": { "requires_journal_entry": false, "requires_catch_entry": false, "tags_to_apply": ["Backyard Pond"], "catch_filters": null }
         },
         {
           "step_id": "bp.step3",
@@ -51,12 +39,7 @@
           "title": "Your first cast",
           "prompt": "Pick your spot — somewhere near the edge, maybe near a shady patch. Cast out there, let the bobber settle, and hold still.",
           "scooter_tip": "Don't cast too far. The fish near this pond are usually hanging right along the edge. Aim for where the shade hits the water — that's the sweet spot.",
-          "completion_rule": {
-            "requires_journal_entry": false,
-            "requires_catch_entry": false,
-            "tags_to_apply": ["Backyard Pond", "First Cast"],
-            "catch_filters": null
-          }
+          "completion_rule": { "requires_journal_entry": false, "requires_catch_entry": false, "tags_to_apply": ["Backyard Pond", "First Cast"], "catch_filters": null }
         },
         {
           "step_id": "bp.step4",
@@ -66,12 +49,7 @@
           "prompt": "Your line is in. Now — just wait. For 60 seconds, don't touch your phone, don't talk, don't move much. Watch the bobber. Listen to what's around you. What do you hear? What do you notice that you didn't before?",
           "papa_present": "Still water remembers everything that happens above it. Be worth remembering.",
           "presence_timer_seconds": 60,
-          "completion_rule": {
-            "requires_journal_entry": false,
-            "requires_catch_entry": false,
-            "tags_to_apply": ["Presence", "Backyard Pond"],
-            "catch_filters": null
-          }
+          "completion_rule": { "requires_journal_entry": false, "requires_catch_entry": false, "tags_to_apply": ["Presence", "Backyard Pond"], "catch_filters": null }
         },
         {
           "step_id": "bp.step5",
@@ -81,12 +59,7 @@
           "prompt": "Whether you caught something or not — log it. Add the date, the spot, and one line about how it went. This is the start of your fishing record.",
           "scooter_tip": "Every trip goes in the ledger. Even the slow ones. Especially the slow ones — that's how you start to figure out the patterns.",
           "papa_present": "You came. You cast. You paid attention. That's a good day.",
-          "completion_rule": {
-            "requires_journal_entry": false,
-            "requires_catch_entry": true,
-            "tags_to_apply": ["Backyard Pond", "Catch Ledger"],
-            "catch_filters": null
-          }
+          "completion_rule": { "requires_journal_entry": false, "requires_catch_entry": true, "tags_to_apply": ["Backyard Pond", "Catch Ledger"], "catch_filters": null }
         }
       ],
       "completion": {
@@ -94,13 +67,15 @@
         "rewards": {
           "badges": ["first-cast"],
           "unlock_lore_ids": ["field-guide.bluegill"],
-          "unlock_quest_ids": ["hillsborough-river"]
+          "unlock_quest_ids": ["hillsborough-river"],
+		  "species_unlocks": ["bluegill"],
+		  "badge_unlocks": ["first-cast"]
         }
       }
     },
     {
       "quest_id": "hillsborough-river",
-      "location_id": "morris-bridge",
+	  "location_id": "morris-bridge",
       "title": "The Hillsborough River",
       "subtitle": "Morris Bridge / Trout Creek · Hillsborough River",
       "status": "locked",
@@ -108,23 +83,16 @@
       "lore_intro": "You've fished a pond. Now you're fishing a river. Same patience — different water. The river has a current and a current has a memory. Pay attention to where it slows down. That's where things gather.",
       "lore_intro_attr": "Papa",
       "threshold": true,
-      "species_unlocks": ["largemouth-bass"],
-      "badge_unlocks": ["river-fisher"],
       "steps": [
         {
           "step_id": "hr.step1",
           "order": 1,
           "type": "presence",
           "title": "Read the river",
-          "prompt": "Before you rig up or cast a single line — stand at the bank and look. Where does the current slow down? Where does water pool behind a root, a fallen log, or a bend in the bank? Where is there shade? This is bigger water than the backyard pond. Take two minutes just to watch it.",
-          "scooter_tip": "River fishing is different from pond fishing. The bass here aren't scattered — they're in specific spots, sitting out of the current, waiting for food to drift to them. You're looking for calm water behind structure. Start where the flow breaks around roots, timber, or a curve in the bank.",
+          "prompt": "Before you rig up or cast a single line — stand at the bank and look. Where does the current slow down? Where does water pool behind a rock or a fallen log? Where is there shade? This is bigger water than the backyard pond. Take two minutes just to watch it.",
+          "scooter_tip": "River fishing is different from pond fishing. The bass here aren't scattered — they're in specific spots, sitting out of the current, waiting for food to drift to them. You're looking for the calm water behind structure. See that bend where the bank curves in? Start there.",
           "papa_note": "A river tells you everything if you're quiet enough to hear it.",
-          "completion_rule": {
-            "requires_journal_entry": false,
-            "requires_catch_entry": false,
-            "tags_to_apply": ["Hillsborough River", "Presence", "Morris Bridge"],
-            "catch_filters": null
-          }
+          "completion_rule": { "requires_journal_entry": false, "requires_catch_entry": false, "tags_to_apply": ["Hillsborough River", "Presence"], "catch_filters": null }
         },
         {
           "step_id": "hr.step2",
@@ -133,12 +101,7 @@
           "title": "Choose your setup",
           "prompt": "This isn't bobber-and-worm water. Today you're going to rig differently — a plastic worm worked slow along the bottom, near structure. Scooter will help you get set up. Take your time with it.",
           "scooter_tip": "We're going Texas-rig today — it's the classic bass setup. Thread the worm onto the hook so the point is tucked back in, add a small bullet weight above the knot, and you're ready. Work it slow — twitch, pause, twitch, pause. The bass will find it.",
-          "completion_rule": {
-            "requires_journal_entry": false,
-            "requires_catch_entry": false,
-            "tags_to_apply": ["Hillsborough River", "Technique", "Morris Bridge"],
-            "catch_filters": null
-          }
+          "completion_rule": { "requires_journal_entry": false, "requires_catch_entry": false, "tags_to_apply": ["Hillsborough River", "Technique"], "catch_filters": null }
         },
         {
           "step_id": "hr.step3",
@@ -150,12 +113,7 @@
           "deer_story": true,
           "scooter_deer_story": "You know, your Papa had this thing he did out at the hunting camp. He'd drive out, scatter corn and pumpkins in a clearing, and just yell out 'Come here, Deer!' — and within seconds you'd hear them coming through the woods. He never chased them. He just showed up, set the table, and waited. Every time. The deer always came.",
           "papa_present": "The river already knows you're here. Now let it decide what to do about that.",
-          "completion_rule": {
-            "requires_journal_entry": false,
-            "requires_catch_entry": false,
-            "tags_to_apply": ["Presence", "Hillsborough River", "Morris Bridge"],
-            "catch_filters": null
-          }
+          "completion_rule": { "requires_journal_entry": false, "requires_catch_entry": false, "tags_to_apply": ["Presence", "Hillsborough River"], "catch_filters": null }
         },
         {
           "step_id": "hr.step4",
@@ -163,13 +121,8 @@
           "type": "technique",
           "title": "Work the structure",
           "prompt": "Move your lure slowly along the bottom, near the structure you identified. Cast past it, let the worm sink, then drag it back — twitch, pause, twitch, pause. Cover the whole area. If nothing after several casts, look for the next piece of structure and try again. Patience is the technique.",
-          "scooter_tip": "Don't give up on a spot too fast — but don't stay forever either. Three or four good casts covering the whole area, then move a little farther down the bank. The bass are there. We just have to find which shadow they're hiding in today.",
-          "completion_rule": {
-            "requires_journal_entry": false,
-            "requires_catch_entry": false,
-            "tags_to_apply": ["Hillsborough River", "Technique", "Morris Bridge"],
-            "catch_filters": null
-          }
+          "scooter_tip": "Don't give up on a spot too fast — but don't stay forever either. Three or four good casts covering the whole area, then move ten feet down the bank. The bass are there. We just have to find which shadow they're hiding in today.",
+          "completion_rule": { "requires_journal_entry": false, "requires_catch_entry": false, "tags_to_apply": ["Hillsborough River", "Technique"], "catch_filters": null }
         },
         {
           "step_id": "hr.step5",
@@ -180,19 +133,16 @@
           "scooter_tip": "The days you don't catch anything teach you more than the days you do. Write it all down — you'll thank yourself later.",
           "papa_present": "You showed up. You paid attention. The river remembers that.",
           "bass_catch_line": "You gave the water your patience. It gave you this.",
-          "completion_rule": {
-            "requires_journal_entry": false,
-            "requires_catch_entry": true,
-            "tags_to_apply": ["Hillsborough River", "Catch Ledger", "Morris Bridge"],
-            "catch_filters": null
-          }
+          "completion_rule": { "requires_journal_entry": false, "requires_catch_entry": true, "tags_to_apply": ["Hillsborough River", "Catch Ledger"], "catch_filters": null }
         }
       ],
       "completion": {
         "rewards": {
           "badges": ["river-fisher"],
           "unlock_lore_ids": ["field-guide.largemouth-bass"],
-          "threshold_hint": "saltwater"
+          "threshold_hint": "saltwater",
+		  "species_unlocks": ["largemouth-bass"],
+		  "badge_unlocks": ["river-fisher"]
         }
       }
     }

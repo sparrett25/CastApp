@@ -146,7 +146,8 @@
     }
   },
 
-
+  
+  
   "trip-summary": {
     "default": {
       "src": "/images/chambers/trip-summary.webp",
@@ -156,8 +157,22 @@
 
   "locations": {
     "default": {
-      "src": "/images/chambers/locations.webp",
-      "caption": "Locations • marked waters"
+      "src": "/images/chambers/locations-afternoon.webp",
+      "caption": "Species • beneath the surface"
+    },
+    "variants": {
+      "morning": {
+        "src": "/images/chambers/locations-morning.webp",
+        "caption": "Species • morning light"
+      },
+	  "afternoon": {
+        "src": "/images/chambers/locations-afternoon.webp",
+        "caption": "Journal • steady daylight"
+      },
+      "evening": {
+        "src": "/images/chambers/locations-evening.webp",
+        "caption": "Species • evening water"
+      }
     }
   }
 }

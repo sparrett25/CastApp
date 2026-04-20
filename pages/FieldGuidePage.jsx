@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import CastBackground from "../components/CastBackground";
 import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
+import { SPECIES } from "../data/species";
+import { CAST_LOCATIONS } from "../data/locations";
 import {
-  FIELD_GUIDE_SPECIES, FIELD_GUIDE_GEAR, FIELD_GUIDE_TECHNIQUES, isUnlocked
+  FIELD_GUIDE_GEAR,
+  FIELD_GUIDE_TECHNIQUES,
 } from "../data/fieldGuide";
 import "../styles/pages/field-guide.css";
 
@@ -47,6 +51,28 @@ function BassSVG() {
   );
 }
 
+// --- Species Chip to Locations ---
+
+function LocationChip({ label, onClick }) {
+  return (
+    <span
+      className={`fg-tag ${onClick ? "fg-tag-clickable" : ""}`}
+      onClick={onClick}
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={
+        onClick
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") onClick();
+            }
+          : undefined
+      }
+    >
+      {label}
+    </span>
+  );
+}
+
 // ── Section hub cards ──────────────────────────────────────────
 function SectionCard({ title, description, count, color, icon, onClick }) {
   return (
@@ -68,32 +94,25 @@ function SectionCard({ title, description, count, color, icon, onClick }) {
 }
 
 // ── Species list card ──────────────────────────────────────────
-function SpeciesCard({ species, unlocked, onClick }) {
+function SpeciesCard({ species, onClick }) {
   return (
     <motion.button
-      className={`fg-entry-card ${unlocked ? "" : "locked"}`}
-      onClick={() => unlocked && onClick(species)}
-      whileHover={unlocked ? { y: -2 } : {}}
+      className="fg-entry-card"
+      onClick={() => onClick(species)}
+      whileHover={{ y: -2 }}
       transition={{ type: "spring", stiffness: 300, damping: 24 }}
     >
-	
-      <div className="fg-entry-fish">
-        {species.id === "bluegill" ? <BluegillSVG /> : <BassSVG />}
-      </div>
+      
       <div className="fg-entry-info">
         <div className="fg-entry-header">
           <div>
             <h3 className="fg-entry-name">{species.name}</h3>
             <p className="fg-entry-sub">{species.latin}</p>
           </div>
-          {!unlocked
-            ? <span className="fg-locked-badge">🔒 Locked</span>
-            : <span className="fg-unlocked-badge">Unlocked</span>
-          }
+          <span className="fg-unlocked-badge">Field Note</span>
         </div>
         <p className="fg-entry-tagline">{species.tagline}</p>
       </div>
-	 
     </motion.button>
   );
 }
@@ -123,8 +142,12 @@ function SimpleCard({ entry, onClick, accentColor }) {
 }
 
 // ── Species detail ─────────────────────────────────────────────
-function SpeciesDetail({ species, onBack }) {
+function SpeciesDetail({ species, onBack, onOpenLocation }) {
   const FishSVG = species.id === "bluegill" ? BluegillSVG : BassSVG;
+  const speciesLocations = CAST_LOCATIONS.filter((loc) =>
+  species.locations?.includes(loc.id)
+);  
+  
   return (
     <motion.div className="fg-detail" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
         <div className="scroll-surface">
@@ -142,7 +165,21 @@ function SpeciesDetail({ species, onBack }) {
           </div>
         ))}
       </div>
-      <div className="fg-section"><p className="fg-section-label">Where they hide</p><p className="fg-section-body">{species.whereTheyHide}</p><div className="fg-tags">{species.tags.map(t => <span key={t} className="fg-tag">{t}</span>)}</div></div>
+      <div className="fg-section"><p className="fg-section-label">Where they hide</p>
+		<p className="fg-section-body">{species.whereTheyHide}</p><div className="fg-tags">{species.tags.map(t => <span key={t} className="fg-tag">{t}</span>)}</div></div>
+		<div className="fg-section">
+		  <p className="fg-section-label">Found in</p>
+		  <div className="fg-tags">
+			{speciesLocations.map((loc) => (
+			  <LocationChip
+				key={loc.id}
+				label={loc.name}
+				onClick={() => onOpenLocation(loc.id)}
+			  />
+			))}
+		  </div>
+		</div>
+
       <div className="fg-section"><p className="fg-section-label">Best time</p><p className="fg-section-body">{species.bestTime}</p></div>
       <div className="fg-section"><p className="fg-section-label">Scooter's notes</p>{species.scooterTips.map((tip, i) => <div key={i} className="fg-voice-block scooter"><p className="fg-voice-text">"{tip}"</p></div>)}</div>
       <div className="fg-section"><p className="fg-section-label">What it feels like</p><p className="fg-section-body">{species.whatItFeelsLike}</p></div>
@@ -216,11 +253,32 @@ function TechniqueDetail({ entry, onBack }) {
 
 // ── Main page ──────────────────────────────────────────────────
 export default function FieldGuidePage() {
-  // view: null = hub, { section } = list, { section, entry } = detail
+  const location = useLocation();
+  const navigate = useNavigate();
   const [view, setView] = useState(null);
 
-  const section  = view?.section ?? null;
-  const entry    = view?.entry   ?? null;
+  useEffect(() => {
+  const navState = location.state;
+
+  if (navState?.section === "species" && navState?.entryId) {
+    const matchedSpecies = SPECIES.find(
+      (s) => s.id === navState.entryId || s.slug === navState.entryId
+    );
+
+    if (matchedSpecies) {
+      setView({
+        section: "species",
+        entry: matchedSpecies
+      });
+      return;
+    }
+
+    setView({ section: "species" });
+  }
+}, [location.state]);
+
+  const section = view?.section ?? null;
+  const entry = view?.entry ?? null;
 
   const papaContext = {
     event: entry
@@ -230,28 +288,40 @@ export default function FieldGuidePage() {
         : "Grant opened his field guide",
   };
 
-  const goHub       = ()    => setView(null);
-  const goList      = (sec) => setView({ section: sec });
-  const goDetail    = (e)   => setView(v => ({ ...v, entry: e }));
-  const backToList  = ()    => setView(v => ({ section: v.section }));
+  const goHub = () => setView(null);
+  const goList = (sec) => setView({ section: sec });
+  const goDetail = (e) => setView((v) => ({ ...v, entry: e }));
+  const backToList = () => setView((v) => ({ section: v.section }));
 
   return (
     <CastBackground chamberKey="field-guide">
       <ChamberLayout
         title="Field Guide"
         sub="What to look for. Where to find them. What they teach."
-        papa={<PapaMini context={papaContext} fallbackKey="fieldguide.open" trigger={entry?.id ?? section} />}
+        papa={
+          <PapaMini
+            context={papaContext}
+            fallbackKey="fieldguide.open"
+            trigger={entry?.id ?? section}
+          />
+        }
       >
         <div className="fg-page">
           <AnimatePresence mode="wait">
 
-            {/* ── Hub ── */}
             {!section && !entry && (
-              <motion.div key="hub" className="fg-hub" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
+              <motion.div
+                key="hub"
+                className="fg-hub"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+              >
                 <SectionCard
                   title="Species"
                   description="The fish Grant knows and the ones he's still chasing."
-                  count={FIELD_GUIDE_SPECIES.length}
+                  count={SPECIES.length}
                   color="#BA7517"
                   icon="🐟"
                   onClick={() => goList("species")}
@@ -276,50 +346,73 @@ export default function FieldGuidePage() {
               </motion.div>
             )}
 
-            {/* ── Species list ── */}
             {section === "species" && !entry && (
-              <motion.div key="species-list" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+              <motion.div
+                key="species-list"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+              >
                 <button className="fg-back-btn" onClick={goHub}>← Field Guide</button>
                 <h3 className="fg-list-title">Species</h3>
-                {FIELD_GUIDE_SPECIES.map(s => (
-                  <SpeciesCard key={s.id} species={s} unlocked={isUnlocked(s)} onClick={goDetail} />
-                ))}
+                {SPECIES.map((s) => (
+				  <SpeciesCard key={s.id} species={s} onClick={goDetail} />
+				))}
               </motion.div>
             )}
 
-            {/* ── Gear list ── */}
             {section === "gear" && !entry && (
-              <motion.div key="gear-list" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+              <motion.div
+                key="gear-list"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+              >
                 <button className="fg-back-btn" onClick={goHub}>← Field Guide</button>
                 <h3 className="fg-list-title">Gear</h3>
-                {FIELD_GUIDE_GEAR.map(g => (
+                {FIELD_GUIDE_GEAR.map((g) => (
                   <SimpleCard key={g.id} entry={g} onClick={goDetail} accentColor="#185FA5" />
                 ))}
               </motion.div>
             )}
 
-            {/* ── Techniques list ── */}
             {section === "techniques" && !entry && (
-              <motion.div key="tech-list" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+              <motion.div
+                key="tech-list"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+              >
                 <button className="fg-back-btn" onClick={goHub}>← Field Guide</button>
                 <h3 className="fg-list-title">Techniques</h3>
-                {FIELD_GUIDE_TECHNIQUES.map(t => (
+                {FIELD_GUIDE_TECHNIQUES.map((t) => (
                   <SimpleCard key={t.id} entry={t} onClick={goDetail} accentColor="#0F6E56" />
                 ))}
               </motion.div>
             )}
 
-            {/* ── Species detail ── */}
             {section === "species" && entry && (
-              <SpeciesDetail key={entry.id} species={entry} onBack={backToList} />
+              <SpeciesDetail
+			  key={entry.id}
+			  species={entry}
+			  onBack={backToList}
+			  onOpenLocation={(locationId) =>
+				navigate("/locations", {
+				  state: {
+					selectedLocationId: locationId
+				  }
+				})
+			  }
+			/>
             )}
 
-            {/* ── Gear detail ── */}
             {section === "gear" && entry && (
               <GearDetail key={entry.id} entry={entry} onBack={backToList} />
             )}
 
-            {/* ── Technique detail ── */}
             {section === "techniques" && entry && (
               <TechniqueDetail key={entry.id} entry={entry} onBack={backToList} />
             )}
