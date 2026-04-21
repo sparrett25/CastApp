@@ -8,10 +8,6 @@ import { CAST_LOCATIONS } from "../data/locations";
 import "../styles/pages/locations.css";
 import grantQuests from "../data/stories/grant/quests.json";
 import { SPECIES } from "../data/species";
-import {
-  buildPapaPageContext,
-  buildFocusContext,
-} from "../utils/buildPapaPageContext";
 
 
 // ── Small helpers ──────────────────────────────────────────────
@@ -309,10 +305,14 @@ export default function LocationsPage() {
   const routeLocation = useLocation();
 
   const papaContext = {
-    event: selectedLocation
-      ? `Grant is reading about ${selectedLocation.name}`
-      : "Grant is choosing where to fish",
-  };
+  page: "locations",
+  view: selectedLocation ? "entry" : "home",
+  locationName: selectedLocation?.name || null,
+  locationType: selectedLocation?.location_type_label || null,
+  event: selectedLocation
+    ? `Grant is looking at ${selectedLocation.name}`
+    : "Grant opened the location guide",
+};
   
   
   useEffect(() => {
@@ -338,15 +338,7 @@ export default function LocationsPage() {
         sub="Waters to enter. Places to learn. Worlds to remember."
         papa={
           <PapaMini
-            context={
-        selectedLocation
-          ? buildPapaPageContext("location detail", {
-              ...buildFocusContext(selectedLocation.name, "location"),
-            })
-          : buildPapaPageContext("locations", {
-              event: "Grant is looking over nearby waters.",
-            })
-      }
+            context={papaContext}
             fallbackKey="locations.open"
             trigger={selectedLocation?.id ?? "locations-hub"}
           />
