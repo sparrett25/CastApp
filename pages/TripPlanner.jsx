@@ -451,9 +451,8 @@ useEffect(() => {
     trigger={trip.id}
   />
 )}
-                    fallbackKey="fallback"
-                    trigger={trip.id}
-                  />
+                  
+                 
                 </div>
 
                 {/* Checklist */}
