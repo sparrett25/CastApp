@@ -307,13 +307,7 @@ export default function FieldGuidePage() {
 		  sub="What to look for. Where to find them. What they teach."
 		  papa={
 			<PapaMini
-			  context={{
-  ...papaContext,
-  ...buildPapaPageContext(
-    entry ? "field guide detail" : "field guide",
-    entry ? buildFocusContext(entry.title || entry.name, section) : {}
-  )
-}}
+			  context={papaContext}
 			  fallbackKey="fieldguide.open"
 			  trigger={entry?.id ?? section}
 			/>
