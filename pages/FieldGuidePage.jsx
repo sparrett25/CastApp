@@ -283,12 +283,17 @@ export default function FieldGuidePage() {
   const entry = view?.entry ?? null;
 
   const papaContext = {
-    event: entry
-      ? `Grant is reading the field guide entry for ${entry.name}`
-      : section
-        ? `Grant is browsing the ${section} section of the field guide`
-        : "Grant opened his field guide",
-  };
+  page: "field-guide",
+  view: entry ? "entry" : section ? "section" : "home",
+  section: section || null,
+  entryName: entry?.name || null,
+  entryType: entry?.type || section || null,
+  event: entry
+    ? `Grant is reading the field guide entry for ${entry.name}`
+    : section
+      ? `Grant is browsing the ${section} section of the field guide`
+      : "Grant opened his field guide",
+};
 
   const goHub = () => setView(null);
   const goList = (sec) => setView({ section: sec });
