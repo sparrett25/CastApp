@@ -319,3 +319,9 @@
   .ledger-location-row { gap: 0.4rem; }
   .ledger-form-card .ledger-location-btn { font-size: 0.75rem !important; padding: 0.3rem 0.6rem !important; }
 }
+
+.ledger-error {
+  color: #ffb3b3;
+  font-size: 0.95rem;
+  margin-top: 0.75rem;
+}

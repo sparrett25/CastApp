@@ -30,7 +30,7 @@ export const CAST_LOCATIONS = [
   },
   fish_species: [
     "bluegill",
-    "small pond species"
+    "channel catfish"
   ],
   fishing_patterns: {
     primary_zones: [

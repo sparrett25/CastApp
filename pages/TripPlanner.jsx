@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import CastBackground from "../components/CastBackground";
@@ -8,23 +8,18 @@ import PapaSpeaks from "../components/PapaSpeaks";
 import { formatTripDate } from "../utils/trips";
 import { supabase } from "../lib/supabase";
 import "../styles/pages/trip-planner.css";
+import {
+  getAllLocations,
+  getLocationById,
+  getPrimarySpeciesForLocation,
+  getAdditionalSpeciesForLocation,
+} from "../utils/castData";
 
-// ── Grant's known waters ───────────────────────────────────────
-const WATERS = [
-  { id: "backyard-pond",      label: "Scooter's Backyard Pond",  note: "Catch & release. Bluegill and catfish." },
-  { id: "hillsborough-river", label: "Hillsborough River",       note: "Bass country. Work the bends." },
-  { id: "alafia-river",       label: "Alafia River",             note: "Runs fast after rain. Snook near bridges." },
-  { id: "cockroach-bay",      label: "Cockroach Bay",            note: "Saltwater. Redfish in the grass flats." },
-  { id: "buckhorn-lake",      label: "Buckhorn Lake",            note: "Scooter's been scouting this one." },
-];
 
-// ── Target fish ────────────────────────────────────────────────
-const TARGETS = [
-  { id: "bluegill",       label: "Bluegill",        tip: "Worms near shade. You know this one." },
-  { id: "largemouth-bass",label: "Largemouth Bass", tip: "Texas rig. Slow. Near structure." },
-  { id: "catfish",        label: "Catfish",          tip: "Bottom bait. Patient waiting." },
-  { id: "whatever-bites", label: "Whatever bites",  tip: "Open mind. Best way to fish." },
-];
+
+
+
+
 
 // ── Duration options ───────────────────────────────────────────
 const DURATIONS = [
@@ -58,7 +53,7 @@ function getDateForOption(option) {
 }
 
 // ── Prep checklist based on water + target ────────────────────
-function buildChecklist(water, target) {
+function buildChecklist(waterId, targetId) {
   const base = [
     "Rod and reel",
     "Tackle box",
@@ -66,32 +61,66 @@ function buildChecklist(water, target) {
     "Water bottle",
     "Hat",
   ];
+
   const extras = [];
 
-  if (target === "bluegill") extras.push("Small hooks and worms", "Bobber");
-  if (target === "largemouth-bass") extras.push("Soft plastic worms", "Texas rig setup", "Spinnerbait");
-  if (target === "catfish") extras.push("Chicken liver or stink bait", "Bottom rig");
-  if (target === "whatever-bites") extras.push("A little of everything");
-  if (water === "cockroach-bay") extras.push("Wading shoes", "Polarized sunglasses");
-  if (water === "hillsborough-river" || water === "alafia-river") extras.push("Bug spray");
+  if (targetId === "bluegill" || targetId === "redear-sunfish") {
+    extras.push("Small hooks and worms", "Bobber");
+  }
+
+  if (targetId === "largemouth-bass") {
+    extras.push("Soft plastic worms", "Texas rig setup", "Spinnerbait");
+  }
+
+  if (targetId === "channel-catfish") {
+    extras.push("Chicken liver or stink bait", "Bottom rig");
+  }
+
+  if (targetId === "black-crappie") {
+    extras.push("Light jig heads", "Small soft plastics or minnows");
+  }
+
+  if (targetId === "bowfin" || targetId === "gar" || targetId === "sunshine-bass") {
+    extras.push("Heavier leader", "Pliers");
+  }
+
+  if (waterId === "morris-bridge") {
+    extras.push("Bug spray");
+  }
+
+  if (waterId === "hardee-lakes" || waterId === "edward-medard") {
+    extras.push("Polarized sunglasses");
+  }
 
   return [...extras, ...base];
 }
 
 // ── Scooter's advice per water + target ──────────────────────
 function getScooterAdvice(waterId, targetId) {
-  if (waterId === "backyard-pond" && targetId === "bluegill")
-    return "Start at the shady corner near the dock edge. Small hook, piece of worm, let it sit. You know this pond — trust what you know.";
-  if (waterId === "backyard-pond" && targetId === "largemouth-bass")
-    return "There's a bass in that pond. Cast a plastic worm along the drop-off near the far reeds. Work it slow.";
-  if (waterId === "hillsborough-river")
-    return "Find the bend where the current slows. That's where the bass are sitting. Texas rig, slow retrieve. Give it time.";
-  if (waterId === "alafia-river")
-    return "If it's rained recently the water'll be moving fast — snook push up near the bridges then. Otherwise work the inside bends for bass.";
-  if (waterId === "cockroach-bay")
-    return "Wade the grass flats slowly and look for redfish tails. Polarized glasses help. When you see one, cast ahead of it — not at it.";
-  if (waterId === "buckhorn-lake")
-    return "I've been watching the reed line on the north bank. Cast parallel to the reeds, let the worm sink. I think our Largemouth is in there.";
+  if (waterId === "backyard-pond" && targetId === "bluegill") {
+    return "Start at the shady edge and keep it simple. This pond rewards patience more than distance.";
+  }
+
+  if (waterId === "backyard-pond") {
+    return "This is familiar water. Watch the bank, the shade, and the still pockets before your first cast.";
+  }
+
+  if (waterId === "edward-medard" && targetId === "largemouth-bass") {
+    return "Start around shoreline grass, contour changes, and any cover that breaks the open water. Slow down and let structure guide you.";
+  }
+
+  if (waterId === "edward-medard") {
+    return "This water teaches broad patterning. Look for shoreline grass, flats, and places where structure changes quietly.";
+  }
+
+  if (waterId === "morris-bridge") {
+    return "Read the roots, timber, and current breaks before you cast. Fish here hold where the water gives them an easier place to wait.";
+  }
+
+  if (waterId === "hardee-lakes") {
+    return "Choose your water with intention. Look for attractors, vegetation edges, and the lake that feels most alive today.";
+  }
+
   return "Read the water before your first cast. Give yourself two minutes just to look.";
 }
 
@@ -109,10 +138,15 @@ export default function TripPlanner() {
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState("");
   
-  
+  const allLocations = getAllLocations();
+  const selectedWater = getLocationById(waterId);
+  const primaryTargets = waterId ? getPrimarySpeciesForLocation(waterId, 3) : [];
+  const additionalTargets = waterId ? getAdditionalSpeciesForLocation(waterId, 3) : [];
+  const [showOtherTargets, setShowOtherTargets] = useState(false);
 
-  const selectedWater    = WATERS.find(w => w.id === waterId);
-  const selectedTarget   = TARGETS.find(t => t.id === targetId);
+  const selectedTarget =
+  [...primaryTargets, ...additionalTargets].find((t) => t.id === targetId) || null;
+
   const selectedDuration = DURATIONS.find(d => d.id === durationId);
   const selectedWhen     = WHEN_OPTIONS.find(w => w.id === whenId);
 
@@ -142,9 +176,8 @@ export default function TripPlanner() {
 	const payload = {
 	  user_id: user.id,
 
-	  title: selectedWater?.label || "Planned Trip",
-
-	  location: selectedWater?.label || "",
+	  title: selectedWater?.name || "Planned Trip",
+	  location: selectedWater?.name || "",
 	  location_key: selectedWater?.id || null,
 
 	  trip_date: resolvedDate || null,
@@ -199,9 +232,15 @@ export default function TripPlanner() {
 
   const papaContext = {
     event: trip
-      ? `Grant just planned a fishing trip to ${trip.water?.label} targeting ${trip.target?.label} on ${trip.whenLabel}`
+      ? `Grant just planned a fishing trip to ${trip.water?.name} targeting ${trip.target?.label} on ${trip.whenLabel}`
       : "Grant is planning a fishing trip",
   };
+
+useEffect(() => {
+  setTargetId(null);
+  setShowOtherTargets(false);
+}, [waterId]);
+
 
   return (
     <CastBackground chamberKey="plan-trip" >
@@ -218,16 +257,17 @@ export default function TripPlanner() {
               <motion.div key="step1" className="trip-step" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
                 <p className="trip-question">When are you going?</p>
                 <div className="trip-options">
-                  {WHEN_OPTIONS.map(w => (
-                    <button
-                      key={w.id}
-                      className={`trip-option ${whenId === w.id ? "active" : ""}`}
-                      onClick={() => setWhenId(w.id)}
-                    >
-                      {w.label}
-                    </button>
-                  ))}
-                </div>
+				  {WHEN_OPTIONS.map((w) => (
+					<button
+					  key={w.id}
+					  className={`trip-option ${whenId === w.id ? "active" : ""}`}
+					  onClick={() => setWhenId(w.id)}
+					>
+					  {w.label}
+					</button>
+				  ))}
+				</div>		
+				
                 {whenId === "custom" && (
                   <input
                     type="date"
@@ -253,17 +293,19 @@ export default function TripPlanner() {
                 <button className="trip-back-btn" onClick={() => setStep(1)}>← Back</button>
                 <p className="trip-question">Where are you fishing?</p>
                 <div className="trip-options vertical">
-                  {WATERS.map(w => (
-                    <button
-                      key={w.id}
-                      className={`trip-option-row ${waterId === w.id ? "active" : ""}`}
-                      onClick={() => setWaterId(w.id)}
-                    >
-                      <span className="trip-option-row-label">{w.label}</span>
-                      <span className="trip-option-row-note">{w.note}</span>
-                    </button>
-                  ))}
-                </div>
+				  {allLocations.map((loc) => (
+					<button
+					  key={loc.id}
+					  className={`trip-option-row ${waterId === loc.id ? "active" : ""}`}
+					  onClick={() => setWaterId(loc.id)}
+					>
+					  <span className="trip-option-row-label">{loc.name}</span>
+					  <span className="trip-option-row-note">
+						{loc.tagline || loc.short_intro || loc.location_type_label}
+					  </span>
+					</button>
+				  ))}
+				</div>
                 <button className="trip-next-btn" disabled={!waterId} onClick={() => setStep(3)}>
                   Next →
                 </button>
@@ -276,19 +318,46 @@ export default function TripPlanner() {
                 <button className="trip-back-btn" onClick={() => setStep(2)}>← Back</button>
                 <p className="trip-question">What are you after?</p>
                 <div className="trip-options">
-                  {TARGETS.map(t => (
-                    <button
-                      key={t.id}
-                      className={`trip-option ${targetId === t.id ? "active" : ""}`}
-                      onClick={() => setTargetId(t.id)}
-                    >
-                      {t.label}
-                    </button>
-                  ))}
-                </div>
+				  {primaryTargets.map((t) => (
+					<button
+					  key={t.id}
+					  className={`trip-option ${targetId === t.id ? "active" : ""}`}
+					  onClick={() => setTargetId(t.id)}
+					>
+					  {t.label}
+					</button>
+				  ))}
+				</div>
+
+				{additionalTargets.length > 0 && !showOtherTargets && (
+				  <button
+					type="button"
+					className="trip-other-btn"
+					onClick={() => setShowOtherTargets(true)}
+				  >
+					Other species here
+				  </button>
+				)}
+
+				{showOtherTargets && additionalTargets.length > 0 && (
+				  <div className="trip-options trip-options-secondary">
+					{additionalTargets.map((t) => (
+					  <button
+						key={t.id}
+						className={`trip-option ${targetId === t.id ? "active" : ""}`}
+						onClick={() => setTargetId(t.id)}
+					  >
+						{t.label}
+					  </button>
+					))}
+				  </div>
+				)}
                 {selectedTarget && (
-                  <p className="trip-target-tip">"{selectedTarget.tip}"<span className="trip-tip-attr"> — Scooter</span></p>
-                )}
+				  <p className="trip-target-tip">
+					"{selectedTarget.tip}"
+					<span className="trip-tip-attr"> — Scooter</span>
+				  </p>
+				)}
                 <button className="trip-next-btn" disabled={!targetId} onClick={() => setStep(4)}>
                   Next →
                 </button>
@@ -332,7 +401,7 @@ export default function TripPlanner() {
                 <div className="trip-summary-header">
                   <div>
                     <p className="trip-summary-when">{trip.whenLabel}</p>
-                    <h2 className="trip-summary-title">{trip.water.label}</h2>
+                    <h2 className="trip-summary-title">{trip.water.name}</h2>
                     <p className="trip-summary-sub">Targeting {trip.target.label} · {trip.duration.sub}</p>
                   </div>
                   <div className="trip-summary-badge">📍</div>
@@ -349,8 +418,15 @@ export default function TripPlanner() {
                   <p className="trip-voice-attr">Papa</p>
                   <PapaSpeaks
                     context={{
-                      event: `Grant just planned a fishing trip to ${trip.water.label} targeting ${trip.target.label} ${trip.whenLabel.toLowerCase()}`,
-                    }}
+					  page: "plan trip",
+					  event: "Grant just planned a fishing trip.",
+					  trip: {
+						location: trip.water?.name,
+						target: trip.target?.label,
+						when: trip.whenLabel.toLowerCase(),
+						duration: trip.duration?.label,
+					  },
+					}}
                     fallbackKey="fallback"
                     trigger={trip.id}
                   />
@@ -365,8 +441,10 @@ export default function TripPlanner() {
                       <span>{item}</span>
                     </div>
                   ))}
-                  <p className="trip-weather-note">Check the weather the night before — calm mornings are best for bass.</p>
-                </div>
+                  <p className="trip-weather-note">
+				  Check the weather the night before and let the water shape your first approach.
+				</p>
+				</div>
 
                 {/* Actions */}
                 <div className="trip-summary-actions">

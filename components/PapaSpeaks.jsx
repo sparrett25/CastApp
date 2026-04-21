@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePapa } from "../hooks/usePapa";
 
@@ -8,12 +8,23 @@ export default function PapaSpeaks({
   trigger,
   mode = "mini",
   className = "",
+  onResponse,
 }) {
   const { line, loading, ask } = usePapa();
+  const lastDeliveredRef = useRef(null);
 
   useEffect(() => {
     ask(context, fallbackKey, mode);
+    lastDeliveredRef.current = null;
   }, [ask, context, fallbackKey, mode, trigger]);
+
+  useEffect(() => {
+    if (!line || typeof onResponse !== "function") return;
+    if (lastDeliveredRef.current === line) return;
+
+    lastDeliveredRef.current = line;
+    onResponse(line);
+  }, [line, onResponse]);
 
   return (
     <div className={`papa-speaks ${className}`}>

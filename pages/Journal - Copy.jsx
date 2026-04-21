@@ -5,8 +5,26 @@ import CastBackground from "../components/CastBackground";
 import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
 import PapaSpeaks from "../components/PapaSpeaks";
-import { supabase } from "../lib/supabase";
 import "../styles/pages/journal-page.css";
+
+// ── Storage ────────────────────────────────────────────────────
+const STORAGE_KEY = "cast:v1:journal-entries";
+
+function loadEntries() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch { return []; }
+}
+
+function saveEntries(entries) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+  } catch {}
+}
+
+// ── Scooter's optional prompts ────────────────────────────────
+
 
 const PROMPTS = [
   "What did you notice today that you usually walk past?",
@@ -16,149 +34,63 @@ const PROMPTS = [
   "What are you still thinking about?",
 ];
 
-function getTodayBounds() {
-  const now = new Date();
-
-  const start = new Date(now);
-  start.setHours(0, 0, 0, 0);
-
-  const end = new Date(now);
-  end.setHours(23, 59, 59, 999);
-
-  return {
-    startIso: start.toISOString(),
-    endIso: end.toISOString(),
-  };
-}
-
 export default function JournalPage() {
   const navigate = useNavigate();
-  const textareaRef = useRef(null);
-
-  const [text, setText] = useState("");
-  const [saved, setSaved] = useState(false);
+  const [text, setText]           = useState("");
+  const [saved, setSaved]         = useState(false);
   const [lastEntry, setLastEntry] = useState(null);
   const [showPrompts, setShowPrompts] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [saveError, setSaveError] = useState("");
-  const [selectedPrompt, setSelectedPrompt] = useState(null);
+  const textareaRef = useRef(null);
 
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
-  const hasText = text.trim().length > 0;
+  const hasText   = text.trim().length > 0;
 
   const handlePrompt = (prompt) => {
     setText(prompt + " ");
-    setSelectedPrompt(prompt);
     setShowPrompts(false);
     textareaRef.current?.focus();
   };
 
-  const handleSave = async () => {
+  const handleSave = () => {
     if (!hasText) return;
-
-    setSaveError("");
-    setSaving(true);
-
-    try {
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
-
-      if (userError) throw userError;
-      if (!user) throw new Error("You must be logged in to save a journal entry.");
-
-      const { startIso, endIso } = getTodayBounds();
-
-      const { data: todayCatches, error: catchError } = await supabase
-        .from("cast_catch_logs")
-        .select(
-          "id, species, species_key, location, location_key, kept_or_released, notes, catch_date, is_first_catch, is_no_catch"
-        )
-        .eq("user_id", user.id)
-        .gte("catch_date", startIso)
-        .lte("catch_date", endIso)
-        .order("catch_date", { ascending: false });
-
-      if (catchError) throw catchError;
-
-      const payload = {
-        user_id: user.id,
-        entry_text: text.trim(),
-        entry_date: new Date().toISOString(),
-        prompt_used: selectedPrompt,
-        papa_response: null,
-        catch_context: todayCatches ?? [],
-      };
-
-      const { data, error } = await supabase
-        .from("cast_journal_entries")
-        .insert(payload)
-        .select()
-        .single();
-
-      if (error) throw error;
-
-      setLastEntry(data);
-      setSaved(true);
-      setText("");
-      setSelectedPrompt(null);
-    } catch (err) {
-      console.error("Journal save error:", err);
-      setSaveError(err.message || "Could not save journal entry.");
-    } finally {
-      setSaving(false);
-    }
+    const entry = {
+      id: Date.now().toString(),
+      date: new Date().toISOString(),
+      text: text.trim(),
+      papaResponse: null, // will be set by PapaSpeaks after render
+    };
+    const existing = loadEntries();
+    saveEntries([entry, ...existing]);
+    setLastEntry(entry);
+    setSaved(true);
+    setText("");
   };
 
-
-const handlePapaResponse = async (line) => {
-  if (!lastEntry?.id || !line) return;
-  if (lastEntry?.papa_response === line) return;
-
-  try {
-    const { error } = await supabase
-      .from("cast_journal_entries")
-      .update({ papa_response: line })
-      .eq("id", lastEntry.id);
-
-    if (error) throw error;
-
-    setLastEntry((prev) =>
-      prev ? { ...prev, papa_response: line } : prev
+  const handlePapaResponse = (line) => {
+    if (!lastEntry) return;
+    const entries = loadEntries();
+    const updated = entries.map(e =>
+      e.id === lastEntry.id ? { ...e, papaResponse: line } : e
     );
-  } catch (err) {
-    console.error("Papa response save error:", err);
-  }
-};
-
+    saveEntries(updated);
+  };
 
   const handleNewEntry = () => {
     setSaved(false);
     setLastEntry(null);
-    setText("");
-    setSaveError("");
-    setSelectedPrompt(null);
   };
-
-  const catchCount = Array.isArray(lastEntry?.catch_context)
-    ? lastEntry.catch_context.length
-    : 0;
 
   return (
     <CastBackground chamberKey="journal">
       <ChamberLayout
         title="Journal"
         sub="Write what the day felt like."
-        papa={
-          <PapaMini
-            context={{ event: "Grant opened his journal to write" }}
-            fallbackKey="journal.prompt"
-          />
-        }
+        papa={<PapaMini context={{ event: "Grant opened his journal to write" }} fallbackKey="journal.prompt" />}
       >
         <div className="journal-page">
           <AnimatePresence mode="wait">
+
+            {/* ── Write view ── */}
             {!saved && (
               <motion.div
                 key="write"
@@ -167,12 +99,12 @@ const handlePapaResponse = async (line) => {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <p className="journal-pause-line">Take a breath. There’s no rush here.</p>
-
+                {/* Optional prompts */}
+				<p className="journal-pause-line">Take a breath. There’s no rush here.</p>
                 <div className="journal-prompt-row">
                   <button
                     className="journal-prompt-toggle"
-                    onClick={() => setShowPrompts((v) => !v)}
+                    onClick={() => setShowPrompts(v => !v)}
                   >
                     {showPrompts ? "Hide prompts" : "Need a nudge? →"}
                   </button>
@@ -201,14 +133,15 @@ const handlePapaResponse = async (line) => {
                   )}
                 </AnimatePresence>
 
-                <p className="journal-paper-label">Your Journal</p>
+                {/* Textarea */}
+				<p className="journal-paper-label">Your Journal</p>
                 <div className="journal-paper">
                   <textarea
                     ref={textareaRef}
                     className="journal-textarea"
                     placeholder="What did the water teach you today?"
                     value={text}
-                    onChange={(e) => setText(e.target.value)}
+                    onChange={e => setText(e.target.value)}
                     rows={10}
                   />
                   <div className="journal-footer">
@@ -218,15 +151,14 @@ const handlePapaResponse = async (line) => {
                     <button
                       className="journal-save-btn"
                       onClick={handleSave}
-                      disabled={!hasText || saving}
+                      disabled={!hasText}
                     >
-                      {saving ? "Saving..." : "Save entry →"}
+                      Save entry →
                     </button>
                   </div>
                 </div>
 
-                {saveError && <p className="journal-error">{saveError}</p>}
-
+                {/* Link to archive */}
                 <button
                   className="journal-archive-link"
                   onClick={() => navigate("/journal-archive")}
@@ -236,6 +168,7 @@ const handlePapaResponse = async (line) => {
               </motion.div>
             )}
 
+            {/* ── Saved view ── */}
             {saved && lastEntry && (
               <motion.div
                 key="saved"
@@ -247,38 +180,22 @@ const handlePapaResponse = async (line) => {
               >
                 <div className="journal-saved-entry">
                   <p className="journal-saved-date">
-                    {new Date(lastEntry.entry_date).toLocaleDateString("en-US", {
-                      weekday: "long",
-                      month: "long",
-                      day: "numeric",
+                    {new Date(lastEntry.date).toLocaleDateString("en-US", {
+                      weekday: "long", month: "long", day: "numeric"
                     })}
                   </p>
-                  <p className="journal-saved-text">"{lastEntry.entry_text}"</p>
+                  <p className="journal-saved-text">"{lastEntry.text}"</p>
                 </div>
-
-                {catchCount > 0 && (
-                  <div className="journal-catch-context">
-                    <p className="journal-papa-attr">Today on the water</p>
-                    <p className="journal-catch-context-line">
-                      {catchCount} {catchCount === 1 ? "catch entry" : "catch entries"} linked to this reflection.
-                    </p>
-                  </div>
-                )}
 
                 <div className="journal-papa-response">
                   <p className="journal-papa-attr">Papa</p>
                   <PapaSpeaks
-				  context={{
-				  page: "journal",
-				  event: "Grant just saved a journal reflection.",
-				  journalEntry: lastEntry.entry_text,
-				  catchContext: lastEntry.catch_context ?? [],
-				  linkedCatchCount: Array.isArray(lastEntry.catch_context) ? lastEntry.catch_context.length : 0,
-				}}
-				  fallbackKey="journal.prompt"
-				  trigger={lastEntry.id}
-				  onResponse={handlePapaResponse}
-				/>
+                    context={{
+                      event: `Grant just wrote in his journal: "${lastEntry.text.slice(0, 120)}"`,
+                    }}
+                    fallbackKey="journal.prompt"
+                    trigger={lastEntry.id}
+                  />
                 </div>
 
                 <div className="journal-saved-actions">
@@ -294,6 +211,7 @@ const handlePapaResponse = async (line) => {
                 </div>
               </motion.div>
             )}
+
           </AnimatePresence>
         </div>
       </ChamberLayout>

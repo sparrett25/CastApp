@@ -17,6 +17,10 @@ function buildUserMessage(context) {
 
   const parts = [`It is ${timeOfDay}.`];
 
+  if (context.page) {
+    parts.push(`Grant is in Cast on the ${context.page} page.`);
+  }
+
   if (context.adventure) {
     parts.push(`Grant is on Adventure: "${context.adventure}".`);
   }
@@ -29,14 +33,81 @@ function buildUserMessage(context) {
     parts.push(`What just happened: ${context.event}.`);
   }
 
+  if (context.trip) {
+    const tripBits = [];
+
+    if (context.trip.location) {
+      tripBits.push(`location: ${context.trip.location}`);
+    }
+
+    if (context.trip.target) {
+      tripBits.push(`target: ${context.trip.target}`);
+    }
+
+    if (context.trip.when) {
+      tripBits.push(`when: ${context.trip.when}`);
+    }
+
+    if (context.trip.duration) {
+      tripBits.push(`duration: ${context.trip.duration}`);
+    }
+
+    if (tripBits.length > 0) {
+      parts.push(`Planned trip context — ${tripBits.join(", ")}.`);
+    }
+  }
+
   if (context.catchData) {
-    const { species, size } = context.catchData;
+    const { species, size, location, is_no_catch, is_first_catch } = context.catchData;
+
+    if (is_no_catch) {
+      parts.push(`Grant logged a day where nothing bit${location ? ` at ${location}` : ""}.`);
+    } else {
+      parts.push(
+        `Grant just caught a ${species}${size ? ` (${size})` : ""}${location ? ` at ${location}` : ""}.`
+      );
+
+      if (is_first_catch) {
+        parts.push(`This was his first catch in the ledger.`);
+      }
+    }
+  }
+
+  if (Array.isArray(context.catchContext) && context.catchContext.length > 0) {
+    const catchCount = context.catchContext.length;
+    const summary = context.catchContext
+      .slice(0, 3)
+      .map((entry) => {
+        if (entry.is_no_catch) {
+          return `nothing today${entry.location ? ` at ${entry.location}` : ""}`;
+        }
+        return `${entry.species}${entry.location ? ` at ${entry.location}` : ""}`;
+      })
+      .join("; ");
+
     parts.push(
-      `Grant just caught a ${species}${size ? ` (${size})` : ""}.`
+      `Today on the water there ${catchCount === 1 ? "was 1 catch entry" : `were ${catchCount} catch entries`}: ${summary}.`
     );
   }
 
-  parts.push("Give Grant one short thought. Do not explain or elaborate.");
+  if (context.journalEntry) {
+    const excerpt =
+      context.journalEntry.length > 180
+        ? context.journalEntry.slice(0, 180) + "..."
+        : context.journalEntry;
+
+    parts.push(`Grant wrote in his journal: "${excerpt}"`);
+  }
+
+  if (context.linkedCatchCount) {
+    parts.push(
+      `This reflection is linked to ${context.linkedCatchCount} catch ${context.linkedCatchCount === 1 ? "entry" : "entries"}.`
+    );
+  }
+
+  parts.push(
+    "Give Grant one short thought. Stay warm, calm, simple, and observant. Do not explain or elaborate."
+  );
 
   return parts.join(" ");
 }

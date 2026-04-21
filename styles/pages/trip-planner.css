@@ -320,3 +320,24 @@
 @media (max-width: 480px) {
   .trip-page { padding: 0 1rem 6rem; }
 }
+
+.trip-other-btn {
+  margin-top: 0.9rem;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 12px;
+  color: rgba(255,255,255,0.72);
+  padding: 0.7rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.trip-other-btn:hover {
+  border-color: rgba(255,255,255,0.28);
+  color: rgba(255,255,255,0.95);
+}
+
+.trip-options-secondary {
+  margin-top: 0.9rem;
+}
