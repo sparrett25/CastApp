@@ -7,6 +7,10 @@ import PapaMini from "../components/PapaMini";
 import "../styles/pages/home-dock.css";
 import { getActiveAdventure } from "../utils/adventureState";
 import { supabase } from "../lib/supabase";
+import {
+  buildPapaPageContext,
+  buildTripContext,
+} from "../utils/buildPapaPageContext";
 
 // Rotating whisper lines at the bottom
 const WHISPERS = [
@@ -25,6 +29,13 @@ const PILLARS = [
   { emoji: "🗺️", title: "Map",          desc: "Your waters.",                    path: "/map" },
   { emoji: "📜", title: "Journal",      desc: "Write what the day felt like.",   path: "/journal" },
 ];
+function getGreeting() {
+  const hour = new Date().getHours();
+
+  if (hour < 12) return "Good morning";
+  if (hour < 18) return "Good afternoon";
+  return "Good evening";
+}
 
 export default function HomePage() {
   const nav = useNavigate();
@@ -101,10 +112,21 @@ export default function HomePage() {
   return (
     <CastBackground chamberKey="home">
       <ChamberLayout
-        title="Good morning, Grant."
-        sub="Your fishing world is waiting."
-        papa={<PapaMini context={{ event: "Grant opened the app" }} />}
-      >
+			  title={`${getGreeting()}, Grant.`}
+			  sub="Your fishing world is waiting."
+			  papa={
+				<PapaMini
+				  context={buildPapaPageContext("home", {
+					event: "Grant opened the app.",
+					trip: buildTripContext(upcomingTrip),
+					entriesSummary: {
+					  hasUpcomingTrip: !!upcomingTrip,
+					},
+				  })}
+				  fallbackKey="home.welcome"
+				/>
+			  }
+			>
         <div className="home-dock">
 
           {/* Active Adventure Card */}

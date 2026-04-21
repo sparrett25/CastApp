@@ -15,10 +15,10 @@ import {
   getAdditionalSpeciesForLocation,
 } from "../utils/castData";
 
-
-
-
-
+import {
+  buildPapaPageContext,
+  buildTripContext,
+} from "../utils/buildPapaPageContext";
 
 
 // ── Duration options ───────────────────────────────────────────
@@ -247,7 +247,15 @@ useEffect(() => {
       <ChamberLayout
         title="Plan a Trip"
         sub="Where are you going? What are you after?"
-        papa={<PapaMini context={papaContext} fallbackKey="fallback" trigger={step === 5 ? "planned" : null} />}
+        papa={<PapaMini context={buildPapaPageContext("plan trip", {
+        event:
+	  step === 1 ? "Grant is deciding when to go fishing." :
+	  step === 2 ? "Grant is choosing where to fish." :
+	  step === 3 ? "Grant is choosing what he is after." :
+	  step === 4 ? "Grant is deciding how long to stay." :
+	  "Grant just planned a fishing trip.",
+        trip: buildTripContext(trip),
+      })} fallbackKey="fallback" trigger={step === 5 ? "planned" : null} />}
       >
         <div className="trip-page">
           <AnimatePresence mode="wait">

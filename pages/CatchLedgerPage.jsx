@@ -8,6 +8,10 @@ import PapaSpeaks from "../components/PapaSpeaks";
 import { supabase } from "../lib/supabase";
 import { getAllLocations } from "../utils/castData";
 import "../styles/pages/catch-ledger.css";
+import {
+  buildPapaPageContext,
+  buildEntriesSummary,
+} from "../utils/buildPapaPageContext";
 
 // ── Canonical location options + Other ────────────────────────
 const LOCATION_OPTIONS = [
@@ -348,7 +352,9 @@ export default function CatchLedgerPage() {
       <ChamberLayout
         title="Catch Ledger"
         sub="Every trip. Every fish. Every day on the water."
-        papa={<PapaMini context={papaContext} fallbackKey={papaKey} />}
+        papa={<PapaMini context={buildPapaPageContext("catch ledger", {
+		  entriesSummary: buildEntriesSummary(entries),
+		})} fallbackKey={papaKey} />}
       >
         <div className="ledger-page">
           <AnimatePresence>
@@ -362,11 +368,10 @@ export default function CatchLedgerPage() {
               >
                 <p className="adv-voice-attr">Papa</p>
                 <PapaSpeaks
-                  context={{
-				  page: "catch ledger",
+                  context={buildPapaPageContext("catch ledger", {
 				  event: "Grant just logged a new catch.",
 				  catchData: entries[0],
-				}}
+				})}
                   fallbackKey="catch.first"
                   trigger="first-save"
                 />

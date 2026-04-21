@@ -7,6 +7,7 @@ import PapaMini from "../components/PapaMini";
 import PapaSpeaks from "../components/PapaSpeaks";
 import { supabase } from "../lib/supabase";
 import "../styles/pages/journal-page.css";
+import { buildPapaPageContext } from "../utils/buildPapaPageContext";
 
 const PROMPTS = [
   "What did you notice today that you usually walk past?",
@@ -148,15 +149,17 @@ const handlePapaResponse = async (line) => {
   return (
     <CastBackground chamberKey="journal">
       <ChamberLayout
-        title="Journal"
-        sub="Write what the day felt like."
-        papa={
-          <PapaMini
-            context={{ event: "Grant opened his journal to write" }}
-            fallbackKey="journal.prompt"
-          />
-        }
-      >
+		  title="Journal"
+		  sub="Write what the day felt like."
+		  papa={
+			<PapaMini
+			  context={buildPapaPageContext("journal", {
+				event: "Grant opened his journal to write.",
+			  })}
+			  fallbackKey="journal.prompt"
+			/>
+		  }
+		>
         <div className="journal-page">
           <AnimatePresence mode="wait">
             {!saved && (
@@ -268,13 +271,14 @@ const handlePapaResponse = async (line) => {
                 <div className="journal-papa-response">
                   <p className="journal-papa-attr">Papa</p>
                   <PapaSpeaks
-				  context={{
-				  page: "journal",
+				  context={buildPapaPageContext("journal", {
 				  event: "Grant just saved a journal reflection.",
 				  journalEntry: lastEntry.entry_text,
 				  catchContext: lastEntry.catch_context ?? [],
-				  linkedCatchCount: Array.isArray(lastEntry.catch_context) ? lastEntry.catch_context.length : 0,
-				}}
+				  linkedCatchCount: Array.isArray(lastEntry.catch_context)
+					? lastEntry.catch_context.length
+					: 0,
+				})}
 				  fallbackKey="journal.prompt"
 				  trigger={lastEntry.id}
 				  onResponse={handlePapaResponse}

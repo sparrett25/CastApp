@@ -8,6 +8,10 @@ import { CAST_LOCATIONS } from "../data/locations";
 import "../styles/pages/locations.css";
 import grantQuests from "../data/stories/grant/quests.json";
 import { SPECIES } from "../data/species";
+import {
+  buildPapaPageContext,
+  buildFocusContext,
+} from "../utils/buildPapaPageContext";
 
 
 // ── Small helpers ──────────────────────────────────────────────
@@ -334,7 +338,15 @@ export default function LocationsPage() {
         sub="Waters to enter. Places to learn. Worlds to remember."
         papa={
           <PapaMini
-            context={papaContext}
+            context={
+        selectedLocation
+          ? buildPapaPageContext("location detail", {
+              ...buildFocusContext(selectedLocation.name, "location"),
+            })
+          : buildPapaPageContext("locations", {
+              event: "Grant is looking over nearby waters.",
+            })
+      }
             fallbackKey="locations.open"
             trigger={selectedLocation?.id ?? "locations-hub"}
           />

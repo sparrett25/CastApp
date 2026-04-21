@@ -3,6 +3,7 @@ import CastBackground from "../components/CastBackground";
 import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
 import "../styles/pages/intro-page.css";
+import { buildPapaPageContext } from "../utils/buildPapaPageContext";
 
 function ActionTile({ icon = "✨", title, desc, onClick }) {
   return (
@@ -29,10 +30,11 @@ export default function IntroPage() {
         title="Cast"
         sub="The Invitation"
         papa={
-          <PapaMini
-            line="Let’s start simple. Just step onto the dock with me. We’ll see what the water has to say today."
-          />
-        }
+		  <PapaMini
+			context={buildPapaPageContext("intro")}
+			fallbackKey="intro.welcome"
+		  />
+		}
       >
         <div className="intro-container">
           

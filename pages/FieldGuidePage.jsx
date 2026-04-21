@@ -11,6 +11,8 @@ import {
   FIELD_GUIDE_TECHNIQUES,
 } from "../data/fieldGuide";
 import "../styles/pages/field-guide.css";
+import { buildPapaPageContext, buildFocusContext } from "../utils/buildPapaPageContext";
+
 
 // ── Fish SVGs ──────────────────────────────────────────────────
 function BluegillSVG() {
@@ -296,16 +298,22 @@ export default function FieldGuidePage() {
   return (
     <CastBackground chamberKey="field-guide">
       <ChamberLayout
-        title="Field Guide"
-        sub="What to look for. Where to find them. What they teach."
-        papa={
-          <PapaMini
-            context={papaContext}
-            fallbackKey="fieldguide.open"
-            trigger={entry?.id ?? section}
-          />
-        }
-      >
+		  title="Field Guide"
+		  sub="What to look for. Where to find them. What they teach."
+		  papa={
+			<PapaMini
+			  context={
+				entry
+				  ? buildPapaPageContext("field guide detail", {
+					  ...buildFocusContext(entry.title || entry.name, section),
+					})
+				  : buildPapaPageContext("field guide")
+			  }
+			  fallbackKey="fieldguide.open"
+			  trigger={entry?.id ?? section}
+			/>
+		  }
+		>
         <div className="fg-page">
           <AnimatePresence mode="wait">
 
