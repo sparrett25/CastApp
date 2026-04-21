@@ -310,7 +310,7 @@ export default function LocationsPage() {
   locationName: selectedLocation?.name || null,
   locationType: selectedLocation?.location_type_label || null,
   event: selectedLocation
-    ? `Grant is looking at ${selectedLocation.name}`
+    ? `Grant is getting a feel for ${selectedLocation.name}`
     : "Grant opened the location guide",
 };
   
