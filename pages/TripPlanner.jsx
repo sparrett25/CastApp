@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import CastBackground from "../components/CastBackground";
@@ -235,6 +235,34 @@ export default function TripPlanner() {
       ? `Grant just planned a fishing trip to ${trip.water?.name} targeting ${trip.target?.label} on ${trip.whenLabel}`
       : "Grant is planning a fishing trip",
   };
+  
+  const chamberPapaContext = useMemo(() => {
+  return buildPapaPageContext("plan trip", {
+    event:
+      step === 1 ? "Grant is deciding when to go fishing." :
+      step === 2 ? "Grant is choosing where to fish." :
+      step === 3 ? "Grant is choosing what he is after." :
+      step === 4 ? "Grant is deciding how long to stay." :
+      "Grant just planned a fishing trip.",
+    trip: buildTripContext(trip),
+  });
+}, [step, trip]);
+
+const summaryPapaContext = useMemo(() => {
+  if (!trip) return null;
+
+  return {
+    page: "plan trip",
+    event: "Grant just planned a fishing trip.",
+    trip: {
+      location: trip.water?.name,
+      target: trip.target?.label,
+      when: trip.whenLabel?.toLowerCase(),
+      duration: trip.duration?.label,
+    },
+  };
+}, [trip]);
+
 
 useEffect(() => {
   setTargetId(null);
@@ -247,15 +275,7 @@ useEffect(() => {
       <ChamberLayout
         title="Plan a Trip"
         sub="Where are you going? What are you after?"
-        papa={<PapaMini context={buildPapaPageContext("plan trip", {
-        event:
-	  step === 1 ? "Grant is deciding when to go fishing." :
-	  step === 2 ? "Grant is choosing where to fish." :
-	  step === 3 ? "Grant is choosing what he is after." :
-	  step === 4 ? "Grant is deciding how long to stay." :
-	  "Grant just planned a fishing trip.",
-        trip: buildTripContext(trip),
-      })} fallbackKey="fallback" trigger={step === 5 ? "planned" : null} />}
+        papa={<PapaMini context={chamberPapaContext} fallbackKey="fallback" trigger={step === 5 ? "planned" : null} />}
       >
         <div className="trip-page">
           <AnimatePresence mode="wait">
@@ -424,17 +444,13 @@ useEffect(() => {
                 {/* Papa's send-off */}
                 <div className="trip-papa-block">
                   <p className="trip-voice-attr">Papa</p>
-                  <PapaSpeaks
-                    context={{
-					  page: "plan trip",
-					  event: "Grant just planned a fishing trip.",
-					  trip: {
-						location: trip.water?.name,
-						target: trip.target?.label,
-						when: trip.whenLabel.toLowerCase(),
-						duration: trip.duration?.label,
-					  },
-					}}
+                  {summaryPapaContext && (
+  <PapaSpeaks
+    context={summaryPapaContext}
+    fallbackKey="fallback"
+    trigger={trip.id}
+  />
+)}
                     fallbackKey="fallback"
                     trigger={trip.id}
                   />

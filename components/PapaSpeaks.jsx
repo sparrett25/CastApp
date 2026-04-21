@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePapa } from "../hooks/usePapa";
 
@@ -12,11 +12,24 @@ export default function PapaSpeaks({
 }) {
   const { line, loading, ask } = usePapa();
   const lastDeliveredRef = useRef(null);
+  const lastAskKeyRef = useRef(null);
+
+  const askKey = useMemo(() => {
+    return JSON.stringify({
+      context,
+      fallbackKey,
+      trigger,
+      mode,
+    });
+  }, [context, fallbackKey, trigger, mode]);
 
   useEffect(() => {
+    if (lastAskKeyRef.current === askKey) return;
+    lastAskKeyRef.current = askKey;
+
     ask(context, fallbackKey, mode);
     lastDeliveredRef.current = null;
-  }, [ask, context, fallbackKey, mode, trigger]);
+  }, [ask, askKey, context, fallbackKey, mode]);
 
   useEffect(() => {
     if (!line || typeof onResponse !== "function") return;

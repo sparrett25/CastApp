@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import CastBackground from "../components/CastBackground";
@@ -11,6 +11,9 @@ import {
   buildPapaPageContext,
   buildTripContext,
 } from "../utils/buildPapaPageContext";
+
+
+
 
 // Rotating whisper lines at the bottom
 const WHISPERS = [
@@ -47,6 +50,16 @@ export default function HomePage() {
   const idxRef = useRef(0);
   const [whisper, setWhisper] = useState(WHISPERS[0]);
   const [whisperVisible, setWhisperVisible] = useState(true);
+
+  const papaContext = useMemo(() => {
+  return buildPapaPageContext("home", {
+    event: "Grant opened the app.",
+    trip: buildTripContext(upcomingTrip),
+    entriesSummary: {
+      hasUpcomingTrip: !!upcomingTrip,
+    },
+  });
+}, [upcomingTrip]);
 
   useEffect(() => {
     let isMounted = true;
@@ -116,13 +129,7 @@ export default function HomePage() {
 			  sub="Your fishing world is waiting."
 			  papa={
 				<PapaMini
-				  context={buildPapaPageContext("home", {
-					event: "Grant opened the app.",
-					trip: buildTripContext(upcomingTrip),
-					entriesSummary: {
-					  hasUpcomingTrip: !!upcomingTrip,
-					},
-				  })}
+				  context={papaContext}
 				  fallbackKey="home.welcome"
 				/>
 			  }
