@@ -5,7 +5,8 @@ import CastBackground from "../components/CastBackground";
 import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
 import PapaSpeaks from "../components/PapaSpeaks";
-import { saveTrip, formatTripDate } from "../utils/trips";
+import { formatTripDate } from "../utils/trips";
+import { supabase } from "../lib/supabase";
 import "../styles/pages/trip-planner.css";
 
 // ── Grant's known waters ───────────────────────────────────────
@@ -105,6 +106,10 @@ export default function TripPlanner() {
   const [targetId, setTargetId] = useState(null);
   const [durationId, setDurationId] = useState(null);
   const [trip, setTrip]         = useState(null);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState("");
+  
+  
 
   const selectedWater    = WATERS.find(w => w.id === waterId);
   const selectedTarget   = TARGETS.find(t => t.id === targetId);
@@ -115,23 +120,82 @@ export default function TripPlanner() {
     : whenId ? getDateForOption(selectedWhen)
     : null;
 
-  const handleFinish = () => {
+  const handleFinish = async () => {
+  setSaveError("");
+  setSaving(true);
+
+  try {
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (userError) throw userError;
+    if (!user) throw new Error("You must be logged in to plan a trip.");
+
+    const whenLabel =
+      whenId === "custom" ? formatTripDate(customDate) : selectedWhen?.label;
+
+    const checklist = buildChecklist(waterId, targetId);
+    const scooterAdvice = getScooterAdvice(waterId, targetId);
+
+	const payload = {
+	  user_id: user.id,
+
+	  title: selectedWater?.label || "Planned Trip",
+
+	  location: selectedWater?.label || "",
+	  location_key: selectedWater?.id || null,
+
+	  trip_date: resolvedDate || null,
+	  timing_label: whenLabel || null,
+
+	  target_species: selectedTarget ? [selectedTarget.label] : [],
+	  target_species_keys: selectedTarget ? [selectedTarget.id] : [],
+
+	  duration_label: selectedDuration
+		? `${selectedDuration.label} · ${selectedDuration.sub}`
+		: null,
+
+	  checklist_items: checklist,
+	  scooter_note: scooterAdvice,
+	  papa_note: "The water has a way of speaking if we listen.",
+	  summary_text: `Targeting ${selectedTarget?.label} · ${selectedDuration?.sub}`,
+
+	  status: "planned",
+	};
+
+    const { data, error } = await supabase
+      .from("cast_trip_plans")
+      .insert(payload)
+      .select()
+      .single();
+
+    if (error) throw error;
+
     const newTrip = {
-      id: `trip-${Date.now()}`,
-      date: resolvedDate,
-      whenLabel: whenId === "custom" ? formatTripDate(customDate) : selectedWhen?.label,
+      id: data.id,
+      date: data.trip_date,
+      whenLabel,
       water: selectedWater,
       target: selectedTarget,
       duration: selectedDuration,
-      checklist: buildChecklist(waterId, targetId),
-      scooterAdvice: getScooterAdvice(waterId, targetId),
+      checklist,
+      scooterAdvice,
+      papaNote: data.papa_note,
       completed: false,
-      createdAt: new Date().toISOString(),
+      createdAt: data.created_at,
     };
-    saveTrip(newTrip);
+
     setTrip(newTrip);
     setStep(5);
-  };
+  } catch (err) {
+    console.error("Trip save error:", err);
+    setSaveError(err.message || "Could not save trip.");
+  } finally {
+    setSaving(false);
+  }
+};
 
   const papaContext = {
     event: trip
@@ -248,11 +312,17 @@ export default function TripPlanner() {
                     </button>
                   ))}
                 </div>
-                <button className="trip-next-btn" disabled={!durationId} onClick={handleFinish}>
-                  Plan this trip →
-                </button>
+                <button
+				  className="trip-next-btn"
+				  disabled={!durationId || saving}
+				  onClick={handleFinish}
+				>
+				  {saving ? "Planning..." : "Plan this trip →"}
+				</button>
+				{saveError && <p className="trip-error">{saveError}</p>}
               </motion.div>
             )}
+		
 
             {/* ── Step 5: Trip summary ── */}
             {step === 5 && trip && (
@@ -300,12 +370,24 @@ export default function TripPlanner() {
 
                 {/* Actions */}
                 <div className="trip-summary-actions">
-                  <button className="trip-home-btn" onClick={() => navigate("/")}>
+                  <button className="trip-home-btn" onClick={() => navigate("/home")}>
                     Back to the Dock
                   </button>
-                  <button className="trip-new-btn" onClick={() => { setStep(1); setWhenId(null); setWaterId(null); setTargetId(null); setDurationId(null); setTrip(null); }}>
-                    Plan another trip
-                  </button>
+                  <button
+					  className="trip-new-btn"
+					  onClick={() => {
+						setStep(1);
+						setWhenId(null);
+						setCustomDate("");
+						setWaterId(null);
+						setTargetId(null);
+						setDurationId(null);
+						setTrip(null);
+						setSaveError("");
+					  }}
+					>
+					  Plan another trip
+					</button>
                 </div>
               </motion.div>
             )}

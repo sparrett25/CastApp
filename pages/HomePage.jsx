@@ -6,8 +6,7 @@ import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
 import "../styles/pages/home-dock.css";
 import { getActiveAdventure } from "../utils/adventureState";
-import { getUpcomingTrip, formatTripDate } from "../utils/trips";
-
+import { supabase } from "../lib/supabase";
 
 // Rotating whisper lines at the bottom
 const WHISPERS = [
@@ -21,24 +20,71 @@ const WHISPERS = [
 
 // The five pillars — secondary navigation, quiet
 const PILLARS = [
-  { emoji: "📖", title: "Field Guide",  desc: "Species, gear, and technique.",  path: "/species"      },
+  { emoji: "📖", title: "Field Guide",  desc: "Species, gear, and technique.",  path: "/species" },
   { emoji: "🐟", title: "Catch Ledger", desc: "Your fishing record.",            path: "/catch-ledger" },
-  { emoji: "🗺️", title: "Map",          desc: "Your waters.",                    path: "/map"          },
-  { emoji: "📜", title: "Journal",      desc: "Write what the day felt like.",   path: "/journal"      },
+  { emoji: "🗺️", title: "Map",          desc: "Your waters.",                    path: "/map" },
+  { emoji: "📜", title: "Journal",      desc: "Write what the day felt like.",   path: "/journal" },
 ];
-
-// Active adventure — dynamically reads from localStorage progress
 
 export default function HomePage() {
   const nav = useNavigate();
   const [activeAdventure] = useState(() => getActiveAdventure());
-  const [upcomingTrip] = useState(() => getUpcomingTrip());
-  
+  const [upcomingTrip, setUpcomingTrip] = useState(null);
+  const [tripLoading, setTripLoading] = useState(true);
 
   // Rotating footer whisper with fade
   const idxRef = useRef(0);
   const [whisper, setWhisper] = useState(WHISPERS[0]);
   const [whisperVisible, setWhisperVisible] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadUpcomingTrip() {
+      try {
+        setTripLoading(true);
+
+        const {
+          data: { user },
+          error: userError,
+        } = await supabase.auth.getUser();
+
+        if (userError) throw userError;
+
+        if (!user) {
+          if (isMounted) setUpcomingTrip(null);
+          return;
+        }
+
+        const { data, error } = await supabase
+          .from("cast_upcoming_trip_summary")
+          .select("*")
+          .eq("user_id", user.id)
+          .maybeSingle();
+
+        if (error) throw error;
+
+        if (isMounted) {
+          setUpcomingTrip(data ?? null);
+        }
+      } catch (err) {
+        console.error("Upcoming trip load error:", err);
+        if (isMounted) {
+          setUpcomingTrip(null);
+        }
+      } finally {
+        if (isMounted) {
+          setTripLoading(false);
+        }
+      }
+    }
+
+    loadUpcomingTrip();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -95,22 +141,32 @@ export default function HomePage() {
           </section>
 
           {/* Upcoming Trip Card */}
-          {upcomingTrip && (
+          {!tripLoading && upcomingTrip && (
             <section className="home-adventure-section">
               <p className="home-section-label">Upcoming Trip</p>
               <motion.button
                 className="adventure-card trip-card"
-                onClick={() => nav("/plan-trip")}
+                onClick={() => nav("/trip-summary", { state: { tripId: upcomingTrip.id } })}
                 whileHover={{ y: -3 }}
                 transition={{ type: "spring", stiffness: 300, damping: 24 }}
               >
                 <div className="adventure-card-inner">
                   <div className="adventure-card-left">
-                    <span className="adventure-new-badge" style={{ background: "rgba(15,110,86,0.25)", color: "#5DCAA5", borderColor: "rgba(15,110,86,0.4)" }}>
-                      {upcomingTrip.whenLabel}
+                    <span
+                      className="adventure-new-badge"
+                      style={{
+                        background: "rgba(15,110,86,0.25)",
+                        color: "#5DCAA5",
+                        borderColor: "rgba(15,110,86,0.4)"
+                      }}
+                    >
+                      {upcomingTrip.timing_label || "Planned"}
                     </span>
-                    <h2 className="adventure-title">{upcomingTrip.water?.label}</h2>
-                    <p className="adventure-location">Targeting {upcomingTrip.target?.label} · {upcomingTrip.duration?.sub}</p>
+                    <h2 className="adventure-title">{upcomingTrip.location}</h2>
+                    <p className="adventure-location">
+                      Targeting {upcomingTrip.target_species?.[0] || "Whatever bites"}
+                      {upcomingTrip.duration_label ? ` · ${upcomingTrip.duration_label}` : ""}
+                    </p>
                   </div>
                   <div className="adventure-card-right">
                     <span className="adventure-arrow">→</span>
@@ -159,6 +215,10 @@ export default function HomePage() {
               )}
             </AnimatePresence>
           </div>
+
+          <button onClick={() => supabase.auth.signOut()}>
+            Log Out
+          </button>
 
         </div>
       </ChamberLayout>

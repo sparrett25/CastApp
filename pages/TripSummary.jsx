@@ -1,139 +1,199 @@
-import { useEffect, useMemo, useState } from "react";
-import { useNavigate, useSearchParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import CastBackground from "../components/CastBackground";
 import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
-import { say } from "../data/say";
-import { getTrip, upsertTripFields, formatWindow } from "../utils/trips";
-import { listGear } from "../data/gear/loader";
-import { TECHNIQUES } from "../data/techniques"; // if you put techniques elsewhere, adjust path
-import CastBackground from "../components/CastBackground"; // adjust path if needed
+import PapaSpeaks from "../components/PapaSpeaks";
+import { supabase } from "../lib/supabase";
+import "../styles/pages/trip-summary.css";
 
 export default function TripSummary() {
-  const [params] = useSearchParams();
-  const id = params.get("id");
   const nav = useNavigate();
+  const location = useLocation();
 
-  const [trip, setTrip] = useState(() => getTrip(id));
+  const tripId = location.state?.tripId || null;
+
+  const [trip, setTrip] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    setTrip(getTrip(id));
-  }, [id]);
+    let isMounted = true;
 
-  // -------- Suggestions (simple, tag-based)
-  const envTag = useMemo(() => {
-    const w = (trip?.water || "").toLowerCase();
-    if (w.includes("bay") || w.includes("gulf") || w.includes("salt")) return "saltwater";
-    return "freshwater";
-  }, [trip]);
+    async function loadTrip() {
+      try {
+        setLoading(true);
+        setError("");
 
-  const gearPicks = useMemo(() => {
-    const all = listGear();
-    // prefer freshwater/saltwater + beginner/intermediate
-    const score = g => {
-      let s = 0;
-      if (g.tags?.some(t => t.variant === envTag)) s += 2;
-      if (g.tags?.some(t => t.variant === "beginner" || t.variant === "intermediate")) s += 1;
-      return s;
+        if (!tripId) {
+          throw new Error("No trip was selected.");
+        }
+
+        const {
+          data: { user },
+          error: userError,
+        } = await supabase.auth.getUser();
+
+        if (userError) throw userError;
+        if (!user) throw new Error("You must be logged in to view this trip.");
+
+        const { data, error } = await supabase
+          .from("cast_trip_plans")
+          .select("*")
+          .eq("id", tripId)
+          .eq("user_id", user.id)
+          .maybeSingle();
+
+        if (error) throw error;
+        if (!data) throw new Error("Trip not found.");
+
+        if (isMounted) {
+          setTrip(data);
+        }
+      } catch (err) {
+        console.error("Trip summary load error:", err);
+        if (isMounted) {
+          setError(err.message || "Could not load trip.");
+          setTrip(null);
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadTrip();
+
+    return () => {
+      isMounted = false;
     };
-    return [...all].sort((a,b)=>score(b)-score(a)).slice(0,3);
-  }, [envTag]);
+  }, [tripId]);
 
-  const techPicks = useMemo(() => {
-    const score = t => {
-      let s = 0;
-      if (t.tags?.some(x => x.variant === envTag)) s += 2;
-      if (t.tags?.some(x => x.variant === "beginner" || x.variant === "intermediate")) s += 1;
-      return s;
-    };
-    return [...(TECHNIQUES || [])].sort((a,b)=>score(b)-score(a)).slice(0,3);
-  }, [envTag]);
-
-  if (!trip) {
+  if (loading) {
     return (
-      <ChamberLayout
-        title="Trip Summary"
-        sub="Nothing planned yet—start with a time and a question."
-        papa={<PapaMini line={say("summary.note")} />}
-      >
-        <Link className="btn-primary inline-block" to="/plan">Plan a trip</Link>
-      </ChamberLayout>
+      <CastBackground chamberKey="trip-summary">
+        <ChamberLayout
+          title="Trip Summary"
+          sub="Loading your itinerary..."
+          papa={<PapaMini context={{ event: "Loading saved trip summary" }} />}
+        >
+          <div className="trip-summary-page">
+		  <div className="trip-summary-card">
+            <p>Loading trip...</p>
+          </div>
+		  </div>
+        </ChamberLayout>
+      </CastBackground>
     );
   }
 
-  const startFishing = () => {
-    upsertTripFields(trip.id, { status: "fishing", startedAt: new Date().toISOString() });
-    nav(`/journal?id=${encodeURIComponent(trip.id)}`);
-  };
+  if (error || !trip) {
+    return (
+      <CastBackground chamberKey="trip-summary">
+        <ChamberLayout
+          title="Trip Summary"
+          sub="Something interrupted the itinerary."
+          papa={<PapaMini context={{ event: "Trip summary unavailable" }} />}
+        >
+          <div className="trip-summary-card">
+            <p style={{ marginBottom: "1rem" }}>{error || "Trip not found."}</p>
+            <div className="trip-summary-actions">
+              <button className="trip-home-btn" onClick={() => nav("/home")}>
+                Back to Home
+              </button>
+              <button className="trip-new-btn" onClick={() => nav("/plan-trip")}>
+                Plan a Trip
+              </button>
+            </div>
+          </div>
+        </ChamberLayout>
+      </CastBackground>
+    );
+  }
 
-  const goRitual = () => nav(`/mirror-lake?id=${encodeURIComponent(trip.id)}`);
+  const targetLabel = trip.target_species?.[0] || "Whatever bites";
 
   return (
-  <CastBackground chamberKey="trip-summary">
-    <ChamberLayout
-      title="Trip Summary"
-      sub="A quick readout of your window, place, and starting plan."
-      papa={<PapaMini line={say("summary.note")} />}
-    >
-      <div className="section-card">
-        <div className="text-white/90 font-medium mb-1">When</div>
-        <div className="text-white/70">{formatWindow(trip)}</div>
-      </div>
+    <CastBackground chamberKey="trip-summary">
+      <ChamberLayout
+        title="Trip Summary"
+        sub="A saved plan for the water ahead."
+        papa={
+          <PapaMini
+            context={{
+              event: `Grant is viewing a saved trip to ${trip.location} targeting ${targetLabel}`,
+            }}
+          />
+        }
+      >
+        <div className="trip-summary-card">
+          <div className="trip-summary-header">
+            <div>
+              <p className="trip-summary-when">{trip.timing_label || "Planned Trip"}</p>
+              <h2 className="trip-summary-title">{trip.location}</h2>
+              <p className="trip-summary-sub">
+                Targeting {targetLabel}
+                {trip.duration_label ? ` · ${trip.duration_label}` : ""}
+              </p>
+              {trip.trip_date && (
+                <p className="trip-summary-sub" style={{ marginTop: ".35rem", opacity: 0.8 }}>
+                  {trip.trip_date}
+                </p>
+              )}
+            </div>
+            <div className="trip-summary-badge">📍</div>
+          </div>
 
-      <div className="section-card">
-        <div className="text-white/90 font-medium mb-1">Place</div>
-        <div className="text-white/70">{trip.water || "—"}</div>
-        {trip.pinId ? (
-          <Link to={`/map?focus=${encodeURIComponent(trip.pinId)}`} className="inline-block mt-2 underline">View on Map</Link>
-        ) : null}
-      </div>
+          {trip.scooter_note && (
+            <div className="trip-scooter-block">
+              <p className="trip-voice-attr">Scooter</p>
+              <p className="trip-voice-text">"{trip.scooter_note}"</p>
+            </div>
+          )}
 
-      <div className="section-card">
-        <div className="text-white/90 font-medium mb-1">Target</div>
-        <div className="text-white/70">
-          Primary: <span className="font-medium">{trip.target?.primary || "—"}</span>
-          {trip.target?.secondary ? <> · Secondary: <span className="font-medium">{trip.target.secondary}</span></> : null}
+          <div className="trip-papa-block">
+            <p className="trip-voice-attr">Papa</p>
+            <PapaSpeaks
+              context={{
+                event: `Grant is reviewing his trip to ${trip.location} targeting ${targetLabel} ${trip.timing_label?.toLowerCase() || ""}`,
+              }}
+              fallbackKey="fallback"
+              trigger={trip.id}
+            />
+          </div>
+
+          <div className="trip-checklist">
+            <p className="trip-checklist-label">What to bring</p>
+
+            {Array.isArray(trip.checklist_items) && trip.checklist_items.length > 0 ? (
+              trip.checklist_items.map((item, i) => (
+                <div key={i} className="trip-checklist-item">
+                  <span className="trip-check-dot" />
+                  <span>{item}</span>
+                </div>
+              ))
+            ) : (
+              <p>No checklist saved for this trip.</p>
+            )}
+
+            {trip.summary_text && (
+              <p className="trip-weather-note" style={{ marginTop: "1rem" }}>
+                {trip.summary_text}
+              </p>
+            )}
+          </div>
+
+          <div className="trip-summary-actions">
+            <button className="trip-home-btn" onClick={() => nav("/home")}>
+              Back to Home
+            </button>
+            <button className="trip-new-btn" onClick={() => nav("/plan-trip")}>
+              Plan another trip
+            </button>
+          </div>
         </div>
-        {trip.intent ? <div className="text-white/60 mt-2 italic">“{trip.intent}”</div> : null}
-      </div>
-
-      {/* Suggestions */}
-      <div className="section-card">
-        <div className="text-white/90 font-medium mb-3">Suggested Gear</div>
-        <div className="tile-grid">
-          {gearPicks.map(g => (
-            <Link key={g.slug} to={`/gear/${g.slug}`} className="tile">
-              <span className="tile-icn" aria-hidden>{g.icon || "🎣"}</span>
-              <div className="tile-txt">
-                <div className="tile-title">{g.title}</div>
-                <div className="tile-sub">{g.summary}</div>
-              </div>
-              <span className="tile-arrow">→</span>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      <div className="section-card">
-        <div className="text-white/90 font-medium mb-3">Suggested Techniques</div>
-        <div className="tile-grid">
-          {techPicks.map(t => (
-            <Link key={t.id} to={`/techniques/${t.id}`} className="tile">
-              <span className="tile-icn" aria-hidden>{t.icon || "🎯"}</span>
-              <div className="tile-txt">
-                <div className="tile-title">{t.title}</div>
-                <div className="tile-sub">{t.sub}</div>
-              </div>
-              <span className="tile-arrow">→</span>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      <div className="actions flex gap-3">
-        <button className="btn-primary" onClick={goRitual}>Mirror Lake (Centering)</button>
-        <button className="btn-primary" onClick={startFishing}>Start Trip</button>
-      </div>
-    </ChamberLayout>
-	</CastBackground>
+      </ChamberLayout>
+    </CastBackground>
   );
 }

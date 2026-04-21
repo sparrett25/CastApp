@@ -1,0 +1,226 @@
+/* ── Trip Summary Page ───────────────────────────────────── */
+
+.trip-summary-page {
+  min-height: calc(100vh - 4rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem 1.25rem 5rem;
+}
+
+.trip-summary-card {
+  width: 100%;
+  max-width: 760px;
+  background: rgba(0, 0, 0, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 22px;
+  padding: 1.75rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white;
+  margin-top: 1rem;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+
+.trip-summary-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.trip-summary-when {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #d59a2d;
+  margin: 0 0 0.35rem;
+}
+
+.trip-summary-title {
+  font-family: Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 0.35rem;
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.trip-summary-sub {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.72);
+  margin: 0;
+}
+
+.trip-summary-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(186, 117, 23, 0.16);
+  border: 1px solid rgba(186, 117, 23, 0.38);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+/* ── Voice blocks ───────────────────────────────────────── */
+
+.trip-scooter-block,
+.trip-papa-block {
+  border-radius: 0 12px 12px 0;
+  padding: 1rem 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.trip-scooter-block {
+  background: rgba(24, 95, 165, 0.16);
+  border-left: 3px solid rgba(24, 95, 165, 0.65);
+}
+
+.trip-papa-block {
+  background: rgba(15, 110, 86, 0.14);
+  border-left: 3px solid rgba(15, 110, 86, 0.55);
+}
+
+.trip-voice-attr {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0 0 0.35rem;
+}
+
+.trip-voice-text {
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.88);
+  font-style: italic;
+  margin: 0;
+}
+
+/* ── Checklist ──────────────────────────────────────────── */
+
+.trip-checklist {
+  margin-top: 1.25rem;
+  padding: 1.25rem 1.2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+.trip-checklist-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 0 1rem;
+}
+
+.trip-checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.25rem 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 1rem;
+}
+
+.trip-check-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #c8892b;
+  flex-shrink: 0;
+}
+
+.trip-weather-note {
+  margin: 1rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.58);
+  font-style: italic;
+}
+
+/* ── Actions ────────────────────────────────────────────── */
+
+.trip-summary-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.trip-home-btn,
+.trip-new-btn {
+  width: 100%;
+  border-radius: 14px;
+  padding: 0.95rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.trip-home-btn {
+  background: rgba(186, 117, 23, 0.88);
+  border: 1px solid rgba(186, 117, 23, 0.95);
+  color: white;
+}
+
+.trip-home-btn:hover {
+  background: rgba(186, 117, 23, 1);
+}
+
+.trip-new-btn {
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.trip-new-btn:hover {
+  border-color: rgba(255, 255, 255, 0.26);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* ── Loading / Error states ─────────────────────────────── */
+
+.trip-summary-message {
+  color: rgba(255, 255, 255, 0.75);
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+/* ── Mobile ─────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .trip-summary-card {
+    padding: 1.25rem;
+    border-radius: 18px;
+  }
+
+  .trip-summary-title {
+    font-size: 1.6rem;
+  }
+
+  .trip-summary-sub {
+    font-size: 0.95rem;
+  }
+
+  .trip-summary-header {
+    align-items: flex-start;
+  }
+
+  .trip-checklist {
+    padding: 1rem;
+  }
+}

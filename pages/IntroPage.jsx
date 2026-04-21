@@ -4,7 +4,6 @@ import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
 import "../styles/pages/intro-page.css";
 
-
 function ActionTile({ icon = "✨", title, desc, onClick }) {
   return (
   
