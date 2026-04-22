@@ -31,13 +31,18 @@ export default function PapaDockPage() {
     recognition.maxAlternatives = 1;
 
     recognition.onstart = () => setListening(true);
-    recognition.onend = () => setListening(false);
-    recognition.onerror = () => setListening(false);
+recognition.onend = () => setListening(false);
+recognition.onerror = () => setListening(false);
 
-    recognition.onresult = async (event) => {
-      const transcript = event.results?.[0]?.[0]?.transcript?.trim();
-      if (transcript) await sendMessage(transcript);
-    };
+recognition.onresult = (event) => {
+  const transcript = event.results?.[0]?.[0]?.transcript?.trim();
+  if (!transcript) return;
+
+  setInput((prev) => {
+    if (!prev.trim()) return transcript;
+    return `${prev.trim()} ${transcript}`;
+  });
+};
 
     recognitionRef.current = recognition;
 
