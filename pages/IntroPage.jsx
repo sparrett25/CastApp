@@ -39,8 +39,7 @@ export default function IntroPage() {
           
           <h2>
 			  This is your place by the water. <br />
-			  You can fish. <br />
-			  You can explore. <br />
+			  You can fish. You can explore. <br />
 			  Or just sit and listen.
 			</h2>
 <p className="intro-breath-line">Take a breath. There’s no rush.</p>

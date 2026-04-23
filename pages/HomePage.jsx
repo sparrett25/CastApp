@@ -125,8 +125,6 @@ export default function HomePage() {
   return (
     <CastBackground chamberKey="home">
       <ChamberLayout
-			  title={`${getGreeting()}, Grant.`}
-			  sub="Your fishing world is waiting."
 			  papa={
 				<PapaMini
 				  context={papaContext}

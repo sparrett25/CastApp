@@ -303,8 +303,6 @@ export default function FieldGuidePage() {
   return (
     <CastBackground chamberKey="field-guide">
       <ChamberLayout
-		  title="Field Guide"
-		  sub="What to look for. Where to find them. What they teach."
 		  papa={
 			<PapaMini
 			  context={papaContext}
