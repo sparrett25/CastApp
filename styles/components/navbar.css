@@ -152,3 +152,67 @@
 }
 
 .cast-nav a { color: inherit; text-decoration: none; }
+
+
+@media (max-width: 768px) {
+  .cast-nav {
+    padding: 6px 8px 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cast-nav__inner {
+    padding: 6px 8px;
+    border-radius: 14px;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cast-nav__brand {
+    padding: 2px 4px;
+  }
+
+  .cast-brand__name {
+    font-size: 12px;
+    letter-spacing: 0.3px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cast-nav__toggle {
+    height: 30px;
+    padding: 0 10px 0 9px;
+    gap: 6px;
+  }
+
+  .toggle-label {
+    font-size: 11px;
+  }
+
+  .toggle-bars {
+    width: 13px;
+  }
+
+  .toggle-bars .bar {
+    width: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cast-nav__drawer {
+    margin-top: 6px;
+    padding: 6px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .cast-nav__drawer .cast-nav__link {
+    min-width: 100%;
+    text-align: left;
+    padding: 9px 10px;
+    border-radius: 10px;
+  }
+}
