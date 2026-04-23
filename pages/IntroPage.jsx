@@ -72,8 +72,8 @@ export default function IntroPage() {
           <div className={uiStyles.whisperClass}>{scene?.whisper}</div>
 
 			<h2 className={uiStyles.headlineClass}>
-			  <span>This is your place by the water.</span>
-			  <span>You can fish. You can explore.</span>
+			  <span>This is your place by the water. </span>
+			  <span>You can fish. You can explore. </span>
 			  <span>Or just sit and listen.</span>
 			</h2>
 

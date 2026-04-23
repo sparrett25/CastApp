@@ -22,6 +22,10 @@
   text-wrap: balance;
 }
 
+.intro-container h2 span {
+  display: block;
+}
+
 .intro-breath-line {
   opacity: 0.72;
   margin-top: 1.25rem;
