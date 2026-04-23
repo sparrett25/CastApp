@@ -4,17 +4,49 @@ import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
 import "../styles/pages/intro-page.css";
 import { buildPapaPageContext } from "../utils/buildPapaPageContext";
+import { getScene, getIntroSceneByTime } from "../atmosphere/sceneBuilder";
 
-function ActionTile({ icon = "✨", title, desc, onClick }) {
+
+function getIntroUiStyles(scene) {
+  const tone = scene?.timeState?.ui?.textTone ?? "balanced";
+  const glow = scene?.timeState?.ui?.glow ?? "warm";
+  const cardOpacity = scene?.timeState?.ui?.cardOpacity ?? 0.18;
+
+  return {
+    headlineClass:
+      tone === "soft"
+        ? "intro-headline intro-headline--soft"
+        : tone === "balanced"
+        ? "intro-headline intro-headline--balanced"
+        : "intro-headline intro-headline--clear",
+
+    whisperClass:
+      glow === "cool"
+        ? "intro-scene-whisper intro-scene-whisper--cool"
+        : glow === "dim"
+        ? "intro-scene-whisper intro-scene-whisper--dim"
+        : "intro-scene-whisper intro-scene-whisper--warm",
+
+    cardStyle: {
+      background: `rgba(18, 12, 8, ${cardOpacity})`
+    },
+
+    cardClass:
+      glow === "cool"
+        ? "portal-card portal-card--cool"
+        : glow === "dim"
+        ? "portal-card portal-card--dim"
+        : "portal-card portal-card--warm"
+  };
+}
+
+function ActionTile({ icon = "✨", title, onClick, className = "", style }) {
   return (
-  
-    <button className="portal-card" onClick={onClick}>
-      <div className="portal-header">
-        <span className="portal-emoji">{icon}</span>
-        <h3>{title}</h3>
+    <button className={`portal-card portal-card--intro ${className}`.trim()} style={style} onClick={onClick}>
+      <div className="portal-header portal-header--intro">
+        <h3 className="portal-title-only">{title}</h3>
       </div>
-      <p className="portal-desc">{desc}</p>
-      <div className="portal-enter">Onto the dock →</div>
+      <div className="portal-enter portal-enter--intro">Begin Your Journey →</div>
     </button>
   );
 }
@@ -22,35 +54,43 @@ function ActionTile({ icon = "✨", title, desc, onClick }) {
 export default function IntroPage() {
   const nav = useNavigate();
   const begin = () => nav("/home");
+
+  const DEBUG_SCENE = "intro_storm_waiting"; // "intro_quiet_dawn" | "intro_golden_reflection" | "intro_storm_waiting"
+  const scene = DEBUG_SCENE ? getScene(DEBUG_SCENE) : getIntroSceneByTime();
   
+  const uiStyles = getIntroUiStyles(scene);
 
   return (
-    <CastBackground chamberKey="intro">
+    <CastBackground
+      chamberKey="intro"
+      variant={scene?.backgroundVariant}
+      overlay={scene?.timeState?.ui?.overlay || "absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-black/45"}
+    >
       <ChamberLayout
-        
         papa={
-		  <PapaMini
-			context={buildPapaPageContext("intro")}
-			fallbackKey="intro.welcome"
-		  />
-		}
+          <PapaMini
+            context={buildPapaPageContext("intro")}
+            fallbackKey="intro.welcome"
+          />
+        }
       >
         <div className="intro-container">
-          
-          <h2>
-			  <p>This is your place by the water. </p>
-			  <p>You can fish. You can explore. </p>
-			  <p>Or just sit and listen.</p>
+
+          <div className={uiStyles.whisperClass}>{scene?.whisper}</div>
+
+			<h2 className={uiStyles.headlineClass}>
+			  <span>This is your place by the water.</span>
+			  <span>You can fish. You can explore.</span>
+			  <span>Or just sit and listen.</span>
 			</h2>
-<p className="intro-breath-line">Take a breath. There’s no rush.</p>
-          <div className="intro-actions">
-  <ActionTile
-    icon="🌟"
-    title="Step onto the Dock"
-    desc="Start your day at the water."
-    onClick={begin}
-  />
-</div>
+
+			<ActionTile
+			  title="Step onto the Dock"
+			  onClick={begin}
+			  className={uiStyles.cardClass}
+			  style={uiStyles.cardStyle}
+			/>
+        
 
           <p className="home-tip">The water remembers every visit.</p>
         </div>

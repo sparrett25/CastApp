@@ -1,24 +1,24 @@
 {
   "intro": {
-    "default": {
-      "src": "/images/chambers/intro-morning.png",
-      "caption": "Species • beneath the surface"
-    },
-    "variants": {
-      "morning": {
-        "src": "/images/chambers/intro-morning.png",
-        "caption": "Species • morning light"
-      },
-	  "afternoon": {
-        "src": "/images/chambers/intro-morning.png",
-        "caption": "Journal • steady daylight"
-      },
-      "evening": {
-        "src": "/images/chambers/intro-morning.png",
-        "caption": "Species • evening water"
-      }
-    }
+  "default": {
+    "src": "/images/chambers/intro-morning.png",
+    "caption": "Intro • quiet morning water"
   },
+  "variants": {
+    "morning": {
+      "src": "/images/chambers/intro-morning.png",
+      "caption": "Intro • morning light"
+    },
+    "afternoon": {
+      "src": "/images/chambers/intro-afternoon.png",
+      "caption": "Intro • golden reflection"
+    },
+    "evening": {
+      "src": "/images/chambers/intro-evening.png",
+      "caption": "Intro • evening stillness"
+    }
+  }
+},
 
   "home": {
     "default": {
