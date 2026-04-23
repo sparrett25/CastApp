@@ -90,51 +90,50 @@
   color: rgba(255,255,255,0.58);
 }
 
-@media (min-width: 900px) {
-  .intro-container {
-    transform: translateX(6rem);
-  }
-}
-
 @media (max-width: 768px) {
   .intro-container {
     max-width: 100%;
-    padding: 2rem 1.1rem 9rem;
+    padding: 1.5rem 1rem calc(8.5rem + env(safe-area-inset-bottom));
     transform: none;
   }
 
   .intro-container h2 {
-    font-size: clamp(2.1rem, 9vw, 3.2rem);
-    line-height: 1.08;
-    max-width: 92%;
+    font-size: clamp(1.45rem, 5.8vw, 2.35rem);
+    line-height: 1.12;
+    max-width: 88%;
+    text-wrap: balance;
   }
 
   .intro-breath-line {
-    margin-top: 1rem;
-    font-size: 0.95rem;
-    max-width: 90%;
+    margin-top: 0.85rem;
+    font-size: 0.9rem;
+    max-width: 88%;
   }
 
   .intro-actions {
-    max-width: 100%;
-    margin-top: 1.25rem;
+    width: 100%;
+    max-width: 92%;
+    margin-top: 1.15rem;
   }
 
   .portal-card {
-    padding: 1rem 1rem;
-    border-radius: 20px;
+    padding: 0.95rem 1rem;
+    border-radius: 18px;
+  }
+
+  .portal-header h3 {
+    font-size: 1.05rem;
+  }
+
+  .portal-desc,
+  .portal-enter {
+    font-size: 0.92rem;
   }
 
   .home-tip {
-    margin-top: 1.75rem;
-    margin-bottom: 2rem;
-    font-size: 0.9rem;
-    max-width: 90%;
-  }
-}
-
-@media (max-width: 768px) {
-  .intro-container {
-    padding-bottom: calc(10rem + env(safe-area-inset-bottom));
+    margin-top: 1.3rem;
+    margin-bottom: 1rem;
+    font-size: 0.88rem;
+    max-width: 88%;
   }
 }
