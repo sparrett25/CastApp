@@ -156,15 +156,18 @@
 
 @media (max-width: 768px) {
   .cast-nav {
-    padding: 6px 8px 6px;
+    background: transparent;
+    backdrop-filter: none;
+    border-bottom: none;
+    padding: 6px 8px;
   }
 }
 
 @media (max-width: 768px) {
   .cast-nav__inner {
-    padding: 6px 8px;
-    border-radius: 14px;
-    gap: 6px;
+    background: rgba(8,12,17,.38);
+    border: 1px solid rgba(255,255,255,.08);
+    backdrop-filter: blur(6px);
   }
 }
 
