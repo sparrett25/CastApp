@@ -1,7 +1,7 @@
 {
   "intro": {
     "default": {
-      "src": "/images/chambers/intro-afternoon.webp",
+      "src": "/images/chambers/intro-morning.png",
       "caption": "Species • beneath the surface"
     },
     "variants": {
@@ -10,11 +10,11 @@
         "caption": "Species • morning light"
       },
 	  "afternoon": {
-        "src": "/images/chambers/intro-afternoon.webp",
+        "src": "/images/chambers/intro-morning.png",
         "caption": "Journal • steady daylight"
       },
       "evening": {
-        "src": "/images/chambers/intro-evening.webp",
+        "src": "/images/chambers/intro-morning.png",
         "caption": "Species • evening water"
       }
     }
