@@ -38,9 +38,9 @@ export default function IntroPage() {
         <div className="intro-container">
           
           <h2>
-			  This is your place by the water. <br />
-			  You can fish. You can explore. <br />
-			  Or just sit and listen.
+			  <p>This is your place by the water. </p>
+			  <p>You can fish. You can explore. </p>
+			  <p>Or just sit and listen.</p>
 			</h2>
 <p className="intro-breath-line">Take a breath. There’s no rush.</p>
           <div className="intro-actions">

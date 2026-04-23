@@ -149,8 +149,6 @@ const handlePapaResponse = async (line) => {
   return (
     <CastBackground chamberKey="journal">
       <ChamberLayout
-		  title="Journal"
-		  sub="Write what the day felt like."
 		  papa={
 			<PapaMini
 			  context={buildPapaPageContext("journal", {

@@ -350,8 +350,6 @@ export default function CatchLedgerPage() {
   return (
     <CastBackground chamberKey="catch-ledger">
       <ChamberLayout
-        title="Catch Ledger"
-        sub="Every trip. Every fish. Every day on the water."
         papa={<PapaMini context={buildPapaPageContext("catch ledger", {
 		  entriesSummary: buildEntriesSummary(entries),
 		})} fallbackKey={papaKey} />}

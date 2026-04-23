@@ -129,19 +129,11 @@ recognition.onresult = (event) => {
   return (
     <CastBackground chamberKey="papaDock">
       <ChamberLayout
-        title="Papa’s Dock"
-        sub="A quiet place by the water."
         papa={null}
       >
         <div className="papa-dock-page">
           <div className="papa-dock-intro">
-            <div className="papa-dock-avatar-wrap">
-              <img
-                src="/images/papa-portrait.png"
-                alt="Papa"
-                className="papa-dock-avatar"
-              />
-            </div>
+            
 
             <div className="papa-dock-intro-copy">
               <p className="papa-dock-line">You can talk here. No rush.</p>

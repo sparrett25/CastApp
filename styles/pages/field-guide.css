@@ -31,6 +31,7 @@
   -webkit-backdrop-filter: blur(8px);
   transition: border-color 0.2s, background 0.2s;
   
+  
 }
 .fg-species-card:hover:not(.locked) {
   border-color: rgba(255,255,255,0.32);
@@ -164,6 +165,7 @@
 /* ── Hub section cards ── */
 .fg-hub { display: flex; flex-direction: column; gap: 0.75rem; }
 
+
 /* Hub section card — also needs global button override */
 .fg-page .fg-section-card,
 .fg-page .fg-section-card:hover,
@@ -173,7 +175,7 @@
   box-shadow: none !important;
 }
 .fg-page .fg-section-card {
-  width:   82%;
+  width:   72%;
   border: 1px solid rgba(255,255,255,0.18) !important;
   padding: 1.125rem 1.25rem !important;
   display: flex !important;
@@ -182,10 +184,10 @@
   text-align: left !important;
   color: white !important;
   cursor: pointer !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
   transition: background 0.2s, border-color 0.2s !important;
-  opacity: 0.72;                                                                      
+  opacity: 0.62;                                                                      
 }
 .fg-page .fg-section-card:hover {
   background: rgba(10,6,2,0.78) !important;
@@ -211,6 +213,7 @@
   border-radius: 12px !important;
   box-shadow: none !important;
   color: white !important;
+  
 }
 .fg-page .fg-simple-card {
   width: 100% !important;
@@ -225,6 +228,7 @@
   cursor: pointer !important;
   margin-bottom: 0.6rem !important;
   transition: background 0.2s, border-color 0.2s !important;
+  
 }
 .fg-page .fg-simple-card:hover {
   background: rgba(10,6,2,0.75) !important;
@@ -257,6 +261,7 @@
   padding: 0 !important;
   transition: border-color 0.2s, background 0.2s !important;
   margin-bottom: 0.75rem !important;
+  opacity: 0.62;
 }
 .fg-page .fg-entry-card:hover:not(.locked) {
   border-color: rgba(255,255,255,0.32) !important;

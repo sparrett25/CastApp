@@ -16,10 +16,11 @@
   box-shadow: none !important;
   border-radius: 12px !important;
   text-shadow: none !important;
+  opacity: 0.82;
 }
 .ledger-page .ledger-add-btn {
   display: block !important;
-  max-width: 360px !important;
+  max-width: 340px !important;
   padding: 0.875rem 1.5rem !important;
   background: rgba(140, 82, 8, 0.78) !important;        /* was 0.28 — much darker, holds against bright BG */
   border: 2px solid rgba(210, 145, 30, 0.92) !important; /* was 1px at 0.60 — thicker & more opaque */
@@ -77,6 +78,7 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: white;
+  
   
 }
 
@@ -264,7 +266,7 @@
 .ledger-form-card .ledger-cancel-btn::after { display: none !important; }
 
 /* ── Entry cards ── */
-.ledger-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.ledger-list { display: flex; flex-direction: column; gap: 0.75rem; opacity: 0.62;}
 
 .ledger-entry-card {
   background: rgba(10,6,2,0.60);
@@ -274,7 +276,8 @@
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
   color: white;
-  max-width: 320px;
+  max-width: 300px;
+  
   
   
 }

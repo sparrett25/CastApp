@@ -1,5 +1,5 @@
 .loc-page {
-  padding: 5.5rem 1.5rem 6rem;
+  padding: 4.5rem 1.5rem 6rem;
   max-width: 560px;
   margin: 0 auto;
   display: flex;
@@ -32,7 +32,7 @@
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
   transition: border-color 0.2s, background 0.2s !important;
-  opacity: 0.72;
+  opacity: 0.62;
 }
 
 .loc-card:hover {

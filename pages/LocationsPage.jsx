@@ -334,8 +334,6 @@ export default function LocationsPage() {
   return (
     <CastBackground chamberKey="locations">
       <ChamberLayout
-        title="Locations"
-        sub="Waters to enter. Places to learn. Worlds to remember."
         papa={
           <PapaMini
             context={papaContext}

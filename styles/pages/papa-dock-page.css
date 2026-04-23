@@ -1,5 +1,5 @@
 .papa-dock-page {
-  padding: 5.5rem 1.5rem 6rem;
+  padding: 4.5rem 1.5rem 6rem;
   max-width: 480px;
   margin: 0 auto;
   display: flex;
@@ -16,8 +16,9 @@
   border: 1px solid rgba(255,255,255,0.16);
   border-radius: 18px;
   padding: 1rem 1.1rem;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0.62;
 }
 
 .papa-dock-avatar-wrap {
@@ -60,6 +61,7 @@
   padding: 1rem;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  opacity: 0.82;
 }
 
 .papa-dock-bubble-wrap {
@@ -118,6 +120,7 @@
   padding: 0.8rem;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  opacity: 0.62;
 }
 
 .papa-dock-page .papa-dock-mic-btn,
@@ -125,6 +128,7 @@
 .papa-dock-page .papa-dock-send-btn,
 .papa-dock-page .papa-dock-send-btn:hover {
   border-radius: 999px !important;
+  
 }
 
 .papa-dock-page .papa-dock-mic-btn {
@@ -137,6 +141,7 @@
   font-size: 1.1rem !important;
   cursor: pointer !important;
   box-shadow: none !important;
+  
 }
 
 .papa-dock-page .papa-dock-mic-btn.is-listening {

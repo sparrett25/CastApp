@@ -273,8 +273,6 @@ useEffect(() => {
   return (
     <CastBackground chamberKey="plan-trip" >
       <ChamberLayout
-        title="Plan a Trip"
-        sub="Where are you going? What are you after?"
         papa={<PapaMini context={chamberPapaContext} fallbackKey="fallback" trigger={step === 5 ? "planned" : null} />}
       >
         <div className="trip-page">
