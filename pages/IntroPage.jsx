@@ -66,14 +66,7 @@ export default function IntroPage() {
       variant={scene?.backgroundVariant}
       overlay={scene?.timeState?.ui?.overlay || "absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-black/45"}
     >
-      <ChamberLayout
-        papa={
-          <PapaMini
-            context={buildPapaPageContext("intro")}
-            fallbackKey="intro.welcome"
-          />
-        }
-      >
+      <ChamberLayout    >
         <div className="intro-container">
 
           <div className={uiStyles.whisperClass}>{scene?.whisper}</div>
