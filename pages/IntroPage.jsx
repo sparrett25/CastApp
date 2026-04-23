@@ -27,8 +27,7 @@ export default function IntroPage() {
   return (
     <CastBackground chamberKey="intro">
       <ChamberLayout
-        title="Cast"
-        sub="The Invitation"
+        
         papa={
 		  <PapaMini
 			context={buildPapaPageContext("intro")}

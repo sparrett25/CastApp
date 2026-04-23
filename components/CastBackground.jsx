@@ -69,15 +69,15 @@ export default function CastBackground({
         <AnimatePresence mode="wait">
           {src && (
             <motion.img
-              key={`${chamberKey}:${src}`}
-              src={src}
-              alt={activeBg?.caption || chamberKey}
-              className="pointer-events-none select-none absolute inset-0 h-full w-full object-cover object-center md:object-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1.2, ease: "easeInOut" }}
-            />
+  key={`${chamberKey}:${src}`}
+  src={src}
+  alt={activeBg?.caption || chamberKey}
+  className="pointer-events-none select-none absolute inset-0 h-full w-full object-cover object-[42%_center]"
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  exit={{ opacity: 0 }}
+  transition={{ duration: 1.2, ease: "easeInOut" }}
+/>
           )}
         </AnimatePresence>
 
