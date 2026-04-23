@@ -62,9 +62,9 @@ export default function CastBackground({
   const src = activeBg?.src;
 
   return (
-    <div className="min-h-screen bg-[#0a0f14] px-0 py-0 md:px-4 md:py-4">
+    <div className="min-h-screen bg-[#0a0f14] px-3 py-3 md:px-4 md:py-4">
       <div
-        className={`relative mx-auto min-h-screen w-full overflow-hidden rounded-none md:min-h-[calc(100vh-2rem)] md:max-w-[1080px] md:rounded-[24px] ${className}`}
+        className={`relative mx-auto min-h-[calc(100vh-2rem)] w-full max-w-[1080px] overflow-hidden rounded-[24px] ${className}`}
       >
         <AnimatePresence mode="wait">
           {src && (
@@ -72,7 +72,7 @@ export default function CastBackground({
               key={`${chamberKey}:${src}`}
               src={src}
               alt={activeBg?.caption || chamberKey}
-              className="pointer-events-none select-none absolute inset-0 h-full w-full object-cover object-center md:object-center"
+              className="pointer-events-none select-none absolute inset-0 h-full w-full object-cover"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -82,9 +82,7 @@ export default function CastBackground({
         </AnimatePresence>
 
         <div className={overlay} />
-        <div className="relative z-10 min-h-screen md:min-h-[calc(100vh-2rem)]">
-          {children}
-        </div>
+        <div className="relative">{children}</div>
       </div>
     </div>
   );
