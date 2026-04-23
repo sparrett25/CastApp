@@ -3,7 +3,7 @@
 .ledger-page {
   padding: 5.5rem 1.5rem 6rem;
   max-width: 480px;
-  margin: 0 auto;
+  margin-left: 28rem;
   display: flex;
   flex-direction: column;
   gap: 2.25rem;
@@ -19,7 +19,7 @@
 }
 .ledger-page .ledger-add-btn {
   display: block !important;
-  width: 100% !important;
+  max-width: 360px !important;
   padding: 0.875rem 1.5rem !important;
   background: rgba(140, 82, 8, 0.78) !important;        /* was 0.28 — much darker, holds against bright BG */
   border: 2px solid rgba(210, 145, 30, 0.92) !important; /* was 1px at 0.60 — thicker & more opaque */
@@ -77,6 +77,7 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: white;
+  
 }
 
 .ledger-form-title {
@@ -205,6 +206,7 @@
   flex-direction: column;
   gap: 0.5rem;
   margin-top: 1.25rem;
+  
 }
 
 /* Save button — keep golden, lock it in */
@@ -223,6 +225,7 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.35), 0 0 12px rgba(186,117,23,0.30) !important;
   text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;
   transition: background 0.2s, box-shadow 0.2s !important;
+  
 }
 .ledger-form-card .ledger-save-btn:hover {
   background: rgba(210,138,28,1) !important;
@@ -268,9 +271,12 @@
   border: 1px solid rgba(255,255,255,0.16);
   border-radius: 14px;
   padding: 1rem 1.25rem;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   color: white;
+  max-width: 320px;
+  
+  
 }
 .ledger-entry-card.no-catch { opacity: 0.72; border-style: dashed; }
 

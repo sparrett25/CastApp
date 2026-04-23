@@ -2,11 +2,12 @@
 
 .journal-page {
   padding: 5.5rem 1.5rem 6rem;
-  max-width: 480px;
+  max-width: 520px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 2.25rem;
+  margin-left: 18rem;
 }
 
 /* ── "Need a nudge? →" — override global button rule ── */
@@ -29,6 +30,7 @@
   transition: color 0.2s, border-color 0.2s, background 0.2s !important;
   display: inline-flex !important;
   align-items: center !important;
+  
 }
 .journal-page .journal-prompt-toggle:hover {
   color: rgba(245,200,80,1) !important;
@@ -46,6 +48,7 @@
   padding: 0.875rem 1rem;
   margin-bottom: 0.875rem;
   backdrop-filter: blur(4px);
+
 }
 .journal-prompts-label {
   font-size: 0.68rem;
@@ -54,6 +57,7 @@
   text-transform: uppercase;
   color: rgba(100,160,220,0.90);
   margin: 0 0 0.6rem;
+  
 }
 
 /* ── Prompt items — override global button rule ── */
@@ -79,6 +83,7 @@
   cursor: pointer !important;
   transition: color 0.2s !important;
   line-height: 1.5 !important;
+  
 }
 .journal-page .journal-prompt-item:last-child {
   border-bottom: none !important;
@@ -105,6 +110,7 @@
   box-shadow:
     0 12px 30px rgba(0,0,0,0.22),
     inset 0 1px 0 rgba(255,255,255,0.05);
+	margin-left: 6.75rem;
 }
 
 .journal-textarea {
@@ -120,6 +126,8 @@
   resize: none;
   outline: none;
   box-sizing: border-box;
+  margin-left: 1.75rem;
+
 }
 .journal-textarea::placeholder {
   color: rgba(255,255,255,0.38);

@@ -12,7 +12,11 @@ export default function PapaMini({
 
   return (
     <div className="papa-badge">
-      
+      <img
+        className="papa-img"
+        src="/assets/papa/papa-avatar-sq-sm.png"
+        alt="Papa"
+      />
       <PapaSpeaks
         context={context}
         fallbackKey={resolvedKey}

@@ -1,7 +1,7 @@
 /* ── Home Dock — Morning Dock layout for Grant ── */
 
 .home-dock {
-  padding: 5.5rem 1.5rem 6rem;
+  padding: 4.5rem 1.5rem 4rem;
   max-width: 480px;
   margin: 0 auto;
   display: flex;
@@ -23,7 +23,8 @@
 /* ── Adventure Card ── */
 .home-adventure-section {
   width: 100%;
-  margin-top: 0.75rem;
+  margin-top: 0.25rem;
+  margin-left: 3.75rem;
 }
 
 .adventure-card {
@@ -127,7 +128,8 @@
 /* ── Secondary Pillars ── */
 .home-pillars-section {
   width: 100%;
-  margin-top: 0.75rem;
+  margin-top: 0.25rem;
+  margin-left: 3.75rem;
 }
 
 .home-pillars-grid {
