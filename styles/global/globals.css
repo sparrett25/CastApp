@@ -212,21 +212,28 @@ a, a:visited, a:hover { text-decoration: none; }
 .papa-badge {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.65rem;
 
-  width: min(560px, 46vw);
-  min-height: 88px;
-  padding: 0.75rem 1rem 0.75rem 0.75rem;
+  width: min(520px, 44vw);
+  min-height: 64px;
+
+  padding: 0.45rem 0.8rem;
 
   border-radius: 999px;
-  background: rgba(15,10,4,.55);
-  border: 1px solid rgba(255,255,255,.20);
+
+  background: rgba(10,10,10,.18);
+
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+
+  border: 1px solid rgba(255,255,255,.05);
+
   box-sizing: border-box;
 }
 
 .papa-img {
-  width: 76px;
-  height: 76px;
+  width: 56px;
+  height: 56px;
   border-radius: 999px;
   object-fit: cover;
   border: 1px solid rgba(255,255,255,.20);
@@ -242,12 +249,12 @@ a, a:visited, a:hover { text-decoration: none; }
 }
 
 .papa-speaks-line {
-  font-size: 0.92rem;
+  font-size: 0.82rem;
   color: rgba(255,255,255,.92);
   margin: 0;
-  line-height: 1.35;
+  line-height: 1.3;
   font-style: italic;
-  text-shadow: 0 1px 3px rgba(0,0,0,.50);
+  text-shadow: 0 1px 4px rgba(0,0,0,.55);
 
   white-space: normal;
   overflow-wrap: break-word;
@@ -544,3 +551,19 @@ button:active::after, .ui-button:active::after {
 /* ── Tile sub clamp ── */
 .tile-sub { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .chamber-header { flex-wrap: wrap; align-items: flex-start; }
+
+
+@media (max-width: 768px) {
+  .papa-badge {
+    background: rgba(10,10,10,.12);
+    border: 1px solid rgba(255,255,255,.03);
+    min-height: 58px;
+    padding: 0.35rem 0.7rem;
+  }
+
+  .papa-img {
+    width: 48px;
+    height: 48px;
+  }
+}
+
