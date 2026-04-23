@@ -277,13 +277,13 @@ a, a:visited, a:hover { text-decoration: none; }
   }
 
   .papa-slot {
-    width: 100%;
+    width: 82%;
     justify-content: flex-start;
   }
 
   .papa-badge {
-    width: 100%;
-    max-width: 640px;
+    width: 82%;
+    max-width: 520px;
   }
 }
 

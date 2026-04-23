@@ -46,7 +46,7 @@ function ActionTile({ icon = "✨", title, onClick, className = "", style }) {
       <div className="portal-header portal-header--intro">
         <h3 className="portal-title-only">{title}</h3>
       </div>
-      <div className="portal-enter portal-enter--intro">Begin Your Journey →</div>
+      <div className="portal-enter portal-enter--intro">Enter →</div>
     </button>
   );
 }

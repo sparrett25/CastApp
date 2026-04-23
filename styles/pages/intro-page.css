@@ -184,7 +184,7 @@
   .intro-container h2 {
     font-size: clamp(1.45rem, 5.8vw, 2.35rem);
     line-height: 1.12;
-    max-width: 78%;
+    max-width: 320px;
     text-wrap: balance;
   }
 
@@ -197,7 +197,7 @@
   .intro-actions {
     width: 100%;
     max-width: 92%;
-    margin-top: 1.15rem;
+    margin-top: 1.8rem;
   }
 
 
