@@ -175,7 +175,7 @@
   box-shadow: none !important;
 }
 .fg-page .fg-section-card {
-  width:   72%;
+  width:   100%;
   border: 1px solid rgba(255,255,255,0.18) !important;
   padding: 1.125rem 1.25rem !important;
   display: flex !important;
