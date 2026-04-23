@@ -1,12 +1,11 @@
 .intro-container {
   max-width: 920px;
   margin: 0 auto;
-  padding: 3rem 1.5rem 6rem;
+  padding: 3rem 1.5rem 8rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-left: 10rem;
 }
 
 .intro-container h2 {
@@ -89,4 +88,53 @@
   font-size: 0.92rem;
   font-style: italic;
   color: rgba(255,255,255,0.58);
+}
+
+@media (min-width: 900px) {
+  .intro-container {
+    transform: translateX(6rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .intro-container {
+    max-width: 100%;
+    padding: 2rem 1.1rem 9rem;
+    transform: none;
+  }
+
+  .intro-container h2 {
+    font-size: clamp(2.1rem, 9vw, 3.2rem);
+    line-height: 1.08;
+    max-width: 92%;
+  }
+
+  .intro-breath-line {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    max-width: 90%;
+  }
+
+  .intro-actions {
+    max-width: 100%;
+    margin-top: 1.25rem;
+  }
+
+  .portal-card {
+    padding: 1rem 1rem;
+    border-radius: 20px;
+  }
+
+  .home-tip {
+    margin-top: 1.75rem;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .intro-container {
+    padding-bottom: calc(10rem + env(safe-area-inset-bottom));
+  }
 }
