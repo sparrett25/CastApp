@@ -103,24 +103,8 @@ function LocationCard({ location, onClick }) {
         </div>
       </div>
 
-      <p className="loc-card-intro">{location.short_intro}</p>
-
-      <div className="loc-card-row">
-        <div className="loc-card-group">
-          <p className="loc-mini-label">Water</p>
-          <p className="loc-mini-value">{location.environment.water_type}</p>
-        </div>
-        <div className="loc-card-group">
-          <p className="loc-mini-label">Access</p>
-          <p className="loc-mini-value">{location.access.summary}</p>
-        </div>
-      </div>
-
-      <div className="loc-card-tones">
-        {location.tone_profile.map((tone) => (
-          <ToneBadge key={tone} label={tone} />
-        ))}
-      </div>
+          
+      
     </motion.button>
   );
 }
