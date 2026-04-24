@@ -4,7 +4,6 @@ import CastBackground from "../components/CastBackground";
 import ChamberLayout from "../components/ChamberLayout";
 import "../styles/pages/papa-dock-page.css";
 import { getScene, getTalkSceneByTime } from "../atmosphere/sceneBuilder";
-import { supabase } from "../lib/supabase";
 
 export default function PapaDockPage() {
 	
@@ -23,13 +22,6 @@ export default function PapaDockPage() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [listening, setListening] = useState(false);
-
-  const [threadId, setThreadId] = useState(null);
-  const [savingThread, setSavingThread] = useState(false);
-  const [savedThread, setSavedThread] = useState(false);
-  const [savingNoteIndex, setSavingNoteIndex] = useState(null);
-  const [savedNoteIndexes, setSavedNoteIndexes] = useState({});
-  const [saveError, setSaveError] = useState("");
 
   const recognitionRef = useRef(null);
   const endRef = useRef(null);
@@ -68,120 +60,6 @@ recognition.onresult = (event) => {
     return () => recognition.stop();
   }, []);
 
-
-
-	async function getCurrentUser() {
-	  const {
-		data: { user },
-		error,
-	  } = await supabase.auth.getUser();
-
-	  if (error) throw error;
-	  if (!user) throw new Error("You must be logged in to save.");
-
-	  return user;
-	}
-
-	async function saveThread() {
-	  if (savingThread || messages.length <= 1) return;
-
-	  setSaveError("");
-	  setSavingThread(true);
-
-	  try {
-		const user = await getCurrentUser();
-
-		const fallbackTitle =
-		  messages.find((m) => m.role !== "papa")?.text?.slice(0, 60) ||
-		  "Talk with Papa";
-
-		const { data: thread, error: threadError } = await supabase
-		  .from("cast_papa_threads")
-		  .insert({
-			user_id: user.id,
-			title: fallbackTitle,
-			mode: "talk",
-		  })
-		  .select()
-		  .single();
-
-		if (threadError) throw threadError;
-
-		const filteredMessages = messages.filter(
-		  (msg, index) =>
-			!(
-			  index === 0 &&
-			  msg.role === "papa" &&
-			  msg.text === "You can talk here. No rush."
-			)
-		);
-
-		const messagePayload = filteredMessages.map((msg) => ({
-		  thread_id: thread.id,
-		  user_id: user.id,
-		  role: msg.role,
-		  message_text: msg.text,
-		}));
-
-		const { error: messageError } = await supabase
-		  .from("cast_papa_messages")
-		  .insert(messagePayload);
-
-		if (messageError) throw messageError;
-
-		setThreadId(thread.id);
-		setSavedThread(true);
-	  } catch (err) {
-		console.error("Save Papa thread error:", err);
-		setSaveError(err.message || "Could not save this conversation.");
-	  } finally {
-		setSavingThread(false);
-	  }
-	}
-
-	async function savePapaNote(message, index, noteType = "whisper") {
-	  if (!message?.text || message.role !== "papa") return;
-
-	  setSaveError("");
-	  setSavingNoteIndex(index);
-
-	  try {
-		const user = await getCurrentUser();
-
-		const { error } = await supabase.from("cast_papa_saved_notes").insert({
-		  user_id: user.id,
-		  source_thread_id: threadId,
-		  source_message_id: null,
-		  note_type: noteType,
-		  title: noteType === "field_note" ? "Papa Field Note" : "Papa Whisper",
-		  note_text: message.text,
-		  tags: [],
-		});
-
-		if (error) throw error;
-
-		setSavedNoteIndexes((prev) => ({
-		  ...prev,
-		  [index]: true,
-		}));
-	  } catch (err) {
-		console.error("Save Papa note error:", err);
-		setSaveError(err.message || "Could not save this Papa note.");
-	  } finally {
-		setSavingNoteIndex(null);
-	  }
-	}
-
-	function clearChat() {
-	  setMessages([{ role: "papa", text: "You can talk here. No rush." }]);
-	  setInput("");
-	  setThreadId(null);
-	  setSavedThread(false);
-	  setSavedNoteIndexes({});
-	  setSaveError("");
-	}
-
-
   function buildTalkPayload(text, history) {
     const recentHistory = history.slice(-6).map((msg) => ({
       role: msg.role,
@@ -201,8 +79,8 @@ recognition.onresult = (event) => {
     const text = (textOverride ?? input).trim();
     if (!text || loading) return;
 
-    const nextUserMessage = { role: "user", text };
-    const nextMessages = [...messages, nextUserMessage];
+    const nextGrantMessage = { role: "grant", text };
+    const nextMessages = [...messages, nextGrantMessage];
 
     setMessages(nextMessages);
     setInput("");
@@ -279,7 +157,7 @@ recognition.onresult = (event) => {
                   className={`papa-dock-bubble-wrap ${
                     message.role === "papa"
                       ? "papa-dock-bubble-wrap--papa"
-                      : "papa-dock-bubble-wrap--user"
+                      : "papa-dock-bubble-wrap--grant"
                   }`}
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -291,7 +169,7 @@ recognition.onresult = (event) => {
 				  className={`papa-dock-bubble ${
 					message.role === "papa"
 					  ? "papa-dock-bubble--papa"
-					  : "papa-dock-bubble--user"
+					  : "papa-dock-bubble--grant"
 				  }`}
 				  style={{
 					background:
@@ -311,33 +189,6 @@ recognition.onresult = (event) => {
 				>
                     
                     <p className="papa-dock-bubble-text">{message.text}</p>
-					
-					{message.role === "papa" && index > 0 && (
-					  <div className="papa-dock-bubble-actions">
-						<button
-						  type="button"
-						  className="papa-dock-save-note-btn"
-						  onClick={() => savePapaNote(message, index, "whisper")}
-						  disabled={savingNoteIndex === index || savedNoteIndexes[index]}
-						>
-						  {savedNoteIndexes[index]
-							? "Saved"
-							: savingNoteIndex === index
-							? "Saving..."
-							: "Save Whisper"}
-						</button>
-
-						<button
-						  type="button"
-						  className="papa-dock-save-note-btn"
-						  onClick={() => savePapaNote(message, index, "field_note")}
-						  disabled={savingNoteIndex === index || savedNoteIndexes[index]}
-						>
-						  Save Field Note
-						</button>
-					  </div>
-					)}
-					
                   </div>
                 </motion.div>
               ))}
@@ -354,29 +205,6 @@ recognition.onresult = (event) => {
 
             <div ref={endRef} />
           </div>
-
-			<div className="papa-dock-thread-actions">
-			  <button
-				type="button"
-				className="papa-dock-save-thread-btn"
-				onClick={saveThread}
-				disabled={savingThread || savedThread || messages.length <= 1}
-			  >
-				{savedThread ? "Thread saved" : savingThread ? "Saving..." : "Save Thread"}
-			  </button>
-
-			  <button
-				type="button"
-				className="papa-dock-clear-btn"
-				onClick={clearChat}
-			  >
-				Clear Chat
-			  </button>
-			</div>
-
-			{saveError && <p className="papa-dock-save-error">{saveError}</p>}
-
-
 
           <form
 		  className="papa-dock-input-row"
