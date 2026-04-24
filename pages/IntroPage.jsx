@@ -1,9 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import CastBackground from "../components/CastBackground";
 import ChamberLayout from "../components/ChamberLayout";
-import PapaMini from "../components/PapaMini";
 import "../styles/pages/intro-page.css";
-import { buildPapaPageContext } from "../utils/buildPapaPageContext";
 import { getScene, getIntroSceneByTime } from "../atmosphere/sceneBuilder";
 
 
@@ -55,7 +53,7 @@ export default function IntroPage() {
   const nav = useNavigate();
   const begin = () => nav("/home");
 
-  const DEBUG_SCENE = "intro_storm_waiting"; // "intro_quiet_dawn" | "intro_golden_reflection" | "intro_storm_waiting"
+  const DEBUG_SCENE = null; // "intro_quiet_dawn" | "intro_golden_reflection" | "intro_storm_waiting"
   const scene = DEBUG_SCENE ? getScene(DEBUG_SCENE) : getIntroSceneByTime();
   
   const uiStyles = getIntroUiStyles(scene);

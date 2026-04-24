@@ -51,18 +51,7 @@
   color: rgba(255,255,255,0.68);
 }
 
-.papa-dock-conversation {
-  min-height: 320px;
-  max-height: 420px;
-  overflow-y: auto;
-  background: rgba(10,6,2,0.38);
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 16px;
-  padding: 1rem;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  opacity: 0.82;
-}
+
 
 .papa-dock-bubble-wrap {
   display: flex;
@@ -78,19 +67,21 @@
 }
 
 .papa-dock-bubble {
-  max-width: 85%;
-  padding: 0.8rem 0.95rem;
-  border-radius: 16px;
+  max-width: 82%;
+  padding: 0.7rem 0.9rem;
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .papa-dock-bubble--papa {
-  background: rgba(15,110,86,0.18);
-  border-left: 2px solid rgba(15,110,86,0.60);
+  background: rgba(18, 32, 28, 0.28);
+  border: 1px solid rgba(120, 170, 150, 0.10);
 }
 
 .papa-dock-bubble--grant {
-  background: rgba(186,117,23,0.20);
-  border: 1px solid rgba(210,140,30,0.28);
+  background: rgba(110, 70, 24, 0.18);
+  border: 1px solid rgba(210, 160, 90, 0.08);
 }
 
 .papa-dock-bubble-attr {
@@ -106,7 +97,7 @@
   margin: 0;
   font-family: Georgia, serif;
   font-size: 0.94rem;
-  line-height: 1.65;
+  line-height: 1.72;
   color: rgba(255,255,255,0.92);
 }
 

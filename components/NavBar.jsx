@@ -33,17 +33,14 @@ export default function NavBar() {
     
 	{ to: "/",            label: "Intro"       	},
 	{ to: "/home",            label: "Home"       	},
-
-	
-    { to: "/field-guide",     label: "Field Guide" 	},
-    { to: "/catch-ledger",label: "Catch Ledger"     	},
+	{ to: "/field-guide",     label: "Field Guide" 	},
+	{ to: "/locations",   label: "Locations"  },
     { to: "/map",         label: "Map"        },
-    
-    { to: "/journal",     label: "Journal"    },
     { to: "/plan-trip",   label: "Plan Trip"  },
-	{ to: "/papa",   label: "Talk to Papa"  },
-	{ to: "/locations",   label: "Location Guide"  },
-	
+	{ to: "/catch-ledger",label: "Catch Log"     	},
+    { to: "/journal",     label: "Journal"    },
+   	{ to: "/papa",   label: "Interact"  },
+		
   ];
 
   return (

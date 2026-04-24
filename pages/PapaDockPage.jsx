@@ -3,8 +3,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import CastBackground from "../components/CastBackground";
 import ChamberLayout from "../components/ChamberLayout";
 import "../styles/pages/papa-dock-page.css";
+import { getScene, getTalkSceneByTime } from "../atmosphere/sceneBuilder";
 
 export default function PapaDockPage() {
+	
+    const DEBUG_SCENE = null;
+
+	const scene = DEBUG_SCENE
+	  ? getScene(DEBUG_SCENE)
+	  : getTalkSceneByTime();
+  
+  const bubbleTheme = scene?.timeState?.ui?.bubble;
+  const inputTheme = scene?.timeState?.ui?.input;
+  
   const [messages, setMessages] = useState([
     { role: "papa", text: "You can talk here. No rush." },
   ]);
@@ -127,21 +138,16 @@ recognition.onresult = (event) => {
   }
 
   return (
-    <CastBackground chamberKey="papaDock">
+    <CastBackground
+	  chamberKey="papaDock"
+	  variant={scene?.backgroundVariant}
+	  overlay={scene?.timeState?.ui?.overlay}
+	>
       <ChamberLayout
         papa={null}
       >
         <div className="papa-dock-page">
-          <div className="papa-dock-intro">
-            
-
-            <div className="papa-dock-intro-copy">
-              <p className="papa-dock-line">You can talk here. No rush.</p>
-              <p className="papa-dock-subline">
-                Tap the microphone or type your words below.
-              </p>
-            </div>
-          </div>
+          
 
           <div className="papa-dock-conversation">
             <AnimatePresence initial={false}>
@@ -157,17 +163,31 @@ recognition.onresult = (event) => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.25 }}
+				  
                 >
                   <div
-                    className={`papa-dock-bubble ${
-                      message.role === "papa"
-                        ? "papa-dock-bubble--papa"
-                        : "papa-dock-bubble--grant"
-                    }`}
-                  >
-                    <p className="papa-dock-bubble-attr">
-                      {message.role === "papa" ? "Papa" : "Grant"}
-                    </p>
+				  className={`papa-dock-bubble ${
+					message.role === "papa"
+					  ? "papa-dock-bubble--papa"
+					  : "papa-dock-bubble--grant"
+				  }`}
+				  style={{
+					background:
+					  message.role === "papa"
+						? bubbleTheme?.papaBg
+						: bubbleTheme?.userBg,
+
+					border: `1px solid ${bubbleTheme?.border}`,
+
+					color: bubbleTheme?.text,
+
+					backdropFilter: `blur(${bubbleTheme?.blur})`,
+					WebkitBackdropFilter: `blur(${bubbleTheme?.blur})`,
+
+					boxShadow: bubbleTheme?.shadow,
+				  }}
+				>
+                    
                     <p className="papa-dock-bubble-text">{message.text}</p>
                   </div>
                 </motion.div>
@@ -186,7 +206,15 @@ recognition.onresult = (event) => {
             <div ref={endRef} />
           </div>
 
-          <form className="papa-dock-input-row" onSubmit={handleSubmit}>
+          <form
+		  className="papa-dock-input-row"
+		  onSubmit={handleSubmit}
+		  style={{
+			background: inputTheme?.bg,
+			border: `1px solid ${inputTheme?.border}`,
+		  }}
+		>
+		  
             <button
               type="button"
               className={`papa-dock-mic-btn ${
@@ -198,13 +226,19 @@ recognition.onresult = (event) => {
             </button>
 
             <input
-              className="papa-dock-input"
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder={listening ? "Listening..." : "Say something to Papa..."}
-              disabled={loading}
-            />
+			  className="papa-dock-input"
+			  type="text"
+			  value={input}
+			  onChange={(e) => setInput(e.target.value)}
+			  placeholder={listening ? "Listening..." : "What's on your mind?"}
+			  disabled={loading}
+
+			  style={{
+				background: inputTheme?.bg,
+				border: `1px solid ${inputTheme?.border}`,
+				color: inputTheme?.text,
+			  }}
+			/>
 
             <button
               type="submit"

@@ -7,11 +7,6 @@ import PapaMini from "../components/PapaMini";
 import "../styles/pages/home-dock.css";
 import { getActiveAdventure } from "../utils/adventureState";
 import { supabase } from "../lib/supabase";
-import {
-  buildPapaPageContext,
-  buildTripContext,
-} from "../utils/buildPapaPageContext";
-
 
 
 
@@ -51,15 +46,9 @@ export default function HomePage() {
   const [whisper, setWhisper] = useState(WHISPERS[0]);
   const [whisperVisible, setWhisperVisible] = useState(true);
 
-  const papaContext = useMemo(() => {
-  return buildPapaPageContext("home", {
-    event: "Grant opened the app.",
-    trip: buildTripContext(upcomingTrip),
-    entriesSummary: {
-      hasUpcomingTrip: !!upcomingTrip,
-    },
-  });
-}, [upcomingTrip]);
+  const papaContext = {
+  page: "home",
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -242,11 +231,6 @@ export default function HomePage() {
               )}
             </AnimatePresence>
           </div>
-
-          <button onClick={() => supabase.auth.signOut()}>
-            Log Out
-          </button>
-
         </div>
       </ChamberLayout>
     </CastBackground>
