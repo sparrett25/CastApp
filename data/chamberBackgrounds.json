@@ -64,20 +64,20 @@
 
   "catch-ledger": {
     "default": {
-      "src": "/images/chambers/catch-ledger-morning.png",
+      "src": "/images/chambers/catch-ledger-variants/catch-ledger-morning.png",
       "caption": "Species • beneath the surface"
     },
     "variants": {
       "morning": {
-        "src": "/images/chambers/catch-ledger-morning.png",
+        "src": "/images/chambers/ccatch-ledger-variants/atch-ledger-morning.png",
         "caption": "Species • morning light"
       },
 	  "afternoon": {
-        "src": "/images/chambers/catch-ledger-morning.png",
+        "src": "/images/chambers/catch-ledger-variants/catch-ledger-afternoon.png",
         "caption": "Journal • steady daylight"
       },
       "evening": {
-        "src": "/images/chambers/catch-ledger-morning.png",
+        "src": "/images/chambers/catch-ledger-variants/catch-ledger-evening.png",
         "caption": "Species • evening water"
       }
     }
@@ -85,20 +85,20 @@
 
   "journal": {
     "default": {
-      "src": "/images/chambers/journal-morning.png",
+      "src": "/images/chambers/journal-variants/journal-morning.png",
       "caption": "Journal • lantern and pages"
     },
     "variants": {
       "morning": {
-        "src": "/images/chambers/journal-morning.png",
+        "src": "/images/chambers/journal-variants/journal-morning.png",
         "caption": "Journal • early light"
       },
       "afternoon": {
-        "src": "/images/chambers/journal-morning.png",
+        "src": "/images/chambers/journal-variants/journal-afternoon.png",
         "caption": "Journal • steady daylight"
       },
       "evening": {
-        "src": "/images/chambers/journal-morning.png",
+        "src": "/images/chambers/journal-variants/journal-evening.png",
         "caption": "Journal • quiet evening"
       }
     }
@@ -127,20 +127,20 @@
 
   "plan-trip": {
     "default": {
-      "src": "/images/chambers/plan-trip-morning.png",
+      "src": "/images/chambers/plan-trip-variants/plan-trip-morning.png",
       "caption": "Journal • lantern and pages"
     },
     "variants": {
       "morning": {
-        "src": "/images/chambers/plan-trip-morning.png",
+        "src": "/images/chambers/plan-trip-variants/plan-trip-morning.png",
         "caption": "Journal • early light"
       },
       "afternoon": {
-        "src": "/images/chambers/plan-trip-morning.png",
+        "src": "/images/chambers/plan-trip-variants/plan-trip-afternoon.png",
         "caption": "Journal • steady daylight"
       },
       "evening": {
-        "src": "/images/chambers/plan-trip-morning.png",
+        "src": "/images/chambers/plan-trip-variants/plan-trip-evening.png",
         "caption": "Journal • quiet evening"
       }
     }
@@ -157,20 +157,20 @@
 
   "locations": {
     "default": {
-      "src": "/images/chambers/locations-morning.png",
+      "src": "/images/chambers/locations-variants/locations-morning.png",
       "caption": "Species • beneath the surface"
     },
     "variants": {
       "morning": {
-        "src": "/images/chambers/locations-morning.png",
+        "src": "/images/chambers/locations-variants/locations-morning.png",
         "caption": "Species • morning light"
       },
 	  "afternoon": {
-        "src": "/images/chambers/locations-morning.png",
+        "src": "/images/chambers/locations-variants/locations-afternoon.png",
         "caption": "Journal • steady daylight"
       },
       "evening": {
-        "src": "/images/chambers/locations-morning.png",
+        "src": "/images/chambers/locations-variants/locations-evening.png",
         "caption": "Species • evening water"
       }
     }
