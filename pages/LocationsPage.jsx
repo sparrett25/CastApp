@@ -93,7 +93,7 @@ function LocationCard({ location, onClick }) {
         <div>
           <p className="loc-card-eyebrow">{location.location_type_label}</p>
           <h3 className="loc-card-title">{location.name}</h3>
-          <p className="loc-card-subtitle">{location.tagline}</p>
+          
         </div>
 
         <div className="loc-card-meta">

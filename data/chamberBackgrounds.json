@@ -1,20 +1,20 @@
 {
   "intro": {
   "default": {
-    "src": "/images/chambers/intro-variants/intro-morning.png",
+    "src": "/images/chambers/intro-variants/intro-morning.webp",
     "caption": "Intro • quiet morning water"
   },
   "variants": {
     "morning": {
-      "src": "/images/chambers/intro-variants/intro-morning.png",
+      "src": "/images/chambers/intro-variants/intro-morning.webp",
       "caption": "Intro • morning light"
     },
     "afternoon": {
-      "src": "/images/chambers/intro-variants/intro-afternoon.png",
+      "src": "/images/chambers/intro-variants/intro-afternoon.webp",
       "caption": "Intro • golden reflection"
     },
     "evening": {
-      "src": "/images/chambers/intro-variants/intro-evening.png",
+      "src": "/images/chambers/intro-variants/intro-evening.webp",
       "caption": "Intro • evening stillness"
     }
   }
@@ -22,20 +22,20 @@
 
   "home": {
     "default": {
-      "src": "/images/chambers/home-variants/home-morning.png",
+      "src": "/images/chambers/home-variants/home-morning.webp",
       "caption": "Species • beneath the surface"
     },
     "variants": {
       "morning": {
-        "src": "/images/chambers/home-variants/home-morning.png",
+        "src": "/images/chambers/home-variants/home-morning.webp",
         "caption": "Species • morning light"
       },
 	  "afternoon": {
-        "src": "/images/chambers/home-variants/home-afternoon.png",
+        "src": "/images/chambers/home-variants/home-afternoon.webp",
         "caption": "Journal • steady daylight"
       },
       "evening": {
-        "src": "/images/chambers/home-variants/home-evening.png",
+        "src": "/images/chambers/home-variants/home-evening.webp",
         "caption": "Species • evening water"
       }
     }
@@ -43,20 +43,20 @@
 
   "field-guide": {
     "default": {
-      "src": "/images/chambers/field-guide-variants/field-guide-morning.png",
+      "src": "/images/chambers/field-guide-variants/field-guide-morning.webp",
       "caption": "Species • beneath the surface"
     },
     "variants": {
       "morning": {
-        "src": "/images/chambers/field-guide-variants/field-guide-morning.png",
+        "src": "/images/chambers/field-guide-variants/field-guide-morning.webp",
         "caption": "Species • morning light"
       },
 	  "afternoon": {
-        "src": "/images/chambers/field-guide-variants/field-guide-afternoon.png",
+        "src": "/images/chambers/field-guide-variants/field-guide-afternoon.webp",
         "caption": "Journal • steady daylight"
       },
       "evening": {
-        "src": "/images/chambers/field-guide-variants/field-guide-evening.png",
+        "src": "/images/chambers/field-guide-variants/field-guide-evening.webp",
         "caption": "Species • evening water"
       }
     }
@@ -64,20 +64,20 @@
 
   "catch-ledger": {
     "default": {
-      "src": "/images/chambers/catch-ledger-variants/catch-ledger-morning.png",
+      "src": "/images/chambers/catch-ledger-variants/catch-ledger-morning.webp",
       "caption": "Species • beneath the surface"
     },
     "variants": {
       "morning": {
-        "src": "/images/chambers/ccatch-ledger-variants/atch-ledger-morning.png",
+        "src": "/images/chambers/ccatch-ledger-variants/atch-ledger-morning.webp",
         "caption": "Species • morning light"
       },
 	  "afternoon": {
-        "src": "/images/chambers/catch-ledger-variants/catch-ledger-afternoon.png",
+        "src": "/images/chambers/catch-ledger-variants/catch-ledger-afternoon.webp",
         "caption": "Journal • steady daylight"
       },
       "evening": {
-        "src": "/images/chambers/catch-ledger-variants/catch-ledger-evening.png",
+        "src": "/images/chambers/catch-ledger-variants/catch-ledger-evening.webp",
         "caption": "Species • evening water"
       }
     }
@@ -85,20 +85,20 @@
 
   "journal": {
     "default": {
-      "src": "/images/chambers/journal-variants/journal-morning.png",
+      "src": "/images/chambers/journal-variants/journal-morning.webp",
       "caption": "Journal • lantern and pages"
     },
     "variants": {
       "morning": {
-        "src": "/images/chambers/journal-variants/journal-morning.png",
+        "src": "/images/chambers/journal-variants/journal-morning.webp",
         "caption": "Journal • early light"
       },
       "afternoon": {
-        "src": "/images/chambers/journal-variants/journal-afternoon.png",
+        "src": "/images/chambers/journal-variants/journal-afternoon.webp",
         "caption": "Journal • steady daylight"
       },
       "evening": {
-        "src": "/images/chambers/journal-variants/journal-evening.png",
+        "src": "/images/chambers/journal-variants/journal-evening.webp",
         "caption": "Journal • quiet evening"
       }
     }
@@ -106,20 +106,20 @@
 
   "papaDock": {
     "default": {
-      "src": "/images/chambers/papa-dock-variants/papa-dock-morning.png",
+      "src": "/images/chambers/papa-dock-variants/papa-dock-morning.webp",
       "caption": "Journal • lantern and pages"
     },
     "variants": {
       "morning": {
-        "src": "/images/chambers/papa-dock-variants/papa-dock-morning.png",
+        "src": "/images/chambers/papa-dock-variants/papa-dock-morning.webp",
         "caption": "Journal • early light"
       },
       "afternoon": {
-        "src": "/images/chambers/papa-dock-variants/papa-dock-afternoon.png",
+        "src": "/images/chambers/papa-dock-variants/papa-dock-afternoon.webp",
         "caption": "Journal • steady daylight"
       },
       "evening": {
-        "src": "/images/chambers/papa-dock-variants/papa-dock-evening.png",
+        "src": "/images/chambers/papa-dock-variants/papa-dock-evening.webp",
         "caption": "Journal • quiet evening"
       }
     }
@@ -127,20 +127,20 @@
 
   "plan-trip": {
     "default": {
-      "src": "/images/chambers/plan-trip-variants/plan-trip-morning.png",
+      "src": "/images/chambers/plan-trip-variants/plan-trip-morning.webp",
       "caption": "Journal • lantern and pages"
     },
     "variants": {
       "morning": {
-        "src": "/images/chambers/plan-trip-variants/plan-trip-morning.png",
+        "src": "/images/chambers/plan-trip-variants/plan-trip-morning.webp",
         "caption": "Journal • early light"
       },
       "afternoon": {
-        "src": "/images/chambers/plan-trip-variants/plan-trip-afternoon.png",
+        "src": "/images/chambers/plan-trip-variants/plan-trip-afternoon.webp",
         "caption": "Journal • steady daylight"
       },
       "evening": {
-        "src": "/images/chambers/plan-trip-variants/plan-trip-evening.png",
+        "src": "/images/chambers/plan-trip-variants/plan-trip-evening.webp",
         "caption": "Journal • quiet evening"
       }
     }
@@ -157,20 +157,20 @@
 
   "locations": {
     "default": {
-      "src": "/images/chambers/locations-variants/locations-morning.png",
+      "src": "/images/chambers/locations-variants/locations-morning.webp",
       "caption": "Species • beneath the surface"
     },
     "variants": {
       "morning": {
-        "src": "/images/chambers/locations-variants/locations-morning.png",
+        "src": "/images/chambers/locations-variants/locations-morning.webp",
         "caption": "Species • morning light"
       },
 	  "afternoon": {
-        "src": "/images/chambers/locations-variants/locations-afternoon.png",
+        "src": "/images/chambers/locations-variants/locations-afternoon.webp",
         "caption": "Journal • steady daylight"
       },
       "evening": {
-        "src": "/images/chambers/locations-variants/locations-evening.png",
+        "src": "/images/chambers/locations-variants/locations-evening.webp",
         "caption": "Species • evening water"
       }
     }
