@@ -69,7 +69,7 @@
     },
     "variants": {
       "morning": {
-        "src": "/images/chambers/ccatch-ledger-variants/atch-ledger-morning.webp",
+        "src": "/images/chambers/catch-ledger-variants/catch-ledger-morning.webp",
         "caption": "Species • morning light"
       },
 	  "afternoon": {
@@ -152,8 +152,25 @@
     "default": {
       "src": "/images/chambers/trip-summary.webp",
       "caption": "Trip Summary • the day remembered"
+    },
+	"variants": {
+      "morning": {
+        "src": "/images/chambers/plan-trip-variants/plan-trip-morning.webp",
+        "caption": "Journal • early light"
+      },
+      "afternoon": {
+        "src": "/images/chambers/plan-trip-variants/plan-trip-afternoon.webp",
+        "caption": "Journal • steady daylight"
+      },
+      "evening": {
+        "src": "/images/chambers/plan-trip-variants/plan-trip-evening.webp",
+        "caption": "Journal • quiet evening"
+      }
     }
   },
+
+  
+  
 
   "locations": {
     "default": {
