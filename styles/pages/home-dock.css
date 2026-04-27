@@ -1,4 +1,4 @@
-/* ── Home Dock — Morning Dock layout for Grant ── */
+/* ── Home Dock ── */
 
 .home-dock {
   padding: 4.5rem 1.5rem 4rem;
@@ -9,7 +9,26 @@
   gap: 2.25rem;
 }
 
-/* Section label */
+.adventure-card,
+.pillar-card,
+.adventure-new-badge,
+.adventure-arrow,
+.adventure-progress-fill,
+.home-section-label,
+.home-whisper-line {
+  transition:
+    background 0.45s ease,
+    border-color 0.45s ease,
+    color 0.45s ease,
+    box-shadow 0.45s ease,
+    backdrop-filter 0.45s ease,
+    -webkit-backdrop-filter 0.45s ease,
+    opacity 0.25s ease,
+    transform 0.2s ease;
+}
+
+/* ── Section Labels ── */
+
 .home-section-label {
   font-size: 0.7rem;
   font-weight: 600;
@@ -17,10 +36,10 @@
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.45);
   margin-bottom: 0.6rem;
-  
 }
 
-/* ── Adventure Card ── */
+/* ── Adventure Section ── */
+
 .home-adventure-section {
   width: 100%;
   margin-top: 0.25rem;
@@ -29,22 +48,15 @@
 
 .adventure-card {
   width: 100%;
-  background: rgba(0, 0, 0, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 16px;
   padding: 1.5rem;
   text-align: left;
-  color: white;
   cursor: pointer;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transition: border-color 0.2s ease, background 0.2s ease;
   overflow: hidden;
 }
 
 .adventure-card:hover {
-  background: rgba(0, 0, 0, 0.65);
-  border-color: rgba(186, 117, 23, 0.6);
+  transform: translateY(-1px);
 }
 
 .adventure-card-inner {
@@ -57,6 +69,7 @@
 
 .adventure-card-left {
   flex: 1;
+  min-width: 0;
 }
 
 .adventure-new-badge {
@@ -66,7 +79,7 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   background: rgba(186, 117, 23, 0.3);
-  color: #EF9F27;
+  color: #ef9f27;
   border: 1px solid rgba(186, 117, 23, 0.5);
   border-radius: 999px;
   padding: 0.2rem 0.6rem;
@@ -77,40 +90,41 @@
   font-size: 1.35rem;
   font-weight: 700;
   font-family: Georgia, serif;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.94);
   margin: 0 0 0.35rem;
   line-height: 1.3;
 }
 
 .adventure-location {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.52);
   margin: 0 0 0.5rem;
 }
 
 .adventure-step {
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.82);
   margin: 0;
 }
 
 .adventure-card-right {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .adventure-arrow {
   font-size: 1.5rem;
-  color: rgba(186, 117, 23, 0.7);
-  transition: transform 0.2s ease, color 0.2s ease;
+  color: rgba(186, 117, 23, 0.72);
 }
 
 .adventure-card:hover .adventure-arrow {
   transform: translateX(4px);
-  color: #EF9F27;
+  color: #ef9f27;
 }
 
-/* Progress bar */
+/* ── Progress Bar ── */
+
 .adventure-progress-track {
   height: 3px;
   background: rgba(255, 255, 255, 0.1);
@@ -120,12 +134,13 @@
 
 .adventure-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, rgba(186,117,23,0.8), #EF9F27);
+  background: linear-gradient(90deg, rgba(186, 117, 23, 0.8), #ef9f27);
   border-radius: 999px;
   min-width: 0;
 }
 
 /* ── Secondary Pillars ── */
+
 .home-pillars-section {
   width: 100%;
   margin-top: 0.25rem;
@@ -142,21 +157,14 @@
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  background: rgba(0, 0, 0, 0.32);
-  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   padding: 0.8rem 0.95rem;
   text-align: left;
-  color: white;
   cursor: pointer;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(6px);
-  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .pillar-card:hover {
-  background: rgba(0, 0, 0, 0.55);
-  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
 }
 
 .pillar-emoji {
@@ -177,7 +185,8 @@
   margin: 0;
 }
 
-/* ── Whisper footer ── */
+/* ── Whisper Footer ── */
+
 .home-whisper-bar {
   text-align: center;
   padding: 2rem 0 0;
@@ -192,14 +201,17 @@
   letter-spacing: 0.02em;
 }
 
-/* Mobile adjustments */
+/* ── Mobile ── */
+
 @media (max-width: 480px) {
   .home-dock {
     padding: 1rem 1rem 6rem;
   }
+
   .home-pillars-grid {
     grid-template-columns: 1fr;
   }
+
   .adventure-title {
     font-size: 1.15rem;
   }

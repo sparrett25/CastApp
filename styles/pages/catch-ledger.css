@@ -9,84 +9,104 @@
   gap: 2.25rem;
 }
 
-/* ── Add button — override global golden button rule ── */
-.ledger-page .ledger-add-btn,
-.ledger-page .ledger-add-btn:hover,
-.ledger-page .ledger-add-btn:active {
-  box-shadow: none !important;
-  border-radius: 12px !important;
-  text-shadow: none !important;
-  opacity: 0.82;
+/* Atmosphere transitions */
+
+.ledger-form-card,
+.ledger-entry-card,
+.ledger-empty,
+.ledger-papa-response,
+.ledger-input,
+.ledger-quick-btn,
+.ledger-location-btn,
+.catch-toggle,
+.ledger-add-btn,
+.ledger-save-btn,
+.ledger-cancel-btn,
+.ledger-first-badge,
+.ledger-entry-released {
+  transition:
+    background 0.45s ease,
+    border-color 0.45s ease,
+    color 0.45s ease,
+    box-shadow 0.45s ease,
+    backdrop-filter 0.45s ease,
+    -webkit-backdrop-filter 0.45s ease,
+    opacity 0.25s ease,
+    transform 0.2s ease;
 }
+
+/* Add / primary buttons */
+
+.ledger-page .ledger-add-btn,
+.ledger-empty .ledger-add-btn,
+.ledger-form-card .ledger-save-btn,
+.ledger-form-card .ledger-cancel-btn {
+  border-radius: 12px !important;
+  cursor: pointer !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
 .ledger-page .ledger-add-btn {
   display: block !important;
   max-width: 340px !important;
   padding: 0.875rem 1.5rem !important;
-  background: rgba(140, 82, 8, 0.78) !important;        /* was 0.28 — much darker, holds against bright BG */
-  border: 2px solid rgba(210, 145, 30, 0.92) !important; /* was 1px at 0.60 — thicker & more opaque */
-  color: #FFD166 !important;                             /* was #F5B942 — slightly brighter */
   font-size: 0.9rem !important;
-  font-weight: 700 !important;                           /* was 600 — bolder helps on busy backgrounds */
-  cursor: pointer !important;
-  text-align: center !important;
   letter-spacing: 0.02em !important;
-  transition: background 0.2s ease, border-color 0.2s ease !important;
 }
-.ledger-page .ledger-add-btn:hover {
-  background: rgba(160, 96, 12, 0.90) !important;        /* darker on hover */
-  border-color: rgba(240, 170, 40, 1) !important;
-  color: #FFE08A !important;
-  transform: none !important;
-}
-.ledger-page .ledger-add-btn::after { display: none !important; }
 
-/* ── Empty state add button — same treatment ── */
-.ledger-empty .ledger-add-btn,
-.ledger-empty .ledger-add-btn:hover,
-.ledger-empty .ledger-add-btn:active {
-  box-shadow: none !important;
-  border-radius: 12px !important;
-  text-shadow: none !important;
-}
 .ledger-empty .ledger-add-btn {
   display: inline-block !important;
   width: auto !important;
   padding: 0.875rem 2rem !important;
-  background: rgba(140, 82, 8, 0.78) !important;
-  border: 2px solid rgba(210, 145, 30, 0.92) !important;
-  color: #FFD166 !important;
   font-size: 0.9rem !important;
-  font-weight: 700 !important;
-  cursor: pointer !important;
   letter-spacing: 0.02em !important;
-  transition: background 0.2s ease, border-color 0.2s ease !important;
 }
-.ledger-empty .ledger-add-btn:hover {
-  background: rgba(160, 96, 12, 0.90) !important;
-  border-color: rgba(240, 170, 40, 1) !important;
-  color: #FFE08A !important;
+
+.ledger-form-card .ledger-save-btn {
+  padding: 0.875rem !important;
+  font-size: 0.9rem !important;
+}
+
+.ledger-form-card .ledger-cancel-btn {
+  padding: 0.75rem !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+}
+
+.ledger-page .ledger-add-btn:hover,
+.ledger-empty .ledger-add-btn:hover,
+.ledger-form-card .ledger-save-btn:hover,
+.ledger-form-card .ledger-cancel-btn:hover {
   transform: none !important;
 }
-.ledger-empty .ledger-add-btn::after { display: none !important; }
 
-/* ── Form card ── */
+.ledger-page .ledger-add-btn::after,
+.ledger-empty .ledger-add-btn::after,
+.ledger-form-card .ledger-save-btn::after,
+.ledger-form-card .ledger-cancel-btn::after {
+  display: none !important;
+}
+
+.ledger-form-card .ledger-save-btn:disabled,
+.ledger-form-card .ledger-cancel-btn:disabled {
+  opacity: 0.42 !important;
+  cursor: default !important;
+}
+
+/* Form card */
+
 .ledger-form-card {
-  background: rgba(10,6,2,0.72);
-  border: 1px solid rgba(255,255,255,0.18);
   border-radius: 16px;
   padding: 1.5rem;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: white;
-  
-  
 }
 
 .ledger-form-title {
   font-family: Georgia, serif;
   font-size: 1.15rem;
   font-weight: 700;
-  color: white;
   margin: 0 0 1.25rem;
 }
 
@@ -95,90 +115,56 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.68);
+  opacity: 0.72;
   margin: 1rem 0 0.5rem;
 }
+
 .ledger-optional {
   font-weight: 400;
   text-transform: none;
   letter-spacing: 0;
-  color: rgba(255,255,255,0.48);
+  opacity: 0.65;
 }
 
-/* Quick species buttons — override global button rule */
-.ledger-quick-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-.ledger-form-card .ledger-quick-btn,
-.ledger-form-card .ledger-quick-btn:hover,
-.ledger-form-card .ledger-quick-btn:active {
-  box-shadow: none !important;
-  text-shadow: none !important;
-}
-.ledger-form-card .ledger-quick-btn {
-  padding: 0.35rem 0.875rem !important;
-  border-radius: 999px !important;
-  border: 1px solid rgba(255,255,255,0.25) !important;
-  background: rgba(10,6,2,0.45) !important;
-  color: rgba(255,255,255,0.85) !important;
-  font-size: 0.82rem !important;
-  font-weight: 500 !important;
-  cursor: pointer !important;
-  transition: all 0.15s !important;
-}
-.ledger-form-card .ledger-quick-btn:hover {
-  border-color: rgba(255,255,255,0.45) !important;
-  color: white !important;
-  background: rgba(10,6,2,0.60) !important;
-  transform: none !important;
-}
-.ledger-form-card .ledger-quick-btn.active {
-  background: rgba(186,117,23,0.28) !important;
-  border-color: rgba(186,117,23,0.72) !important;
-  color: #F5B942 !important;
-}
-.ledger-form-card .ledger-quick-btn::after { display: none !important; }
+/* Chips */
 
-/* Location buttons — override global button rule */
+.ledger-quick-row,
 .ledger-location-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
-.ledger-form-card .ledger-location-btn,
-.ledger-form-card .ledger-location-btn:hover,
-.ledger-form-card .ledger-location-btn:active {
-  box-shadow: none !important;
-  text-shadow: none !important;
+
+.ledger-quick-row {
+  margin-bottom: 0.5rem;
 }
-.ledger-form-card .ledger-location-btn {
+
+.ledger-form-card .ledger-quick-btn,
+.ledger-form-card .ledger-location-btn,
+.ledger-form-card .catch-toggle {
   padding: 0.35rem 0.875rem !important;
   border-radius: 999px !important;
-  border: 1px solid rgba(255,255,255,0.25) !important;
-  background: rgba(10,6,2,0.45) !important;
-  color: rgba(255,255,255,0.85) !important;
   font-size: 0.82rem !important;
   font-weight: 500 !important;
   cursor: pointer !important;
-  transition: all 0.15s !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
 }
-.ledger-form-card .ledger-location-btn:hover {
-  border-color: rgba(255,255,255,0.45) !important;
-  color: white !important;
-  background: rgba(10,6,2,0.60) !important;
+
+.ledger-form-card .ledger-quick-btn:hover,
+.ledger-form-card .ledger-location-btn:hover,
+.ledger-form-card .catch-toggle:hover {
   transform: none !important;
 }
-.ledger-form-card .ledger-location-btn.active {
-  background: rgba(24,95,165,0.30) !important;
-  border-color: rgba(24,95,165,0.70) !important;
-  color: #A0C8F0 !important;
+
+.ledger-form-card .ledger-quick-btn::after,
+.ledger-form-card .ledger-location-btn::after,
+.ledger-form-card .catch-toggle::after {
+  display: none !important;
 }
-.ledger-form-card .ledger-location-btn::after { display: none !important; }
 
 /* Released toggle */
+
 .ledger-released-row {
   display: flex;
   align-items: center;
@@ -186,151 +172,172 @@
   margin: 1rem 0 0;
 }
 
-/* Text input */
+/* Inputs */
+
 .ledger-input {
   width: 100%;
   padding: 0.75rem 1rem;
-  background: rgba(255,255,255,0.09);
-  border: 1px solid rgba(255,255,255,0.22);
   border-radius: 10px;
-  color: white;
   font-size: 0.875rem;
   outline: none;
   box-sizing: border-box;
-  transition: border-color 0.2s;
 }
-.ledger-input::placeholder { color: rgba(255,255,255,0.40); }
-.ledger-input:focus { border-color: rgba(186,117,23,0.60); }
+
+.ledger-input::placeholder {
+  opacity: 0.46;
+}
+
+.ledger-input:disabled {
+  opacity: 0.48;
+  cursor: default;
+}
 
 /* Form actions */
+
 .ledger-form-actions {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   margin-top: 1.25rem;
-  
 }
 
-/* Save button — keep golden, lock it in */
-.ledger-form-card .ledger-save-btn,
-.ledger-form-card .ledger-save-btn:hover {
-  border-radius: 12px !important;
-}
-.ledger-form-card .ledger-save-btn {
-  padding: 0.875rem !important;
-  background: rgba(186,117,23,0.92) !important;
-  border: 1px solid rgba(210,140,30,0.95) !important;
-  color: white !important;
-  font-size: 0.9rem !important;
-  font-weight: 600 !important;
-  cursor: pointer !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.35), 0 0 12px rgba(186,117,23,0.30) !important;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;
-  transition: background 0.2s, box-shadow 0.2s !important;
-  
-}
-.ledger-form-card .ledger-save-btn:hover {
-  background: rgba(210,138,28,1) !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.45), 0 0 18px rgba(186,117,23,0.45) !important;
-  transform: none !important;
-}
-.ledger-form-card .ledger-save-btn:disabled {
-  opacity: 0.42 !important;
-  cursor: default !important;
-  box-shadow: none !important;
-}
+/* Entry list */
 
-/* Cancel button — override global */
-.ledger-form-card .ledger-cancel-btn,
-.ledger-form-card .ledger-cancel-btn:hover,
-.ledger-form-card .ledger-cancel-btn:active {
-  background: rgba(10,6,2,0.40) !important;
-  box-shadow: none !important;
-  text-shadow: none !important;
-  border-radius: 12px !important;
+.ledger-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
-.ledger-form-card .ledger-cancel-btn {
-  padding: 0.75rem !important;
-  border: 1px solid rgba(255,255,255,0.20) !important;
-  color: rgba(255,255,255,0.72) !important;
-  font-size: 0.85rem !important;
-  cursor: pointer !important;
-  transition: all 0.2s !important;
-}
-.ledger-form-card .ledger-cancel-btn:hover {
-  border-color: rgba(255,255,255,0.38) !important;
-  color: rgba(255,255,255,0.95) !important;
-  background: rgba(10,6,2,0.58) !important;
-  transform: none !important;
-}
-.ledger-form-card .ledger-cancel-btn::after { display: none !important; }
-
-/* ── Entry cards ── */
-.ledger-list { display: flex; flex-direction: column; gap: 0.75rem; opacity: 0.62;}
 
 .ledger-entry-card {
-  background: rgba(10,6,2,0.60);
-  border: 1px solid rgba(255,255,255,0.16);
   border-radius: 14px;
   padding: 1rem 1.25rem;
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  color: white;
   max-width: 300px;
-  
-  
-  
 }
-.ledger-entry-card.no-catch { opacity: 0.72; border-style: dashed; }
+
+.ledger-entry-card.no-catch {
+  opacity: 0.72;
+  border-style: dashed;
+}
 
 .ledger-entry-header {
-  display: flex; align-items: baseline;
-  justify-content: space-between; gap: 0.75rem; margin-bottom: 0.4rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.4rem;
 }
-.ledger-entry-species { font-family: Georgia, serif; font-size: 1rem; font-weight: 700; color: white; }
-.ledger-entry-size { font-size: 0.85rem; color: rgba(255,255,255,0.72); }
-.ledger-first-badge {
-  display: inline-block; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em;
-  text-transform: uppercase; background: rgba(186,117,23,0.28); color: #F5B942;
-  border: 1px solid rgba(186,117,23,0.55); border-radius: 999px;
-  padding: 0.15rem 0.5rem; margin-left: 0.5rem; vertical-align: middle;
-}
-.ledger-entry-date { font-size: 0.75rem; color: rgba(255,255,255,0.60); white-space: nowrap; flex-shrink: 0; }
 
-.ledger-entry-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
-.ledger-entry-location { font-size: 0.78rem; color: rgba(255,255,255,0.75); }
-.ledger-entry-released {
-  font-size: 0.72rem; color: rgba(15,160,100,0.95);
-  background: rgba(15,110,86,0.20); border: 1px solid rgba(15,110,86,0.40);
-  border-radius: 999px; padding: 0.1rem 0.5rem;
+.ledger-entry-species {
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  font-weight: 700;
 }
+
+.ledger-entry-size {
+  font-size: 0.85rem;
+  opacity: 0.72;
+}
+
+.ledger-entry-date {
+  font-size: 0.75rem;
+  opacity: 0.64;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ledger-entry-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.ledger-entry-location {
+  font-size: 0.78rem;
+  opacity: 0.76;
+}
+
 .ledger-entry-note {
-  font-family: Georgia, serif; font-size: 0.85rem; font-style: italic;
-  color: rgba(255,255,255,0.82); margin: 0.25rem 0 0; line-height: 1.5;
+  font-family: Georgia, serif;
+  font-size: 0.85rem;
+  font-style: italic;
+  opacity: 0.84;
+  margin: 0.25rem 0 0;
+  line-height: 1.5;
 }
 
-/* ── Papa response on first save ── */
+/* Badges */
+
+.ledger-first-badge {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 0.15rem 0.5rem;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+.ledger-entry-released {
+  font-size: 0.72rem;
+  border-radius: 999px;
+  padding: 0.1rem 0.5rem;
+}
+
+/* Papa response */
+
 .ledger-papa-response {
-  background: rgba(15,110,86,0.18);
-  border-left: 2px solid rgba(15,110,86,0.60);
-  border-radius: 0 12px 12px 0;
+  border-radius: 14px;
   padding: 0.875rem 1rem;
 }
 
-/* ── Empty state ── */
-.ledger-empty { text-align: center; padding: 3rem 1rem; color: white; }
-.ledger-empty-title { font-family: Georgia, serif; font-size: 1.25rem; font-weight: 700; margin: 0 0 0.75rem; }
-.ledger-empty-sub { font-size: 0.875rem; line-height: 1.7; color: rgba(255,255,255,0.75); max-width: 360px; margin: 0 auto 1.5rem; }
+/* Empty / loading state */
 
-/* Mobile */
-@media (max-width: 480px) {
-  .ledger-page { padding: 1rem 1rem 6rem; }
-  .ledger-location-row { gap: 0.4rem; }
-  .ledger-form-card .ledger-location-btn { font-size: 0.75rem !important; padding: 0.3rem 0.6rem !important; }
+.ledger-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  border-radius: 16px;
 }
+
+.ledger-empty-title {
+  font-family: Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+}
+
+.ledger-empty-sub {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  max-width: 360px;
+  margin: 0 auto 1.5rem;
+  opacity: 0.75;
+}
+
+/* Error */
 
 .ledger-error {
   color: #ffb3b3;
   font-size: 0.95rem;
   margin-top: 0.75rem;
+}
+
+/* Mobile */
+
+@media (max-width: 480px) {
+  .ledger-page {
+    padding: 1rem 1rem 6rem;
+  }
+
+  .ledger-location-row {
+    gap: 0.4rem;
+  }
+
+  .ledger-form-card .ledger-location-btn {
+    font-size: 0.75rem !important;
+    padding: 0.3rem 0.6rem !important;
+  }
 }

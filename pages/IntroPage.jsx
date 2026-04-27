@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import CastBackground from "../components/CastBackground";
 import ChamberLayout from "../components/ChamberLayout";
 import "../styles/pages/intro-page.css";
-import { getScene, getIntroSceneByTime } from "../atmosphere/sceneBuilder";
+import { getScene } from "../atmosphere/sceneBuilder";
+import { useAtmosphere } from "../atmosphere/useAtmosphere";
 
 
 function getIntroUiStyles(scene) {
@@ -53,8 +54,17 @@ export default function IntroPage() {
   const nav = useNavigate();
   const begin = () => nav("/home");
 
-  const DEBUG_SCENE = null; // "intro_quiet_dawn" | "intro_golden_reflection" | "intro_storm_waiting"
-  const scene = DEBUG_SCENE ? getScene(DEBUG_SCENE) : getIntroSceneByTime();
+ const DEBUG_SCENE = null;
+
+const atmosphere = useAtmosphere("papaDock");
+
+const scene = DEBUG_SCENE
+  ? getScene(DEBUG_SCENE)
+  : atmosphere.scene;
+
+const bubbleTheme = atmosphere.ui?.bubble;
+const inputTheme = atmosphere.ui?.input;
+  
   
   const uiStyles = getIntroUiStyles(scene);
 

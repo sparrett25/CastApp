@@ -156,20 +156,39 @@
 	"variants": {
       "morning": {
         "src": "/images/chambers/plan-trip-variants/plan-trip-morning.webp",
-        "caption": "Journal • early light"
+        "caption": "Trip Summary • early light"
       },
       "afternoon": {
         "src": "/images/chambers/plan-trip-variants/plan-trip-afternoon.webp",
-        "caption": "Journal • steady daylight"
+        "caption": "Trip Summary • steady daylight"
       },
       "evening": {
         "src": "/images/chambers/plan-trip-variants/plan-trip-evening.webp",
-        "caption": "Journal • quiet evening"
+        "caption": "Trip Summary • quiet evening"
       }
     }
   },
 
-  
+  "adventure": {
+    "default": {
+      "src": "/images/chambers/adventure-variants/adventure-morning.webp",
+      "caption": "Trip Summary • the day remembered"
+    },
+	"variants": {
+      "morning": {
+        "src": "/images/chambers/adventure-variants/adventure-morning.webp",
+        "caption": "Journal • early light"
+      },
+      "afternoon": {
+        "src": "/images/chambers/adventure-variants/adventure-afternoon.webp",
+        "caption": "Journal • steady daylight"
+      },
+      "evening": {
+        "src": "/images/chambers/adventure-variants/adventure-evening.webp",
+        "caption": "Journal • quiet evening"
+      }
+    }
+  },
   
 
   "locations": {

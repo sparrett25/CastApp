@@ -5,6 +5,9 @@ import CastBackground from "../components/CastBackground";
 import PapaSpeaks from "../components/PapaSpeaks";
 import grantQuests from "../data/stories/grant/quests.json";
 import "../styles/pages/adventure.css";
+import { getScene } from "../atmosphere/sceneBuilder";
+import { useAtmosphere } from "../atmosphere/useAtmosphere";
+
 
 // ── Persist adventure progress ─────────────────────────────────
 const STORAGE_KEY = (id) => `cast:v1:adventure:${id}`;
@@ -23,7 +26,7 @@ function saveProgress(questId, stepIndex, completed = false) {
 }
 
 // ── Catch form ─────────────────────────────────────────────────
-function CatchForm({ onSubmit, questId }) {
+function CatchForm({ onSubmit, questId, buttonTheme, inputTheme }) {
   const [species, setSpecies] = useState("");
   const [note, setNote]       = useState("");
   const [released, setReleased] = useState(true);
@@ -49,6 +52,11 @@ function CatchForm({ onSubmit, questId }) {
         <span className="catch-toggle-label">Released?</span>
         <button
           className={`catch-toggle ${released ? "active" : ""}`}
+		  style={{
+  background: buttonTheme?.primaryBg,
+  border: `1px solid ${buttonTheme?.border}`,
+  color: buttonTheme?.text,
+}}
           onClick={() => setReleased(r => !r)}
         >
           {released ? "Yes" : "No"}
@@ -56,6 +64,11 @@ function CatchForm({ onSubmit, questId }) {
       </div>
       <button
         className="adv-btn-primary"
+		style={{
+  background: buttonTheme?.primaryBg,
+  border: `1px solid ${buttonTheme?.border}`,
+  color: buttonTheme?.text,
+}}
         onClick={() => species.trim() && onSubmit({ species: species.trim(), note, released, isBass })}
         disabled={!species.trim()}
       >
@@ -66,7 +79,7 @@ function CatchForm({ onSubmit, questId }) {
 }
 
 // ── Presence timer ─────────────────────────────────────────────
-function PresenceTimer({ seconds = 60, onComplete }) {
+function PresenceTimer({ seconds = 60, onComplete, buttonTheme }) {
   const [remaining, setRemaining] = useState(seconds);
   const [running, setRunning]     = useState(false);
   const [done, setDone]           = useState(false);
@@ -95,7 +108,12 @@ function PresenceTimer({ seconds = 60, onComplete }) {
   return (
     <div className="presence-timer">
       {!running && !done && (
-        <button className="adv-btn-presence" onClick={start}>
+        <button className="adv-btn-presence" 
+		style={{
+  background: buttonTheme?.primaryBg,
+  border: `1px solid ${buttonTheme?.border}`,
+  color: buttonTheme?.text,
+}}onClick={start}>
           Start {seconds}-second wait
         </button>
       )}
@@ -125,7 +143,13 @@ function PresenceTimer({ seconds = 60, onComplete }) {
           transition={{ duration: 0.5 }}
         >
           <p className="presence-done-text">Time's up. What did you notice?</p>
-          <button className="adv-btn-primary" onClick={onComplete}>
+          <button className="adv-btn-primary" 
+		  style={{
+  background: buttonTheme?.primaryBg,
+  border: `1px solid ${buttonTheme?.border}`,
+  color: buttonTheme?.text,
+}}
+onClick={onComplete}>
             Continue →
           </button>
         </motion.div>
@@ -138,6 +162,23 @@ function PresenceTimer({ seconds = 60, onComplete }) {
 export default function AdventureDetailPage() {
   const { questId } = useParams();
   const navigate    = useNavigate();
+  
+  const DEBUG_SCENE = null;
+
+const atmosphere = useAtmosphere("adventure");
+
+const scene = DEBUG_SCENE
+  ? getScene(DEBUG_SCENE)
+  : atmosphere.scene;
+
+const ui = scene?.timeState?.ui ?? {};
+
+const bubbleTheme = ui.bubble;
+const inputTheme = ui.input;
+const buttonTheme = ui.button;
+const cardTheme = ui.card;
+const textTheme = ui.text;
+  
 
   const quest = grantQuests.quests.find(q => q.quest_id === questId) ?? null;
 
@@ -166,7 +207,11 @@ export default function AdventureDetailPage() {
 
   if (!quest) {
     return (
-      <CastBackground chamberKey="home">
+      <CastBackground
+	  chamberKey="adventure"
+	  variant={scene?.backgroundVariant}
+	  overlay={scene?.timeState?.ui?.overlay}
+	>
         <div className="adv-page">
           <div className="adv-not-found">Adventure not found.</div>
         </div>
@@ -182,10 +227,22 @@ export default function AdventureDetailPage() {
   // ── Intro ──────────────────────────────────────────────────
   if (showIntro) {
     return (
-      <CastBackground chamberKey="home">
+      <CastBackground
+	  chamberKey="adventure"
+	  variant={scene?.backgroundVariant}
+	  overlay={scene?.timeState?.ui?.overlay}
+	>
         <div className="adv-page">
           <motion.div
             className="adv-intro-card"
+			style={{
+			  background: cardTheme?.bg,
+			  border: `1px solid ${cardTheme?.border}`,
+			  backdropFilter: `blur(${cardTheme?.blur})`,
+			  WebkitBackdropFilter: `blur(${cardTheme?.blur})`,
+			  boxShadow: cardTheme?.shadow,
+			  color: textTheme?.primary,
+			}}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
@@ -207,10 +264,22 @@ export default function AdventureDetailPage() {
                 </div>
               </div>
             )}
-            <button className="adv-btn-primary" onClick={() => setShowIntro(false)}>
+            <button className="adv-btn-primary" 
+			style={{
+	  background: buttonTheme?.primaryBg,
+	  border: `1px solid ${buttonTheme?.border}`,
+	  color: buttonTheme?.text,
+	}}
+	onClick={() => setShowIntro(false)}>
               Begin →
             </button>
-            <button className="adv-btn-ghost" onClick={() => navigate(-1)}>
+            <button className="adv-btn-ghost" 
+			style={{
+	  background: buttonTheme?.primaryBg,
+	  border: `1px solid ${buttonTheme?.border}`,
+	  color: buttonTheme?.text,
+	}}
+	onClick={() => navigate(-1)}>
               ← Back
             </button>
           </motion.div>
@@ -225,10 +294,22 @@ export default function AdventureDetailPage() {
     const bassLine = "You gave the water your patience. It gave you this.";
 
     return (
-      <CastBackground chamberKey="home">
+      <CastBackground
+		  chamberKey="adventure"
+		  variant={scene?.backgroundVariant}
+		  overlay={scene?.timeState?.ui?.overlay}
+		>
         <div className="adv-page">
           <motion.div
             className="adv-complete-card"
+			style={{
+			  background: cardTheme?.bg,
+			  border: `1px solid ${cardTheme?.border}`,
+			  backdropFilter: `blur(${cardTheme?.blur})`,
+			  WebkitBackdropFilter: `blur(${cardTheme?.blur})`,
+			  boxShadow: cardTheme?.shadow,
+			  color: textTheme?.primary,
+			}}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
@@ -289,7 +370,13 @@ export default function AdventureDetailPage() {
               </motion.div>
             )}
 
-            <button className="adv-btn-primary" style={{ marginTop: "1.25rem" }} onClick={() => navigate("/")}>
+            <button className="adv-btn-primary" 
+			style={{
+			  background: buttonTheme?.primaryBg,
+			  border: `1px solid ${buttonTheme?.border}`,
+			  color: buttonTheme?.text,
+			}}
+			onClick={() => navigate("/")}>
               Back to the Dock
             </button>
           </motion.div>
@@ -300,7 +387,11 @@ export default function AdventureDetailPage() {
 
   // ── Step ───────────────────────────────────────────────────
   return (
-    <CastBackground chamberKey="home">
+    <CastBackground
+	  chamberKey="adventure"
+	  variant={scene?.backgroundVariant}
+	  overlay={scene?.timeState?.ui?.overlay}
+	>
       <div className="adv-page">
 
         <div className="adv-progress-bar">
@@ -316,6 +407,15 @@ export default function AdventureDetailPage() {
           <motion.div
             key={step.step_id}
             className="adv-step-card"
+			style={{
+			  background: cardTheme?.bg,
+			  border: `1px solid ${cardTheme?.border}`,
+			  backdropFilter: `blur(${cardTheme?.blur})`,
+			  WebkitBackdropFilter: `blur(${cardTheme?.blur})`,
+			  boxShadow: cardTheme?.shadow,
+			  color: textTheme?.primary,
+			}}
+
             initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -24 }}
@@ -390,19 +490,31 @@ export default function AdventureDetailPage() {
             {/* Presence timer */}
             {step.type === "presence" && step.presence_timer_seconds && (
               <PresenceTimer
-                seconds={step.presence_timer_seconds}
-                onComplete={() => advance()}
-              />
+				  seconds={step.presence_timer_seconds}
+				  buttonTheme={buttonTheme}
+				  onComplete={() => advance()}
+				/>
             )}
 
             {/* Catch form */}
             {step.type === "catch" && (
-              <CatchForm onSubmit={(data) => advance(data)} questId={questId} />
+              <CatchForm
+			  onSubmit={(data) => advance(data)}
+			  questId={questId}
+			  buttonTheme={buttonTheme}
+			  inputTheme={inputTheme}
+			/>
             )}
 
             {/* Default done button */}
             {step.type !== "catch" && !(step.type === "presence" && step.presence_timer_seconds) && (
-              <button className="adv-btn-primary" onClick={() => advance()}>
+              <button className="adv-btn-primary" 
+			  style={{
+			  background: buttonTheme?.primaryBg,
+			  border: `1px solid ${buttonTheme?.border}`,
+			  color: buttonTheme?.text,
+			}}
+			onClick={() => advance()}>
                 {stepIndex === quest.steps.length - 1 ? "Complete Adventure →" : "Done →"}
               </button>
             )}

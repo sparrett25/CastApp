@@ -7,7 +7,8 @@ import PapaMini from "../components/PapaMini";
 import "../styles/pages/home-dock.css";
 import { getActiveAdventure } from "../utils/adventureState";
 import { supabase } from "../lib/supabase";
-
+import { getScene } from "../atmosphere/sceneBuilder";
+import { useAtmosphere } from "../atmosphere/useAtmosphere";
 
 
 // Rotating whisper lines at the bottom
@@ -37,6 +38,23 @@ function getGreeting() {
 
 export default function HomePage() {
   const nav = useNavigate();
+  
+  const DEBUG_SCENE = null;
+
+  const atmosphere = useAtmosphere("home");
+
+  const scene = DEBUG_SCENE
+    ? getScene(DEBUG_SCENE)
+    : atmosphere.scene;
+
+  const ui = scene?.timeState?.ui ?? {};
+
+  const bubbleTheme = ui.bubble;
+  const inputTheme = ui.input;
+  const buttonTheme = ui.button;
+  const cardTheme = ui.card;
+  const textTheme = ui.text;
+  
   const [activeAdventure] = useState(() => getActiveAdventure());
   const [upcomingTrip, setUpcomingTrip] = useState(null);
   const [tripLoading, setTripLoading] = useState(true);
@@ -112,7 +130,11 @@ export default function HomePage() {
   }, []);
 
   return (
-    <CastBackground chamberKey="home">
+    <CastBackground
+	  chamberKey="home"
+	  variant={scene?.backgroundVariant}
+	  overlay={scene?.timeState?.ui?.overlay}
+	>
       <ChamberLayout
 			  papa={
 				<PapaMini
@@ -125,9 +147,19 @@ export default function HomePage() {
 
           {/* Active Adventure Card */}
           <section className="home-adventure-section">
-            <p className="home-section-label">Your Adventure</p>
+            <p className="home-section-label"
+			style={{ color: textTheme?.secondary }}
+			>Your Adventure</p>
             <motion.button
               className="adventure-card"
+			  style={{
+				  background: cardTheme?.bg,
+				  border: `1px solid ${cardTheme?.border}`,
+				  backdropFilter: `blur(${cardTheme?.blur || "18px"})`,
+				  WebkitBackdropFilter: `blur(${cardTheme?.blur || "18px"})`,
+				  boxShadow: cardTheme?.shadow,
+				  color: textTheme?.primary,
+				}}
               onClick={() => nav(`/adventures/${activeAdventure.id}`)}
               whileHover={{ y: -3 }}
               transition={{ type: "spring", stiffness: 300, damping: 24 }}
@@ -159,9 +191,19 @@ export default function HomePage() {
           {/* Upcoming Trip Card */}
           {!tripLoading && upcomingTrip && (
             <section className="home-adventure-section">
-              <p className="home-section-label">Upcoming Trip</p>
+              <p className="home-section-label"
+			  style={{ color: textTheme?.secondary }}
+			  >Upcoming Trip</p>
               <motion.button
                 className="adventure-card trip-card"
+				style={{
+				  background: cardTheme?.bg,
+				  border: `1px solid ${cardTheme?.border}`,
+				  backdropFilter: `blur(${cardTheme?.blur || "18px"})`,
+				  WebkitBackdropFilter: `blur(${cardTheme?.blur || "18px"})`,
+				  boxShadow: cardTheme?.shadow,
+				  color: textTheme?.primary,
+				}}
                 onClick={() => nav("/trip-summary", { state: { tripId: upcomingTrip.id } })}
                 whileHover={{ y: -3 }}
                 transition={{ type: "spring", stiffness: 300, damping: 24 }}
@@ -171,10 +213,10 @@ export default function HomePage() {
                     <span
                       className="adventure-new-badge"
                       style={{
-                        background: "rgba(15,110,86,0.25)",
-                        color: "#5DCAA5",
-                        borderColor: "rgba(15,110,86,0.4)"
-                      }}
+						  background: ui.chip?.activeBg,
+						  border: `1px solid ${ui.chip?.border || buttonTheme?.border}`,
+						  color: ui.chip?.text,
+						}}
                     >
                       {upcomingTrip.timing_label || "Planned"}
                     </span>
@@ -194,12 +236,22 @@ export default function HomePage() {
 
           {/* Secondary Pillars */}
           <section className="home-pillars-section">
-            <p className="home-section-label">Explore</p>
+            <p className="home-section-label"
+			style={{ color: textTheme?.secondary }}
+			>Explore</p>
             <div className="home-pillars-grid">
               {PILLARS.map((p) => (
                 <motion.button
                   key={p.path}
                   className="pillar-card"
+				  style={{
+					  background: cardTheme?.bg,
+					  border: `1px solid ${cardTheme?.border}`,
+					  backdropFilter: `blur(${cardTheme?.blur || "18px"})`,
+					  WebkitBackdropFilter: `blur(${cardTheme?.blur || "18px"})`,
+					  boxShadow: cardTheme?.shadow,
+					  color: textTheme?.primary,
+					}}
                   onClick={() => nav(p.path)}
                   whileHover={{ y: -2 }}
                   transition={{ type: "spring", stiffness: 300, damping: 24 }}
@@ -221,6 +273,7 @@ export default function HomePage() {
                 <motion.p
                   key={whisper}
                   className="home-whisper-line"
+				  style={{ color: textTheme?.secondary }}
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}

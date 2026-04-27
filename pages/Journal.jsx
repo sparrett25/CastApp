@@ -8,6 +8,8 @@ import PapaSpeaks from "../components/PapaSpeaks";
 import { supabase } from "../lib/supabase";
 import "../styles/pages/journal-page.css";
 import { buildPapaPageContext } from "../utils/buildPapaPageContext";
+import { getScene } from "../atmosphere/sceneBuilder";
+import { useAtmosphere } from "../atmosphere/useAtmosphere";
 
 const PROMPTS = [
   "What did you notice today that you usually walk past?",
@@ -35,6 +37,23 @@ function getTodayBounds() {
 export default function JournalPage() {
   const navigate = useNavigate();
   const textareaRef = useRef(null);
+  
+  const DEBUG_SCENE = null;
+
+  const atmosphere = useAtmosphere("journal");
+
+  const scene = DEBUG_SCENE
+    ? getScene(DEBUG_SCENE)
+    : atmosphere.scene;
+
+  const ui = scene?.timeState?.ui ?? {};
+
+  const bubbleTheme = ui.bubble;
+  const inputTheme = ui.input;
+  const buttonTheme = ui.button;
+  const cardTheme = ui.card;
+  const textTheme = ui.text;
+  
 
   const [text, setText] = useState("");
   const [saved, setSaved] = useState(false);
@@ -147,7 +166,11 @@ const handlePapaResponse = async (line) => {
     : 0;
 
   return (
-    <CastBackground chamberKey="journal">
+    <CastBackground
+	  chamberKey="journal"
+	  variant={scene?.backgroundVariant}
+	  overlay={scene?.timeState?.ui?.overlay}
+	>
       <ChamberLayout
 		  papa={
 			<PapaMini
@@ -168,11 +191,21 @@ const handlePapaResponse = async (line) => {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <p className="journal-pause-line">Take a breath. There’s no rush here.</p>
+                <p
+				  className="journal-pause-line"
+				  style={{ color: textTheme?.secondary }}
+				>
+				  Take a breath. There’s no rush here.
+				</p>
 
                 <div className="journal-prompt-row">
                   <button
-                    className="journal-prompt-toggle"
+					  className="journal-prompt-toggle"
+					  style={{
+						background: buttonTheme?.secondaryBg,
+						border: `1px solid ${buttonTheme?.border}`,
+						color: buttonTheme?.text,
+					  }}
                     onClick={() => setShowPrompts((v) => !v)}
                   >
                     {showPrompts ? "Hide prompts" : "Need a nudge? →"}
@@ -182,7 +215,15 @@ const handlePapaResponse = async (line) => {
                 <AnimatePresence>
                   {showPrompts && (
                     <motion.div
-                      className="journal-prompts"
+					  className="journal-prompts"
+					  style={{
+						background: cardTheme?.bg,
+						border: `1px solid ${cardTheme?.border}`,
+						backdropFilter: `blur(${cardTheme?.blur || "18px"})`,
+						WebkitBackdropFilter: `blur(${cardTheme?.blur || "18px"})`,
+						boxShadow: cardTheme?.shadow,
+						color: textTheme?.primary,
+					  }}
                       initial={{ opacity: 0, y: -8 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
@@ -191,8 +232,13 @@ const handlePapaResponse = async (line) => {
                       <p className="journal-prompts-label">Scooter's prompts</p>
                       {PROMPTS.map((p, i) => (
                         <button
-                          key={i}
-                          className="journal-prompt-item"
+						  key={i}
+						  className="journal-prompt-item"
+						  style={{
+							color: textTheme?.primary,
+							borderColor: buttonTheme?.border,
+							background: buttonTheme?.secondaryBg,
+						  }}
                           onClick={() => handlePrompt(p)}
                         >
                           {p}
@@ -203,7 +249,16 @@ const handlePapaResponse = async (line) => {
                 </AnimatePresence>
 
                 <p className="journal-paper-label">Your Journal</p>
-                <div className="journal-paper">
+                <div
+					  className="journal-paper"
+					  style={{
+						background: cardTheme?.bg,
+						border: `1px solid ${cardTheme?.border}`,
+						backdropFilter: `blur(${cardTheme?.blur || "20px"})`,
+						WebkitBackdropFilter: `blur(${cardTheme?.blur || "20px"})`,
+						boxShadow: cardTheme?.shadow,
+					  }}
+					>
                   <textarea
                     ref={textareaRef}
                     className="journal-textarea"
@@ -211,13 +266,24 @@ const handlePapaResponse = async (line) => {
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     rows={10}
+					style={{
+					  background: inputTheme?.bg,
+					  border: `1px solid ${inputTheme?.border}`,
+					  color: inputTheme?.text,
+					}}
                   />
                   <div className="journal-footer">
                     <span className="journal-wordcount">
                       {wordCount > 0 ? `${wordCount} word${wordCount === 1 ? "" : "s"}` : ""}
                     </span>
                     <button
-                      className="journal-save-btn"
+					  className="journal-save-btn"
+					  style={{
+						background: buttonTheme?.primaryBg,
+						border: `1px solid ${buttonTheme?.border}`,
+						color: buttonTheme?.text,
+						boxShadow: buttonTheme?.shadow,
+					  }}
                       onClick={handleSave}
                       disabled={!hasText || saving}
                     >
@@ -246,7 +312,16 @@ const handlePapaResponse = async (line) => {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.4 }}
               >
-                <div className="journal-saved-entry">
+                <div
+				  className="journal-saved-entry"
+				  style={{
+					background: cardTheme?.bg,
+					border: `1px solid ${cardTheme?.border}`,
+					backdropFilter: `blur(${cardTheme?.blur || "18px"})`,
+					WebkitBackdropFilter: `blur(${cardTheme?.blur || "18px"})`,
+					boxShadow: cardTheme?.shadow,
+				  }}
+				>
                   <p className="journal-saved-date">
                     {new Date(lastEntry.entry_date).toLocaleDateString("en-US", {
                       weekday: "long",
@@ -266,7 +341,17 @@ const handlePapaResponse = async (line) => {
                   </div>
                 )}
 
-                <div className="journal-papa-response">
+                <div
+					  className="journal-papa-response"
+					  style={{
+						background: bubbleTheme?.papaBg,
+						border: `1px solid ${bubbleTheme?.border}`,
+						backdropFilter: `blur(${bubbleTheme?.blur || "18px"})`,
+						WebkitBackdropFilter: `blur(${bubbleTheme?.blur || "18px"})`,
+						boxShadow: bubbleTheme?.shadow,
+						color: bubbleTheme?.text,
+					  }}
+					>
                   <p className="journal-papa-attr">Papa</p>
                   <PapaSpeaks
 				  context={buildPapaPageContext("journal", {
@@ -284,11 +369,22 @@ const handlePapaResponse = async (line) => {
                 </div>
 
                 <div className="journal-saved-actions">
-                  <button className="journal-new-btn" onClick={handleNewEntry}>
+                  <button className="journal-new-btn" onClick={handleNewEntry}
+				  style={{
+					  background: buttonTheme?.secondaryBg,
+					  border: `1px solid ${buttonTheme?.border}`,
+					  color: buttonTheme?.text,
+					}}
+				  >
                     Write another →
                   </button>
                   <button
                     className="journal-archive-link"
+					style={{
+					  background: buttonTheme?.secondaryBg,
+					  border: `1px solid ${buttonTheme?.border}`,
+					  color: buttonTheme?.text,
+					}}
                     onClick={() => navigate("/journal-archive")}
                   >
                     Past entries →

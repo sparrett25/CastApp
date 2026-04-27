@@ -12,6 +12,9 @@ import {
   buildPapaPageContext,
   buildEntriesSummary,
 } from "../utils/buildPapaPageContext";
+import { getScene } from "../atmosphere/sceneBuilder";
+import { useAtmosphere } from "../atmosphere/useAtmosphere";
+
 
 // ── Canonical location options + Other ────────────────────────
 const LOCATION_OPTIONS = [
@@ -41,7 +44,16 @@ function formatDate(iso) {
 }
 
 // ── New Entry Form ─────────────────────────────────────────────
-function NewEntryForm({ onSave, onCancel, existingEntries }) {
+function NewEntryForm({
+  onSave,
+  onCancel,
+  existingEntries,
+  cardTheme,
+  inputTheme,
+  buttonTheme,
+  chipTheme,
+  textTheme,
+}) {
   const [species, setSpecies] = useState("");
   const [speciesKey, setSpeciesKey] = useState(null);
 
@@ -125,7 +137,14 @@ function NewEntryForm({ onSave, onCancel, existingEntries }) {
 
   return (
     <motion.div
-      className="ledger-form-card"
+  className="ledger-form-card"
+	  style={{
+		background: cardTheme?.bg,
+		border: `1px solid ${cardTheme?.border}`,
+		backdropFilter: `blur(${cardTheme?.blur || "18px"})`,
+		WebkitBackdropFilter: `blur(${cardTheme?.blur || "18px"})`,
+		boxShadow: cardTheme?.shadow,
+	  }}
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
@@ -136,9 +155,15 @@ function NewEntryForm({ onSave, onCancel, existingEntries }) {
       <p className="ledger-field-label">What did you catch?</p>
       <div className="ledger-quick-row">
         {QUICK_SPECIES.map((s) => (
+		
           <button
             key={s.id}
             className={`ledger-quick-btn ${species === s.label ? "active" : ""}`}
+			style={{
+			  background: species === s.label ? chipTheme?.activeBg : chipTheme?.bg,
+			  border: `1px solid ${chipTheme?.border || buttonTheme?.border}`,
+			  color: chipTheme?.text,
+			}}
             onClick={() => handleQuickSpecies(s)}
           >
             {s.label}
@@ -150,6 +175,11 @@ function NewEntryForm({ onSave, onCancel, existingEntries }) {
         className="ledger-input"
         placeholder="Or type a species..."
         value={species}
+		style={{
+		  background: inputTheme?.bg,
+		  border: `1px solid ${inputTheme?.border}`,
+		  color: inputTheme?.text,
+		}}
         onChange={(e) => handleSpeciesInput(e.target.value)}
       />
 
@@ -160,6 +190,11 @@ function NewEntryForm({ onSave, onCancel, existingEntries }) {
         className="ledger-input"
         placeholder='e.g. "about 8 inches"'
         value={size}
+		style={{
+		  background: inputTheme?.bg,
+		  border: `1px solid ${inputTheme?.border}`,
+		  color: inputTheme?.text,
+		}}
         onChange={(e) => setSize(e.target.value)}
         disabled={isNoCatch}
       />
@@ -170,6 +205,11 @@ function NewEntryForm({ onSave, onCancel, existingEntries }) {
           <button
             key={l.id}
             className={`ledger-location-btn ${location === l.label ? "active" : ""}`}
+			style={{
+			  background: location === l.label ? chipTheme?.activeBg : chipTheme?.bg,
+			  border: `1px solid ${chipTheme?.border || buttonTheme?.border}`,
+			  color: chipTheme?.text,
+			}}
             onClick={() => handleLocationPick(l)}
           >
             {l.label}
@@ -183,6 +223,11 @@ function NewEntryForm({ onSave, onCancel, existingEntries }) {
         </span>
         <button
           className={`catch-toggle ${released ? "active" : ""}`}
+		  style={{
+			  background: released ? chipTheme?.activeBg : chipTheme?.bg,
+			  border: `1px solid ${chipTheme?.border || buttonTheme?.border}`,
+			  color: chipTheme?.text,
+			}}
           onClick={() => setReleased((r) => !r)}
           disabled={isNoCatch}
         >
@@ -195,6 +240,11 @@ function NewEntryForm({ onSave, onCancel, existingEntries }) {
         className="ledger-input"
         placeholder="How did it feel?"
         value={note}
+		style={{
+		  background: inputTheme?.bg,
+		  border: `1px solid ${inputTheme?.border}`,
+		  color: inputTheme?.text,
+		}}
         onChange={(e) => setNote(e.target.value)}
       />
 
@@ -203,12 +253,23 @@ function NewEntryForm({ onSave, onCancel, existingEntries }) {
       <div className="ledger-form-actions">
         <button
           className="ledger-save-btn"
+		  style={{
+			  background: buttonTheme?.primaryBg,
+			  border: `1px solid ${buttonTheme?.border}`,
+			  color: buttonTheme?.text,
+			}}
           onClick={handleSave}
           disabled={!species.trim() || saving}
         >
           {saving ? "Saving..." : "Save entry →"}
         </button>
-        <button className="ledger-cancel-btn" onClick={onCancel} disabled={saving}>
+        <button className="ledger-cancel-btn" 
+		style={{
+		  background: buttonTheme?.secondaryBg,
+		  border: `1px solid ${buttonTheme?.border}`,
+		  color: buttonTheme?.text,
+		}}
+		onClick={onCancel} disabled={saving}>
           Cancel
         </button>
       </div>
@@ -217,12 +278,20 @@ function NewEntryForm({ onSave, onCancel, existingEntries }) {
 }
 
 // ── Single entry card ──────────────────────────────────────────
-function EntryCard({ entry }) {
+function EntryCard({ entry, cardTheme, chipTheme, textTheme }) {
   const noCatch = entry.is_no_catch;
 
   return (
     <motion.div
       className={`ledger-entry-card ${noCatch ? "no-catch" : ""}`}
+	  style={{
+		  background: cardTheme?.bg,
+		  border: `1px solid ${cardTheme?.border}`,
+		  backdropFilter: `blur(${cardTheme?.blur || "18px"})`,
+		  WebkitBackdropFilter: `blur(${cardTheme?.blur || "18px"})`,
+		  boxShadow: cardTheme?.shadow,
+		  color: textTheme?.primary,
+		}}
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
@@ -253,15 +322,28 @@ function EntryCard({ entry }) {
 }
 
 // ── Empty state ────────────────────────────────────────────────
-function EmptyState({ onAdd }) {
+function EmptyState({ onAdd, cardTheme, buttonTheme, textTheme }) {
   return (
-    <div className="ledger-empty">
+    <div
+  className="ledger-empty"
+	  style={{
+		background: cardTheme?.bg,
+		border: `1px solid ${cardTheme?.border}`,
+		color: textTheme?.primary,
+	  }}
+	>
       <p className="ledger-empty-title">The ledger is waiting.</p>
       <p className="ledger-empty-sub">
         Every trip goes here — the good ones, the slow ones, and the ones where
         nothing bit. That&apos;s how you start to see the patterns.
       </p>
-      <button className="ledger-add-btn" onClick={onAdd}>
+      <button className="ledger-add-btn" 
+	  style={{
+		  background: buttonTheme?.primaryBg,
+		  border: `1px solid ${buttonTheme?.border}`,
+		  color: buttonTheme?.text,
+		}}
+	  onClick={onAdd}>
         Log your first trip →
       </button>
     </div>
@@ -270,7 +352,22 @@ function EmptyState({ onAdd }) {
 
 // ── Main page ──────────────────────────────────────────────────
 export default function CatchLedgerPage() {
-  const navigate = useNavigate();
+    
+  const DEBUG_SCENE = null;
+
+  const atmosphere = useAtmosphere("catchLedger");
+
+  const scene = DEBUG_SCENE
+    ? getScene(DEBUG_SCENE)
+    : atmosphere.scene;
+
+  const ui = scene?.timeState?.ui ?? {};
+
+  const inputTheme = ui.input;
+  const buttonTheme = ui.button;
+  const cardTheme = ui.card;
+  const textTheme = ui.text;
+    
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -348,7 +445,11 @@ export default function CatchLedgerPage() {
   const papaKey = entries.length === 0 ? "fieldguide.open" : "fallback";
 
   return (
-    <CastBackground chamberKey="catch-ledger">
+    <CastBackground
+  chamberKey="catch-ledger"
+	  variant={scene?.backgroundVariant}
+	  overlay={scene?.timeState?.ui?.overlay}
+	>
       <ChamberLayout
         papa={<PapaMini context={buildPapaPageContext("catch ledger", {
 		  entriesSummary: buildEntriesSummary(entries),
@@ -359,6 +460,15 @@ export default function CatchLedgerPage() {
             {firstSave && entries[0] && (
               <motion.div
                 className="ledger-papa-response"
+				style={{
+				  background: bubbleTheme?.papaBg,
+				  border: `1px solid ${bubbleTheme?.border}`,
+				  backdropFilter: `blur(${bubbleTheme?.blur || "18px"})`,
+				  WebkitBackdropFilter: `blur(${bubbleTheme?.blur || "18px"})`,
+				  boxShadow: bubbleTheme?.shadow,
+				  color: bubbleTheme?.text,
+				}}
+				
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
@@ -378,7 +488,15 @@ export default function CatchLedgerPage() {
           </AnimatePresence>
 
           {!showForm && entries.length > 0 && (
-            <button className="ledger-add-btn" onClick={() => setShowForm(true)}>
+            <button
+			  className="ledger-add-btn"
+			  onClick={() => setShowForm(true)}
+			  style={{
+				background: buttonTheme?.primaryBg,
+				border: `1px solid ${buttonTheme?.border}`,
+				color: buttonTheme?.text,
+			  }}
+			>
               + Log a catch
             </button>
           )}
@@ -386,19 +504,36 @@ export default function CatchLedgerPage() {
           <AnimatePresence>
             {showForm && (
               <NewEntryForm
-                existingEntries={entries}
-                onSave={handleSave}
-                onCancel={() => setShowForm(false)}
-              />
+			  existingEntries={entries}
+			  onSave={handleSave}
+			  onCancel={() => setShowForm(false)}
+			  cardTheme={cardTheme}
+			  inputTheme={inputTheme}
+			  buttonTheme={buttonTheme}
+			  chipTheme={ui.chip}
+			  textTheme={textTheme}
+			/>
             )}
           </AnimatePresence>
 
           {!loading && entries.length === 0 && !showForm && (
-            <EmptyState onAdd={() => setShowForm(true)} />
+            <EmptyState
+			  onAdd={() => setShowForm(true)}
+			  cardTheme={cardTheme}
+			  buttonTheme={buttonTheme}
+			  textTheme={textTheme}
+			/>
           )}
 
           {loading && (
-            <div className="ledger-empty">
+            <div
+			  className="ledger-empty"
+			  style={{
+				background: cardTheme?.bg,
+				border: `1px solid ${cardTheme?.border}`,
+				color: textTheme?.primary,
+			  }}
+			>
               <p className="ledger-empty-title">Loading ledger...</p>
             </div>
           )}
@@ -406,7 +541,13 @@ export default function CatchLedgerPage() {
           {entries.length > 0 && (
             <div className="ledger-list">
               {entries.map((entry) => (
-                <EntryCard key={entry.id} entry={entry} />
+                <EntryCard
+				  key={entry.id}
+				  entry={entry}
+				  cardTheme={cardTheme}
+				  chipTheme={ui.chip}
+				  textTheme={textTheme}
+				/>
               ))}
             </div>
           )}

@@ -3,19 +3,29 @@ import { motion, AnimatePresence } from "framer-motion";
 import CastBackground from "../components/CastBackground";
 import ChamberLayout from "../components/ChamberLayout";
 import "../styles/pages/papa-dock-page.css";
-import { getScene, getTalkSceneByTime } from "../atmosphere/sceneBuilder";
+import { getScene } from "../atmosphere/sceneBuilder";
+import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { supabase } from "../lib/supabase";
 
 export default function PapaDockPage() {
 	
-    const DEBUG_SCENE = null;
+const DEBUG_SCENE = null;
 
-	const scene = DEBUG_SCENE
-	  ? getScene(DEBUG_SCENE)
-	  : getTalkSceneByTime();
-  
-  const bubbleTheme = scene?.timeState?.ui?.bubble;
-  const inputTheme = scene?.timeState?.ui?.input;
+const atmosphere = useAtmosphere("papaDock");
+
+const scene = DEBUG_SCENE
+  ? getScene(DEBUG_SCENE)
+  : atmosphere.scene;
+
+const ui = scene?.timeState?.ui ?? {};
+
+const bubbleTheme = ui.bubble;
+const inputTheme = ui.input;
+const buttonTheme = ui.button;
+const cardTheme = ui.card;
+const textTheme = ui.text;
+
+
   
   const [messages, setMessages] = useState([
     { role: "papa", text: "You can talk here. No rush." },
@@ -310,7 +320,12 @@ recognition.onresult = (event) => {
 				  }}
 				>
                     
-                    <p className="papa-dock-bubble-text">{message.text}</p>
+                    <p
+					  className="papa-dock-bubble-text"
+					  style={{ color: textTheme?.primary }}
+					>
+					  {message.text}
+					</p>
 					
 					{message.role === "papa" && index > 0 && (
 					  <div className="papa-dock-bubble-actions">
@@ -319,6 +334,11 @@ recognition.onresult = (event) => {
 						  className="papa-dock-save-note-btn"
 						  onClick={() => savePapaNote(message, index, "whisper")}
 						  disabled={savingNoteIndex === index || savedNoteIndexes[index]}
+						  style={{
+							  background: buttonTheme?.secondaryBg,
+							  border: `1px solid ${buttonTheme?.border}`,
+							  color: buttonTheme?.text,
+							}}
 						>
 						  {savedNoteIndexes[index]
 							? "Saved"
@@ -332,6 +352,11 @@ recognition.onresult = (event) => {
 						  className="papa-dock-save-note-btn"
 						  onClick={() => savePapaNote(message, index, "field_note")}
 						  disabled={savingNoteIndex === index || savedNoteIndexes[index]}
+						  style={{
+							  background: buttonTheme?.secondaryBg,
+							  border: `1px solid ${buttonTheme?.border}`,
+							  color: buttonTheme?.text,
+							}}
 						>
 						  Save Field Note
 						</button>
@@ -361,6 +386,11 @@ recognition.onresult = (event) => {
 				className="papa-dock-save-thread-btn"
 				onClick={saveThread}
 				disabled={savingThread || savedThread || messages.length <= 1}
+				style={{
+				  background: buttonTheme?.secondaryBg,
+				  border: `1px solid ${buttonTheme?.border}`,
+				  color: buttonTheme?.text,
+				}}
 			  >
 				{savedThread ? "Thread saved" : savingThread ? "Saving..." : "Save Thread"}
 			  </button>
@@ -369,6 +399,11 @@ recognition.onresult = (event) => {
 				type="button"
 				className="papa-dock-clear-btn"
 				onClick={clearChat}
+				style={{
+				  background: "transparent",
+				  border: `1px solid ${buttonTheme?.border}`,
+				  color: textTheme?.secondary,
+				}}
 			  >
 				Clear Chat
 			  </button>
@@ -382,9 +417,12 @@ recognition.onresult = (event) => {
 		  className="papa-dock-input-row"
 		  onSubmit={handleSubmit}
 		  style={{
-			background: inputTheme?.bg,
-			border: `1px solid ${inputTheme?.border}`,
-		  }}
+			  background: inputTheme?.bg ?? cardTheme?.bg,
+			  border: `1px solid ${inputTheme?.border ?? cardTheme?.border}`,
+			  backdropFilter: `blur(${cardTheme?.blur})`,
+			  WebkitBackdropFilter: `blur(${cardTheme?.blur})`,
+			  boxShadow: cardTheme?.shadow,
+			}}
 		>
 		  
             <button
@@ -393,6 +431,11 @@ recognition.onresult = (event) => {
                 listening ? "is-listening" : ""
               }`}
               onClick={handleMicClick}
+			  style={{
+			  background: listening ? buttonTheme?.primaryBg : buttonTheme?.secondaryBg,
+			  border: `1px solid ${buttonTheme?.border}`,
+			  color: buttonTheme?.text,
+			}}
             >
               🎙
             </button>
@@ -416,6 +459,11 @@ recognition.onresult = (event) => {
               type="submit"
               className="papa-dock-send-btn"
               disabled={loading || !input.trim()}
+			  style={{
+			  background: buttonTheme?.primaryBg,
+			  border: `1px solid ${buttonTheme?.border}`,
+			  color: buttonTheme?.text,
+			}}
             >
               Send →
             </button>

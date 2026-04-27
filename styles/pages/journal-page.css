@@ -7,411 +7,42 @@
   display: flex;
   flex-direction: column;
   gap: 2.25rem;
-  
 }
 
-/* ── "Need a nudge? →" — override global button rule ── */
-.journal-page .journal-prompt-toggle,
-.journal-page .journal-prompt-toggle:hover,
-.journal-page .journal-prompt-toggle:active {
-  box-shadow: none !important;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.55) !important;
-  
-}
-.journal-page .journal-prompt-toggle {
-  background: transparent !important;
-  border: 1px solid rgba(210,165,60,0.45) !important;
-  border-radius: 999px !important;
-  padding: 0.25rem 0.9rem !important;
-  color: rgba(220,175,65,0.95) !important;
-  font-size: 0.85rem !important;
-  font-weight: 600 !important;
-  cursor: pointer !important;
-  transition: color 0.2s, border-color 0.2s, background 0.2s !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  
-}
-.journal-page .journal-prompt-toggle:hover {
-  color: rgba(245,200,80,1) !important;
-  border-color: rgba(245,200,80,0.70) !important;
-  background: rgba(186,117,23,0.12) !important;
-  transform: none !important;
-}
-.journal-page .journal-prompt-toggle::after { display: none !important; }
+/* Atmosphere transitions */
 
-/* ── Prompts dropdown ── */
-.journal-prompts {
-  background: rgba(10,6,2,0.38);
-  border: 1px solid rgba(255,255,255,0.16);
-  border-radius: 12px;
-  padding: 0.875rem 1rem;
-  margin-bottom: 0.875rem;
-  backdrop-filter: blur(4px);
-
-}
-.journal-prompts-label {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(100,160,220,0.90);
-  margin: 0 0 0.6rem;
-  
+.journal-paper,
+.journal-textarea,
+.journal-prompts,
+.journal-prompt-toggle,
+.journal-prompt-item,
+.journal-save-btn,
+.journal-archive-link,
+.journal-saved-entry,
+.journal-papa-response,
+.journal-new-btn,
+.journal-catch-context,
+.archive-card,
+.archive-expand-btn,
+.journal-back-btn {
+  transition:
+    background 0.45s ease,
+    border-color 0.45s ease,
+    color 0.45s ease,
+    box-shadow 0.45s ease,
+    backdrop-filter 0.45s ease,
+    -webkit-backdrop-filter 0.45s ease,
+    opacity 0.25s ease,
+    transform 0.2s ease;
 }
 
-/* ── Prompt items — override global button rule ── */
-.journal-page .journal-prompt-item,
-.journal-page .journal-prompt-item:hover,
-.journal-page .journal-prompt-item:active {
-  box-shadow: none !important;
-  text-shadow: none !important;
-  border-radius: 0 !important;
-}
-.journal-page .journal-prompt-item {
-  display: block !important;
-  width: 100% !important;
-  background: transparent !important;
-  border: none !important;
-  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
-  color: rgba(255,255,255,0.82) !important;
-  font-size: 0.85rem !important;
-  font-family: Georgia, serif !important;
-  font-style: italic !important;
-  text-align: left !important;
-  padding: 0.6rem 0 !important;
-  cursor: pointer !important;
-  transition: color 0.2s !important;
-  line-height: 1.5 !important;
-  
-}
-.journal-page .journal-prompt-item:last-child {
-  border-bottom: none !important;
-}
-.journal-page .journal-prompt-item:hover {
-  color: white !important;
-  background: transparent !important;
-  transform: none !important;
-}
-.journal-page .journal-prompt-item::after { display: none !important; }
-
-/* ── Paper ── */
-.journal-paper {
-  background: linear-gradient(
-    to bottom,
-    rgba(28, 16, 8, 0.34),
-    rgba(18, 10, 5, 0.46)
-  );
-  border: 1px solid rgba(255,255,255,0.16);
-  border-radius: 18px;
-  overflow: hidden;
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-  box-shadow:
-    0 12px 30px rgba(0,0,0,0.22),
-    inset 0 1px 0 rgba(255,255,255,0.05);
-	
-}
-
-.journal-textarea {
-  width: 100%;
-  min-height: 220px;
-  padding: 1.25rem 1.375rem;
-  background: transparent;
-  border: none;
-  color: white;
-  font-family: Georgia, serif;
-  font-size: 1rem;
-  line-height: 1.8;
-  resize: none;
-  outline: none;
-  box-sizing: border-box;
-  
-
-}
-.journal-textarea::placeholder {
-  color: rgba(255,255,255,0.38);
-  font-style: italic;
-}
-
-.journal-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1.375rem;
-  border-top: 1px solid rgba(255,255,255,0.10);
-}
-.journal-wordcount {
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.50);
-}
-
-/* ── Save entry — keep golden, just lock it in ── */
-.journal-paper .journal-save-btn,
-.journal-paper .journal-save-btn:hover {
-  border-radius: 999px !important;
-}
-.journal-paper .journal-save-btn {
-  padding: 0.6rem 1.25rem !important;
-  background: rgba(186,117,23,0.90) !important;
-  border: 1px solid rgba(210,140,30,0.95) !important;
-  color: white !important;
-  font-size: 0.85rem !important;
-  font-weight: 600 !important;
-  cursor: pointer !important;
-  transition: background 0.2s, box-shadow 0.2s !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.35),
-              0 0 12px rgba(186,117,23,0.30) !important;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;
-}
-.journal-paper .journal-save-btn:hover {
-  background: rgba(210,138,28,1) !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.45),
-              0 0 18px rgba(186,117,23,0.45) !important;
-  transform: none !important;
-}
-.journal-paper .journal-save-btn:disabled {
-  opacity: 0.42 !important;
-  cursor: default !important;
-  box-shadow: none !important;
-}
-
-/* ── "Past entries →" — override global button rule ── */
-.journal-page .journal-archive-link,
-.journal-page .journal-archive-link:hover,
-.journal-page .journal-archive-link:active {
-  background: transparent !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.55) !important;
-}
-.journal-page .journal-archive-link {
-  display: block !important;
-  margin-top: 0.6rem !important;
-  border: none !important;
-  color: rgba(255,255,255,0.76) !important;
-  font-size: 0.84rem !important;
-  font-weight: 600 !important;
-  cursor: pointer !important;
-  padding: 0.35rem 0 !important;
-  text-align: center !important;
-  width: 100% !important;
-  transition: color 0.2s !important;
-}
-.journal-page .journal-archive-link:hover {
-  color: rgba(255,255,255,0.98) !important;
-  transform: none !important;
-}
-.journal-page .journal-archive-link::after { display: none !important; }
-
-/* ── Saved view ── */
-.journal-saved {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.journal-saved-entry {
-  background: rgba(10,6,2,0.62);
-  border: 1px solid rgba(255,255,255,0.16);
-  border-radius: 14px;
-  padding: 1.25rem 1.375rem;
-}
-.journal-saved-date {
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: rgba(210,150,40,0.92);
-  margin: 0 0 0.6rem;
-}
-.journal-saved-text {
-  font-family: Georgia, serif;
-  font-size: 0.95rem;
-  line-height: 1.75;
-  color: rgba(255,255,255,0.90);
-  font-style: italic;
-  margin: 0;
-}
-
-.journal-papa-response {
-  background: rgba(15,110,86,0.18);
-  border-left: 2px solid rgba(15,110,86,0.60);
-  border-radius: 0 12px 12px 0;
-  padding: 0.875rem 1rem;
-}
-.journal-papa-attr {
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.58);
-  margin: 0 0 0.3rem;
-}
-
-.journal-saved-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-/* ── "Write another →" — keep golden ── */
-.journal-saved-actions .journal-new-btn,
-.journal-saved-actions .journal-new-btn:hover {
-  border-radius: 12px !important;
-  box-shadow: none !important;
-  text-shadow: none !important;
-}
-.journal-saved-actions .journal-new-btn {
-  padding: 0.875rem !important;
-  background: rgba(186,117,23,0.28) !important;
-  border: 1px solid rgba(186,117,23,0.60) !important;
-  color: #F5B942 !important;
-  font-size: 0.875rem !important;
-  font-weight: 600 !important;
-  cursor: pointer !important;
-  transition: background 0.2s !important;
-  text-align: center !important;
-}
-.journal-saved-actions .journal-new-btn:hover {
-  background: rgba(186,117,23,0.40) !important;
-  transform: none !important;
-  color: #F5B942 !important;
-}
-.journal-saved-actions .journal-new-btn::after { display: none !important; }
-
-/* ── "Past entries →" in saved actions — same fix ── */
-.journal-saved-actions .journal-archive-link,
-.journal-saved-actions .journal-archive-link:hover,
-.journal-saved-actions .journal-archive-link:active {
-  background: transparent !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.55) !important;
-}
-.journal-saved-actions .journal-archive-link {
-  display: block !important;
-  border: none !important;
-  color: rgba(255,255,255,0.72) !important;
-  font-size: 0.85rem !important;
-  font-weight: 600 !important;
-  cursor: pointer !important;
-  padding: 0.5rem 0 !important;
-  text-align: right !important;
-  width: 100% !important;
-  margin-top: 0 !important;
-  transition: color 0.2s !important;
-}
-.journal-saved-actions .journal-archive-link:hover {
-  color: rgba(255,255,255,0.98) !important;
-  transform: none !important;
-}
-.journal-saved-actions .journal-archive-link::after { display: none !important; }
-
-/* ── Back button — override global ── */
-.journal-page .journal-back-btn,
-.journal-page .journal-back-btn:hover,
-.journal-page .journal-back-btn:active {
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-  border-radius: 0 !important;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.50) !important;
-}
-.journal-page .journal-back-btn {
-  color: rgba(255,255,255,0.65) !important;
-  font-size: 0.82rem !important;
-  font-weight: 500 !important;
-  cursor: pointer !important;
-  padding: 0 0 1.25rem !important;
-  text-align: left !important;
-  display: block !important;
-  transition: color 0.2s !important;
-}
-.journal-page .journal-back-btn:hover {
-  color: rgba(255,255,255,0.95) !important;
-  transform: none !important;
-}
-.journal-page .journal-back-btn::after { display: none !important; }
-
-/* ── Archive cards ── */
-.archive-list { display: flex; flex-direction: column; gap: 0.75rem; }
-.archive-card {
-  background: rgba(10,6,2,0.62);
-  border: 1px solid rgba(255,255,255,0.16);
-  border-radius: 14px;
-  padding: 1.125rem 1.25rem;
-  color: white;
-}
-.archive-date {
-  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.07em;
-  text-transform: uppercase; color: rgba(210,150,40,0.92); margin: 0 0 0.5rem;
-}
-.archive-text {
-  font-family: Georgia, serif; font-size: 0.9rem; line-height: 1.7;
-  color: rgba(255,255,255,0.88); font-style: italic; margin: 0 0 0.5rem;
-}
-
-/* ── Archive expand button — override global ── */
-.journal-page .archive-expand-btn,
-.journal-page .archive-expand-btn:hover,
-.journal-page .archive-expand-btn:active {
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-  border-radius: 0 !important;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.45) !important;
-}
-.journal-page .archive-expand-btn {
-  color: rgba(255,255,255,0.60) !important;
-  font-size: 0.75rem !important;
-  font-weight: 500 !important;
-  cursor: pointer !important;
-  padding: 0 !important;
-  margin-bottom: 0.5rem !important;
-  transition: color 0.2s !important;
-}
-.journal-page .archive-expand-btn:hover {
-  color: rgba(255,255,255,0.95) !important;
-  transform: none !important;
-}
-.journal-page .archive-expand-btn::after { display: none !important; }
-
-.archive-papa {
-  margin-top: 0.75rem; padding-top: 0.75rem;
-  border-top: 1px solid rgba(255,255,255,0.10);
-}
-.archive-papa-attr {
-  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em;
-  text-transform: uppercase; color: rgba(210,150,40,0.90); margin: 0 0 0.25rem;
-}
-.archive-papa-line {
-  font-family: Georgia, serif; font-size: 0.85rem; font-style: italic;
-  color: rgba(255,255,255,0.82); margin: 0; line-height: 1.55;
-}
-
-/* ── Empty state ── */
-.archive-empty { text-align: center; padding: 3rem 1rem; }
-.archive-empty-title {
-  font-family: Georgia, serif; font-size: 1.15rem; font-weight: 700;
-  color: white; margin: 0 0 0.5rem;
-}
-.archive-empty-sub {
-  font-size: 0.875rem; color: rgba(255,255,255,0.62); line-height: 1.65;
-  max-width: 320px; margin: 0 auto 1.5rem;
-}
-
-/* Mobile */
-@media (max-width: 480px) {
-  .journal-page { padding: 0 1rem 6rem; }
-}
-
+/* Intro / prompt area */
 
 .journal-pause-line {
   margin: 0 0 0.4rem;
   text-align: center;
   font-size: 0.82rem;
   font-style: italic;
-  color: rgba(255,255,255,0.62);
   text-shadow: 0 1px 3px rgba(0,0,0,0.45);
 }
 
@@ -421,7 +52,90 @@
   margin-bottom: 0.25rem;
 }
 
+.journal-page .journal-prompt-toggle,
+.journal-page .journal-prompt-toggle:hover,
+.journal-page .journal-prompt-toggle:active {
+  box-shadow: none !important;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.55) !important;
+}
 
+.journal-page .journal-prompt-toggle {
+  border-radius: 999px !important;
+  padding: 0.25rem 0.9rem !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.journal-page .journal-prompt-toggle:hover {
+  transform: none !important;
+}
+
+.journal-page .journal-prompt-toggle::after {
+  display: none !important;
+}
+
+/* Prompt dropdown */
+
+.journal-prompts {
+  border-radius: 12px;
+  padding: 0.875rem 1rem;
+  margin-bottom: 0.875rem;
+}
+
+.journal-prompts-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 0.6rem;
+  opacity: 0.78;
+}
+
+/* Prompt items */
+
+.journal-page .journal-prompt-item,
+.journal-page .journal-prompt-item:hover,
+.journal-page .journal-prompt-item:active {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+.journal-page .journal-prompt-item {
+  display: block !important;
+  width: 100% !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+  font-size: 0.85rem !important;
+  font-family: Georgia, serif !important;
+  font-style: italic !important;
+  text-align: left !important;
+  padding: 0.6rem 0 !important;
+  cursor: pointer !important;
+  line-height: 1.5 !important;
+}
+
+.journal-page .journal-prompt-item:last-child {
+  border-bottom: none !important;
+}
+
+.journal-page .journal-prompt-item:hover {
+  transform: none !important;
+}
+
+.journal-page .journal-prompt-item::after {
+  display: none !important;
+}
+
+/* Paper */
+
+.journal-paper {
+  border-radius: 18px;
+  overflow: hidden;
+}
 
 .journal-paper-label {
   margin: 1.5rem 0 0.6rem;
@@ -434,23 +148,316 @@
   text-shadow: 0 1px 3px rgba(0,0,0,0.45);
 }
 
-.journal-error {
-  color: #ffb3b3;
-  font-size: 0.95rem;
-  margin-top: 0.75rem;
+.journal-textarea {
+  width: 100%;
+  min-height: 220px;
+  padding: 1.25rem 1.375rem;
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.8;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
 }
+
+.journal-textarea::placeholder {
+  opacity: 0.48;
+  font-style: italic;
+}
+
+.journal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.375rem;
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
+
+.journal-wordcount {
+  font-size: 0.75rem;
+  opacity: 0.58;
+}
+
+/* Save button */
+
+.journal-paper .journal-save-btn,
+.journal-paper .journal-save-btn:hover {
+  border-radius: 999px !important;
+}
+
+.journal-paper .journal-save-btn {
+  padding: 0.6rem 1.25rem !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;
+}
+
+.journal-paper .journal-save-btn:hover {
+  transform: none !important;
+}
+
+.journal-paper .journal-save-btn:disabled {
+  opacity: 0.42 !important;
+  cursor: default !important;
+  box-shadow: none !important;
+}
+
+/* Links / secondary actions */
+
+.journal-page .journal-archive-link,
+.journal-page .journal-archive-link:hover,
+.journal-page .journal-archive-link:active {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.55) !important;
+}
+
+.journal-page .journal-archive-link {
+  display: block !important;
+  margin-top: 0.6rem !important;
+  border: none !important;
+  font-size: 0.84rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  padding: 0.35rem 0 !important;
+  text-align: center !important;
+  width: 100% !important;
+}
+
+.journal-page .journal-archive-link:hover {
+  transform: none !important;
+}
+
+.journal-page .journal-archive-link::after {
+  display: none !important;
+}
+
+/* Saved view */
+
+.journal-saved {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.journal-saved-entry {
+  border-radius: 14px;
+  padding: 1.25rem 1.375rem;
+}
+
+.journal-saved-date {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(210,150,40,0.92);
+  margin: 0 0 0.6rem;
+}
+
+.journal-saved-text {
+  font-family: Georgia, serif;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  font-style: italic;
+  margin: 0;
+}
+
+.journal-papa-response {
+  border-radius: 14px;
+  padding: 0.875rem 1rem;
+}
+
+.journal-papa-attr {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.58;
+  margin: 0 0 0.3rem;
+}
+
+.journal-saved-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.journal-saved-actions .journal-new-btn,
+.journal-saved-actions .journal-new-btn:hover {
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.journal-saved-actions .journal-new-btn {
+  padding: 0.875rem !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  text-align: center !important;
+}
+
+.journal-saved-actions .journal-new-btn:hover {
+  transform: none !important;
+}
+
+.journal-saved-actions .journal-new-btn::after {
+  display: none !important;
+}
+
+/* Back button */
+
+.journal-page .journal-back-btn,
+.journal-page .journal-back-btn:hover,
+.journal-page .journal-back-btn:active {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.50) !important;
+}
+
+.journal-page .journal-back-btn {
+  font-size: 0.82rem !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  padding: 0 0 1.25rem !important;
+  text-align: left !important;
+  display: block !important;
+}
+
+.journal-page .journal-back-btn:hover {
+  transform: none !important;
+}
+
+.journal-page .journal-back-btn::after {
+  display: none !important;
+}
+
+/* Catch context */
 
 .journal-catch-context {
   margin-top: 1rem;
   margin-bottom: 1rem;
   padding: 0.9rem 1rem;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .journal-catch-context-line {
   margin: 0;
-  color: rgba(255, 255, 255, 0.82);
   font-size: 0.95rem;
+  opacity: 0.82;
+}
+
+/* Archive list */
+
+.archive-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.archive-card {
+  border-radius: 14px;
+  padding: 1.125rem 1.25rem;
+}
+
+.archive-date {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(210,150,40,0.92);
+  margin: 0 0 0.5rem;
+}
+
+.archive-text {
+  font-family: Georgia, serif;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  font-style: italic;
+  margin: 0 0 0.5rem;
+}
+
+/* Archive expand button */
+
+.journal-page .archive-expand-btn,
+.journal-page .archive-expand-btn:hover,
+.journal-page .archive-expand-btn:active {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.45) !important;
+}
+
+.journal-page .archive-expand-btn {
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.journal-page .archive-expand-btn:hover {
+  transform: none !important;
+}
+
+.journal-page .archive-expand-btn::after {
+  display: none !important;
+}
+
+.archive-papa {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
+
+.archive-papa-attr {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(210,150,40,0.90);
+  margin: 0 0 0.25rem;
+}
+
+.archive-papa-line {
+  font-family: Georgia, serif;
+  font-size: 0.85rem;
+  font-style: italic;
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* Empty state */
+
+.archive-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.archive-empty-title {
+  font-family: Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+.archive-empty-sub {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  max-width: 320px;
+  margin: 0 auto 1.5rem;
+  opacity: 0.68;
+}
+
+/* Mobile */
+
+@media (max-width: 480px) {
+  .journal-page {
+    padding: 0 1rem 6rem;
+  }
 }
