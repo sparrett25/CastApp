@@ -6,6 +6,8 @@ import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
 import { supabase } from "../lib/supabase";
 import "../styles/pages/journal-page.css";
+import { getScene } from "../atmosphere/sceneBuilder";
+import { useAtmosphere } from "../atmosphere/useAtmosphere";
 
 function formatDate(iso) {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -55,6 +57,24 @@ function EntryCard({ entry, index }) {
 
 export default function JournalArchive() {
   const navigate = useNavigate();
+  
+    const DEBUG_SCENE = null;
+
+  const atmosphere = useAtmosphere("journalArchive");
+
+  const scene = DEBUG_SCENE
+    ? getScene(DEBUG_SCENE)
+    : atmosphere.scene;
+
+  const ui = scene?.timeState?.ui ?? {};
+
+  const bubbleTheme = ui.bubble;
+  const inputTheme = ui.input;
+  const buttonTheme = ui.button;
+  const cardTheme = ui.card;
+  const textTheme = ui.text;
+  
+  
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -108,14 +128,18 @@ export default function JournalArchive() {
   }, []);
 
   return (
-    <CastBackground chamberKey="journal">
+    <CastBackground
+	  chamberKey="journal"
+	  variant={scene?.backgroundVariant}
+	  overlay={scene?.timeState?.ui?.overlay}
+	>
       <ChamberLayout
         title="Past Entries"
         sub="Every entry is a record of someone paying attention."
         papa={
           <PapaMini
             context={{
-              event: `Grant is reading through his ${entries.length} journal entries`,
+              event: `User is reading through their ${entries.length} journal entries`,
             }}
             fallbackKey="journal.prompt"
           />

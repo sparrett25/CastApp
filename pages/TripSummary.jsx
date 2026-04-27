@@ -6,10 +6,30 @@ import PapaMini from "../components/PapaMini";
 import PapaSpeaks from "../components/PapaSpeaks";
 import { supabase } from "../lib/supabase";
 import "../styles/pages/trip-summary.css";
+import { getScene } from "../atmosphere/sceneBuilder";
+import { useAtmosphere } from "../atmosphere/useAtmosphere";
+
 
 export default function TripSummary() {
   const nav = useNavigate();
   const location = useLocation();
+  
+    const DEBUG_SCENE = null;
+
+const atmosphere = useAtmosphere("tripSummary");
+
+const scene = DEBUG_SCENE
+  ? getScene(DEBUG_SCENE)
+  : atmosphere.scene;
+
+const ui = scene?.timeState?.ui ?? {};
+
+const bubbleTheme = ui.bubble;
+const inputTheme = ui.input;
+const buttonTheme = ui.button;
+const cardTheme = ui.card;
+const textTheme = ui.text;
+  
 
   const tripId = location.state?.tripId || null;
 
@@ -72,7 +92,11 @@ export default function TripSummary() {
 
   if (loading) {
     return (
-      <CastBackground chamberKey="trip-summary">
+      <CastBackground
+	  chamberKey="trip-summary"
+	  variant={scene?.backgroundVariant}
+	  overlay={scene?.timeState?.ui?.overlay}
+	>
         <ChamberLayout
           title="Trip Summary"
           sub="Loading your itinerary..."
@@ -90,7 +114,11 @@ export default function TripSummary() {
 
   if (error || !trip) {
     return (
-      <CastBackground chamberKey="trip-summary">
+      <CastBackground
+	  chamberKey="trip-summary"
+	  variant={scene?.backgroundVariant}
+	  overlay={scene?.timeState?.ui?.overlay}
+	>
         <ChamberLayout
           title="Trip Summary"
           sub="Something interrupted the itinerary."
@@ -115,7 +143,11 @@ export default function TripSummary() {
   const targetLabel = trip.target_species?.[0] || "Whatever bites";
 
   return (
-    <CastBackground chamberKey="trip-summary">
+    <CastBackground
+	  chamberKey="trip-summary"
+	  variant={scene?.backgroundVariant}
+	  overlay={scene?.timeState?.ui?.overlay}
+	>
       <ChamberLayout
         title="Trip Summary"
         sub="A saved plan for the water ahead."

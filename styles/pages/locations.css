@@ -5,8 +5,32 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  
 }
+
+.loc-card,
+.loc-adventure-card,
+.loc-difficulty,
+.loc-tone-badge,
+.loc-chip,
+.loc-species-chip,
+.loc-stat,
+.loc-voice-block,
+.loc-papa-block,
+.scroll-surface,
+.loc-back-btn,
+.loc-more-hint {
+  transition:
+    background 0.45s ease,
+    border-color 0.45s ease,
+    color 0.45s ease,
+    box-shadow 0.45s ease,
+    backdrop-filter 0.45s ease,
+    -webkit-backdrop-filter 0.45s ease,
+    opacity 0.25s ease,
+    transform 0.2s ease;
+}
+
+/* Hub */
 
 .loc-hub {
   display: flex;
@@ -14,34 +38,23 @@
   gap: 0.9rem;
 }
 
-.loc-card,
-.loc-card:hover,
-.loc-card:active {
-  box-shadow: none !important;
-  color: white !important;
-}
-
 .loc-card {
-  width: 100% !important;
-  background: rgba(10, 6, 2, 0.62) !important;
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
-  border-radius: 16px !important;
-  padding: 1.1rem 1.15rem !important;
-  text-align: left !important;
-  cursor: pointer !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  transition: border-color 0.2s, background 0.2s !important;
-  opacity: 0.62;
+  width: 100%;
+  border-radius: 16px;
+  padding: 1.1rem 1.15rem;
+  text-align: left;
+  cursor: pointer;
+  opacity: 0.72;
+  overflow: hidden;
 }
 
 .loc-card:hover {
-  border-color: rgba(255, 255, 255, 0.30) !important;
-  background: rgba(10, 6, 2, 0.78) !important;
-  transform: translateY(-2px) !important;
+  opacity: 0.88;
+  transform: translateY(-2px);
 }
 
-.loc-card::after {
+.loc-card::after,
+.loc-adventure-card::after {
   display: none !important;
 }
 
@@ -50,7 +63,6 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 0.75rem;
-  margin-bottom: 0.55rem;
 }
 
 .loc-card-eyebrow,
@@ -68,7 +80,7 @@
   font-family: Georgia, serif;
   font-size: 1.3rem;
   font-weight: 700;
-  color: white;
+  color: rgba(255, 255, 255, 0.94);
   margin: 0 0 0.15rem;
 }
 
@@ -86,42 +98,31 @@
   font-family: Georgia, serif;
   font-size: 0.92rem;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.90);
+  color: rgba(255, 255, 255, 0.9);
   margin: 0 0 1rem;
 }
 
-.loc-card-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
-  margin-bottom: 0.9rem;
-}
-
-.loc-card-group {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  border-radius: 10px;
-  padding: 0.65rem 0.75rem;
-}
-
-.loc-mini-label,
-.loc-stat-label,
-.loc-section-label,
-.loc-voice-attr {
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.58);
-  margin: 0 0 0.3rem;
-}
-
-.loc-mini-value,
-.loc-stat-value {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: white;
+.loc-more-hint {
+  text-align: center;
+  font-size: 0.78rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.55);
+  padding-top: 0.3rem;
   margin: 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Badges / Chips */
+
+.loc-difficulty,
+.loc-adventure-status {
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  white-space: nowrap;
 }
 
 .loc-card-tones,
@@ -150,67 +151,35 @@
   background: rgba(24, 95, 165, 0.14);
 }
 
-.loc-difficulty {
-  font-size: 0.64rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  border-radius: 999px;
-  padding: 0.2rem 0.55rem;
-  white-space: nowrap;
+.loc-species-chip.clickable {
+  cursor: pointer;
 }
 
-.loc-difficulty.high,
-.loc-difficulty.easy {
-  color: #5A9E2A;
-  background: rgba(59, 109, 17, 0.22);
-  border: 1px solid rgba(59, 109, 17, 0.45);
+.loc-species-chip.clickable:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
-.loc-difficulty.medium {
-  color: #d6b25e;
-  background: rgba(160, 122, 32, 0.20);
-  border: 1px solid rgba(160, 122, 32, 0.40);
-}
+/* Back Button */
 
-.loc-difficulty.low,
-.loc-difficulty.hard {
-  color: #d58a8a;
-  background: rgba(120, 40, 40, 0.22);
-  border: 1px solid rgba(120, 40, 40, 0.40);
-}
-
-.loc-more-hint {
-  text-align: center;
-  font-size: 0.78rem;
-  font-style: italic;
-  color: rgba(255, 255, 255, 0.55);
-  padding-top: 0.3rem;
-  margin: 0;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.50);
-}
-
-.loc-page .loc-back-btn,
-.loc-page .loc-back-btn:hover,
-.loc-page .loc-back-btn:active {
+.loc-page .loc-back-btn {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   padding: 0 0 1.25rem !important;
   border-radius: 0 !important;
-  color: rgba(255,255,255,0.68);
+  color: rgba(255, 255, 255, 0.68);
   font-size: 0.82rem;
   font-weight: 500;
   cursor: pointer;
   text-align: left;
   display: block;
-  transition: color 0.2s;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.50);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   overflow: visible;
 }
 
 .loc-page .loc-back-btn:hover {
-  color: rgba(255,255,255,0.98) !important;
+  color: rgba(255, 255, 255, 0.98) !important;
   transform: none !important;
 }
 
@@ -218,9 +187,34 @@
   display: none !important;
 }
 
+/* Detail */
+
 .loc-detail {
   display: flex;
   flex-direction: column;
+}
+
+.scroll-surface {
+  max-width: 760px;
+  padding: 1.75rem 2rem;
+  border-radius: 16px;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(20, 14, 6, 0.32),
+    rgba(20, 14, 6, 0.22)
+  );
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .loc-stats-row {
@@ -231,10 +225,30 @@
 }
 
 .loc-stat {
-  background: rgba(10,6,2,0.55);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(10, 6, 2, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 10px;
   padding: 0.6rem 0.75rem;
+}
+
+.loc-mini-label,
+.loc-stat-label,
+.loc-section-label,
+.loc-voice-attr {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.58);
+  margin: 0 0 0.3rem;
+}
+
+.loc-mini-value,
+.loc-stat-value {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.94);
+  margin: 0;
 }
 
 .loc-section {
@@ -244,7 +258,7 @@
 .loc-section-body {
   font-size: 0.875rem;
   line-height: 1.7;
-  color: rgba(255,255,255,0.88);
+  color: rgba(255, 255, 255, 0.88);
 }
 
 .loc-list {
@@ -256,6 +270,8 @@
   margin-bottom: 0.35rem;
 }
 
+/* Voice / Papa */
+
 .loc-voice-stack {
   display: flex;
   flex-direction: column;
@@ -265,22 +281,22 @@
 .loc-voice-block {
   border-radius: 0 10px 10px 0;
   padding: 0.75rem 1rem;
-  background: rgba(24,95,165,0.16);
-  border-left: 2px solid rgba(24,95,165,0.50);
+  background: rgba(24, 95, 165, 0.16);
+  border-left: 2px solid rgba(24, 95, 165, 0.5);
 }
 
 .loc-voice-text {
   font-family: Georgia, serif;
   font-size: 0.875rem;
   line-height: 1.65;
-  color: rgba(255,255,255,0.92);
+  color: rgba(255, 255, 255, 0.92);
   font-style: italic;
   margin: 0;
 }
 
 .loc-papa-block {
-  background: rgba(186,117,23,0.16);
-  border-left: 2px solid rgba(186,117,23,0.60);
+  background: rgba(186, 117, 23, 0.16);
+  border-left: 2px solid rgba(186, 117, 23, 0.6);
   border-radius: 0 12px 12px 0;
   padding: 1rem 1.125rem;
   margin-top: 0.5rem;
@@ -290,44 +306,12 @@
   font-family: Georgia, serif;
   font-size: 1rem;
   line-height: 1.65;
-  color: rgba(255,255,255,0.92);
+  color: rgba(255, 255, 255, 0.92);
   font-style: italic;
   margin: 0;
 }
 
-.scroll-surface {
-  max-width: 760px;
-  padding: 1.75rem 2rem;
-  border-radius: 16px;
-  background: linear-gradient(
-    to bottom,
-    rgba(20, 14, 6, 0.32),
-    rgba(20, 14, 6, 0.22)
-  );
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.25),
-    inset 0 1px 0 rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.92);
-}
-
-@media (max-width: 480px) {
-  .loc-page {
-    padding: 1rem 1rem 6rem;
-  }
-
-  .loc-stats-row,
-  .loc-card-row {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .loc-detail-title {
-    font-size: 1.45rem;
-  }
-
-}
+/* Adventure Cards */
 
 .loc-adventure-stack {
   display: flex;
@@ -335,37 +319,23 @@
   gap: 0.75rem;
 }
 
-.loc-adventure-card,
-.loc-adventure-card:hover,
-.loc-adventure-card:active {
-  box-shadow: none !important;
-  color: white !important;
-}
-
 .loc-adventure-card {
-  width: 100% !important;
-  background: rgba(10, 6, 2, 0.42) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  border-radius: 14px !important;
-  padding: 0.95rem 1rem !important;
-  text-align: left !important;
-  cursor: pointer !important;
-  transition: background 0.2s, border-color 0.2s !important;
+  width: 100%;
+  border-radius: 14px;
+  padding: 0.95rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  opacity: 0.72;
 }
 
 .loc-adventure-card:hover:not(.locked) {
-  background: rgba(10, 6, 2, 0.62) !important;
-  border-color: rgba(255, 255, 255, 0.22) !important;
-  transform: translateY(-2px) !important;
+  opacity: 0.88;
+  transform: translateY(-2px);
 }
 
 .loc-adventure-card.locked {
-  opacity: 0.72;
-  cursor: default !important;
-}
-
-.loc-adventure-card::after {
-  display: none !important;
+  opacity: 0.55;
+  cursor: default;
 }
 
 .loc-adventure-top {
@@ -381,7 +351,6 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.52);
   margin: 0 0 0.2rem;
 }
 
@@ -389,13 +358,11 @@
   font-family: Georgia, serif;
   font-size: 1rem;
   font-weight: 700;
-  color: white;
   margin: 0 0 0.15rem;
 }
 
 .loc-adventure-subtitle {
   font-size: 0.78rem;
-  color: rgba(255,255,255,0.62);
   margin: 0;
   font-style: italic;
 }
@@ -404,7 +371,6 @@
   font-family: Georgia, serif;
   font-size: 0.84rem;
   line-height: 1.6;
-  color: rgba(255,255,255,0.82);
   font-style: italic;
   margin: 0.5rem 0 0.75rem;
 }
@@ -412,38 +378,30 @@
 .loc-adventure-footer {
   font-size: 0.78rem;
   font-weight: 600;
-  color: rgba(255,255,255,0.62);
 }
 
-.loc-adventure-status {
-  font-size: 0.64rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  border-radius: 999px;
-  padding: 0.2rem 0.55rem;
-  white-space: nowrap;
-}
+/* Mobile */
 
-.loc-adventure-status.available {
-  color: #5A9E2A;
-  background: rgba(59, 109, 17, 0.22);
-  border: 1px solid rgba(59, 109, 17, 0.45);
-}
+@media (max-width: 480px) {
+  .loc-page {
+    padding: 1rem 1rem 6rem;
+  }
 
-.loc-adventure-status.locked {
-  color: #d6b25e;
-  background: rgba(160, 122, 32, 0.20);
-  border: 1px solid rgba(160, 122, 32, 0.40);
-}
+  .loc-stats-row {
+    grid-template-columns: 1fr 1fr;
+  }
 
-.loc-species-chip.clickable {
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
-}
+  .loc-detail-title {
+    font-size: 1.45rem;
+  }
 
-.loc-species-chip.clickable:hover {
-  background: rgba(255,255,255,0.18);
-  border-color: rgba(255,255,255,0.28);
-}
+  .scroll-surface {
+    padding: 1.35rem 1.2rem;
+    border-radius: 14px;
+  }
 
+  .loc-adventure-top,
+  .loc-card-top {
+    gap: 0.6rem;
+  }
+}

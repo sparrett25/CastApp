@@ -175,7 +175,7 @@ const handlePapaResponse = async (line) => {
 		  papa={
 			<PapaMini
 			  context={buildPapaPageContext("journal", {
-				event: "Grant opened his journal to write.",
+				event: "You opened your journal to write.",
 			  })}
 			  fallbackKey="journal.prompt"
 			/>
@@ -355,7 +355,7 @@ const handlePapaResponse = async (line) => {
                   <p className="journal-papa-attr">Papa</p>
                   <PapaSpeaks
 				  context={buildPapaPageContext("journal", {
-				  event: "Grant just saved a journal reflection.",
+				  event: "User just saved a journal reflection.",
 				  journalEntry: lastEntry.entry_text,
 				  catchContext: lastEntry.catch_context ?? [],
 				  linkedCatchCount: Array.isArray(lastEntry.catch_context)

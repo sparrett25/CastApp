@@ -20,6 +20,9 @@ import {
   buildTripContext,
 } from "../utils/buildPapaPageContext";
 
+import { getScene } from "../atmosphere/sceneBuilder";
+import { useAtmosphere } from "../atmosphere/useAtmosphere";
+
 
 // ── Duration options ───────────────────────────────────────────
 const DURATIONS = [
@@ -127,6 +130,49 @@ function getScooterAdvice(waterId, targetId) {
 // ── Main page ──────────────────────────────────────────────────
 export default function TripPlanner() {
   const navigate = useNavigate();
+
+ const DEBUG_SCENE = null;
+
+const atmosphere = useAtmosphere("planTrip");
+
+const scene = DEBUG_SCENE
+  ? getScene(DEBUG_SCENE)
+  : atmosphere.scene;
+
+const ui = scene?.timeState?.ui ?? {};
+
+const inputTheme = ui.input;
+const buttonTheme = ui.button;
+const cardTheme = ui.card;
+const textTheme = ui.text;
+
+const cardStyle = {
+  background: cardTheme?.bg,
+  border: `1px solid ${cardTheme?.border}`,
+  backdropFilter: `blur(${cardTheme?.blur || "12px"})`,
+  WebkitBackdropFilter: `blur(${cardTheme?.blur || "12px"})`,
+  boxShadow: cardTheme?.shadow,
+  color: textTheme?.primary,
+};
+
+const optionStyle = {
+  background: buttonTheme?.secondaryBg,
+  border: `1px solid ${buttonTheme?.border}`,
+  color: buttonTheme?.text,
+};
+
+const activeOptionStyle = {
+  background: buttonTheme?.primaryBg,
+  border: `1px solid ${buttonTheme?.border}`,
+  color: buttonTheme?.text,
+};
+
+const inputStyle = {
+  background: inputTheme?.bg,
+  border: `1px solid ${inputTheme?.border}`,
+  color: inputTheme?.text,
+};
+
 
   const [step, setStep]         = useState(1); // 1-4 = questions, 5 = summary
   const [whenId, setWhenId]     = useState(null);
@@ -271,7 +317,11 @@ useEffect(() => {
 
 
   return (
-    <CastBackground chamberKey="plan-trip" >
+    <CastBackground
+	  chamberKey="plan-trip"
+	  variant={scene?.backgroundVariant}
+	  overlay={scene?.timeState?.ui?.overlay}
+	>
       <ChamberLayout
         papa={<PapaMini context={chamberPapaContext} fallbackKey="fallback" trigger={step === 5 ? "planned" : null} />}
       >
@@ -287,6 +337,7 @@ useEffect(() => {
 					<button
 					  key={w.id}
 					  className={`trip-option ${whenId === w.id ? "active" : ""}`}
+					  style={whenId === w.id ? activeOptionStyle : optionStyle}
 					  onClick={() => setWhenId(w.id)}
 					>
 					  {w.label}
@@ -296,15 +347,21 @@ useEffect(() => {
 				
                 {whenId === "custom" && (
                   <input
-                    type="date"
-                    className="trip-date-input"
-                    value={customDate}
-                    min={new Date().toISOString().split("T")[0]}
-                    onChange={e => setCustomDate(e.target.value)}
-                  />
+					  type="date"
+					  className="trip-date-input"
+					  style={inputStyle}
+					  value={customDate}
+					  min={new Date().toISOString().split("T")[0]}
+					  onChange={e => setCustomDate(e.target.value)}
+					/>
                 )}
                 <button
                   className="trip-next-btn"
+				  style={{
+					background: buttonTheme?.primaryBg,
+					border: `1px solid ${buttonTheme?.border}`,
+					color: buttonTheme?.text,
+				  }}
                   disabled={!whenId || (whenId === "custom" && !customDate)}
                   onClick={() => setStep(2)}
                 >
@@ -323,6 +380,7 @@ useEffect(() => {
 					<button
 					  key={loc.id}
 					  className={`trip-option-row ${waterId === loc.id ? "active" : ""}`}
+					  style={waterId === loc.id ? activeOptionStyle : cardStyle}
 					  onClick={() => setWaterId(loc.id)}
 					>
 					  <span className="trip-option-row-label">{loc.name}</span>
@@ -332,7 +390,13 @@ useEffect(() => {
 					</button>
 				  ))}
 				</div>
-                <button className="trip-next-btn" disabled={!waterId} onClick={() => setStep(3)}>
+                <button className="trip-next-btn" 
+				style={{
+					background: buttonTheme?.primaryBg,
+					border: `1px solid ${buttonTheme?.border}`,
+					color: buttonTheme?.text,
+				  }}
+				  disabled={!waterId} onClick={() => setStep(3)}>
                   Next →
                 </button>
               </motion.div>
@@ -348,6 +412,7 @@ useEffect(() => {
 					<button
 					  key={t.id}
 					  className={`trip-option ${targetId === t.id ? "active" : ""}`}
+					  style={targetId === t.id ? activeOptionStyle : optionStyle}
 					  onClick={() => setTargetId(t.id)}
 					>
 					  {t.label}
@@ -359,6 +424,7 @@ useEffect(() => {
 				  <button
 					type="button"
 					className="trip-other-btn"
+					style={optionStyle}
 					onClick={() => setShowOtherTargets(true)}
 				  >
 					Other species here
@@ -371,6 +437,7 @@ useEffect(() => {
 					  <button
 						key={t.id}
 						className={`trip-option ${targetId === t.id ? "active" : ""}`}
+						style={targetId === t.id ? activeOptionStyle : optionStyle}
 						onClick={() => setTargetId(t.id)}
 					  >
 						{t.label}
@@ -384,7 +451,13 @@ useEffect(() => {
 					<span className="trip-tip-attr"> — Scooter</span>
 				  </p>
 				)}
-                <button className="trip-next-btn" disabled={!targetId} onClick={() => setStep(4)}>
+                <button className="trip-next-btn" 
+				style={{
+					background: buttonTheme?.primaryBg,
+					border: `1px solid ${buttonTheme?.border}`,
+					color: buttonTheme?.text,
+				  }}
+				disabled={!targetId} onClick={() => setStep(4)}>
                   Next →
                 </button>
               </motion.div>
@@ -393,13 +466,24 @@ useEffect(() => {
             {/* ── Step 4: How long ── */}
             {step === 4 && (
               <motion.div key="step4" className="trip-step" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
-                <button className="trip-back-btn" onClick={() => setStep(3)}>← Back</button>
+                <button
+				  className="trip-back-btn"
+				  style={{
+					background: "transparent",
+					border: `1px solid ${buttonTheme?.border}`,
+					color: textTheme?.secondary,
+				  }}
+				  onClick={() => setStep(3)}
+				>
+				  ← Back
+				</button>
                 <p className="trip-question">How long?</p>
                 <div className="trip-options">
                   {DURATIONS.map(d => (
                     <button
                       key={d.id}
                       className={`trip-option ${durationId === d.id ? "active" : ""}`}
+					  style={durationId === d.id ? activeOptionStyle : optionStyle}
                       onClick={() => setDurationId(d.id)}
                     >
                       <span className="trip-duration-label">{d.label}</span>
@@ -409,6 +493,11 @@ useEffect(() => {
                 </div>
                 <button
 				  className="trip-next-btn"
+				  style={{
+					background: buttonTheme?.primaryBg,
+					border: `1px solid ${buttonTheme?.border}`,
+					color: buttonTheme?.text,
+				  }}
 				  disabled={!durationId || saving}
 				  onClick={handleFinish}
 				>
@@ -421,7 +510,7 @@ useEffect(() => {
 
             {/* ── Step 5: Trip summary ── */}
             {step === 5 && trip && (
-              <motion.div key="step5" className="trip-summary-card" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+              <motion.div key="step5" className="trip-summary-card" style={cardStyle} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
 
                 {/* Trip header */}
                 <div className="trip-summary-header">
@@ -469,11 +558,22 @@ useEffect(() => {
 
                 {/* Actions */}
                 <div className="trip-summary-actions">
-                  <button className="trip-home-btn" onClick={() => navigate("/home")}>
+                  <button className="trip-home-btn" 
+				  style={{
+				  background: "transparent",
+				  border: `1px solid ${buttonTheme?.border}`,
+				  color: textTheme?.secondary,
+				}}
+				onClick={() => navigate("/home")}>
                     Back to the Dock
                   </button>
                   <button
 					  className="trip-new-btn"
+					  style={{
+						  background: buttonTheme?.secondaryBg,
+						  border: `1px solid ${buttonTheme?.border}`,
+						  color: buttonTheme?.text,
+						}}
 					  onClick={() => {
 						setStep(1);
 						setWhenId(null);

@@ -8,11 +8,24 @@ import { CAST_LOCATIONS } from "../data/locations";
 import "../styles/pages/locations.css";
 import grantQuests from "../data/stories/grant/quests.json";
 import { SPECIES } from "../data/species";
+import { getScene } from "../atmosphere/sceneBuilder";
+import { useAtmosphere } from "../atmosphere/useAtmosphere";
 
 
 // ── Small helpers ──────────────────────────────────────────────
-function ToneBadge({ label }) {
-  return <span className="loc-tone-badge">{label}</span>;
+function ToneBadge({ label, chipTheme }) {
+  return (
+    <span
+      className="loc-tone-badge"
+      style={{
+        background: chipTheme?.activeBg,
+        border: `1px solid ${chipTheme?.border}`,
+        color: chipTheme?.text,
+      }}
+    >
+      {label}
+    </span>
+  );
 }
 
 function SpeciesChip({ label, onClick }) {
@@ -45,33 +58,54 @@ function SectionBlock({ label, children }) {
 }
 
 // ── Adventure card ─────────────────────────────────────────────
-function AdventureLinkCard({ quest, onOpen }) {
+function AdventureLinkCard({ quest, onOpen, cardTheme, textTheme, chipTheme }) {
   return (
     <motion.button
       className={`loc-adventure-card ${quest.status === "locked" ? "locked" : ""}`}
       onClick={() => quest.status !== "locked" && onOpen(quest.quest_id)}
       whileHover={quest.status !== "locked" ? { y: -2 } : {}}
       transition={{ type: "spring", stiffness: 300, damping: 24 }}
+      style={{
+        background: cardTheme?.bg,
+        border: `1px solid ${cardTheme?.border}`,
+        backdropFilter: `blur(${cardTheme?.blur || "12px"})`,
+        WebkitBackdropFilter: `blur(${cardTheme?.blur || "12px"})`,
+        boxShadow: cardTheme?.shadow,
+        color: textTheme?.primary,
+      }}
     >
       <div className="loc-adventure-top">
         <div>
-          <p className="loc-adventure-eyebrow">
+          <p className="loc-adventure-eyebrow" style={{ color: textTheme?.secondary }}>
             Adventure {quest.adventure_number}
           </p>
-          <h4 className="loc-adventure-title">{quest.title}</h4>
-          <p className="loc-adventure-subtitle">{quest.subtitle}</p>
+          <h4 className="loc-adventure-title" style={{ color: textTheme?.primary }}>
+            {quest.title}
+          </h4>
+          <p className="loc-adventure-subtitle" style={{ color: textTheme?.secondary }}>
+            {quest.subtitle}
+          </p>
         </div>
 
-        <span className={`loc-adventure-status ${quest.status}`}>
+        <span
+          className={`loc-adventure-status ${quest.status}`}
+          style={{
+            background: chipTheme?.activeBg,
+            border: `1px solid ${chipTheme?.border}`,
+            color: chipTheme?.text,
+          }}
+        >
           {quest.status === "locked" ? "Locked" : "Available"}
         </span>
       </div>
 
       {quest.lore_intro && (
-        <p className="loc-adventure-intro">{quest.lore_intro}</p>
+        <p className="loc-adventure-intro" style={{ color: textTheme?.secondary }}>
+          {quest.lore_intro}
+        </p>
       )}
 
-      <div className="loc-adventure-footer">
+      <div className="loc-adventure-footer" style={{ color: textTheme?.secondary }}>
         {quest.status === "locked"
           ? "Complete earlier waters to unlock"
           : "Begin adventure →"}
@@ -81,36 +115,59 @@ function AdventureLinkCard({ quest, onOpen }) {
 }
 
 // ── Hub Card ───────────────────────────────────────────────────
-function LocationCard({ location, onClick }) {
+function LocationCard({ location, onClick, cardTheme, textTheme, chipTheme }) {
   return (
     <motion.button
       className="loc-card"
       onClick={() => onClick(location)}
       whileHover={{ y: -2 }}
       transition={{ type: "spring", stiffness: 300, damping: 24 }}
+      style={{
+        background: cardTheme?.bg,
+        border: `1px solid ${cardTheme?.border}`,
+        backdropFilter: `blur(${cardTheme?.blur || "12px"})`,
+        WebkitBackdropFilter: `blur(${cardTheme?.blur || "12px"})`,
+        boxShadow: cardTheme?.shadow,
+        color: textTheme?.primary,
+      }}
     >
       <div className="loc-card-top">
         <div>
-          <p className="loc-card-eyebrow">{location.location_type_label}</p>
-          <h3 className="loc-card-title">{location.name}</h3>
-          
+          <p className="loc-card-eyebrow" style={{ color: textTheme?.secondary }}>
+            {location.location_type_label}
+          </p>
+          <h3 className="loc-card-title" style={{ color: textTheme?.primary }}>
+            {location.name}
+          </h3>
         </div>
 
         <div className="loc-card-meta">
-          <span className={`loc-difficulty ${location.difficulty.beginner_friendly}`}>
+          <span
+            className={`loc-difficulty ${location.difficulty.beginner_friendly}`}
+            style={{
+              background: chipTheme?.activeBg,
+              border: `1px solid ${chipTheme?.border}`,
+              color: chipTheme?.text,
+            }}
+          >
             {location.difficulty_label}
           </span>
         </div>
       </div>
-
-          
-      
     </motion.button>
   );
 }
 
 // ── Detail View ────────────────────────────────────────────────
-function LocationDetail({ location, onBack, onOpenAdventure, onOpenSpecies }) {
+function LocationDetail({
+  location,
+  onBack,
+  onOpenAdventure,
+  onOpenSpecies,
+  cardTheme,
+  textTheme,
+  chipTheme,
+}) {
   const locationAdventures = (location.adventure_ids || [])
     .map((id) => grantQuests.quests.find((q) => q.quest_id === id))
     .filter(Boolean);
@@ -162,7 +219,7 @@ const FIELD_GUIDE_SPECIES = Object.fromEntries(
         <SectionBlock label="Tone of the place">
           <div className="loc-tone-wrap">
             {location.tone_profile.map((tone) => (
-              <ToneBadge key={tone} label={tone} />
+              <ToneBadge key={tone} label={tone} chipTheme={chipTheme} />
             ))}
           </div>
         </SectionBlock>
@@ -230,10 +287,13 @@ const FIELD_GUIDE_SPECIES = Object.fromEntries(
             <div className="loc-adventure-stack">
               {locationAdventures.map((quest) => (
                 <AdventureLinkCard
-                  key={quest.quest_id}
-                  quest={quest}
-                  onOpen={onOpenAdventure}
-                />
+				  key={quest.quest_id}
+				  quest={quest}
+				  onOpen={onOpenAdventure}
+				  cardTheme={cardTheme}
+				  textTheme={textTheme}
+				  chipTheme={chipTheme}
+				/>
               ))}
             </div>
           </SectionBlock>
@@ -288,6 +348,21 @@ export default function LocationsPage() {
   const navigate = useNavigate();
   const routeLocation = useLocation();
 
+const DEBUG_SCENE = null;
+
+const atmosphere = useAtmosphere("locations");
+
+const scene = DEBUG_SCENE
+  ? getScene(DEBUG_SCENE)
+  : atmosphere.scene;
+
+const ui = scene?.timeState?.ui ?? {};
+
+const cardTheme = ui.card;
+const textTheme = ui.text;
+
+
+
   const papaContext = {
   page: "locations",
   view: selectedLocation ? "entry" : "home",
@@ -316,7 +391,11 @@ export default function LocationsPage() {
   
 
   return (
-    <CastBackground chamberKey="locations">
+    <CastBackground
+	  chamberKey="locations"
+	  variant={scene?.backgroundVariant}
+	  overlay={scene?.timeState?.ui?.overlay}
+	>
       <ChamberLayout
         papa={
           <PapaMini
@@ -339,10 +418,13 @@ export default function LocationsPage() {
               >
                 {CAST_LOCATIONS.map((location) => (
                   <LocationCard
-                    key={location.id}
-                    location={location}
-                    onClick={setSelectedLocation}
-                  />
+				  key={location.id}
+				  location={location}
+				  onClick={setSelectedLocation}
+				  cardTheme={cardTheme}
+				  textTheme={textTheme}
+				  chipTheme={ui.chip}
+				/>
                 ))}
 
                 <p className="loc-more-hint">
@@ -361,10 +443,13 @@ export default function LocationsPage() {
 				navigate("/field-guide", {
 				  state: {
 					section: "species",
-					entryId
-				  }
+					entryId,
+				  },
 				})
 			  }
+			  cardTheme={cardTheme}
+			  textTheme={textTheme}
+			  chipTheme={ui.chip}
 			/>
             )}
           </AnimatePresence>

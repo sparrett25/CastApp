@@ -10,7 +10,10 @@ function getIntroUiStyles(scene) {
   const tone = scene?.timeState?.ui?.textTone ?? "balanced";
   const glow = scene?.timeState?.ui?.glow ?? "warm";
   const cardOpacity = scene?.timeState?.ui?.cardOpacity ?? 0.18;
-
+  const cardBackground =
+  scene?.timeState?.ui?.cardBackground ??
+  `rgba(18, 12, 8, ${cardOpacity})`;
+  
   return {
     headlineClass:
       tone === "soft"
@@ -25,10 +28,19 @@ function getIntroUiStyles(scene) {
         : glow === "dim"
         ? "intro-scene-whisper intro-scene-whisper--dim"
         : "intro-scene-whisper intro-scene-whisper--warm",
+		
+	containerClass:
+	  glow === "cool"
+		? "intro-container intro-container--cool"
+		: glow === "dim"
+		? "intro-container intro-container--dim"
+		: "intro-container intro-container--warm",	
+		
+		
 
     cardStyle: {
-      background: `rgba(18, 12, 8, ${cardOpacity})`
-    },
+  background: cardBackground
+},
 
     cardClass:
       glow === "cool"
@@ -56,45 +68,39 @@ export default function IntroPage() {
 
  const DEBUG_SCENE = null;
 
-const atmosphere = useAtmosphere("papaDock");
+const atmosphere = useAtmosphere("intro");
 
 const scene = DEBUG_SCENE
   ? getScene(DEBUG_SCENE)
   : atmosphere.scene;
 
-const bubbleTheme = atmosphere.ui?.bubble;
-const inputTheme = atmosphere.ui?.input;
-  
-  
   const uiStyles = getIntroUiStyles(scene);
 
   return (
     <CastBackground
-      chamberKey="intro"
-      variant={scene?.backgroundVariant}
-      overlay={scene?.timeState?.ui?.overlay || "absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-black/45"}
-    >
+	  chamberKey="intro"
+	  variant={scene?.backgroundVariant}
+	  overlay={scene?.timeState?.ui?.overlay}
+	>
       <ChamberLayout    >
-        <div className="intro-container">
+        <div className={uiStyles.containerClass}>
+  <div className={uiStyles.whisperClass}>{scene?.whisper}</div>
 
-          <div className={uiStyles.whisperClass}>{scene?.whisper}</div>
+  <h2 className={uiStyles.headlineClass}>
+    <span>This is your place by the water. </span>
+    <span>You can fish. You can explore. </span>
+    <span>Or just sit and listen.</span>
+  </h2>
 
-			<h2 className={uiStyles.headlineClass}>
-			  <span>This is your place by the water. </span>
-			  <span>You can fish. You can explore. </span>
-			  <span>Or just sit and listen.</span>
-			</h2>
+  <ActionTile
+    title="Step onto the Dock"
+    onClick={begin}
+    className={uiStyles.cardClass}
+    style={uiStyles.cardStyle}
+  />
 
-			<ActionTile
-			  title="Step onto the Dock"
-			  onClick={begin}
-			  className={uiStyles.cardClass}
-			  style={uiStyles.cardStyle}
-			/>
-        
-
-          <p className="home-tip">The water remembers every visit.</p>
-        </div>
+  <p className="home-tip">The water remembers every visit.</p>
+</div>
       </ChamberLayout>
     </CastBackground>
   );

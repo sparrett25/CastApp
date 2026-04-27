@@ -28,13 +28,7 @@ const PILLARS = [
   { emoji: "📜", title: "Journal",      desc: "Write what the day felt like.",   path: "/journal" },
   { emoji: "💬", title: "Talk to Papa",      desc: "Interact with Papa.",   path: "/papa" },
 ];
-function getGreeting() {
-  const hour = new Date().getHours();
 
-  if (hour < 12) return "Good morning";
-  if (hour < 18) return "Good afternoon";
-  return "Good evening";
-}
 
 export default function HomePage() {
   const nav = useNavigate();
@@ -49,8 +43,7 @@ export default function HomePage() {
 
   const ui = scene?.timeState?.ui ?? {};
 
-  const bubbleTheme = ui.bubble;
-  const inputTheme = ui.input;
+  
   const buttonTheme = ui.button;
   const cardTheme = ui.card;
   const textTheme = ui.text;

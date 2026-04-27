@@ -12,6 +12,8 @@ import {
 } from "../data/fieldGuide";
 import "../styles/pages/field-guide.css";
 import { buildPapaPageContext, buildFocusContext } from "../utils/buildPapaPageContext";
+import { getScene } from "../atmosphere/sceneBuilder";
+import { useAtmosphere } from "../atmosphere/useAtmosphere";
 
 
 // ── Fish SVGs ──────────────────────────────────────────────────
@@ -76,19 +78,26 @@ function LocationChip({ label, onClick }) {
 }
 
 // ── Section hub cards ──────────────────────────────────────────
-function SectionCard({ title, description, count, color, icon, onClick }) {
+function SectionCard({ title, description, count, color, icon, onClick, cardTheme, textTheme }) {
   return (
     <motion.button
       className="fg-section-card"
       onClick={onClick}
       whileHover={{ y: -2 }}
       transition={{ type: "spring", stiffness: 300, damping: 24 }}
-      style={{ borderColor: `${color}30` }}
+      style={{
+        background: cardTheme?.bg,
+        border: `1px solid ${cardTheme?.border}`,
+        backdropFilter: `blur(${cardTheme?.blur || "12px"})`,
+        WebkitBackdropFilter: `blur(${cardTheme?.blur || "12px"})`,
+        boxShadow: cardTheme?.shadow,
+        color: textTheme?.primary,
+      }}
     >
       <div className="fg-section-card-icon" style={{ color }}>{icon}</div>
       <div className="fg-section-card-body">
-        <h3 className="fg-section-card-title">{title}</h3>
-        <p className="fg-section-card-desc">{description}</p>
+        <h3 className="fg-section-card-title" style={{ color: textTheme?.primary }}>{title}</h3>
+        <p className="fg-section-card-desc" style={{ color: textTheme?.secondary }}>{description}</p>
       </div>
       <div className="fg-section-card-count" style={{ color }}>{count} entries →</div>
     </motion.button>
@@ -96,49 +105,71 @@ function SectionCard({ title, description, count, color, icon, onClick }) {
 }
 
 // ── Species list card ──────────────────────────────────────────
-function SpeciesCard({ species, onClick }) {
+function SpeciesCard({ species, onClick, cardTheme, textTheme, chipTheme }) {
   return (
     <motion.button
       className="fg-entry-card"
       onClick={() => onClick(species)}
       whileHover={{ y: -2 }}
       transition={{ type: "spring", stiffness: 300, damping: 24 }}
+      style={{
+        background: cardTheme?.bg,
+        border: `1px solid ${cardTheme?.border}`,
+        backdropFilter: `blur(${cardTheme?.blur || "12px"})`,
+        WebkitBackdropFilter: `blur(${cardTheme?.blur || "12px"})`,
+        boxShadow: cardTheme?.shadow,
+        color: textTheme?.primary,
+      }}
     >
-      
       <div className="fg-entry-info">
         <div className="fg-entry-header">
           <div>
-            <h3 className="fg-entry-name">{species.name}</h3>
-            <p className="fg-entry-sub">{species.latin}</p>
+            <h3 className="fg-entry-name" style={{ color: textTheme?.primary }}>{species.name}</h3>
+            <p className="fg-entry-sub" style={{ color: textTheme?.secondary }}>{species.latin}</p>
           </div>
-          <span className="fg-unlocked-badge">Field Note</span>
+          <span
+            className="fg-unlocked-badge"
+            style={{
+              background: chipTheme?.activeBg,
+              border: `1px solid ${chipTheme?.border}`,
+              color: chipTheme?.text,
+            }}
+          >
+            Field Note
+          </span>
         </div>
-        <p className="fg-entry-tagline">{species.tagline}</p>
+        <p className="fg-entry-tagline" style={{ color: textTheme?.secondary }}>{species.tagline}</p>
       </div>
     </motion.button>
   );
 }
 
 // ── Gear / Technique list card ────────────────────────────────
-function SimpleCard({ entry, onClick, accentColor }) {
+function SimpleCard({ entry, onClick, accentColor, cardTheme, textTheme }) {
   return (
     <motion.button
       className="fg-simple-card"
       onClick={() => onClick(entry)}
       whileHover={{ y: -2 }}
       transition={{ type: "spring", stiffness: 300, damping: 24 }}
-      style={{ borderLeftColor: accentColor }}
+      style={{
+        background: cardTheme?.bg,
+        border: `1px solid ${cardTheme?.border}`,
+        borderLeft: `3px solid ${accentColor}`,
+        backdropFilter: `blur(${cardTheme?.blur || "12px"})`,
+        WebkitBackdropFilter: `blur(${cardTheme?.blur || "12px"})`,
+        boxShadow: cardTheme?.shadow,
+        color: textTheme?.primary,
+      }}
     >
       <div>
         <div className="fg-simple-header">
-          <h3 className="fg-simple-name">{entry.name}</h3>
-          {entry.difficulty && (
-            <span className="fg-difficulty">{entry.difficulty}</span>
-          )}
+          <h3 className="fg-simple-name" style={{ color: textTheme?.primary }}>{entry.name}</h3>
+          {entry.difficulty && <span className="fg-difficulty">{entry.difficulty}</span>}
         </div>
-        <p className="fg-simple-tagline">{entry.tagline}</p>
+        <p className="fg-simple-tagline" style={{ color: textTheme?.secondary }}>{entry.tagline}</p>
       </div>
-      <span className="fg-simple-arrow">→</span>
+      <span className="fg-simple-arrow" style={{ color: textTheme?.secondary }}>→</span>
     </motion.button>
   );
 }
@@ -257,6 +288,22 @@ function TechniqueDetail({ entry, onBack }) {
 export default function FieldGuidePage() {
   const location = useLocation();
   const navigate = useNavigate();
+  
+  const DEBUG_SCENE = null;
+
+const atmosphere = useAtmosphere("fieldGuide");
+
+const scene = DEBUG_SCENE
+  ? getScene(DEBUG_SCENE)
+  : atmosphere.scene;
+
+const ui = scene?.timeState?.ui ?? {};
+
+const cardTheme = ui.card;
+const textTheme = ui.text;
+
+  
+  
   const [view, setView] = useState(null);
 
   useEffect(() => {
@@ -301,7 +348,11 @@ export default function FieldGuidePage() {
   const backToList = () => setView((v) => ({ section: v.section }));
 
   return (
-    <CastBackground chamberKey="field-guide">
+    <CastBackground
+	  chamberKey="field-guide"
+	  variant={scene?.backgroundVariant}
+	  overlay={scene?.timeState?.ui?.overlay}
+	>
       <ChamberLayout
 		  papa={
 			<PapaMini
@@ -330,6 +381,8 @@ export default function FieldGuidePage() {
                   color="#BA7517"
                   icon="🐟"
                   onClick={() => goList("species")}
+				  cardTheme={cardTheme}
+				  textTheme={textTheme}
                 />
                 <SectionCard
                   title="Gear"
@@ -338,6 +391,8 @@ export default function FieldGuidePage() {
                   color="#185FA5"
                   icon="🎣"
                   onClick={() => goList("gear")}
+				  cardTheme={cardTheme}
+				  textTheme={textTheme}
                 />
                 <SectionCard
                   title="Techniques"
@@ -346,6 +401,8 @@ export default function FieldGuidePage() {
                   color="#0F6E56"
                   icon="🌊"
                   onClick={() => goList("techniques")}
+				  cardTheme={cardTheme}
+				  textTheme={textTheme}
                 />
                 <p className="fg-more-hint">More entries unlock as Grant explores new waters.</p>
               </motion.div>
@@ -362,7 +419,14 @@ export default function FieldGuidePage() {
                 <button className="fg-back-btn" onClick={goHub}>← Field Guide</button>
                 <h3 className="fg-list-title">Species</h3>
                 {SPECIES.map((s) => (
-				  <SpeciesCard key={s.id} species={s} onClick={goDetail} />
+				  <SpeciesCard
+					  key={s.id}
+					  species={s}
+					  onClick={goDetail}
+					  cardTheme={cardTheme}
+					  textTheme={textTheme}
+					  chipTheme={ui.chip}
+					/>
 				))}
               </motion.div>
             )}
@@ -378,7 +442,14 @@ export default function FieldGuidePage() {
                 <button className="fg-back-btn" onClick={goHub}>← Field Guide</button>
                 <h3 className="fg-list-title">Gear</h3>
                 {FIELD_GUIDE_GEAR.map((g) => (
-                  <SimpleCard key={g.id} entry={g} onClick={goDetail} accentColor="#185FA5" />
+                  <SimpleCard
+					  key={g.id}
+					  entry={g}
+					  onClick={goDetail}
+					  accentColor="#185FA5"
+					  cardTheme={cardTheme}
+					  textTheme={textTheme}
+					/>
                 ))}
               </motion.div>
             )}
@@ -394,7 +465,14 @@ export default function FieldGuidePage() {
                 <button className="fg-back-btn" onClick={goHub}>← Field Guide</button>
                 <h3 className="fg-list-title">Techniques</h3>
                 {FIELD_GUIDE_TECHNIQUES.map((t) => (
-                  <SimpleCard key={t.id} entry={t} onClick={goDetail} accentColor="#0F6E56" />
+                  <SimpleCard
+					  key={t.id}
+					  entry={t}
+					  onClick={goDetail}
+					  accentColor="#0F6E56"
+					  cardTheme={cardTheme}
+					  textTheme={textTheme}
+					/>
                 ))}
               </motion.div>
             )}
