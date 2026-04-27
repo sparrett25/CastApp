@@ -22,20 +22,20 @@
 
   "home": {
     "default": {
-      "src": "/images/chambers/home-variants/home-morning.webp",
+      "src": "/images/chambers/home-variants/home-morning.png",
       "caption": "Species • beneath the surface"
     },
     "variants": {
       "morning": {
-        "src": "/images/chambers/home-variants/home-morning.webp",
+        "src": "/images/chambers/home-variants/home-morning.png",
         "caption": "Species • morning light"
       },
 	  "afternoon": {
-        "src": "/images/chambers/home-variants/home-afternoon.webp",
+        "src": "/images/chambers/home-variants/home-afternoon.png",
         "caption": "Journal • steady daylight"
       },
       "evening": {
-        "src": "/images/chambers/home-variants/home-evening.webp",
+        "src": "/images/chambers/home-variants/home-evening.png",
         "caption": "Species • evening water"
       }
     }
