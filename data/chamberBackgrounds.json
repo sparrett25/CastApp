@@ -1,20 +1,20 @@
 {
   "intro": {
   "default": {
-    "src": "/images/chambers/intro-variants/intro-morning.webp",
+    "src": "/images/chambers/intro-variants/intro-morning.png",
     "caption": "Intro • quiet morning water"
   },
   "variants": {
     "morning": {
-      "src": "/images/chambers/intro-variants/intro-morning.webp",
+      "src": "/images/chambers/intro-variants/intro-morning.png",
       "caption": "Intro • morning light"
     },
     "afternoon": {
-      "src": "/images/chambers/intro-variants/intro-afternoon.webp",
+      "src": "/images/chambers/intro-variants/intro-afternoon.png",
       "caption": "Intro • golden reflection"
     },
     "evening": {
-      "src": "/images/chambers/intro-variants/intro-evening.webp",
+      "src": "/images/chambers/intro-variants/intro-evening.png",
       "caption": "Intro • evening stillness"
     }
   }
