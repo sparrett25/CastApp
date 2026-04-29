@@ -9,7 +9,8 @@ import { getActiveAdventure } from "../utils/adventureState";
 import { supabase } from "../lib/supabase";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
-
+import HomeSectionCard from "../components/HomeSectionCard";
+import { useProfile } from "../context/ProfileContext";
 
 // Rotating whisper lines at the bottom
 const WHISPERS = [
@@ -32,7 +33,7 @@ const PILLARS = [
 
 export default function HomePage() {
   const nav = useNavigate();
-  
+  const { profilePacket } = useProfile();
   const DEBUG_SCENE = null;
 
   const atmosphere = useAtmosphere("home");
@@ -51,7 +52,8 @@ export default function HomePage() {
   const [activeAdventure] = useState(() => getActiveAdventure());
   const [upcomingTrip, setUpcomingTrip] = useState(null);
   const [tripLoading, setTripLoading] = useState(true);
-
+  const [openSection, setOpenSection] = useState("adventures");
+  
   // Rotating footer whisper with fade
   const idxRef = useRef(0);
   const [whisper, setWhisper] = useState(WHISPERS[0]);
@@ -59,6 +61,7 @@ export default function HomePage() {
 
   const papaContext = {
   page: "home",
+  user: profilePacket,
   };
 
   useEffect(() => {
@@ -136,148 +139,132 @@ export default function HomePage() {
 				/>
 			  }
 			>
-        <div className="home-dock">
+        <div className="home-dock home-dock--sections">
+  <HomeSectionCard
+    title="Adventures"
+    summary={`${activeAdventure.title} · ${activeAdventure.step}`}
+    open={openSection === "adventures"}
+    onToggle={() =>
+      setOpenSection(openSection === "adventures" ? null : "adventures")
+    }
+    cardTheme={cardTheme}
+    textTheme={textTheme}
+  >
+    <div className="home-action-stack">
+      <button
+        className="home-action-pill"
+        onClick={() => nav(`/adventures/${activeAdventure.id}`)}
+      >
+        <span>Continue Adventure</span>
+        <small>{activeAdventure.title}</small>
+      </button>
 
-          {/* Active Adventure Card */}
-          <section className="home-adventure-section">
-            <p className="home-section-label"
-			style={{ color: textTheme?.secondary }}
-			>Your Adventure</p>
-            <motion.button
-              className="adventure-card"
-			  style={{
-				  background: cardTheme?.bg,
-				  border: `1px solid ${cardTheme?.border}`,
-				  backdropFilter: `blur(${cardTheme?.blur || "18px"})`,
-				  WebkitBackdropFilter: `blur(${cardTheme?.blur || "18px"})`,
-				  boxShadow: cardTheme?.shadow,
-				  color: textTheme?.primary,
-				}}
-              onClick={() => nav(`/adventures/${activeAdventure.id}`)}
-              whileHover={{ y: -3 }}
-              transition={{ type: "spring", stiffness: 300, damping: 24 }}
-            >
-              <div className="adventure-card-inner">
-                <div className="adventure-card-left">
-                  {activeAdventure.isNew && (
-                    <span className="adventure-new-badge">New</span>
-                  )}
-                  <h2 className="adventure-title">{activeAdventure.title}</h2>
-                  <p className="adventure-location">{activeAdventure.location}</p>
-                  <p className="adventure-step">{activeAdventure.step}</p>
-                </div>
-                <div className="adventure-card-right">
-                  <span className="adventure-arrow">→</span>
-                </div>
-              </div>
-              <div className="adventure-progress-track">
-                <motion.div
-                  className="adventure-progress-fill"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${activeAdventure.progress}%` }}
-                  transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
-                />
-              </div>
-            </motion.button>
-          </section>
+      <button
+        className="home-action-pill"
+        onClick={() => nav(`/adventures/${activeAdventure.id}`)}
+      >
+        <span>View Adventures</span>
+        <small>Choose a journey by the water.</small>
+      </button>
+    </div>
+  </HomeSectionCard>
 
-          {/* Upcoming Trip Card */}
-          {!tripLoading && upcomingTrip && (
-            <section className="home-adventure-section">
-              <p className="home-section-label"
-			  style={{ color: textTheme?.secondary }}
-			  >Upcoming Trip</p>
-              <motion.button
-                className="adventure-card trip-card"
-				style={{
-				  background: cardTheme?.bg,
-				  border: `1px solid ${cardTheme?.border}`,
-				  backdropFilter: `blur(${cardTheme?.blur || "18px"})`,
-				  WebkitBackdropFilter: `blur(${cardTheme?.blur || "18px"})`,
-				  boxShadow: cardTheme?.shadow,
-				  color: textTheme?.primary,
-				}}
-                onClick={() => nav("/trip-summary", { state: { tripId: upcomingTrip.id } })}
-                whileHover={{ y: -3 }}
-                transition={{ type: "spring", stiffness: 300, damping: 24 }}
-              >
-                <div className="adventure-card-inner">
-                  <div className="adventure-card-left">
-                    <span
-                      className="adventure-new-badge"
-                      style={{
-						  background: ui.chip?.activeBg,
-						  border: `1px solid ${ui.chip?.border || buttonTheme?.border}`,
-						  color: ui.chip?.text,
-						}}
-                    >
-                      {upcomingTrip.timing_label || "Planned"}
-                    </span>
-                    <h2 className="adventure-title">{upcomingTrip.location}</h2>
-                    <p className="adventure-location">
-                      Targeting {upcomingTrip.target_species?.[0] || "Whatever bites"}
-                      {upcomingTrip.duration_label ? ` · ${upcomingTrip.duration_label}` : ""}
-                    </p>
-                  </div>
-                  <div className="adventure-card-right">
-                    <span className="adventure-arrow">→</span>
-                  </div>
-                </div>
-              </motion.button>
-            </section>
-          )}
+  <HomeSectionCard
+    title="Trips"
+    summary={
+      tripLoading
+        ? "Loading your next trip..."
+        : upcomingTrip
+        ? `${upcomingTrip.location} · ${upcomingTrip.timing_label || "Planned"}`
+        : "No upcoming trip planned"
+    }
+    open={openSection === "trips"}
+    onToggle={() =>
+      setOpenSection(openSection === "trips" ? null : "trips")
+    }
+    cardTheme={cardTheme}
+    textTheme={textTheme}
+  >
+    <div className="home-action-stack">
+      {upcomingTrip && (
+        <button
+          className="home-action-pill"
+          onClick={() =>
+            nav("/trip-summary", { state: { tripId: upcomingTrip.id } })
+          }
+        >
+          <span>View Next Trip</span>
+          <small>
+            {upcomingTrip.location} · Targeting{" "}
+            {upcomingTrip.target_species?.[0] || "whatever bites"}
+          </small>
+        </button>
+      )}
 
-          {/* Secondary Pillars */}
-          <section className="home-pillars-section">
-            <p className="home-section-label"
-			style={{ color: textTheme?.secondary }}
-			>Explore</p>
-            <div className="home-pillars-grid">
-              {PILLARS.map((p) => (
-                <motion.button
-                  key={p.path}
-                  className="pillar-card"
-				  style={{
-					  background: cardTheme?.bg,
-					  border: `1px solid ${cardTheme?.border}`,
-					  backdropFilter: `blur(${cardTheme?.blur || "18px"})`,
-					  WebkitBackdropFilter: `blur(${cardTheme?.blur || "18px"})`,
-					  boxShadow: cardTheme?.shadow,
-					  color: textTheme?.primary,
-					}}
-                  onClick={() => nav(p.path)}
-                  whileHover={{ y: -2 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 24 }}
-                >
-                  <span className="pillar-emoji">{p.emoji}</span>
-                  <div>
-                    <p className="pillar-title">{p.title}</p>
-                    <p className="pillar-desc">{p.desc}</p>
-                  </div>
-                </motion.button>
-              ))}
-            </div>
-          </section>
+      <button className="home-action-pill" onClick={() => nav("/plan-trip")}>
+        <span>Create New Trip</span>
+        <small>Plan where, when, and what you’re after.</small>
+      </button>
 
-          {/* Papa whisper footer */}
-          <div className="home-whisper-bar">
-            <AnimatePresence mode="wait">
-              {whisperVisible && (
-                <motion.p
-                  key={whisper}
-                  className="home-whisper-line"
-				  style={{ color: textTheme?.secondary }}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  ~ {whisper} ~
-                </motion.p>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
+      <button className="home-action-pill" onClick={() => nav("/plan-trip")}>
+        <span>Upcoming Trips</span>
+        <small>View or edit planned waters.</small>
+      </button>
+
+      <button className="home-action-pill" onClick={() => nav("/plan-trip")}>
+        <span>Past Trips</span>
+        <small>Return to where you’ve been.</small>
+      </button>
+    </div>
+  </HomeSectionCard>
+
+  <HomeSectionCard
+    title="Explore"
+    summary="Field Guide · Locations · Journal · Papa"
+    open={openSection === "explore"}
+    onToggle={() =>
+      setOpenSection(openSection === "explore" ? null : "explore")
+    }
+    cardTheme={cardTheme}
+    textTheme={textTheme}
+  >
+    <div className="home-action-grid">
+      {PILLARS.map((p) => (
+        <button
+          key={p.path}
+          className="home-action-pill"
+          onClick={() => nav(p.path)}
+        >
+          <span>{p.emoji} {p.title}</span>
+          <small>{p.desc}</small>
+        </button>
+      ))}
+
+      <button className="home-action-pill" onClick={() => nav("/profile")}>
+        <span>👤 Profile</span>
+        <small>Shape how CAST remembers you.</small>
+      </button>
+    </div>
+  </HomeSectionCard>
+
+  <div className="home-whisper-bar">
+    <AnimatePresence mode="wait">
+      {whisperVisible && (
+        <motion.p
+          key={whisper}
+          className="home-whisper-line"
+          style={{ color: textTheme?.secondary }}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -6 }}
+          transition={{ duration: 0.5 }}
+        >
+          ~ {whisper} ~
+        </motion.p>
+      )}
+    </AnimatePresence>
+  </div>
+</div>
       </ChamberLayout>
     </CastBackground>
   );

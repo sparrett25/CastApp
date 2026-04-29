@@ -20,6 +20,8 @@ import TripPlanner from "./pages/TripPlanner.jsx";
 import TripSummary from "./pages/TripSummary.jsx";
 
 import { StoryProvider } from "./context/StoryContext";
+import ProfilePage from "./pages/ProfilePage.jsx";
+import { ProfileContext, buildProfilePacket } from "./context/ProfileContext";
 
 export default function App() {
   const [session, setSession] = useState(null);
@@ -123,6 +125,13 @@ export default function App() {
   console.log("PROFILE:", profile);
 
   return (
+    <ProfileContext.Provider
+    value={{
+      profile,
+      setProfile,
+      profilePacket: buildProfilePacket(profile),
+    }}
+  >
     <StoryProvider>
       <Routes>
         <Route element={<CastShell />}>
@@ -140,8 +149,10 @@ export default function App() {
           <Route path="/locations" element={<LocationsPage />} />
           <Route path="/plan-trip" element={<TripPlanner />} />
           <Route path="/trip-summary" element={<TripSummary />} />
+		  <Route path="/profile" element={<ProfilePage />} />
         </Route>
       </Routes>
     </StoryProvider>
+	</ProfileContext.Provider>
   );
 }

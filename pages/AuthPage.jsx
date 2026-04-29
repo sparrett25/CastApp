@@ -10,39 +10,54 @@ export default function AuthPage() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setLoading(true);
-    setMessage("");
+async function handleSubmit(e) {
+  e.preventDefault();
 
-    try {
-      if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            data: {
-              display_name: displayName || "Grant"
-            }
-          }
-        });
+  setLoading(true);
+  setMessage("");
 
-        if (error) throw error;
-        setMessage("Account created. Check your email if confirmation is enabled.");
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({
-          email,
-          password
-        });
-
-        if (error) throw error;
+  try {
+    if (mode === "signup") {
+      if (!displayName.trim()) {
+        setMessage("Please choose a display name.");
+        setLoading(false);
+        return;
       }
-    } catch (err) {
-      setMessage(err.message || "Something went wrong.");
-    } finally {
-      setLoading(false);
+
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            display_name: displayName.trim()
+          }
+        }
+      });
+
+      if (error) throw error;
+
+      if (data.session) {
+        setMessage("Account created. Entering Cast...");
+      } else {
+        setMessage("Account created. Please log in.");
+        setMode("login");
+      }
+
+      setPassword("");
+    } else {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) throw error;
     }
+  } catch (err) {
+    setMessage(err.message || "Something went wrong.");
+  } finally {
+    setLoading(false);
   }
+}
 
   return (
     <div className="auth-page">
@@ -57,14 +72,15 @@ export default function AuthPage() {
 
         <form onSubmit={handleSubmit} className="auth-form">
           {mode === "signup" && (
-            <input
-              type="text"
-              placeholder="Display name"
-              value={displayName}
-              onChange={(e) => setDisplayName(e.target.value)}
-              className="auth-input"
-            />
-          )}
+			  <input
+				type="text"
+				placeholder="Display name"
+				value={displayName}
+				onChange={(e) => setDisplayName(e.target.value)}
+				className="auth-input"
+				required
+			  />
+			)}
 
           <input
             type="email"
