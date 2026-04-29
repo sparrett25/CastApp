@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
 import "../styles/pages/auth.css";
+import CastBackground from "../components/CastBackground";
+import ChamberLayout from "../components/ChamberLayout";
+import { getScene } from "../atmosphere/sceneBuilder";
+import { useAtmosphere } from "../atmosphere/useAtmosphere";
 
 export default function AuthPage() {
   const [mode, setMode] = useState("login");
@@ -9,6 +13,17 @@ export default function AuthPage() {
   const [displayName, setDisplayName] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+
+
+ const DEBUG_SCENE = null;
+
+const atmosphere = useAtmosphere("intro");
+
+const scene = DEBUG_SCENE
+  ? getScene(DEBUG_SCENE)
+  : atmosphere.scene;
+
+ 
 
 async function handleSubmit(e) {
   e.preventDefault();
@@ -60,6 +75,14 @@ async function handleSubmit(e) {
 }
 
   return (
+  
+  <CastBackground
+	  chamberKey="auth-page"
+	  variant={scene?.backgroundVariant}
+	  overlay={scene?.timeState?.ui?.overlay}
+	>
+      <ChamberLayout    >
+	  
     <div className="auth-page">
       <div className="auth-card">
         <p className="auth-eyebrow">Cast</p>
@@ -125,5 +148,7 @@ async function handleSubmit(e) {
         </button>
       </div>
     </div>
+	</ChamberLayout>
+    </CastBackground>
   );
 }

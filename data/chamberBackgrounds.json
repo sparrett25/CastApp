@@ -20,6 +20,48 @@
   }
 },
 
+"profile": {
+  "default": {
+    "src": "/images/chambers/profile-variants/profile-morning.png",
+    "caption": "Intro • quiet morning water"
+  },
+  "variants": {
+    "morning": {
+      "src": "/images/chambers/profile-variants/profile-morning.png",
+      "caption": "Intro • morning light"
+    },
+    "afternoon": {
+      "src": "/images/chambers/profile-variants/profile-afternoon.png",
+      "caption": "Intro • golden reflection"
+    },
+    "evening": {
+      "src": "/images/chambers/profile-variants/profile-evening.png",
+      "caption": "Intro • evening stillness"
+    }
+  }
+},
+
+"auth-page": {
+  "default": {
+    "src": "/images/chambers/authpage-variants/auth-page-morning.png",
+    "caption": "Intro • quiet morning water"
+  },
+  "variants": {
+    "morning": {
+      "src": "/images/chambers/authpage-variants/auth-page-morning.png",
+      "caption": "Intro • morning light"
+    },
+    "afternoon": {
+      "src": "/images/chambers/authpage-variants/auth-page-afternoon.png",
+      "caption": "Intro • golden reflection"
+    },
+    "evening": {
+      "src": "/images/chambers/pauthpage-variants/auth-page-evening.png",
+      "caption": "Intro • evening stillness"
+    }
+  }
+},
+
   "home": {
     "default": {
       "src": "/images/chambers/home-variants/home-morning.png",

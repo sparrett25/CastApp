@@ -150,6 +150,7 @@ export default function App() {
           <Route path="/plan-trip" element={<TripPlanner />} />
           <Route path="/trip-summary" element={<TripSummary />} />
 		  <Route path="/profile" element={<ProfilePage />} />
+		  <Route path="/auth-page" element={<AuthPage />} />
         </Route>
       </Routes>
     </StoryProvider>

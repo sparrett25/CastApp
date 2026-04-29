@@ -40,6 +40,7 @@ export default function NavBar() {
 	{ to: "/catch-ledger",label: "Catch Log"     	},
     { to: "/journal",     label: "Journal"    },
    	{ to: "/papa",   label: "Interact"  },
+	{ to: "/profile",   label: "Profile"  },
 		
   ];
 

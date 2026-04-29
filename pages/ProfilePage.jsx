@@ -236,7 +236,7 @@ export default function ProfilePage() {
 
   return (
     <CastBackground
-	  chamberKey="home"
+	  chamberKey="profile"
 	  variant={scene?.backgroundVariant}
 	  overlay={scene?.timeState?.ui?.overlay}
 	>
