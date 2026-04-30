@@ -379,7 +379,6 @@ const textTheme = ui.text;
                   description="The fish Grant knows and the ones he's still chasing."
                   count={SPECIES.length}
                   color="#BA7517"
-                  icon="🐟"
                   onClick={() => goList("species")}
 				  cardTheme={cardTheme}
 				  textTheme={textTheme}
@@ -389,7 +388,6 @@ const textTheme = ui.text;
                   description="Rods, reels, lures, and line — the tools of the craft."
                   count={FIELD_GUIDE_GEAR.length}
                   color="#185FA5"
-                  icon="🎣"
                   onClick={() => goList("gear")}
 				  cardTheme={cardTheme}
 				  textTheme={textTheme}
@@ -399,7 +397,6 @@ const textTheme = ui.text;
                   description="How to read the water, cast, set the hook, and think like a fish."
                   count={FIELD_GUIDE_TECHNIQUES.length}
                   color="#0F6E56"
-                  icon="🌊"
                   onClick={() => goList("techniques")}
 				  cardTheme={cardTheme}
 				  textTheme={textTheme}

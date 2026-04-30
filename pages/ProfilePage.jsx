@@ -84,7 +84,7 @@ export default function ProfilePage() {
   
   const [profile, setProfile] = useState(null);
   const [form, setForm] = useState(null);
-  const [openSection, setOpenSection] = useState("identity");
+  const [openSection, setOpenSection] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");

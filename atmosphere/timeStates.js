@@ -43,14 +43,11 @@ export const timeStates = {
     },
 
     button: {
-      primaryBg: "rgba(205, 160, 90, 0.22)",
-
-      secondaryBg: "rgba(80, 100, 120, 0.22)",
-
-      text: "rgba(255,255,255,0.92)",
-
-      border: "rgba(255,255,255,0.10)"
-    },
+  primaryBg: "rgba(110, 98, 88, 0.30)",
+  secondaryBg: "rgba(62, 66, 70, 0.24)",
+  text: "rgba(255,255,255,0.92)",
+  border: "rgba(255,255,255,0.12)"
+},
 
     chip: {
       bg: "rgba(70, 90, 110, 0.28)",
@@ -123,15 +120,12 @@ export const timeStates = {
       placeholder: "rgba(255,245,220,0.42)"
     },
 
-    button: {
-      primaryBg: "rgba(220, 155, 70, 0.30)",
-
-      secondaryBg: "rgba(120, 90, 60, 0.24)",
-
-      text: "rgba(255,250,240,0.94)",
-
-      border: "rgba(255,230,190,0.14)"
-    },
+ button: {
+  primaryBg: "rgba(110, 98, 88, 0.30)",
+  secondaryBg: "rgba(62, 66, 70, 0.24)",
+  text: "rgba(255,255,255,0.92)",
+  border: "rgba(255,255,255,0.12)"
+},
 
     chip: {
       bg: "rgba(110, 88, 62, 0.26)",
@@ -204,15 +198,12 @@ evening_glow: {
       placeholder: "rgba(230,220,210,0.38)"
     },
 
-    button: {
-      primaryBg: "rgba(186, 117, 23, 0.34)",
-
-      secondaryBg: "rgba(90, 82, 76, 0.24)",
-
-      text: "rgba(255,245,235,0.92)",
-
-      border: "rgba(240,220,200,0.10)"
-    },
+ button: {
+  primaryBg: "rgba(70, 78, 88, 0.34)",
+  secondaryBg: "rgba(52, 60, 68, 0.26)",
+  text: "rgba(255,255,255,0.92)",
+  border: "rgba(255,255,255,0.12)"
+},
 
     chip: {
       bg: "rgba(82, 72, 68, 0.30)",

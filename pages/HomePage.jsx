@@ -24,10 +24,10 @@ const WHISPERS = [
 
 // The five pillars — secondary navigation, quiet
 const PILLARS = [
-  { emoji: "📖", title: "Field Guide",  desc: "Explore and learn.",  path: "/species" },
-  { emoji: "🗺️", title: "Locations",          desc: "Your waters.",                    path: "/locations" },
-  { emoji: "📜", title: "Journal",      desc: "Write what the day felt like.",   path: "/journal" },
-  { emoji: "💬", title: "Talk to Papa",      desc: "Interact with Papa.",   path: "/papa" },
+  { emoji: "", title: "Field Guide",  desc: "Explore and learn.",  path: "/species" },
+  { emoji: "️", title: "Locations",          desc: "Your waters.",                    path: "/locations" },
+  { emoji: "", title: "Journal",      desc: "Write what the day felt like.",   path: "/journal" },
+  { emoji: "", title: "Talk to Papa",      desc: "Interact with Papa.",   path: "/papa" },
 ];
 
 
@@ -52,7 +52,7 @@ export default function HomePage() {
   const [activeAdventure] = useState(() => getActiveAdventure());
   const [upcomingTrip, setUpcomingTrip] = useState(null);
   const [tripLoading, setTripLoading] = useState(true);
-  const [openSection, setOpenSection] = useState("adventures");
+  const [openSection, setOpenSection] = useState(false);
   
   // Rotating footer whisper with fade
   const idxRef = useRef(0);
@@ -241,7 +241,7 @@ export default function HomePage() {
       ))}
 
       <button className="home-action-pill" onClick={() => nav("/profile")}>
-        <span>👤 Profile</span>
+        <span>Profile</span>
         <small>Shape how CAST remembers you.</small>
       </button>
     </div>

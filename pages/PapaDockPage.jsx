@@ -440,14 +440,17 @@ recognition.onresult = (event) => {
               🎙
             </button>
 
-            <input
+            <textarea
 			  className="papa-dock-input"
-			  type="text"
 			  value={input}
-			  onChange={(e) => setInput(e.target.value)}
+			  rows={1}
+			  onChange={(e) => {
+				setInput(e.target.value);
+				e.target.style.height = "auto";
+				e.target.style.height = `${Math.min(e.target.scrollHeight, 150)}px`;
+			  }}
 			  placeholder={listening ? "Listening..." : "What's on your mind?"}
 			  disabled={loading}
-
 			  style={{
 				background: inputTheme?.bg,
 				border: `1px solid ${inputTheme?.border}`,
