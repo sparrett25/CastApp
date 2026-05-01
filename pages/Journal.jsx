@@ -10,6 +10,7 @@ import "../styles/pages/journal-page.css";
 import { buildPapaPageContext } from "../utils/buildPapaPageContext";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
+import { useProfile } from "../context/ProfileContext";
 
 const PROMPTS = [
   "What did you notice today that you usually walk past?",
@@ -39,22 +40,9 @@ export default function JournalPage() {
   const textareaRef = useRef(null);
   
   const DEBUG_SCENE = null;
-
-  const atmosphere = useAtmosphere("journal");
-
-  const scene = DEBUG_SCENE
-    ? getScene(DEBUG_SCENE)
-    : atmosphere.scene;
-
-  const ui = scene?.timeState?.ui ?? {};
-
-  const bubbleTheme = ui.bubble;
-  const inputTheme = ui.input;
-  const buttonTheme = ui.button;
-  const cardTheme = ui.card;
-  const textTheme = ui.text;
   
-
+  const { profilePacket } = useProfile();
+  
   const [text, setText] = useState("");
   const [saved, setSaved] = useState(false);
   const [lastEntry, setLastEntry] = useState(null);
@@ -65,6 +53,43 @@ export default function JournalPage() {
 
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
   const hasText = text.trim().length > 0;
+  
+  const atmosphere = useAtmosphere("journal", {
+  user: profilePacket,
+  context: {
+    mode: saved ? "saved" : "writing",
+    hasText,
+    wordCount,
+    selectedPrompt,
+    lastEntryId: lastEntry?.id ?? null,
+    linkedCatchCount: Array.isArray(lastEntry?.catch_context)
+      ? lastEntry.catch_context.length
+      : 0,
+  },
+});
+
+  const scene = DEBUG_SCENE
+  ? getScene(DEBUG_SCENE, {
+      user: profilePacket,
+      context: {
+        mode: saved ? "saved" : "writing",
+        hasText,
+        wordCount,
+        selectedPrompt,
+      },
+    })
+  : atmosphere.scene;
+
+  const ui = scene?.timeState?.ui ?? {};
+
+  const bubbleTheme = ui.bubble ?? {};
+  const inputTheme = ui.input ?? {};
+  const buttonTheme = ui.button ?? {};
+  const cardTheme = ui.card ?? {};
+  const textTheme = ui.text ?? {};
+  
+
+  
 
   const handlePrompt = (prompt) => {
     setText(prompt + " ");
@@ -175,7 +200,14 @@ const handlePapaResponse = async (line) => {
 		  papa={
 			<PapaMini
 			  context={buildPapaPageContext("journal", {
-				event: "You opened your journal to write.",
+				user: profilePacket,
+				atmosphere: scene,
+				event: saved
+				  ? "The user just saved a journal reflection."
+				  : "The user opened the journal to write.",
+				writingState: hasText ? "in_progress" : "empty",
+				wordCount,
+				selectedPrompt,
 			  })}
 			  fallbackKey="journal.prompt"
 			/>
@@ -354,18 +386,20 @@ const handlePapaResponse = async (line) => {
 					>
                   <p className="journal-papa-attr">Papa</p>
                   <PapaSpeaks
-				  context={buildPapaPageContext("journal", {
-				  event: "User just saved a journal reflection.",
-				  journalEntry: lastEntry.entry_text,
-				  catchContext: lastEntry.catch_context ?? [],
-				  linkedCatchCount: Array.isArray(lastEntry.catch_context)
-					? lastEntry.catch_context.length
-					: 0,
-				})}
-				  fallbackKey="journal.prompt"
-				  trigger={lastEntry.id}
-				  onResponse={handlePapaResponse}
-				/>
+					  context={buildPapaPageContext("journal", {
+						user: profilePacket,
+						atmosphere: scene,
+						event: "The user just saved a journal reflection.",
+						journalEntry: lastEntry.entry_text,
+						catchContext: lastEntry.catch_context ?? [],
+						linkedCatchCount: Array.isArray(lastEntry.catch_context)
+						  ? lastEntry.catch_context.length
+						  : 0,
+					  })}
+					  fallbackKey="journal.prompt"
+					  trigger={lastEntry.id}
+					  onResponse={handlePapaResponse}
+					/>
                 </div>
 
                 <div className="journal-saved-actions">

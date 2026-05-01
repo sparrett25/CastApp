@@ -10,6 +10,7 @@ import grantQuests from "../data/stories/grant/quests.json";
 import { SPECIES } from "../data/species";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
+import { useProfile } from "../context/ProfileContext";
 
 
 // ── Small helpers ──────────────────────────────────────────────
@@ -167,6 +168,7 @@ function LocationDetail({
   cardTheme,
   textTheme,
   chipTheme,
+  backButtonStyle,
 }) {
   const locationAdventures = (location.adventure_ids || [])
     .map((id) => grantQuests.quests.find((q) => q.quest_id === id))
@@ -188,7 +190,7 @@ const FIELD_GUIDE_SPECIES = Object.fromEntries(
       transition={{ duration: 0.3 }}
     >
       <div className="scroll-surface">
-        <button className="loc-back-btn" onClick={onBack}>
+        <button className="loc-back-btn" style={backButtonStyle} onClick={onBack}>
           ← Locations
         </button>
 
@@ -350,27 +352,57 @@ export default function LocationsPage() {
 
 const DEBUG_SCENE = null;
 
-const atmosphere = useAtmosphere("locations");
+
+const { profilePacket } = useProfile();
+
+const displayName =
+  profilePacket?.display_name ||
+  profilePacket?.username ||
+  profilePacket?.name ||
+  "friend";
+
+const atmosphere = useAtmosphere("locations", {
+  user: profilePacket,
+  context: {
+    view: selectedLocation ? "entry" : "home",
+    locationName: selectedLocation?.name ?? null,
+    locationType: selectedLocation?.location_type_label ?? null,
+  },
+});
 
 const scene = DEBUG_SCENE
-  ? getScene(DEBUG_SCENE)
+  ? getScene(DEBUG_SCENE, {
+      user: profilePacket,
+      context: {
+        view: selectedLocation ? "entry" : "home",
+        locationName: selectedLocation?.name ?? null,
+      },
+    })
   : atmosphere.scene;
 
 const ui = scene?.timeState?.ui ?? {};
 
-const cardTheme = ui.card;
-const textTheme = ui.text;
+const cardTheme = ui.card ?? {};
+const textTheme = ui.text ?? {};
+const buttonTheme = ui.button ?? {};
 
+const backButtonStyle = {
+  background: buttonTheme.secondaryBg,
+  color: buttonTheme.text,
+  border: `1px solid ${buttonTheme.border}`,
+};
 
 
   const papaContext = {
   page: "locations",
+  user: profilePacket,
+  atmosphere: scene,
   view: selectedLocation ? "entry" : "home",
   locationName: selectedLocation?.name || null,
   locationType: selectedLocation?.location_type_label || null,
   event: selectedLocation
-    ? `Grant is getting a feel for ${selectedLocation.name}`
-    : "Grant opened the location guide",
+    ? `${displayName} is getting a feel for ${selectedLocation.name}`
+    : `${displayName} opened the location guide`,
 };
   
   
@@ -428,29 +460,30 @@ const textTheme = ui.text;
                 ))}
 
                 <p className="loc-more-hint">
-                  More waters will appear as Grant explores farther from home.
-                </p>
-              </motion.div>
+				  More waters will appear as you explore farther from home.
+				</p>
+			  </motion.div>
             )}
 
             {selectedLocation && (
               <LocationDetail
-			  key={selectedLocation.id}
-			  location={selectedLocation}
-			  onBack={() => setSelectedLocation(null)}
-			  onOpenAdventure={(questId) => navigate(`/adventures/${questId}`)}
-			  onOpenSpecies={(entryId) =>
-				navigate("/field-guide", {
-				  state: {
-					section: "species",
-					entryId,
-				  },
-				})
-			  }
-			  cardTheme={cardTheme}
-			  textTheme={textTheme}
-			  chipTheme={ui.chip}
-			/>
+				  key={selectedLocation.id}
+				  location={selectedLocation}
+				  onBack={() => setSelectedLocation(null)}
+				  onOpenAdventure={(questId) => navigate(`/adventures/${questId}`)}
+				  onOpenSpecies={(entryId) =>
+					navigate("/field-guide", {
+					  state: {
+						section: "species",
+						entryId,
+					  },
+					})
+				  }
+				  cardTheme={cardTheme}
+				  textTheme={textTheme}
+				  chipTheme={ui.chip}
+				  backButtonStyle={backButtonStyle}
+				/>
             )}
           </AnimatePresence>
         </div>

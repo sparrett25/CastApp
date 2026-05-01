@@ -133,9 +133,7 @@ export default function JournalArchive() {
 	  variant={scene?.backgroundVariant}
 	  overlay={scene?.timeState?.ui?.overlay}
 	>
-      <ChamberLayout
-        title="Past Entries"
-        sub="Every entry is a record of someone paying attention."
+      <ChamberLayout  
         papa={
           <PapaMini
             context={{

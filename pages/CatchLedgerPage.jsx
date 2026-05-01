@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import CastBackground from "../components/CastBackground";
 import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
@@ -14,7 +13,7 @@ import {
 } from "../utils/buildPapaPageContext";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
-
+import { useProfile } from "../context/ProfileContext";
 
 // ── Canonical location options + Other ────────────────────────
 const LOCATION_OPTIONS = [
@@ -355,7 +354,30 @@ export default function CatchLedgerPage() {
     
   const DEBUG_SCENE = null;
 
-  const atmosphere = useAtmosphere("catchLedger");
+  const [entries, setEntries] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [firstSave, setFirstSave] = useState(false);
+  
+  const { profilePacket } = useProfile();
+
+  const displayName =
+    profilePacket?.display_name ||
+    profilePacket?.username ||
+    profilePacket?.name ||
+    "friend";
+  
+  
+  const atmosphere = useAtmosphere("catchLedger", {
+  user: profilePacket,
+  context: {
+    entryCount: entries.length,
+    isEmpty: entries.length === 0,
+    showForm,
+    firstSave,
+    latestEntry: entries[0] ?? null,
+  },
+});
 
   const scene = DEBUG_SCENE
     ? getScene(DEBUG_SCENE)
@@ -363,15 +385,13 @@ export default function CatchLedgerPage() {
 
   const ui = scene?.timeState?.ui ?? {};
 
-  const inputTheme = ui.input;
-  const buttonTheme = ui.button;
-  const cardTheme = ui.card;
-  const textTheme = ui.text;
+  const bubbleTheme = ui.bubble ?? {};
+  const inputTheme = ui.input ?? {};
+  const buttonTheme = ui.button ?? {};
+  const cardTheme = ui.card ?? {};
+  const textTheme = ui.text ?? {}; 
     
-  const [entries, setEntries] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [showForm, setShowForm] = useState(false);
-  const [firstSave, setFirstSave] = useState(false);
+  
 
   useEffect(() => {
     let isMounted = true;
@@ -434,13 +454,15 @@ export default function CatchLedgerPage() {
   };
 
   const papaContext = {
-    event:
-      entries.length === 0
-        ? "Grant opened his empty catch ledger for the first time"
-        : `Grant opened his catch ledger which has ${entries.length} ${
-            entries.length === 1 ? "entry" : "entries"
-          }`,
-  };
+  user: profilePacket,
+  atmosphere: scene,
+  event:
+    entries.length === 0
+      ? `${displayName} opened an empty catch ledger for the first time`
+      : `${displayName} opened the catch ledger which has ${entries.length} ${
+          entries.length === 1 ? "entry" : "entries"
+        }`,
+};
 
   const papaKey = entries.length === 0 ? "fieldguide.open" : "fallback";
 
@@ -451,9 +473,15 @@ export default function CatchLedgerPage() {
 	  overlay={scene?.timeState?.ui?.overlay}
 	>
       <ChamberLayout
-        papa={<PapaMini context={buildPapaPageContext("catch ledger", {
-		  entriesSummary: buildEntriesSummary(entries),
-		})} fallbackKey={papaKey} />}
+        papa={
+		  <PapaMini
+			context={buildPapaPageContext("catch ledger", {
+			  ...papaContext,
+			  entriesSummary: buildEntriesSummary(entries),
+			})}
+			fallbackKey={papaKey}
+		  />
+		}
       >
         <div className="ledger-page">
           <AnimatePresence>
@@ -477,9 +505,11 @@ export default function CatchLedgerPage() {
                 <p className="adv-voice-attr">Papa</p>
                 <PapaSpeaks
                   context={buildPapaPageContext("catch ledger", {
-				  event: "Grant just logged a new catch.",
-				  catchData: entries[0],
-				})}
+					  user: profilePacket,
+					  atmosphere: scene,
+					  event: `${displayName} just logged a new catch.`,
+					  catchData: entries[0],
+					})}
                   fallbackKey="catch.first"
                   trigger="first-save"
                 />

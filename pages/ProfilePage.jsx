@@ -71,24 +71,45 @@ export default function ProfilePage() {
 	
 	
   const DEBUG_SCENE = null;
-  const atmosphere = useAtmosphere("home");
-  const scene = DEBUG_SCENE
-    ? getScene(DEBUG_SCENE)
-    : atmosphere.scene;
-
-  const ui = scene?.timeState?.ui ?? {};
-  const buttonTheme = ui.button;
-  const cardTheme = ui.card;
-  const textTheme = ui.text;
-  
   
   const [profile, setProfile] = useState(null);
+  const { profilePacket, setProfile: setGlobalProfile } = useProfile();
   const [form, setForm] = useState(null);
   const [openSection, setOpenSection] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
-  const { profilePacket, setProfile: setGlobalProfile } = useProfile();
+  
+  const atmosphere = useAtmosphere("profile", {
+  user: profilePacket,
+  context: {
+    openSection,
+    selectedPresence: form?.papa_presence_key ?? null,
+    experienceLevel: form?.experience_level ?? null,
+  },
+});
+  
+  
+  const scene = DEBUG_SCENE
+  ? getScene(DEBUG_SCENE, {
+      user: profilePacket,
+      context: {
+        openSection,
+        selectedPresence: form?.papa_presence_key ?? null,
+      },
+    })
+  : atmosphere.scene;
+
+  const ui = scene?.timeState?.ui ?? {};
+  const buttonTheme = ui.button ?? {};
+  const cardTheme = ui.card ?? {};
+  const textTheme = ui.text ?? {};
+  const inputTheme = ui.input ?? {};
+  
+  
+ 
+  
+  
   
   const papaContext = {
     page: "profile",
@@ -162,7 +183,7 @@ export default function ProfilePage() {
       setMessage("");
 
       const payload = {
-        display_name: form.display_name.trim() || "Grant",
+        display_name: form.display_name.trim() || "Angler",
         bio: form.bio.trim() || null,
         home_region: form.home_region.trim() || null,
         home_water: form.home_water.trim() || null,
@@ -218,7 +239,7 @@ export default function ProfilePage() {
   if (loading || !form) {
     return (
       <CastBackground
-	  chamberKey="home"
+	  chamberKey="profile"
 	  variant={scene?.backgroundVariant}
 	  overlay={scene?.timeState?.ui?.overlay}
 	>
@@ -275,7 +296,7 @@ export default function ProfilePage() {
                 <input
                   value={form.display_name}
                   onChange={(e) => updateField("display_name", e.target.value)}
-                  placeholder="Grant"
+                  placeholder="Angler"
                 />
               </label>
 
@@ -283,6 +304,11 @@ export default function ProfilePage() {
                 Short bio
                 <textarea
                   value={form.bio}
+				  style={{
+					  background: inputTheme?.bg,
+					  border: `1px solid ${inputTheme?.border}`,
+					  color: inputTheme?.text,
+					}}
                   onChange={(e) => updateField("bio", e.target.value)}
                   placeholder="A few words about your time by the water..."
                 />
@@ -292,6 +318,11 @@ export default function ProfilePage() {
                 Home region
                 <input
                   value={form.home_region}
+				  style={{
+					  background: inputTheme?.bg,
+					  border: `1px solid ${inputTheme?.border}`,
+					  color: inputTheme?.text,
+					}}
                   onChange={(e) => updateField("home_region", e.target.value)}
                   placeholder="Tampa Bay, FL"
                 />
@@ -301,6 +332,11 @@ export default function ProfilePage() {
                 Home water
                 <input
                   value={form.home_water}
+				  style={{
+					  background: inputTheme?.bg,
+					  border: `1px solid ${inputTheme?.border}`,
+					  color: inputTheme?.text,
+					}}
                   onChange={(e) => updateField("home_water", e.target.value)}
                   placeholder="Backyard Pond"
                 />
@@ -310,6 +346,11 @@ export default function ProfilePage() {
                 Favorite place
                 <input
                   value={form.favorite_place}
+				  style={{
+					  background: inputTheme?.bg,
+					  border: `1px solid ${inputTheme?.border}`,
+					  color: inputTheme?.text,
+					}}
                   onChange={(e) => updateField("favorite_place", e.target.value)}
                   placeholder="A dock, pond, creek, or lake..."
                 />
@@ -319,6 +360,11 @@ export default function ProfilePage() {
                 Experience level
                 <select
                   value={form.experience_level}
+				  style={{
+					  background: inputTheme?.bg,
+					  border: `1px solid ${inputTheme?.border}`,
+					  color: inputTheme?.text,
+					}}
                   onChange={(e) => updateField("experience_level", e.target.value)}
                 >
                   {EXPERIENCE_LEVELS.map((level) => (
@@ -344,6 +390,11 @@ export default function ProfilePage() {
                 Favorite species
                 <input
                   value={form.favorite_species}
+				  style={{
+					  background: inputTheme?.bg,
+					  border: `1px solid ${inputTheme?.border}`,
+					  color: inputTheme?.text,
+					}}
                   onChange={(e) => updateField("favorite_species", e.target.value)}
                   placeholder="Bluegill, Bass, Catfish"
                 />
@@ -353,6 +404,11 @@ export default function ProfilePage() {
                 Target species
                 <input
                   value={form.target_species}
+				  style={{
+					  background: inputTheme?.bg,
+					  border: `1px solid ${inputTheme?.border}`,
+					  color: inputTheme?.text,
+					}}
                   onChange={(e) => updateField("target_species", e.target.value)}
                   placeholder="Bass, Warmouth"
                 />
@@ -362,6 +418,11 @@ export default function ProfilePage() {
                 Preferred baits
                 <input
                   value={form.preferred_baits}
+				  style={{
+					  background: inputTheme?.bg,
+					  border: `1px solid ${inputTheme?.border}`,
+					  color: inputTheme?.text,
+					}}
                   onChange={(e) => updateField("preferred_baits", e.target.value)}
                   placeholder="Worms, minnows, spinnerbait"
                 />
@@ -391,6 +452,14 @@ export default function ProfilePage() {
                       "presence-option" +
                       (form.papa_presence_key === presence.key ? " is-selected" : "")
                     }
+					style={{
+					  background:
+						form.papa_presence_key === presence.key
+						  ? buttonTheme?.primaryBg
+						  : buttonTheme?.secondaryBg,
+					  border: `1px solid ${buttonTheme?.border}`,
+					  color: buttonTheme?.text,
+					}}
                     onClick={() => updateField("papa_presence_key", presence.key)}
                   >
                     <span>{presence.label}</span>
@@ -400,7 +469,16 @@ export default function ProfilePage() {
               </div>
             </ProfileSection>
 
-            <button className="profile-save" type="submit" disabled={saving}>
+            <button
+			  className="profile-save"
+			  type="submit"
+			  disabled={saving}
+			  style={{
+				background: buttonTheme?.primaryBg,
+				border: `1px solid ${buttonTheme?.border}`,
+				color: buttonTheme?.text,
+			  }}
+			>
               {saving ? "Saving..." : "Save profile →"}
             </button>
 

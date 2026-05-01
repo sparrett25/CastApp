@@ -222,13 +222,13 @@ const Scenes = {
   },
 };
 
-export function getScene(sceneId) {
+export function getScene(sceneId, options = {}) {
   const scene = Scenes[sceneId];
   if (!scene) return null;
 
   return {
     ...scene,
-    whisper: getSceneWhisper(scene.id),
+    whisper: getSceneWhisper(scene.id, options),
     pageProfile: pageProfiles[scene.page],
     timeState: timeStates[scene.time],
     weatherState: weatherStates[scene.weather],
@@ -242,14 +242,14 @@ export function getTimeKey(hour = new Date().getHours()) {
   return "evening";
 }
 
-export function getSceneByPageAndTime(pageId, hour = new Date().getHours()) {
+export function getSceneByPageAndTime(pageId, hour = new Date().getHours(), options = {}) {
   const profile = pageProfiles[pageId];
   if (!profile?.scenes?.default) return null;
 
   const timeKey = getTimeKey(hour);
   const sceneId = profile.scenes.default[timeKey];
 
-  return getScene(sceneId);
+  return getScene(sceneId, options);
 }
 
 export { Scenes };

@@ -2,12 +2,12 @@
 import { useMemo } from "react";
 import { getSceneByPageAndTime } from "./sceneBuilder";
 
-export function useAtmosphere(pageId) {
+export function useAtmosphere(pageId, options = {}) {
   const hour = new Date().getHours();
 
   const atmosphere = useMemo(() => {
-    return getSceneByPageAndTime(pageId, hour);
-  }, [pageId, hour]);
+    return getSceneByPageAndTime(pageId, hour, options);
+  }, [pageId, hour, options]);
 
   return {
     scene: atmosphere,

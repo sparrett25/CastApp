@@ -169,4 +169,25 @@ export const pageProfiles = {
       special: {},
     },
   },
+  
+    profile: {
+    id: "profile",
+    label: "profile",
+    role: "preferences",
+    uiStyle: "usercontext",
+    emotionalTone: ["intentional", "anticipatory", "calm"],
+    pacing: "steady",
+
+    scenes: {
+      default: {
+        morning: "profile_quiet_dawn",
+        afternoon: "profile_golden_reflection",
+        evening: "profile_evening_glow",
+      },
+      seasonal: {},
+      special: {},
+    },
+  },
+  
+  
 };

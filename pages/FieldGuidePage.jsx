@@ -11,10 +11,9 @@ import {
   FIELD_GUIDE_TECHNIQUES,
 } from "../data/fieldGuide";
 import "../styles/pages/field-guide.css";
-import { buildPapaPageContext, buildFocusContext } from "../utils/buildPapaPageContext";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
-
+import { useProfile } from "../context/ProfileContext";
 
 // ── Fish SVGs ──────────────────────────────────────────────────
 function BluegillSVG() {
@@ -78,7 +77,17 @@ function LocationChip({ label, onClick }) {
 }
 
 // ── Section hub cards ──────────────────────────────────────────
-function SectionCard({ title, description, count, color, icon, onClick, cardTheme, textTheme }) {
+function SectionCard({
+  title,
+  description,
+  count,
+  color,
+  icon,
+  onClick,
+  cardTheme,
+  textTheme,
+  buttonTheme,
+}) {
   return (
     <motion.button
       className="fg-section-card"
@@ -96,10 +105,19 @@ function SectionCard({ title, description, count, color, icon, onClick, cardThem
     >
       <div className="fg-section-card-icon" style={{ color }}>{icon}</div>
       <div className="fg-section-card-body">
-        <h3 className="fg-section-card-title" style={{ color: textTheme?.primary }}>{title}</h3>
-        <p className="fg-section-card-desc" style={{ color: textTheme?.secondary }}>{description}</p>
+        <h3 className="fg-section-card-title" style={{ color: textTheme?.primary }}>
+          {title}
+        </h3>
+        <p className="fg-section-card-desc" style={{ color: textTheme?.secondary }}>
+          {description}
+        </p>
       </div>
-      <div className="fg-section-card-count" style={{ color }}>{count} entries →</div>
+      <div
+        className="fg-section-card-count"
+        style={{ color: buttonTheme?.text || color }}
+      >
+        {count} entries →
+      </div>
     </motion.button>
   );
 }
@@ -175,7 +193,7 @@ function SimpleCard({ entry, onClick, accentColor, cardTheme, textTheme }) {
 }
 
 // ── Species detail ─────────────────────────────────────────────
-function SpeciesDetail({ species, onBack, onOpenLocation }) {
+function SpeciesDetail({ species, onBack, onOpenLocation, backButtonStyle }) {
   const FishSVG = species.id === "bluegill" ? BluegillSVG : BassSVG;
   const speciesLocations = CAST_LOCATIONS.filter((loc) =>
   species.locations?.includes(loc.id)
@@ -223,7 +241,7 @@ function SpeciesDetail({ species, onBack, onOpenLocation }) {
 }
 
 // ── Gear detail ────────────────────────────────────────────────
-function GearDetail({ entry, onBack }) {
+function GearDetail({ entry, onBack, backButtonStyle }) {
   return (
     <motion.div className="fg-detail" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
       <div className="scroll-surface">
@@ -249,7 +267,7 @@ function GearDetail({ entry, onBack }) {
 }
 
 // ── Technique detail ───────────────────────────────────────────
-function TechniqueDetail({ entry, onBack }) {
+function TechniqueDetail({ entry, onBack, backButtonStyle }) {
   return (
     <motion.div className="fg-detail" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
       <div className="scroll-surface">
@@ -290,21 +308,52 @@ export default function FieldGuidePage() {
   const navigate = useNavigate();
   
   const DEBUG_SCENE = null;
+  
+  const [view, setView] = useState(null);
+  const { profilePacket } = useProfile();
+  
+  const displayName =
+  profilePacket?.display_name ||
+  profilePacket?.username ||
+  profilePacket?.name ||
+  "friend";
+  
+  const atmosphere = useAtmosphere("fieldGuide", {
+  user: profilePacket,
+  context: {
+    section: view?.section ?? null,
+    entryName: view?.entry?.name ?? null,
+    entryType: view?.entry?.type || view?.section || null,
+  },
+});
 
-const atmosphere = useAtmosphere("fieldGuide");
+
 
 const scene = DEBUG_SCENE
-  ? getScene(DEBUG_SCENE)
+  ? getScene(DEBUG_SCENE, {
+      user: profilePacket,
+      context: {
+        section: view?.section ?? null,
+        entryName: view?.entry?.name ?? null,
+      },
+    })
   : atmosphere.scene;
 
 const ui = scene?.timeState?.ui ?? {};
+const buttonTheme = ui.button ?? {};
+
+const backButtonStyle = {
+  background: buttonTheme.secondaryBg,
+  color: buttonTheme.text,
+  border: `1px solid ${buttonTheme.border}`,
+};
 
 const cardTheme = ui.card;
 const textTheme = ui.text;
 
   
   
-  const [view, setView] = useState(null);
+  
 
   useEffect(() => {
   const navState = location.state;
@@ -331,15 +380,17 @@ const textTheme = ui.text;
 
   const papaContext = {
   page: "field-guide",
+  user: profilePacket,
+  atmosphere: scene,
   view: entry ? "entry" : section ? "section" : "home",
   section: section || null,
   entryName: entry?.name || null,
   entryType: entry?.type || section || null,
   event: entry
-    ? `Grant is reading the field guide entry for ${entry.name}`
+    ? `${displayName} is reading the field guide entry for ${entry.name}`
     : section
-      ? `Grant is browsing the ${section} section of the field guide`
-      : "Grant opened his field guide",
+    ? `${displayName} is browsing the ${section} section of the field guide`
+    : `${displayName} opened the field guide`,
 };
 
   const goHub = () => setView(null);
@@ -376,12 +427,13 @@ const textTheme = ui.text;
               >
                 <SectionCard
                   title="Species"
-                  description="The fish Grant knows and the ones he's still chasing."
+                  description={`The fish ${displayName} knows and the ones still waiting to be found.`}
                   count={SPECIES.length}
                   color="#BA7517"
                   onClick={() => goList("species")}
 				  cardTheme={cardTheme}
 				  textTheme={textTheme}
+				  buttonTheme={buttonTheme}
                 />
                 <SectionCard
                   title="Gear"
@@ -391,6 +443,7 @@ const textTheme = ui.text;
                   onClick={() => goList("gear")}
 				  cardTheme={cardTheme}
 				  textTheme={textTheme}
+				  buttonTheme={buttonTheme}
                 />
                 <SectionCard
                   title="Techniques"
@@ -400,8 +453,11 @@ const textTheme = ui.text;
                   onClick={() => goList("techniques")}
 				  cardTheme={cardTheme}
 				  textTheme={textTheme}
+				  buttonTheme={buttonTheme}
                 />
-                <p className="fg-more-hint">More entries unlock as Grant explores new waters.</p>
+                <p className="fg-more-hint">
+				  More entries unlock as you explore new waters.
+				</p>
               </motion.div>
             )}
 
@@ -413,7 +469,7 @@ const textTheme = ui.text;
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                <button className="fg-back-btn" onClick={goHub}>← Field Guide</button>
+                <button className="fg-back-btn" style={backButtonStyle} onClick={goHub}>← Field Guide</button>
                 <h3 className="fg-list-title">Species</h3>
                 {SPECIES.map((s) => (
 				  <SpeciesCard
@@ -436,7 +492,7 @@ const textTheme = ui.text;
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                <button className="fg-back-btn" onClick={goHub}>← Field Guide</button>
+                <button className="fg-back-btn" style={backButtonStyle} onClick={goHub}>← Field Guide</button>
                 <h3 className="fg-list-title">Gear</h3>
                 {FIELD_GUIDE_GEAR.map((g) => (
                   <SimpleCard
@@ -459,7 +515,7 @@ const textTheme = ui.text;
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                <button className="fg-back-btn" onClick={goHub}>← Field Guide</button>
+                <button className="fg-back-btn" style={backButtonStyle} onClick={goHub}>← Field Guide</button>
                 <h3 className="fg-list-title">Techniques</h3>
                 {FIELD_GUIDE_TECHNIQUES.map((t) => (
                   <SimpleCard
@@ -476,25 +532,34 @@ const textTheme = ui.text;
 
             {section === "species" && entry && (
               <SpeciesDetail
-			  key={entry.id}
-			  species={entry}
-			  onBack={backToList}
-			  onOpenLocation={(locationId) =>
-				navigate("/locations", {
-				  state: {
-					selectedLocationId: locationId
+				  key={entry.id}
+				  species={entry}
+				  onBack={backToList}
+				  backButtonStyle={backButtonStyle}
+				  onOpenLocation={(locationId) =>
+					navigate("/locations", {
+					  state: { selectedLocationId: locationId },
+					})
 				  }
-				})
-			  }
-			/>
+				/>
             )}
 
             {section === "gear" && entry && (
-              <GearDetail key={entry.id} entry={entry} onBack={backToList} />
+              <GearDetail
+				  key={entry.id}
+				  entry={entry}
+				  onBack={backToList}
+				  backButtonStyle={backButtonStyle}
+				/>
             )}
 
             {section === "techniques" && entry && (
-              <TechniqueDetail key={entry.id} entry={entry} onBack={backToList} />
+              <TechniqueDetail
+				  key={entry.id}
+				  entry={entry}
+				  onBack={backToList}
+				  backButtonStyle={backButtonStyle}
+				/>
             )}
 
           </AnimatePresence>
