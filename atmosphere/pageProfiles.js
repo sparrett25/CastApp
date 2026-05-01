@@ -2,10 +2,11 @@ export const pageProfiles = {
   intro: {
     id: "intro",
     label: "Intro",
-    role: "invitation",
+    role: "thresholdInvitation",
     uiStyle: "threshold",
-    emotionalTone: ["welcoming", "still", "threshold"],
+    emotionalTone: ["welcoming", "quiet", "threshold"],
     pacing: "slow",
+    papaWhisperStyle: "inviting",
 
     scenes: {
       default: {
@@ -21,10 +22,11 @@ export const pageProfiles = {
   home: {
     id: "home",
     label: "Home",
-    role: "dock",
+    role: "dockHub",
     uiStyle: "hub",
     emotionalTone: ["grounded", "welcoming", "present"],
     pacing: "steady",
+    papaWhisperStyle: "settling",
 
     scenes: {
       default: {
@@ -36,20 +38,21 @@ export const pageProfiles = {
       special: {},
     },
   },
-  
+
   adventure: {
     id: "adventure",
-    label: "adventure",
-    role: "learning",
+    label: "Adventure",
+    role: "guidedAwareness",
     uiStyle: "guidedFlow",
-    emotionalTone: ["curious", "observant", "attentive"],
+    emotionalTone: ["curious", "observant", "playful", "attentive"],
     pacing: "measured",
+    papaWhisperStyle: "encouraging",
 
     scenes: {
       default: {
-        morning: "home_quiet_dawn",
-        afternoon: "home_golden_reflection",
-        evening: "home_evening_glow",
+        morning: "adventure_quiet_dawn",
+        afternoon: "adventure_golden_reflection",
+        evening: "adventure_evening_glow",
       },
       seasonal: {},
       special: {},
@@ -59,10 +62,11 @@ export const pageProfiles = {
   fieldGuide: {
     id: "fieldGuide",
     label: "Field Guide",
-    role: "learning",
+    role: "learningReference",
     uiStyle: "scrollCards",
-    emotionalTone: ["curious", "observant", "attentive"],
+    emotionalTone: ["curious", "observant", "practical"],
     pacing: "measured",
+    papaWhisperStyle: "curious",
 
     scenes: {
       default: {
@@ -78,10 +82,11 @@ export const pageProfiles = {
   locations: {
     id: "locations",
     label: "Locations",
-    role: "waters",
+    role: "waterMemory",
     uiStyle: "placeCards",
     emotionalTone: ["rooted", "exploratory", "relational"],
     pacing: "steady",
+    papaWhisperStyle: "placeAware",
 
     scenes: {
       default: {
@@ -101,6 +106,7 @@ export const pageProfiles = {
     uiStyle: "guidedFlow",
     emotionalTone: ["intentional", "anticipatory", "calm"],
     pacing: "guided",
+    papaWhisperStyle: "preparing",
 
     scenes: {
       default: {
@@ -120,6 +126,7 @@ export const pageProfiles = {
     uiStyle: "ledger",
     emotionalTone: ["honest", "grateful", "observant"],
     pacing: "steady",
+    papaWhisperStyle: "noticing",
 
     scenes: {
       default: {
@@ -139,6 +146,7 @@ export const pageProfiles = {
     uiStyle: "quietWriting",
     emotionalTone: ["still", "reflective", "open"],
     pacing: "slow",
+    papaWhisperStyle: "quietWitness",
 
     scenes: {
       default: {
@@ -158,6 +166,7 @@ export const pageProfiles = {
     uiStyle: "dialogue",
     emotionalTone: ["safe", "warm", "listening"],
     pacing: "slow",
+    papaWhisperStyle: "companion",
 
     scenes: {
       default: {
@@ -169,14 +178,15 @@ export const pageProfiles = {
       special: {},
     },
   },
-  
-    profile: {
+
+  profile: {
     id: "profile",
-    label: "profile",
-    role: "preferences",
-    uiStyle: "usercontext",
-    emotionalTone: ["intentional", "anticipatory", "calm"],
+    label: "Profile",
+    role: "personalization",
+    uiStyle: "userContext",
+    emotionalTone: ["intentional", "grounded", "selfAware"],
     pacing: "steady",
+    papaWhisperStyle: "personal",
 
     scenes: {
       default: {
@@ -188,6 +198,4 @@ export const pageProfiles = {
       special: {},
     },
   },
-  
-  
 };
