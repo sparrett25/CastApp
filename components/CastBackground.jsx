@@ -4,9 +4,12 @@ import chamberDefaults from "../data/chamberBackgrounds.json";
 
 function getTimeKey() {
   const hour = new Date().getHours();
-  if (hour < 11) return "morning";
-  if (hour < 17) return "afternoon";
-  return "evening";
+
+  if (hour < 7) return "blue-hour-dawn";
+  if (hour < 11) return "soft-morning-rise";
+  if (hour < 16) return "late-afternoon-warmth";
+  if (hour < 19) return "golden-dusk";
+  return "quiet-evening-glow";
 }
 
 function resolveBackground(def, { variant, useTimeVariant = true } = {}) {

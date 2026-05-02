@@ -6,32 +6,43 @@ import { getSceneWhisper } from "./whisperRegistry";
 
 
 const timeSuffixes = {
-  morning: "quiet_dawn",
-  afternoon: "golden_reflection",
-  evening: "evening_glow",
+  "blue-hour-dawn": "blue_hour_dawn",
+  "soft-morning-rise": "soft_morning_rise",
+  "late-afternoon-warmth": "late_afternoon_warmth",
+  "golden-dusk": "golden_dusk",
+  "quiet-evening-glow": "quiet_evening_glow",
 };
 
-
-
-
 const dailyAtmosphereDefaults = {
-  morning: {
+  "blue-hour-dawn": {
     time: "blue_hour_dawn",
     weather: "light_fog",
     papa: "quiet_observation",
-    backgroundVariant: "morning",
+    backgroundVariant: "blue-hour-dawn",
   },
-  afternoon: {
-    time: "late_afternoon",
+  "soft-morning-rise": {
+    time: "soft_morning_rise",
+    weather: "lifting_fog",
+    papa: "quiet_observation",
+    backgroundVariant: "soft-morning-rise",
+  },
+  "late-afternoon-warmth": {
+    time: "late_afternoon_warmth",
     weather: "still_air",
     papa: "coffee_stillness",
-    backgroundVariant: "afternoon",
+    backgroundVariant: "late-afternoon-warmth",
   },
-  evening: {
-    time: "evening_glow",
+  "golden-dusk": {
+    time: "golden_dusk",
     weather: "still_air",
     papa: "quiet_observation",
-    backgroundVariant: "evening",
+    backgroundVariant: "golden-dusk",
+  },
+  "quiet-evening-glow": {
+    time: "quiet_evening_glow",
+    weather: "still_air",
+    papa: "quiet_observation",
+    backgroundVariant: "quiet-evening-glow",
   },
 };
 
@@ -39,13 +50,7 @@ const dailyAtmosphereDefaults = {
 function makeDailyScenes(page, prefix) {
   return Object.fromEntries(
     Object.entries(dailyAtmosphereDefaults).map(([timeKey, atmosphere]) => {
-      const suffix =
-        timeKey === "morning"
-          ? "quiet_dawn"
-          : timeKey === "afternoon"
-          ? "golden_reflection"
-          : "evening_glow";
-
+      const suffix = timeSuffixes[timeKey];
       const id = `${prefix}_${suffix}`;
 
       return [
@@ -89,11 +94,12 @@ export function getScene(sceneId, options = {}) {
 }
 
 export function getTimeKey(hour = new Date().getHours()) {
-  if (hour < 11) return "morning";
-  if (hour < 17) return "afternoon";
-  return "evening";
+  if (hour < 7) return "blue-hour-dawn";
+  if (hour < 11) return "soft-morning-rise";
+  if (hour < 16) return "late-afternoon-warmth";
+  if (hour < 19) return "golden-dusk";
+  return "quiet-evening-glow";
 }
-
 
 
 

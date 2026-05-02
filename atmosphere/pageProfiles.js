@@ -10,10 +10,12 @@ export const pageProfiles = {
 
     scenes: {
       default: {
-        morning: "intro_quiet_dawn",
-        afternoon: "intro_golden_reflection",
-        evening: "intro_evening_glow",
-      },
+		  "blue-hour-dawn": "intro_blue_hour_dawn",
+		  "soft-morning-rise": "intro_soft_morning_rise",
+		  "late-afternoon-warmth": "intro_late_afternoon_warmth",
+		  "golden-dusk": "intro_golden_dusk",
+		  "quiet-evening-glow": "intro_quiet_evening_glow",
+		},
       seasonal: {},
       special: {},
     },
@@ -30,10 +32,12 @@ export const pageProfiles = {
 
     scenes: {
       default: {
-        morning: "home_quiet_dawn",
-        afternoon: "home_golden_reflection",
-        evening: "home_evening_glow",
-      },
+		  "blue-hour-dawn": "home_blue_hour_dawn",
+		  "soft-morning-rise": "home_soft_morning_rise",
+		  "late-afternoon-warmth": "home_late_afternoon_warmth",
+		  "golden-dusk": "home_golden_dusk",
+		  "quiet-evening-glow": "home_quiet_evening_glow",
+		},
       seasonal: {},
       special: {},
     },
@@ -50,10 +54,12 @@ export const pageProfiles = {
 
     scenes: {
       default: {
-        morning: "adventure_quiet_dawn",
-        afternoon: "adventure_golden_reflection",
-        evening: "adventure_evening_glow",
-      },
+		  "blue-hour-dawn": "adventure_blue_hour_dawn",
+		  "soft-morning-rise": "adventure_soft_morning_rise",
+		  "late-afternoon-warmth": "adventure_late_afternoon_warmth",
+		  "golden-dusk": "adventure_golden_dusk",
+		  "quiet-evening-glow": "adventure_quiet_evening_glow",
+		},
       seasonal: {},
       special: {},
     },
@@ -70,10 +76,12 @@ export const pageProfiles = {
 
     scenes: {
       default: {
-        morning: "field_guide_quiet_dawn",
-        afternoon: "field_guide_golden_reflection",
-        evening: "field_guide_evening_glow",
-      },
+		  "blue-hour-dawn": "fieldguide_blue_hour_dawn",
+		  "soft-morning-rise": "fieldguide_soft_morning_rise",
+		  "late-afternoon-warmth": "fieldguide_late_afternoon_warmth",
+		  "golden-dusk": "fieldguide_golden_dusk",
+		  "quiet-evening-glow": "fieldguide_quiet_evening_glow",
+		},
       seasonal: {},
       special: {},
     },
@@ -90,10 +98,12 @@ export const pageProfiles = {
 
     scenes: {
       default: {
-        morning: "locations_quiet_dawn",
-        afternoon: "locations_golden_reflection",
-        evening: "locations_evening_glow",
-      },
+		  "blue-hour-dawn": "locations_blue_hour_dawn",
+		  "soft-morning-rise": "locations_soft_morning_rise",
+		  "late-afternoon-warmth": "locations_late_afternoon_warmth",
+		  "golden-dusk": "locations_golden_dusk",
+		  "quiet-evening-glow": "locations_quiet_evening_glow",
+		},
       seasonal: {},
       special: {},
     },
@@ -110,10 +120,12 @@ export const pageProfiles = {
 
     scenes: {
       default: {
-        morning: "plan_trip_quiet_dawn",
-        afternoon: "plan_trip_golden_reflection",
-        evening: "plan_trip_evening_glow",
-      },
+		  "blue-hour-dawn": "plantrip_blue_hour_dawn",
+		  "soft-morning-rise": "plantrip_soft_morning_rise",
+		  "late-afternoon-warmth": "plantrip_late_afternoon_warmth",
+		  "golden-dusk": "plantrip_golden_dusk",
+		  "quiet-evening-glow": "plantrip_quiet_evening_glow",
+		},
       seasonal: {},
       special: {},
     },
@@ -130,10 +142,12 @@ export const pageProfiles = {
 
     scenes: {
       default: {
-        morning: "catch_ledger_quiet_dawn",
-        afternoon: "catch_ledger_golden_reflection",
-        evening: "catch_ledger_evening_glow",
-      },
+		  "blue-hour-dawn": "catchledger_blue_hour_dawn",
+		  "soft-morning-rise": "catchledger_soft_morning_rise",
+		  "late-afternoon-warmth": "catchledger_late_afternoon_warmth",
+		  "golden-dusk": "catchledger_golden_dusk",
+		  "quiet-evening-glow": "catchledger_quiet_evening_glow",
+		},
       seasonal: {},
       special: {},
     },
@@ -150,10 +164,12 @@ export const pageProfiles = {
 
     scenes: {
       default: {
-        morning: "journal_quiet_dawn",
-        afternoon: "journal_golden_reflection",
-        evening: "journal_evening_glow",
-      },
+		  "blue-hour-dawn": "journal_blue_hour_dawn",
+		  "soft-morning-rise": "journal_soft_morning_rise",
+		  "late-afternoon-warmth": "journal_late_afternoon_warmth",
+		  "golden-dusk": "journal_golden_dusk",
+		  "quiet-evening-glow": "journal_quiet_evening_glow",
+		},
       seasonal: {},
       special: {},
     },
@@ -170,10 +186,12 @@ export const pageProfiles = {
 
     scenes: {
       default: {
-        morning: "talk_quiet_dawn",
-        afternoon: "talk_golden_reflection",
-        evening: "talk_evening_glow",
-      },
+		  "blue-hour-dawn": "papa_blue_hour_dawn",
+		  "soft-morning-rise": "papa_soft_morning_rise",
+		  "late-afternoon-warmth": "papa_late_afternoon_warmth",
+		  "golden-dusk": "papa_golden_dusk",
+		  "quiet-evening-glow": "papa_quiet_evening_glow",
+		},
       seasonal: {},
       special: {},
     },
@@ -190,10 +208,12 @@ export const pageProfiles = {
 
     scenes: {
       default: {
-        morning: "profile_quiet_dawn",
-        afternoon: "profile_golden_reflection",
-        evening: "profile_evening_glow",
-      },
+		  "blue-hour-dawn": "profile_blue_hour_dawn",
+		  "soft-morning-rise": "profile_soft_morning_rise",
+		  "late-afternoon-warmth": "profile_late_afternoon_warmth",
+		  "golden-dusk": "profile_golden_dusk",
+		  "quiet-evening-glow": "profile_quiet_evening_glow",
+		},
       seasonal: {},
       special: {},
     },
