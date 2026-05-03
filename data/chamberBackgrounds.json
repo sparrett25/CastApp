@@ -1,28 +1,22 @@
 {
   "intro": {
   "default": {
-    "src": "/images/chambers/papa-variants/papa-blue-hour-dawn.png",
     "caption": "Intro • beneath the surface"
   },
   "variants": {
     "blue-hour-dawn": {
-      "src": "/images/chambers/papa-variants/papa-blue-hour-dawn.png",
       "caption": "Intro • beneath the surface"
     },
     "soft-morning-rise": {
-      "src": "/images/chambers/papa-variants/papa-soft-morning-rise.png",
       "caption": "Intro • quiet morning water"
     },
     "late-afternoon-warmth": {
-      "src": "/images/chambers/papa-variants/papa-late-afternoon-warmth.png",
       "caption": "Intro • steady daylight"
     },
     "golden-dusk": {
-      "src": "/images/chambers/papa-variants/papa-golden-dusk.png",
       "caption": "Intro • golden reflection"
     },
     "quiet-evening-glow": {
-      "src": "/images/chambers/papa-variants/papa-quiet-evening-glow.png",
       "caption": "Intro • evening stillness"
     }
   }
@@ -30,57 +24,44 @@
 
 "papaDock": {
     "default": {
-      "src": "/images/chambers/papa-variants/papa-blue-hour-dawn.png",
       "caption": "Companion • beneath the surface"
     },
     "variants": {
       "blue-hour-dawn": {
-      "src": "/images/chambers/papa-variants/papa-blue-hour-dawn.png",
       "caption": "Intro • beneath the surface"
     },
     "soft-morning-rise": {
-      "src": "/images/chambers/papa-variants/papa-soft-morning-rise.png",
       "caption": "Intro • quiet morning water"
     },
     "late-afternoon-warmth": {
-      "src": "/images/chambers/papa-variants/papa-late-afternoon-warmth.png",
       "caption": "Intro • steady daylight"
     },
     "golden-dusk": {
-      "src": "/images/chambers/papa-variants/papa-golden-dusk.png",
       "caption": "Intro • golden reflection"
     },
     "quiet-evening-glow": {
-      "src": "/images/chambers/papa-variants/papa-quiet-evening-glow.png",
       "caption": "Intro • evening stillness"
     }
   }
 },
-
- "home": {
+"home": {
     "default": {
-      "src": "/images/chambers/home-variants/home-blue-hour-dawn.png",
       "caption": "Home • beneath the surface"
     },
     "variants": {
       "blue-hour-dawn": {
-      "src": "/images/chambers/home-variants/home-blue-hour-dawn.png",
       "caption": "Home • beneath the surface"
     },
     "soft-morning-rise": {
-      "src": "/images/chambers/home-variants/home-soft-morning-rise.png",
       "caption": "Home • quiet morning water"
     },
     "late-afternoon-warmth": {
-      "src": "/images/chambers/home-variants/home-late-afternoon-warmth.png",
       "caption": "Home • steady daylight"
     },
     "golden-dusk": {
-      "src": "/images/chambers/home-variants/home-golden-dusk.png",
       "caption": "Home • golden reflection"
     },
     "quiet-evening-glow": {
-      "src": "/images/chambers/home-variants/home-quiet-evening-glow.png",
       "caption": "Home • evening stillness"
     }
   }
@@ -88,86 +69,68 @@
 
  "field-guide": {
     "default": {
-      "src": "/images/chambers/fieldguide-variants/fieldguide-blue-hour-dawn.png",
       "caption": "Field Guide • beneath the surface"
     },
     "variants": {
       "blue-hour-dawn": {
-      "src": "/images/chambers/fieldguide-variants/fieldguide-blue-hour-dawn.png",
       "caption": "Field Guide • beneath the surface"
     },
     "soft-morning-rise": {
-      "src": "/images/chambers/fieldguide-variants/fieldguide-soft-morning-rise.png",
       "caption": "Field Guide • quiet morning water"
     },
     "late-afternoon-warmth": {
-      "src": "/images/chambers/fieldguide-variants/fieldguide-late-afternoon-warmth.png",
       "caption": "Field Guide • steady daylight"
     },
     "golden-dusk": {
-      "src": "/images/chambers/fieldguide-variants/fieldguide-golden-dusk.png",
       "caption": "Field Guide • golden reflection"
     },
     "quiet-evening-glow": {
-      "src": "/images/chambers/fieldguide-variants/fieldguide-quiet-evening-glow.png",
       "caption": "Field Guide • evening stillness"
     }
   }
 },
 
-  "locations": {
+ "locations": {
     "default": {
-      "src": "/images/chambers/locations-variants/locations-blue-hour-dawn.png",
       "caption": "Locations • beneath the surface"
     },
     "variants": {
       "blue-hour-dawn": {
-      "src": "/images/chambers/locations-variants/locations-blue-hour-dawn.png",
       "caption": "Locations • beneath the surface"
     },
     "soft-morning-rise": {
-      "src": "/images/chambers/locations-variants/locations-soft-morning-rise.png",
       "caption": "Locations • quiet morning water"
     },
     "late-afternoon-warmth": {
-      "src": "/images/chambers/locations-variants/locations-late-afternoon-warmth.png",
       "caption": "Locations • steady daylight"
     },
     "golden-dusk": {
-      "src": "/images/chambers/locations-variants/locations-golden-dusk.png",
       "caption": "Locations • golden reflection"
     },
     "quiet-evening-glow": {
-      "src": "/images/chambers/locations-variants/locations-quiet-evening-glow.png",
       "caption": "Locations • evening stillness"
     }
   }
 },
   
-   "plan-trip": {
+ "plan-trip": {
     "default": {
-      "src": "/images/chambers/plantrip-variants/plantrip-blue-hour-dawn.png",
-      "caption": "Plan Trip • lantern and pages"
+      "caption": "Plan Trip • beneath the surface"
     },
     "variants": {
       "blue-hour-dawn": {
-      "src": "/images/chambers/plantrip-variants/plantrip-blue-hour-dawn.png",
       "caption": "Plan Trip • beneath the surface"
     },
     "soft-morning-rise": {
-      "src": "/images/chambers/plantrip-variants/plantrip-soft-morning-rise.png",
       "caption": "Plan Trip • quiet morning water"
     },
     "late-afternoon-warmth": {
-      "src": "/images/chambers/plantrip-variants/plantrip-late-afternoon-warmth.png",
       "caption": "Plan Trip • steady daylight"
     },
     "golden-dusk": {
-      "src": "/images/chambers/plantrip-variants/plantrip-golden-dusk.png",
       "caption": "Plan Trip • golden reflection"
     },
     "quiet-evening-glow": {
-      "src": "/images/chambers/plantrip-variants/plantrip-quiet-evening-glow.png",
       "caption": "Plan Trip • evening stillness"
     }
   }
@@ -175,28 +138,22 @@
 
  "trip-summary": {
     "default": {
-      "src": "/images/chambers/plantrip-variants/plantrip-blue-hour-dawn.png",
       "caption": "Trip Summary • the day remembered"
     },
 	"variants": {
       "blue-hour-dawn": {
-      "src": "/images/chambers/plantrip-variants/plantrip-blue-hour-dawn.png",
       "caption": "Plan Trip • beneath the surface"
     },
     "soft-morning-rise": {
-      "src": "/images/chambers/plantrip-variants/plantrip-soft-morning-rise.png",
       "caption": "Plan Trip • quiet morning water"
     },
     "late-afternoon-warmth": {
-      "src": "/images/chambers/plantrip-variants/plantrip-late-afternoon-warmth.png",
       "caption": "Plan Trip • steady daylight"
     },
     "golden-dusk": {
-      "src": "/images/chambers/plantrip-variants/plantrip-golden-dusk.png",
       "caption": "Plan Trip • golden reflection"
     },
     "quiet-evening-glow": {
-      "src": "/images/chambers/plantrip-variants/plantrip-quiet-evening-glow.png",
       "caption": "Plan Trip • evening stillness"
     }
   }
@@ -204,28 +161,22 @@
   
  "journal": {
     "default": {
-      "src": "/images/chambers/journal-variants/journal-blue-hour-dawn.png",
       "caption": "Journal • lantern and pages"
     },
     "variants": {
       "blue-hour-dawn": {
-      "src": "/images/chambers/journal-variants/journal-blue-hour-dawn.png",
       "caption": "Journal • beneath the surface"
     },
     "soft-morning-rise": {
-      "src": "/images/chambers/journal-variants/journal-soft-morning-rise.png",
       "caption": "Journal • quiet morning water"
     },
     "late-afternoon-warmth": {
-      "src": "/images/chambers/journal-variants/journal-late-afternoon-warmth.png",
       "caption": "Journal • steady daylight"
     },
     "golden-dusk": {
-      "src": "/images/chambers/journal-variants/journal-golden-dusk.png",
       "caption": "Journal • golden reflection"
     },
     "quiet-evening-glow": {
-      "src": "/images/chambers/journal-variants/journal-quiet-evening-glow.png",
       "caption": "Journal • evening stillness"
     }
   }
@@ -233,28 +184,22 @@
 
   "catch-ledger": {
     "default": {
-      "src": "/images/chambers/catchledger-variants/catchledger-blue-hour-dawn.png",
       "caption": "Catch Ledger • beneath the surface"
     },
     "variants": {
       "blue-hour-dawn": {
-      "src": "/images/chambers/catchledger-variants/catchledger-blue-hour-dawn.png",
       "caption": "Catch Ledger • beneath the surface"
     },
     "soft-morning-rise": {
-      "src": "/images/chambers/catchledger-variants/catchledger-soft-morning-rise.png",
       "caption": "Catch Ledger • quiet morning water"
     },
     "late-afternoon-warmth": {
-      "src": "/images/chambers/catchledger-variants/catchledger-late-afternoon-warmth.png",
       "caption": "Catch Ledger • steady daylight"
     },
     "golden-dusk": {
-      "src": "/images/chambers/catchledger-variants/catchledger-golden-dusk.png",
       "caption": "Catch Ledger • golden reflection"
     },
     "quiet-evening-glow": {
-      "src": "/images/chambers/catchledger-variants/catchledger-quiet-evening-glow.png",
       "caption": "Catch Ledger • evening stillness"
     }
   }
@@ -262,28 +207,22 @@
   
 "profile": {
   "default": {
-    "src": "/images/chambers/profile-variants/profile-blue-hour-dawn.png",
     "caption": "Profile • quiet morning water"
   },
   "variants": {
     "blue-hour-dawn": {
-      "src": "/images/chambers/profile-variants/profile-blue-hour-dawn.png",
       "caption": "Profile • beneath the surface"
     },
     "soft-morning-rise": {
-      "src": "/images/chambers/profile-variants/profile-soft-morning-rise.png",
       "caption": "Profile • quiet morning water"
     },
     "late-afternoon-warmth": {
-      "src": "/images/chambers/profile-variants/profile-late-afternoon-warmth.png",
       "caption": "Profile • steady daylight"
     },
     "golden-dusk": {
-      "src": "/images/chambers/profile-variants/profile-golden-dusk.png",
       "caption": "Profile • golden reflection"
     },
     "quiet-evening-glow": {
-      "src": "/images/chambers/profile-variants/profile-quiet-evening-glow.png",
       "caption": "Profile • evening stillness"
     }
   }
@@ -291,28 +230,22 @@
 
 "auth-page": {
   "default": {
-    "src": "/images/chambers/authpage-variants/authpage-blue-hour-dawn.png",
     "caption": "Login • quiet morning water"
   },
   "variants": {
     "blue-hour-dawn": {
-      "src": "/images/chambers/authpage-variants/authpage-blue-hour-dawn.png",
       "caption": "Login • beneath the surface"
     },
     "soft-morning-rise": {
-      "src": "/images/chambers/authpage-variants/authpage-soft-morning-rise.png",
       "caption": "Login • quiet morning water"
     },
     "late-afternoon-warmth": {
-      "src": "/images/chambers/authpage-variants/authpage-late-afternoon-warmth.png",
       "caption": "Login • steady daylight"
     },
     "golden-dusk": {
-      "src": "/images/chambers/authpage-variants/authpage-golden-dusk.png",
       "caption": "Login • golden reflection"
     },
     "quiet-evening-glow": {
-      "src": "/images/chambers/authpage-variants/authpage-quiet-evening-glow.png",
       "caption": "Login • evening stillness"
     }
   }
@@ -320,28 +253,22 @@
 
    "adventure": {
     "default": {
-      "src": "/images/chambers/adventure-variants/adventure-blue-hour-dawn.png",
       "caption": "Adventure • quiet morning water"
     },
 	"variants": {
       "blue-hour-dawn": {
-      "src": "/images/chambers/adventure-variants/adventure-blue-hour-dawn.png",
       "caption": "Adventure • beneath the surface"
     },
     "soft-morning-rise": {
-      "src": "/images/chambers/adventure-variants/adventure-soft-morning-rise.png",
       "caption": "Adventure • quiet morning water"
     },
     "late-afternoon-warmth": {
-      "src": "/images/chambers/adventure-variants/adventure-late-afternoon-warmth.png",
       "caption": "Adventure • steady daylight"
     },
     "golden-dusk": {
-      "src": "/images/chambers/adventure-variants/adventure-golden-dusk.png",
       "caption": "Adventure • golden reflection"
     },
     "quiet-evening-glow": {
-      "src": "/images/chambers/adventure-variants/adventure-quiet-evening-glow.png",
       "caption": "Adventure • evening stillness"
     }
   }

@@ -7,7 +7,7 @@ import "../styles/pages/profile.css";
 import { useProfile } from "../context/ProfileContext";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
-
+import { REGION_OPTIONS, DEFAULT_REGION_KEY } from "../data/regionOptions";
 
 
 const PAPA_PRESENCES = [
@@ -143,6 +143,7 @@ const textTheme = ui.text ?? {};
             favorite_species: formatArray(data?.favorite_species),
             target_species: formatArray(data?.target_species),
             preferred_baits: formatArray(data?.preferred_baits),
+			regionKey: data?.region_key || DEFAULT_REGION_KEY,
             papa_presence_key: data?.papa_presence_key || "classic_papa"
           });
         }
@@ -183,6 +184,7 @@ const textTheme = ui.text ?? {};
         favorite_species: parseCommaList(form.favorite_species),
         target_species: parseCommaList(form.target_species),
         preferred_baits: parseCommaList(form.preferred_baits),
+		region_key: form.regionKey || DEFAULT_REGION_KEY,
         papa_presence_key: form.papa_presence_key
       };
 
@@ -232,7 +234,8 @@ const textTheme = ui.text ?? {};
       <CastBackground
 	  chamberKey="profile"
 	  variant={scene?.backgroundVariant}
-	  overlay={scene?.timeState?.ui?.overlay}
+	  regionKey={profilePacket?.region_key || DEFAULT_REGION_KEY}
+	  overlay={ui.overlay}
 	>
         <ChamberLayout>
           <div className="profile-page">
@@ -250,6 +253,7 @@ const textTheme = ui.text ?? {};
     <CastBackground
 	  chamberKey="profile"
 	  variant={scene?.backgroundVariant}
+	   regionKey={form?.regionKey || DEFAULT_REGION_KEY}
 	  overlay={ui.overlay}
 	>
       <ChamberLayout
@@ -398,10 +402,27 @@ const textTheme = ui.text ?? {};
                 setOpenSection(openSection === "presence" ? null : "presence")
               }
             >
-              <p className="profile-help-text">
-                Choose how CAST feels beside you. More presence options can be added later.
-              </p>
+              <label>
+  Regional atmosphere
+  <select
+    value={form.regionKey || DEFAULT_REGION_KEY}
+    style={inputStyle}
+    onChange={(e) => updateField("regionKey", e.target.value)}
+  >
+    {Object.values(REGION_OPTIONS).map((region) => (
+      <option key={region.key} value={region.key}>
+        {region.label}
+      </option>
+    ))}
+  </select>
+</label>
 
+<p className="profile-help-text">
+  {REGION_OPTIONS[form.regionKey || DEFAULT_REGION_KEY]?.description}
+</p>
+<p className="profile-help-text">
+  Choose how CAST feels beside you. More presence options can be added later.
+</p>
               <div className="presence-grid">
                 {PAPA_PRESENCES.map((presence) => (
                   <button

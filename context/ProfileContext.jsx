@@ -1,4 +1,5 @@
 import { createContext, useContext } from "react";
+import { DEFAULT_REGION_KEY } from "../data/regionOptions";
 
 export const ProfileContext = createContext({
   profile: null,
@@ -24,6 +25,8 @@ export function buildProfilePacket(profile) {
     targetSpecies: profile.target_species || [],
     preferredBaits: profile.preferred_baits || [],
     papaPresenceKey: profile.papa_presence_key,
+    regionKey: profile.region_key || DEFAULT_REGION_KEY,
+    region_key: profile.region_key || DEFAULT_REGION_KEY,
     role: profile.role,
   };
 }
