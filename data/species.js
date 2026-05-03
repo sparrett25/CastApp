@@ -3,6 +3,7 @@ export const SPECIES = [
     id: "bluegill",
     slug: "bluegill",
     name: "Bluegill",
+	image: "/images/species/bluegill-sunfish.png",
     latin: "Lepomis macrochirus",
     category: "panfish",
 
@@ -54,6 +55,7 @@ export const SPECIES = [
     id: "largemouth-bass",
     slug: "largemouth-bass",
     name: "Largemouth Bass",
+	image: "/images/species/florida-largemouth-bass.png",
     latin: "Micropterus salmoides",
     category: "bass",
 
@@ -104,6 +106,7 @@ export const SPECIES = [
   id: "redear-sunfish",
   slug: "redear-sunfish",
   name: "Redear Sunfish",
+  image: "/images/species/redear-sunfish.png",
   latin: "Lepomis microlophus",
   category: "panfish",
 
@@ -154,6 +157,7 @@ export const SPECIES = [
   id: "black-crappie",
   slug: "black-crappie",
   name: "Black Crappie",
+  image: "/images/species/black-crappie.png",
   latin: "Pomoxis nigromaculatus",
   category: "panfish",
 
@@ -204,6 +208,7 @@ export const SPECIES = [
   id: "channel-catfish",
   slug: "channel-catfish",
   name: "Channel Catfish",
+  image: "/images/species/channel-catfish.png",
   latin: "Ictalurus punctatus",
   category: "catfish",
 
@@ -254,6 +259,7 @@ export const SPECIES = [
   id: "warmouth",
   slug: "warmouth",
   name: "Warmouth",
+  image: "/images/species/warmouth.png",
   latin: "Lepomis gulosus",
   category: "panfish",
 
@@ -303,6 +309,7 @@ export const SPECIES = [
   id: "bowfin",
   slug: "bowfin",
   name: "Bowfin",
+  image: "/images/species/bowfin.png",
   latin: "Amia calva",
   category: "predator",
 
@@ -352,6 +359,7 @@ export const SPECIES = [
   id: "gar",
   slug: "gar",
   name: "Gar",
+  image: "/images/species/gar.png",
   latin: "Lepisosteus spp.",
   category: "predator",
 
@@ -402,6 +410,7 @@ export const SPECIES = [
   id: "sunshine-bass",
   slug: "sunshine-bass",
   name: "Sunshine Bass",
+  image: "/images/species/sunshine-bass.png",
   latin: "Morone chrysops × Morone saxatilis",
   category: "bass",
 

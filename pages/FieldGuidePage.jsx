@@ -15,44 +15,8 @@ import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
 
-// ── Fish SVGs ──────────────────────────────────────────────────
-function BluegillSVG() {
-  return (
-    <svg viewBox="0 0 380 140" xmlns="http://www.w3.org/2000/svg" className="fish-svg">
-      <ellipse cx="175" cy="70" rx="105" ry="46" fill="#EF9F27" opacity="0.18"/>
-      <ellipse cx="170" cy="70" rx="98" ry="40" fill="#EF9F27" opacity="0.32"/>
-      <ellipse cx="163" cy="70" rx="88" ry="34" fill="#BA7517" opacity="0.2"/>
-      <path d="M262 70 Q300 45 328 25 Q310 70 328 115 Q300 95 262 70Z" fill="#BA7517" opacity="0.55"/>
-      <path d="M93 70 Q72 58 56 48 Q66 70 56 92 Q72 82 93 70Z" fill="#BA7517" opacity="0.45"/>
-      <line x1="145" y1="36" x2="145" y2="104" stroke="#854F0B" strokeWidth="0.7" opacity="0.2"/>
-      <line x1="168" y1="34" x2="168" y2="106" stroke="#854F0B" strokeWidth="0.7" opacity="0.18"/>
-      <line x1="190" y1="36" x2="190" y2="104" stroke="#854F0B" strokeWidth="0.7" opacity="0.18"/>
-      <line x1="211" y1="40" x2="211" y2="100" stroke="#854F0B" strokeWidth="0.7" opacity="0.18"/>
-      <path d="M132 36 Q155 28 185 30 Q215 28 234 36" fill="none" stroke="#854F0B" strokeWidth="1.4" opacity="0.45" strokeLinecap="round"/>
-      <path d="M135 104 Q158 112 188 110 Q218 112 236 104" fill="none" stroke="#854F0B" strokeWidth="1.4" opacity="0.45" strokeLinecap="round"/>
-      <path d="M134 47 Q145 36 158 42 Q149 50 144 62Z" fill="#EF9F27" opacity="0.65"/>
-      <path d="M134 93 Q145 104 158 98 Q149 90 144 78Z" fill="#EF9F27" opacity="0.65"/>
-      <circle cx="74" cy="66" r="7" fill="#111" opacity="0.85"/>
-      <circle cx="76" cy="64" r="2" fill="white" opacity="0.55"/>
-    </svg>
-  );
-}
 
-function BassSVG() {
-  return (
-    <svg viewBox="0 0 400 145" xmlns="http://www.w3.org/2000/svg" className="fish-svg">
-      <ellipse cx="188" cy="72" rx="122" ry="52" fill="#5DCAA5" opacity="0.1"/>
-      <ellipse cx="183" cy="72" rx="115" ry="45" fill="#1D9E75" opacity="0.16"/>
-      <ellipse cx="175" cy="72" rx="105" ry="38" fill="#0F6E56" opacity="0.18"/>
-      <path d="M285 72 Q335 40 368 18 Q342 72 368 126 Q335 104 285 72Z" fill="#0F6E56" opacity="0.52"/>
-      <path d="M90 72 Q68 60 52 48 Q63 72 52 96 Q68 84 90 72Z" fill="#0F6E56" opacity="0.42"/>
-      <path d="M148 38 Q172 26 195 32 Q178 46 168 60Z" fill="#1D9E75" opacity="0.62"/>
-      <path d="M148 106 Q172 118 195 112 Q178 98 168 84Z" fill="#1D9E75" opacity="0.62"/>
-      <circle cx="72" cy="67" r="8" fill="#111" opacity="0.88"/>
-      <circle cx="74" cy="65" r="2.2" fill="white" opacity="0.5"/>
-    </svg>
-  );
-}
+
 
 // --- Species Chip to Locations ---
 
@@ -194,7 +158,7 @@ function SimpleCard({ entry, onClick, accentColor, cardTheme, textTheme }) {
 
 // ── Species detail ─────────────────────────────────────────────
 function SpeciesDetail({ species, onBack, onOpenLocation, backButtonStyle }) {
-  const FishSVG = species.id === "bluegill" ? BluegillSVG : BassSVG;
+  
   const speciesLocations = CAST_LOCATIONS.filter((loc) =>
   species.locations?.includes(loc.id)
 );  
@@ -210,7 +174,19 @@ function SpeciesDetail({ species, onBack, onOpenLocation, backButtonStyle }) {
       <p className="fg-detail-eyebrow">Field Guide · Species</p>
       <h2 className="fg-detail-name">{species.name}</h2>
       <p className="fg-detail-latin">{species.latin}</p>
-      <div className="fg-illustration-wrap"><FishSVG /></div>
+      <div className="fg-illustration-wrap fg-species-image-wrap">
+  {species.image ? (
+    <img
+      src={species.image}
+      alt={`${species.name} field guide illustration`}
+      className="fg-species-image"
+    />
+  ) : (
+    <div className="fg-species-image-fallback">
+      No illustration yet
+    </div>
+  )}
+</div>
       <p className="fg-detail-intro">{species.intro}</p>
       <div className="fg-stats-row">
         {species.stats.map(s => (

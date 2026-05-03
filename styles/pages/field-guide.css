@@ -544,6 +544,32 @@
   flex-shrink: 0;
 }
 
+
+/* Species Images */
+
+.fg-species-image-wrap {
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.fg-species-image {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.32));
+}
+
+.fg-species-image-fallback {
+  opacity: 0.7;
+  font-style: italic;
+}
+
+
+
 /* Mobile */
 
 @media (max-width: 480px) {
