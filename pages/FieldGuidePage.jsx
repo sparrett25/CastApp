@@ -202,7 +202,11 @@ function SpeciesDetail({ species, onBack, onOpenLocation, backButtonStyle }) {
   return (
     <motion.div className="fg-detail" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
         <div className="scroll-surface">
-	  <button className="fg-back-btn" onClick={onBack}>← Species</button>
+	  <button
+  className="fg-back-btn"
+  onClick={onBack}
+  style={backButtonStyle}
+>← Species</button>
       <p className="fg-detail-eyebrow">Field Guide · Species</p>
       <h2 className="fg-detail-name">{species.name}</h2>
       <p className="fg-detail-latin">{species.latin}</p>
@@ -245,7 +249,9 @@ function GearDetail({ entry, onBack, backButtonStyle }) {
   return (
     <motion.div className="fg-detail" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
       <div className="scroll-surface">
-	  <button className="fg-back-btn" onClick={onBack}>← Gear</button>
+	  <button className="fg-back-btn" onClick={onBack} style={backButtonStyle}>
+  ← Gear
+</button>
       <p className="fg-detail-eyebrow">Field Guide · Gear</p>
       <h2 className="fg-detail-name">{entry.name}</h2>
       <p className="fg-detail-latin">{entry.tagline}</p>
@@ -271,7 +277,9 @@ function TechniqueDetail({ entry, onBack, backButtonStyle }) {
   return (
     <motion.div className="fg-detail" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
       <div className="scroll-surface">
-	  <button className="fg-back-btn" onClick={onBack}>← Techniques</button>
+	  <button className="fg-back-btn" onClick={onBack} style={backButtonStyle}>
+  ← Techniques
+</button>
       <p className="fg-detail-eyebrow">Field Guide · Techniques</p>
       <h2 className="fg-detail-name">{entry.name}</h2>
       <p className="fg-detail-latin">{entry.tagline}</p>
@@ -339,17 +347,26 @@ const scene = DEBUG_SCENE
     })
   : atmosphere.scene;
 
-const ui = scene?.timeState?.ui ?? {};
-const buttonTheme = ui.button ?? {};
+const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
+const styles = atmosphere.styles ?? {};
 
-const backButtonStyle = {
-  background: buttonTheme.secondaryBg,
-  color: buttonTheme.text,
-  border: `1px solid ${buttonTheme.border}`,
+const cardStyle = styles.cardStyle ?? {};
+const buttonSecondaryStyle = styles.buttonSecondaryStyle ?? {};
+const transparentButtonStyle = styles.transparentButtonStyle ?? {};
+const textTheme = ui.text ?? {};
+const chipTheme = ui.chip ?? {};
+
+
+const cardTheme = {
+  bg: cardStyle.background,
+  border: cardStyle.border?.replace("1px solid ", ""),
+  blur: ui.card?.blur,
+  shadow: cardStyle.boxShadow,
 };
 
-const cardTheme = ui.card;
-const textTheme = ui.text;
+const buttonTheme = ui.button ?? {};
+const backButtonStyle = buttonSecondaryStyle;
+
 
   
   
@@ -402,7 +419,7 @@ const textTheme = ui.text;
     <CastBackground
 	  chamberKey="field-guide"
 	  variant={scene?.backgroundVariant}
-	  overlay={scene?.timeState?.ui?.overlay}
+	  overlay={ui.overlay}
 	>
       <ChamberLayout
 		  papa={
@@ -478,7 +495,7 @@ const textTheme = ui.text;
 					  onClick={goDetail}
 					  cardTheme={cardTheme}
 					  textTheme={textTheme}
-					  chipTheme={ui.chip}
+					  chipTheme={chipTheme}
 					/>
 				))}
               </motion.div>

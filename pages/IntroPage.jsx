@@ -93,24 +93,24 @@ export default function IntroPage() {
       })
     : atmosphere.scene;
 
+
   const uiStyles = getIntroUiStyles(scene);
+  const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
 
-  const buttonTheme = scene?.timeState?.ui?.button ?? {};
+const styles = atmosphere.styles ?? {};
 
-  const entryButtonStyle = {
-    ...uiStyles.cardStyle,
-    background: buttonTheme.primaryBg ?? uiStyles.cardStyle.background,
-    color: buttonTheme.text,
-    border: buttonTheme.border
-      ? `1px solid ${buttonTheme.border}`
-      : undefined,
-  };
+const buttonPrimaryStyle = styles.buttonPrimaryStyle ?? {};
+
+ const entryButtonStyle = {
+  ...uiStyles.cardStyle,
+  ...buttonPrimaryStyle,
+};
 
   return (
     <CastBackground
       chamberKey="intro"
       variant={scene?.backgroundVariant}
-      overlay={scene?.timeState?.ui?.overlay}
+      overlay={ui.overlay}
     >
       <ChamberLayout>
         <div className={uiStyles.containerClass}>

@@ -218,4 +218,25 @@ export const pageProfiles = {
       special: {},
     },
   },
+  authPage: {
+    id: "authPage",
+    label: "Login",
+    role: "Login - Logoff - Signup",
+    uiStyle: "userContext",
+    emotionalTone: ["intentional", "grounded", "selfAware"],
+    pacing: "steady",
+    papaWhisperStyle: "personal",
+
+    scenes: {
+      default: {
+		  "blue-hour-dawn": "authpage_blue_hour_dawn",
+		  "soft-morning-rise": "authpage_soft_morning_rise",
+		  "late-afternoon-warmth": "authpage_late_afternoon_warmth",
+		  "golden-dusk": "authpage_golden_dusk",
+		  "quiet-evening-glow": "authpage_quiet_evening_glow",
+		},
+      seasonal: {},
+      special: {},
+    },
+  },
 };

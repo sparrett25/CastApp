@@ -38,21 +38,14 @@ function ProfileSection({
   open,
   onToggle,
   children,
-  cardTheme,
+  cardStyle,
   textTheme,
 }) {
 	
   return (
     <section
   className={"profile-section" + (open ? " is-open" : "")}
-  style={{
-    background: cardTheme?.bg,
-    border: `1px solid ${cardTheme?.border}`,
-    backdropFilter: `blur(${cardTheme?.blur || "18px"})`,
-    WebkitBackdropFilter: `blur(${cardTheme?.blur || "18px"})`,
-    boxShadow: cardTheme?.shadow,
-    color: textTheme?.primary,
-  }}
+  style={cardStyle}
 >
       <button type="button" className="profile-section-head" onClick={onToggle}>
         <div>
@@ -100,16 +93,14 @@ export default function ProfilePage() {
     })
   : atmosphere.scene;
 
-  const ui = scene?.timeState?.ui ?? {};
-  const buttonTheme = ui.button ?? {};
-  const cardTheme = ui.card ?? {};
-  const textTheme = ui.text ?? {};
-  const inputTheme = ui.input ?? {};
-  
-  
- 
-  
-  
+const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
+const styles = atmosphere.styles ?? {};
+
+const cardStyle = styles.cardStyle ?? {};
+const buttonPrimaryStyle = styles.buttonPrimaryStyle ?? {};
+const buttonSecondaryStyle = styles.buttonSecondaryStyle ?? {};
+const inputStyle = styles.inputStyle ?? {};
+const textTheme = ui.text ?? {};
   
   const papaContext = {
     page: "profile",
@@ -259,7 +250,7 @@ export default function ProfilePage() {
     <CastBackground
 	  chamberKey="profile"
 	  variant={scene?.backgroundVariant}
-	  overlay={scene?.timeState?.ui?.overlay}
+	  overlay={ui.overlay}
 	>
       <ChamberLayout
         papa={
@@ -285,7 +276,7 @@ export default function ProfilePage() {
               title="Identity"
               summary={identitySummary}
               open={openSection === "identity"}
-			  cardTheme={cardTheme}
+			  cardStyle={cardStyle}
 			  textTheme={textTheme}
               onToggle={() =>
                 setOpenSection(openSection === "identity" ? null : "identity")
@@ -304,11 +295,7 @@ export default function ProfilePage() {
                 Short bio
                 <textarea
                   value={form.bio}
-				  style={{
-					  background: inputTheme?.bg,
-					  border: `1px solid ${inputTheme?.border}`,
-					  color: inputTheme?.text,
-					}}
+				  style={inputStyle}
                   onChange={(e) => updateField("bio", e.target.value)}
                   placeholder="A few words about your time by the water..."
                 />
@@ -318,11 +305,7 @@ export default function ProfilePage() {
                 Home region
                 <input
                   value={form.home_region}
-				  style={{
-					  background: inputTheme?.bg,
-					  border: `1px solid ${inputTheme?.border}`,
-					  color: inputTheme?.text,
-					}}
+				  style={inputStyle}
                   onChange={(e) => updateField("home_region", e.target.value)}
                   placeholder="Tampa Bay, FL"
                 />
@@ -332,11 +315,7 @@ export default function ProfilePage() {
                 Home water
                 <input
                   value={form.home_water}
-				  style={{
-					  background: inputTheme?.bg,
-					  border: `1px solid ${inputTheme?.border}`,
-					  color: inputTheme?.text,
-					}}
+				  style={inputStyle}
                   onChange={(e) => updateField("home_water", e.target.value)}
                   placeholder="Backyard Pond"
                 />
@@ -346,11 +325,7 @@ export default function ProfilePage() {
                 Favorite place
                 <input
                   value={form.favorite_place}
-				  style={{
-					  background: inputTheme?.bg,
-					  border: `1px solid ${inputTheme?.border}`,
-					  color: inputTheme?.text,
-					}}
+				  style={inputStyle}
                   onChange={(e) => updateField("favorite_place", e.target.value)}
                   placeholder="A dock, pond, creek, or lake..."
                 />
@@ -360,11 +335,7 @@ export default function ProfilePage() {
                 Experience level
                 <select
                   value={form.experience_level}
-				  style={{
-					  background: inputTheme?.bg,
-					  border: `1px solid ${inputTheme?.border}`,
-					  color: inputTheme?.text,
-					}}
+				  style={inputStyle}
                   onChange={(e) => updateField("experience_level", e.target.value)}
                 >
                   {EXPERIENCE_LEVELS.map((level) => (
@@ -380,7 +351,7 @@ export default function ProfilePage() {
               title="Fishing Style"
               summary={fishingSummary}
               open={openSection === "fishing"}
-			  cardTheme={cardTheme}
+			  cardStyle={cardStyle}
 			  textTheme={textTheme}
               onToggle={() =>
                 setOpenSection(openSection === "fishing" ? null : "fishing")
@@ -390,11 +361,7 @@ export default function ProfilePage() {
                 Favorite species
                 <input
                   value={form.favorite_species}
-				  style={{
-					  background: inputTheme?.bg,
-					  border: `1px solid ${inputTheme?.border}`,
-					  color: inputTheme?.text,
-					}}
+				  style={inputStyle}
                   onChange={(e) => updateField("favorite_species", e.target.value)}
                   placeholder="Bluegill, Bass, Catfish"
                 />
@@ -404,11 +371,7 @@ export default function ProfilePage() {
                 Target species
                 <input
                   value={form.target_species}
-				  style={{
-					  background: inputTheme?.bg,
-					  border: `1px solid ${inputTheme?.border}`,
-					  color: inputTheme?.text,
-					}}
+				  style={inputStyle}
                   onChange={(e) => updateField("target_species", e.target.value)}
                   placeholder="Bass, Warmouth"
                 />
@@ -418,11 +381,7 @@ export default function ProfilePage() {
                 Preferred baits
                 <input
                   value={form.preferred_baits}
-				  style={{
-					  background: inputTheme?.bg,
-					  border: `1px solid ${inputTheme?.border}`,
-					  color: inputTheme?.text,
-					}}
+				  style={inputStyle}
                   onChange={(e) => updateField("preferred_baits", e.target.value)}
                   placeholder="Worms, minnows, spinnerbait"
                 />
@@ -433,7 +392,7 @@ export default function ProfilePage() {
               title="CAST Presence"
               summary={presenceSummary}
               open={openSection === "presence"}
-			  cardTheme={cardTheme}
+			  cardStyle={cardStyle}
 			  textTheme={textTheme}
               onToggle={() =>
                 setOpenSection(openSection === "presence" ? null : "presence")
@@ -452,14 +411,11 @@ export default function ProfilePage() {
                       "presence-option" +
                       (form.papa_presence_key === presence.key ? " is-selected" : "")
                     }
-					style={{
-					  background:
-						form.papa_presence_key === presence.key
-						  ? buttonTheme?.primaryBg
-						  : buttonTheme?.secondaryBg,
-					  border: `1px solid ${buttonTheme?.border}`,
-					  color: buttonTheme?.text,
-					}}
+					style={
+					  form.papa_presence_key === presence.key
+						? buttonPrimaryStyle
+						: buttonSecondaryStyle
+					}
                     onClick={() => updateField("papa_presence_key", presence.key)}
                   >
                     <span>{presence.label}</span>
@@ -473,11 +429,7 @@ export default function ProfilePage() {
 			  className="profile-save"
 			  type="submit"
 			  disabled={saving}
-			  style={{
-				background: buttonTheme?.primaryBg,
-				border: `1px solid ${buttonTheme?.border}`,
-				color: buttonTheme?.text,
-			  }}
+			  style={buttonPrimaryStyle}
 			>
               {saving ? "Saving..." : "Save profile →"}
             </button>

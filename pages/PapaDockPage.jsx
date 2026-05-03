@@ -64,13 +64,16 @@ export default function PapaDockPage() {
       })
     : atmosphere.scene;
 
-  const ui = scene?.timeState?.ui ?? {};
+const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
+const styles = atmosphere.styles ?? {};
 
-  const bubbleTheme = ui.bubble ?? {};
-  const inputTheme = ui.input ?? {};
-  const buttonTheme = ui.button ?? {};
-  const cardTheme = ui.card ?? {};
-  const textTheme = ui.text ?? {};
+const cardStyle = styles.cardStyle ?? {};
+const buttonPrimaryStyle = styles.buttonPrimaryStyle ?? {};
+const buttonSecondaryStyle = styles.buttonSecondaryStyle ?? {};
+const inputStyle = styles.inputStyle ?? {};
+const transparentButtonStyle = styles.transparentButtonStyle ?? {};
+const textTheme = ui.text ?? {};
+const bubbleTheme = ui.bubble ?? {};
 
   useEffect(() => {
     const sceneOpening = scene?.whisper || DEFAULT_OPENING_LINE;
@@ -316,7 +319,7 @@ export default function PapaDockPage() {
     <CastBackground
       chamberKey="papaDock"
       variant={scene?.backgroundVariant}
-      overlay={scene?.timeState?.ui?.overlay}
+      overlay={ui.overlay}
     >
       <ChamberLayout papa={null}>
         <div className="papa-dock-page">
@@ -374,11 +377,7 @@ export default function PapaDockPage() {
                               savingNoteIndex === index ||
                               savedNoteIndexes[index]
                             }
-                            style={{
-                              background: buttonTheme?.secondaryBg,
-                              border: `1px solid ${buttonTheme?.border}`,
-                              color: buttonTheme?.text,
-                            }}
+                            style={buttonSecondaryStyle}
                           >
                             {savedNoteIndexes[index]
                               ? "Saved"
@@ -397,11 +396,7 @@ export default function PapaDockPage() {
                               savingNoteIndex === index ||
                               savedNoteIndexes[index]
                             }
-                            style={{
-                              background: buttonTheme?.secondaryBg,
-                              border: `1px solid ${buttonTheme?.border}`,
-                              color: buttonTheme?.text,
-                            }}
+                            style={buttonSecondaryStyle}
                           >
                             Save Field Note
                           </button>
@@ -439,11 +434,7 @@ export default function PapaDockPage() {
               className="papa-dock-save-thread-btn"
               onClick={saveThread}
               disabled={savingThread || savedThread || messages.length <= 1}
-              style={{
-                background: buttonTheme?.secondaryBg,
-                border: `1px solid ${buttonTheme?.border}`,
-                color: buttonTheme?.text,
-              }}
+              style={buttonSecondaryStyle}
             >
               {savedThread
                 ? "Thread saved"
@@ -456,11 +447,7 @@ export default function PapaDockPage() {
               type="button"
               className="papa-dock-clear-btn"
               onClick={clearChat}
-              style={{
-                background: "transparent",
-                border: `1px solid ${buttonTheme?.border}`,
-                color: textTheme?.secondary,
-              }}
+              style={buttonSecondaryStyle}
             >
               Clear Chat
             </button>
@@ -474,12 +461,10 @@ export default function PapaDockPage() {
             className="papa-dock-input-row"
             onSubmit={handleSubmit}
             style={{
-              background: inputTheme?.bg ?? cardTheme?.bg,
-              border: `1px solid ${inputTheme?.border ?? cardTheme?.border}`,
-              backdropFilter: `blur(${cardTheme?.blur || "12px"})`,
-              WebkitBackdropFilter: `blur(${cardTheme?.blur || "12px"})`,
-              boxShadow: cardTheme?.shadow,
-            }}
+			  ...cardStyle,
+			  background: inputStyle.background ?? cardStyle.background,
+			  border: inputStyle.border ?? cardStyle.border,
+			}}
           >
             <button
               type="button"
@@ -487,13 +472,7 @@ export default function PapaDockPage() {
                 listening ? "is-listening" : ""
               }`}
               onClick={handleMicClick}
-              style={{
-                background: listening
-                  ? buttonTheme?.primaryBg
-                  : buttonTheme?.secondaryBg,
-                border: `1px solid ${buttonTheme?.border}`,
-                color: buttonTheme?.text,
-              }}
+              style={listening ? buttonPrimaryStyle : buttonSecondaryStyle}
             >
               🎙
             </button>
@@ -512,22 +491,14 @@ export default function PapaDockPage() {
               }}
               placeholder={listening ? "Listening..." : "What's on your mind?"}
               disabled={loading}
-              style={{
-                background: inputTheme?.bg,
-                border: `1px solid ${inputTheme?.border}`,
-                color: inputTheme?.text,
-              }}
+              style={inputStyle}
             />
 
             <button
               type="submit"
               className="papa-dock-send-btn"
               disabled={loading || !input.trim()}
-              style={{
-                background: buttonTheme?.primaryBg,
-                border: `1px solid ${buttonTheme?.border}`,
-                color: buttonTheme?.text,
-              }}
+              style={buttonPrimaryStyle}
             >
               Send →
             </button>

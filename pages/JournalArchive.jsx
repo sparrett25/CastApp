@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+
 import CastBackground from "../components/CastBackground";
 import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
+
 import { supabase } from "../lib/supabase";
-import "../styles/pages/journal-page.css";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
+import { useProfile } from "../context/ProfileContext";
+
+import "../styles/pages/journal-page.css";
 
 function formatDate(iso) {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -18,27 +22,49 @@ function formatDate(iso) {
   });
 }
 
-function EntryCard({ entry, index }) {
+function EntryCard({
+  entry,
+  index,
+  cardStyle,
+  buttonSecondaryStyle,
+  bubbleTheme,
+  textTheme,
+}) {
   const [expanded, setExpanded] = useState(false);
 
   const fullText = entry.entry_text || "";
   const preview =
     fullText.length > 120 ? fullText.slice(0, 120) + "..." : fullText;
 
+  const papaBubbleStyle = {
+    background: bubbleTheme?.papaBg ?? cardStyle.background,
+    border: `1px solid ${bubbleTheme?.border ?? "rgba(255,255,255,0.12)"}`,
+    color: bubbleTheme?.text ?? textTheme?.primary,
+    backdropFilter: `blur(${bubbleTheme?.blur || "18px"})`,
+    WebkitBackdropFilter: `blur(${bubbleTheme?.blur || "18px"})`,
+    boxShadow: bubbleTheme?.shadow ?? cardStyle.boxShadow,
+  };
+
   return (
     <motion.div
       className="archive-card"
+      style={cardStyle}
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
     >
-      <p className="archive-date">{formatDate(entry.entry_date)}</p>
+      <p className="archive-date" style={{ color: textTheme?.secondary }}>
+        {formatDate(entry.entry_date)}
+      </p>
 
-      <p className="archive-text">{expanded ? fullText : preview}</p>
+      <p className="archive-text" style={{ color: textTheme?.primary }}>
+        {expanded ? fullText : preview}
+      </p>
 
       {fullText.length > 120 && (
         <button
           className="archive-expand-btn"
+          style={buttonSecondaryStyle}
           onClick={() => setExpanded((v) => !v)}
         >
           {expanded ? "Show less" : "Read more"}
@@ -46,9 +72,9 @@ function EntryCard({ entry, index }) {
       )}
 
       {entry.papa_response && (
-        <div className="archive-papa">
+        <div className="archive-papa" style={papaBubbleStyle}>
           <p className="archive-papa-attr">Papa</p>
-          <p className="archive-papa-line">"{entry.papa_response}"</p>
+          <p className="archive-papa-line">“{entry.papa_response}”</p>
         </div>
       )}
     </motion.div>
@@ -57,26 +83,48 @@ function EntryCard({ entry, index }) {
 
 export default function JournalArchive() {
   const navigate = useNavigate();
-  
-    const DEBUG_SCENE = null;
+  const { profilePacket } = useProfile();
 
-  const atmosphere = useAtmosphere("journalArchive");
+  const DEBUG_SCENE = null;
 
-  const scene = DEBUG_SCENE
-    ? getScene(DEBUG_SCENE)
-    : atmosphere.scene;
-
-  const ui = scene?.timeState?.ui ?? {};
-
-  const bubbleTheme = ui.bubble;
-  const inputTheme = ui.input;
-  const buttonTheme = ui.button;
-  const cardTheme = ui.card;
-  const textTheme = ui.text;
-  
-  
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const atmosphere = useAtmosphere("journalArchive", {
+    user: profilePacket,
+    context: {
+      entryCount: entries.length,
+      isEmpty: entries.length === 0,
+      loading,
+    },
+  });
+
+  const scene = DEBUG_SCENE
+    ? getScene(DEBUG_SCENE, {
+        user: profilePacket,
+        context: {
+          entryCount: entries.length,
+          isEmpty: entries.length === 0,
+          loading,
+        },
+      })
+    : atmosphere.scene;
+
+  const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
+  const styles = atmosphere.styles ?? {};
+
+  const cardStyle = styles.cardStyle ?? {};
+  const buttonPrimaryStyle = styles.buttonPrimaryStyle ?? {};
+  const buttonSecondaryStyle = styles.buttonSecondaryStyle ?? {};
+  const transparentButtonStyle = styles.transparentButtonStyle ?? {};
+  const textTheme = ui.text ?? {};
+  const bubbleTheme = ui.bubble ?? {};
+
+  const displayName =
+    profilePacket?.display_name ||
+    profilePacket?.username ||
+    profilePacket?.name ||
+    "the angler";
 
   useEffect(() => {
     let isMounted = true;
@@ -105,18 +153,12 @@ export default function JournalArchive() {
 
         if (error) throw error;
 
-        if (isMounted) {
-          setEntries(data ?? []);
-        }
+        if (isMounted) setEntries(data ?? []);
       } catch (err) {
         console.error("Journal archive load error:", err);
-        if (isMounted) {
-          setEntries([]);
-        }
+        if (isMounted) setEntries([]);
       } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+        if (isMounted) setLoading(false);
       }
     }
 
@@ -127,39 +169,64 @@ export default function JournalArchive() {
     };
   }, []);
 
+  const papaContext = {
+    page: "journal archive",
+    user: profilePacket,
+    atmosphere: scene,
+    context: {
+      entryCount: entries.length,
+      isEmpty: entries.length === 0,
+      loading,
+    },
+    event: loading
+      ? `${displayName} is opening the journal archive.`
+      : entries.length === 0
+      ? `${displayName} opened an empty journal archive.`
+      : `${displayName} is reading through ${entries.length} journal ${
+          entries.length === 1 ? "entry" : "entries"
+        }.`,
+  };
+
   return (
     <CastBackground
-	  chamberKey="journal"
-	  variant={scene?.backgroundVariant}
-	  overlay={scene?.timeState?.ui?.overlay}
-	>
-      <ChamberLayout  
+      chamberKey="journal"
+      variant={scene?.backgroundVariant}
+      overlay={ui.overlay}
+    >
+      <ChamberLayout
         papa={
           <PapaMini
-            context={{
-              event: `User is reading through their ${entries.length} journal entries`,
-            }}
+            context={papaContext}
             fallbackKey="journal.prompt"
           />
         }
       >
         <div className="journal-page">
-          <button className="journal-back-btn" onClick={() => navigate("/journal")}>
+          <button
+            className="journal-back-btn"
+            style={transparentButtonStyle}
+            onClick={() => navigate("/journal")}
+          >
             ← Write
           </button>
 
           {loading ? (
-            <div className="archive-empty">
+            <div className="archive-empty" style={cardStyle}>
               <p className="archive-empty-title">Loading entries...</p>
             </div>
           ) : entries.length === 0 ? (
-            <div className="archive-empty">
+            <div className="archive-empty" style={cardStyle}>
               <p className="archive-empty-title">Nothing here yet.</p>
-              <p className="archive-empty-sub">
+              <p
+                className="archive-empty-sub"
+                style={{ color: textTheme?.secondary }}
+              >
                 The first thing you write will live here. Start with one honest line.
               </p>
+
               <button
                 className="journal-new-btn"
+                style={buttonPrimaryStyle}
                 onClick={() => navigate("/journal")}
               >
                 Write your first entry →
@@ -168,7 +235,15 @@ export default function JournalArchive() {
           ) : (
             <div className="archive-list">
               {entries.map((entry, i) => (
-                <EntryCard key={entry.id} entry={entry} index={i} />
+                <EntryCard
+                  key={entry.id}
+                  entry={entry}
+                  index={i}
+                  cardStyle={cardStyle}
+                  buttonSecondaryStyle={buttonSecondaryStyle}
+                  bubbleTheme={bubbleTheme}
+                  textTheme={textTheme}
+                />
               ))}
             </div>
           )}

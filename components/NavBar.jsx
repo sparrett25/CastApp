@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "../styles/components/navbar.css";
+import { supabase } from "../lib/supabase";
 
 function LinkPill({ to, children }) {
   return (
@@ -44,6 +45,18 @@ export default function NavBar() {
 		
   ];
 
+const handleLogout = async () => {
+  try {
+    await supabase.auth.signOut();
+    setOpen(false);
+    window.location.href = "/";
+  } catch (err) {
+    console.error("Logout failed:", err);
+  }
+};
+
+
+
   return (
     <div className="cast-nav" role="navigation" aria-label="Primary">
       <div className="cast-nav__inner">
@@ -55,10 +68,17 @@ export default function NavBar() {
 
         {/* Desktop links */}
         <div className="cast-nav__links">
-          {links.map(l => (
-            <LinkPill key={l.to} to={l.to}>{l.label}</LinkPill>
-          ))}
-        </div>
+		  {links.map(l => (
+			<LinkPill key={l.to} to={l.to}>{l.label}</LinkPill>
+		  ))}
+
+		  <button
+			className="cast-nav__logout"
+			onClick={handleLogout}
+		  >
+			Log Off
+		  </button>
+		</div>
 
         {/* Mobile toggle — Option B amber pill */}
         <button
@@ -80,8 +100,15 @@ export default function NavBar() {
       {open && (
         <div className="cast-nav__drawer" onClick={handleLinkClick}>
           {links.map(l => (
-            <LinkPill key={l.to} to={l.to}>{l.label}</LinkPill>
-          ))}
+  <LinkPill key={l.to} to={l.to}>{l.label}</LinkPill>
+))}
+
+<button
+  className="cast-nav__logout"
+  onClick={handleLogout}
+>
+  Log Off
+</button>
         </div>
       )}
     </div>

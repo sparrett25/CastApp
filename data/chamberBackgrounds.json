@@ -233,7 +233,7 @@
 
   "catch-ledger": {
     "default": {
-      "src": "/images/chambers/catchledger-variants/catch-ledger-afternoon.png",
+      "src": "/images/chambers/catchledger-variants/catchledger-blue-hour-dawn.png",
       "caption": "Catch Ledger • beneath the surface"
     },
     "variants": {
@@ -246,7 +246,7 @@
       "caption": "Catch Ledger • quiet morning water"
     },
     "late-afternoon-warmth": {
-      "src": "/images/chambers/catchledger-variants/catch-ledger-afternoon.png",
+      "src": "/images/chambers/catchledger-variants/catchledger-late-afternoon-warmth.png",
       "caption": "Catch Ledger • steady daylight"
     },
     "golden-dusk": {
@@ -262,7 +262,7 @@
   
 "profile": {
   "default": {
-    "src": "/images/chambers/profile-variants/profile-morning.png",
+    "src": "/images/chambers/profile-variants/profile-blue-hour-dawn.png",
     "caption": "Profile • quiet morning water"
   },
   "variants": {
@@ -275,7 +275,7 @@
       "caption": "Profile • quiet morning water"
     },
     "late-afternoon-warmth": {
-      "src": "/images/chambers/profile-variants/profile-afternoon.png",
+      "src": "/images/chambers/profile-variants/profile-late-afternoon-warmth.png",
       "caption": "Profile • steady daylight"
     },
     "golden-dusk": {
@@ -291,7 +291,7 @@
 
 "auth-page": {
   "default": {
-    "src": "/images/chambers/authpage-variants/auth-page-morning.png",
+    "src": "/images/chambers/authpage-variants/authpage-blue-hour-dawn.png",
     "caption": "Login • quiet morning water"
   },
   "variants": {
@@ -304,11 +304,11 @@
       "caption": "Login • quiet morning water"
     },
     "late-afternoon-warmth": {
-      "src": "/images/chambers/authpage-variants/authpage-afternoon.png",
+      "src": "/images/chambers/authpage-variants/authpage-late-afternoon-warmth.png",
       "caption": "Login • steady daylight"
     },
     "golden-dusk": {
-      "src": "/images/chambers/authpage-variants/auth-page-golden-dusk.png",
+      "src": "/images/chambers/authpage-variants/authpage-golden-dusk.png",
       "caption": "Login • golden reflection"
     },
     "quiet-evening-glow": {
@@ -320,7 +320,7 @@
 
    "adventure": {
     "default": {
-      "src": "/images/chambers/adventure-variants/adventure-morning.webp",
+      "src": "/images/chambers/adventure-variants/adventure-blue-hour-dawn.png",
       "caption": "Adventure • quiet morning water"
     },
 	"variants": {
@@ -333,7 +333,7 @@
       "caption": "Adventure • quiet morning water"
     },
     "late-afternoon-warmth": {
-      "src": "/images/chambers/adventure-variants/adventure-afternoon.png",
+      "src": "/images/chambers/adventure-variants/adventure-late-afternoon-warmth.png",
       "caption": "Adventure • steady daylight"
     },
     "golden-dusk": {

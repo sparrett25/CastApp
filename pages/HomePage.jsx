@@ -52,24 +52,13 @@ export default function HomePage() {
       })
     : atmosphere.scene;
 
-  const ui = scene?.timeState?.ui ?? {};
+  const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
+  const styles = atmosphere.styles ?? {};
 
-  const cardTheme = ui.card;
-  const textTheme = ui.text;
-  const buttonTheme = ui.button;
-  
-  
-const primaryButtonStyle = {
-  background: buttonTheme?.primaryBg,
-  color: buttonTheme?.text,
-  border: `1px solid ${buttonTheme?.border}`,
-};
-
-const secondaryButtonStyle = {
-  background: buttonTheme?.secondaryBg,
-  color: buttonTheme?.text,
-  border: `1px solid ${buttonTheme?.border}`,
-};
+  const cardStyle = styles.cardStyle ?? {};
+  const primaryButtonStyle = styles.buttonPrimaryStyle ?? {};
+  const secondaryButtonStyle = styles.buttonSecondaryStyle ?? {};
+  const textTheme = ui.text ?? {};
   
   
   const footerWhisper = scene?.whisper || atmosphere?.whisper || "";
@@ -137,7 +126,7 @@ const secondaryButtonStyle = {
     <CastBackground
       chamberKey="home"
       variant={scene?.backgroundVariant}
-      overlay={scene?.timeState?.ui?.overlay}
+      overlay={ui.overlay}
     >
       <ChamberLayout
         papa={
@@ -155,8 +144,13 @@ const secondaryButtonStyle = {
             onToggle={() =>
               setOpenSection(openSection === "adventures" ? null : "adventures")
             }
-            cardTheme={cardTheme}
-            textTheme={textTheme}
+            cardTheme={{
+			  bg: cardStyle.background,
+			  border: cardStyle.border?.replace("1px solid ", ""),
+			  blur: ui.card?.blur,
+			  shadow: cardStyle.boxShadow,
+			}}
+			textTheme={textTheme}
           >
             <div className="home-action-stack">
               <button
@@ -194,8 +188,13 @@ const secondaryButtonStyle = {
             onToggle={() =>
               setOpenSection(openSection === "trips" ? null : "trips")
             }
-            cardTheme={cardTheme}
-            textTheme={textTheme}
+            cardTheme={{
+			  bg: cardStyle.background,
+			  border: cardStyle.border?.replace("1px solid ", ""),
+			  blur: ui.card?.blur,
+			  shadow: cardStyle.boxShadow,
+			}}
+			textTheme={textTheme}
           >
             <div className="home-action-stack">
               {upcomingTrip && (
@@ -223,19 +222,23 @@ const secondaryButtonStyle = {
                 <small>Plan where, when, and what you’re after.</small>
               </button>
 
-              <button className="home-action-pill" 
+              <button
+			  className="home-action-pill"
 			  style={primaryButtonStyle}
-			  onClick={() => nav("/plan-trip")}>
-                <span>Upcoming Trips</span>
-                <small>View or edit planned waters.</small>
-              </button>
+			  onClick={() => nav("/trips?filter=upcoming")}
+			>
+			  <span>Upcoming Trips</span>
+			  <small>View or edit planned waters.</small>
+			</button>
 
-              <button className="home-action-pill" 
+			<button
+			  className="home-action-pill"
 			  style={primaryButtonStyle}
-			  onClick={() => nav("/plan-trip")}>
-                <span>Past Trips</span>
-                <small>Return to where you’ve been.</small>
-              </button>
+			  onClick={() => nav("/trips?filter=past")}
+			>
+			  <span>Past Trips</span>
+			  <small>Return to where you’ve been.</small>
+			</button>
             </div>
           </HomeSectionCard>
 
@@ -246,8 +249,13 @@ const secondaryButtonStyle = {
             onToggle={() =>
               setOpenSection(openSection === "explore" ? null : "explore")
             }
-            cardTheme={cardTheme}
-            textTheme={textTheme}
+            cardTheme={{
+			  bg: cardStyle.background,
+			  border: cardStyle.border?.replace("1px solid ", ""),
+			  blur: ui.card?.blur,
+			  shadow: cardStyle.boxShadow,
+			}}
+			textTheme={textTheme}
           >
             <div className="home-action-grid">
               {PILLARS.map((p) => (

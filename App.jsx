@@ -18,6 +18,7 @@ import LocationsPage from './pages/LocationsPage.jsx';
 
 import TripPlanner from "./pages/TripPlanner.jsx";
 import TripSummary from "./pages/TripSummary.jsx";
+import TripLedger from "./pages/TripLedger";
 
 import { StoryProvider } from "./context/StoryContext";
 import ProfilePage from "./pages/ProfilePage.jsx";
@@ -151,6 +152,7 @@ export default function App() {
           <Route path="/trip-summary" element={<TripSummary />} />
 		  <Route path="/profile" element={<ProfilePage />} />
 		  <Route path="/auth-page" element={<AuthPage />} />
+		  <Route path="/trips" element={<TripLedger />} />
         </Route>
       </Routes>
     </StoryProvider>

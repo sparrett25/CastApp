@@ -80,15 +80,18 @@ export default function JournalPage() {
     })
   : atmosphere.scene;
 
-  const ui = scene?.timeState?.ui ?? {};
+const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
+const styles = atmosphere.styles ?? {};
 
-  const bubbleTheme = ui.bubble ?? {};
-  const inputTheme = ui.input ?? {};
-  const buttonTheme = ui.button ?? {};
-  const cardTheme = ui.card ?? {};
-  const textTheme = ui.text ?? {};
-  
+const cardStyle = styles.cardStyle ?? {};
+const buttonPrimaryStyle = styles.buttonPrimaryStyle ?? {};
+const buttonSecondaryStyle = styles.buttonSecondaryStyle ?? {};
+const inputStyle = styles.inputStyle ?? {};
+const transparentButtonStyle = styles.transparentButtonStyle ?? {};
 
+const textTheme = ui.text ?? {};
+const bubbleTheme = ui.bubble ?? {};
+const chipTheme = ui.chip ?? {};
   
 
   const handlePrompt = (prompt) => {
@@ -194,7 +197,7 @@ const handlePapaResponse = async (line) => {
     <CastBackground
 	  chamberKey="journal"
 	  variant={scene?.backgroundVariant}
-	  overlay={scene?.timeState?.ui?.overlay}
+	  overlay={ui.overlay}
 	>
       <ChamberLayout
 		  papa={
@@ -233,11 +236,7 @@ const handlePapaResponse = async (line) => {
                 <div className="journal-prompt-row">
                   <button
 					  className="journal-prompt-toggle"
-					  style={{
-						background: buttonTheme?.secondaryBg,
-						border: `1px solid ${buttonTheme?.border}`,
-						color: buttonTheme?.text,
-					  }}
+					  style={buttonSecondaryStyle}
                     onClick={() => setShowPrompts((v) => !v)}
                   >
                     {showPrompts ? "Hide prompts" : "Need a nudge? →"}
@@ -248,14 +247,7 @@ const handlePapaResponse = async (line) => {
                   {showPrompts && (
                     <motion.div
 					  className="journal-prompts"
-					  style={{
-						background: cardTheme?.bg,
-						border: `1px solid ${cardTheme?.border}`,
-						backdropFilter: `blur(${cardTheme?.blur || "18px"})`,
-						WebkitBackdropFilter: `blur(${cardTheme?.blur || "18px"})`,
-						boxShadow: cardTheme?.shadow,
-						color: textTheme?.primary,
-					  }}
+					  style={cardStyle}
                       initial={{ opacity: 0, y: -8 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
@@ -266,11 +258,7 @@ const handlePapaResponse = async (line) => {
                         <button
 						  key={i}
 						  className="journal-prompt-item"
-						  style={{
-							color: textTheme?.primary,
-							borderColor: buttonTheme?.border,
-							background: buttonTheme?.secondaryBg,
-						  }}
+						  style={buttonSecondaryStyle}
                           onClick={() => handlePrompt(p)}
                         >
                           {p}
@@ -283,13 +271,7 @@ const handlePapaResponse = async (line) => {
                 <p className="journal-paper-label">Your Journal</p>
                 <div
 					  className="journal-paper"
-					  style={{
-						background: cardTheme?.bg,
-						border: `1px solid ${cardTheme?.border}`,
-						backdropFilter: `blur(${cardTheme?.blur || "20px"})`,
-						WebkitBackdropFilter: `blur(${cardTheme?.blur || "20px"})`,
-						boxShadow: cardTheme?.shadow,
-					  }}
+					  style={cardStyle}
 					>
                   <textarea
                     ref={textareaRef}
@@ -298,11 +280,7 @@ const handlePapaResponse = async (line) => {
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     rows={10}
-					style={{
-					  background: inputTheme?.bg,
-					  border: `1px solid ${inputTheme?.border}`,
-					  color: inputTheme?.text,
-					}}
+					style={inputStyle}
                   />
                   <div className="journal-footer">
                     <span className="journal-wordcount">
@@ -310,12 +288,7 @@ const handlePapaResponse = async (line) => {
                     </span>
                     <button
 					  className="journal-save-btn"
-					  style={{
-						background: buttonTheme?.primaryBg,
-						border: `1px solid ${buttonTheme?.border}`,
-						color: buttonTheme?.text,
-						boxShadow: buttonTheme?.shadow,
-					  }}
+					  style={buttonPrimaryStyle}
                       onClick={handleSave}
                       disabled={!hasText || saving}
                     >
@@ -346,13 +319,7 @@ const handlePapaResponse = async (line) => {
               >
                 <div
 				  className="journal-saved-entry"
-				  style={{
-					background: cardTheme?.bg,
-					border: `1px solid ${cardTheme?.border}`,
-					backdropFilter: `blur(${cardTheme?.blur || "18px"})`,
-					WebkitBackdropFilter: `blur(${cardTheme?.blur || "18px"})`,
-					boxShadow: cardTheme?.shadow,
-				  }}
+				  style={cardStyle}
 				>
                   <p className="journal-saved-date">
                     {new Date(lastEntry.entry_date).toLocaleDateString("en-US", {
@@ -375,14 +342,14 @@ const handlePapaResponse = async (line) => {
 
                 <div
 					  className="journal-papa-response"
-					  style={{
-						background: bubbleTheme?.papaBg,
-						border: `1px solid ${bubbleTheme?.border}`,
-						backdropFilter: `blur(${bubbleTheme?.blur || "18px"})`,
-						WebkitBackdropFilter: `blur(${bubbleTheme?.blur || "18px"})`,
-						boxShadow: bubbleTheme?.shadow,
-						color: bubbleTheme?.text,
-					  }}
+					style={{
+					  background: bubbleTheme?.papaBg ?? cardStyle.background,
+					  border: `1px solid ${bubbleTheme?.border ?? "rgba(255,255,255,0.12)"}`,
+					  backdropFilter: `blur(${bubbleTheme?.blur || "18px"})`,
+					  WebkitBackdropFilter: `blur(${bubbleTheme?.blur || "18px"})`,
+					  boxShadow: bubbleTheme?.shadow ?? cardStyle.boxShadow,
+					  color: bubbleTheme?.text ?? textTheme?.primary,
+					}}
 					>
                   <p className="journal-papa-attr">Papa</p>
                   <PapaSpeaks
@@ -404,21 +371,13 @@ const handlePapaResponse = async (line) => {
 
                 <div className="journal-saved-actions">
                   <button className="journal-new-btn" onClick={handleNewEntry}
-				  style={{
-					  background: buttonTheme?.secondaryBg,
-					  border: `1px solid ${buttonTheme?.border}`,
-					  color: buttonTheme?.text,
-					}}
+				  style={buttonSecondaryStyle}
 				  >
                     Write another →
                   </button>
                   <button
                     className="journal-archive-link"
-					style={{
-					  background: buttonTheme?.secondaryBg,
-					  border: `1px solid ${buttonTheme?.border}`,
-					  color: buttonTheme?.text,
-					}}
+					style={buttonSecondaryStyle}
                     onClick={() => navigate("/journal-archive")}
                   >
                     Past entries →

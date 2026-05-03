@@ -380,18 +380,23 @@ const scene = DEBUG_SCENE
     })
   : atmosphere.scene;
 
-const ui = scene?.timeState?.ui ?? {};
+const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
+const styles = atmosphere.styles ?? {};
 
-const cardTheme = ui.card ?? {};
+const cardStyle = styles.cardStyle ?? {};
+const buttonSecondaryStyle = styles.buttonSecondaryStyle ?? {};
+const transparentButtonStyle = styles.transparentButtonStyle ?? {};
 const textTheme = ui.text ?? {};
-const buttonTheme = ui.button ?? {};
+const chipTheme = ui.chip ?? {};
 
-const backButtonStyle = {
-  background: buttonTheme.secondaryBg,
-  color: buttonTheme.text,
-  border: `1px solid ${buttonTheme.border}`,
+const cardTheme = {
+  bg: cardStyle.background,
+  border: cardStyle.border?.replace("1px solid ", ""),
+  blur: ui.card?.blur,
+  shadow: cardStyle.boxShadow,
 };
 
+const backButtonStyle = transparentButtonStyle;
 
   const papaContext = {
   page: "locations",
@@ -426,7 +431,7 @@ const backButtonStyle = {
     <CastBackground
 	  chamberKey="locations"
 	  variant={scene?.backgroundVariant}
-	  overlay={scene?.timeState?.ui?.overlay}
+	  overlay={ui.overlay}
 	>
       <ChamberLayout
         papa={
@@ -455,7 +460,7 @@ const backButtonStyle = {
 				  onClick={setSelectedLocation}
 				  cardTheme={cardTheme}
 				  textTheme={textTheme}
-				  chipTheme={ui.chip}
+				  chipTheme={chipTheme}
 				/>
                 ))}
 
@@ -481,7 +486,7 @@ const backButtonStyle = {
 				  }
 				  cardTheme={cardTheme}
 				  textTheme={textTheme}
-				  chipTheme={ui.chip}
+				  chipTheme={chipTheme}
 				  backButtonStyle={backButtonStyle}
 				/>
             )}

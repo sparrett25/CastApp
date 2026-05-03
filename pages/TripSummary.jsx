@@ -22,13 +22,15 @@ const scene = DEBUG_SCENE
   ? getScene(DEBUG_SCENE)
   : atmosphere.scene;
 
-const ui = scene?.timeState?.ui ?? {};
+const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
+const styles = atmosphere.styles ?? {};
 
-const bubbleTheme = ui.bubble;
-const inputTheme = ui.input;
-const buttonTheme = ui.button;
-const cardTheme = ui.card;
-const textTheme = ui.text;
+const cardStyle = styles.cardStyle ?? {};
+const primaryButtonStyle = styles.buttonPrimaryStyle ?? {};
+const secondaryButtonStyle = styles.buttonSecondaryStyle ?? {};
+const inputStyle = styles.inputStyle ?? {};
+const transparentButtonStyle = styles.transparentButtonStyle ?? {};
+const textTheme = ui.text ?? {};
   
 
   const tripId = location.state?.tripId || null;
@@ -95,7 +97,7 @@ const textTheme = ui.text;
       <CastBackground
 	  chamberKey="trip-summary"
 	  variant={scene?.backgroundVariant}
-	  overlay={scene?.timeState?.ui?.overlay}
+	  overlay={ui.overlay}
 	>
         <ChamberLayout
           title="Trip Summary"
