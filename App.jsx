@@ -25,6 +25,8 @@ import ProfilePage from "./pages/ProfilePage.jsx";
 import { ProfileContext, buildProfilePacket } from "./context/ProfileContext";
 
 
+  import CastPromptBuilder from "./tools/CastPromptBuilder/castPromptBuilder";
+
 export default function App() {
   const [session, setSession] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
@@ -154,7 +156,9 @@ export default function App() {
 		  <Route path="/profile" element={<ProfilePage />} />
 		  <Route path="/auth-page" element={<AuthPage />} />
 		  <Route path="/trips" element={<TripLedger />} />
-		  
+		  {import.meta.env.DEV && (
+		  <Route path="/prompt-builder" element={<CastPromptBuilder />} />
+		)}
         </Route>
       </Routes>
     </StoryProvider>

@@ -87,7 +87,7 @@
       "meaning": "A personal page about the user’s familiar waters and fishing style.",
       "avoid": ["pail with fish", "map clutter", "journal notebook"]
     },
-    "papaDock": {
+    "papa": {
       "dockState": "presence",
       "heroProps": [],
       "supportProps": ["Papa seated on dock", "fishing rod in use", "closed tackle box"],
