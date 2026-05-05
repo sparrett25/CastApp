@@ -1,0 +1,106 @@
+{
+  "timeStates": {
+    "blueHourDawn": {
+      "label": "Blue Hour Dawn",
+      "objectBehavior": "Objects remain untouched, quiet, and precisely arranged. Nothing appears recently disturbed.",
+      "dockBehavior": "Dock appears cool, still, and lightly damp from dawn air.",
+      "wildlifeBehavior": "Wildlife is still, perched, resting, or barely active.",
+      "placementRule": "Wildlife should appear in the lower-right water, mid-right shoreline, or as a single distant sky accent."
+    },
+    "softMorningRise": {
+      "label": "Soft Morning Rise",
+      "objectBehavior": "Objects remain mostly arranged but may feel recently noticed or gently used.",
+      "dockBehavior": "Dock begins catching soft morning light with subtle moisture drying.",
+      "wildlifeBehavior": "Wildlife may show gentle waking movement.",
+      "placementRule": "Wildlife may appear in the mid-right water, shoreline, or perched naturally near the dock."
+    },
+    "lateAfternoonWarmth": {
+      "label": "Late Afternoon Warmth",
+      "objectBehavior": "Objects may show subtle natural shifts from use. A rod may angle slightly differently, a lid may sit imperfectly, or a map may be slightly opened.",
+      "dockBehavior": "Dock appears warmer, more textured, and gently used.",
+      "wildlifeBehavior": "Wildlife may be lightly active, moving through water or sky.",
+      "placementRule": "Wildlife should favor lower-right or mid-right water movement, with optional small birds in the sky."
+    },
+    "goldenDusk": {
+      "label": "Golden Dusk",
+      "objectBehavior": "Objects show signs of the day having unfolded. Gear may be slightly more open, shifted, or visibly used while remaining organized.",
+      "dockBehavior": "Dock catches warm reflective light and feels settled after activity.",
+      "wildlifeBehavior": "Wildlife slows into evening movement or silhouette.",
+      "placementRule": "Use mid-right water, shoreline silhouettes, or birds crossing the upper sky."
+    },
+    "quietEveningGlow": {
+      "label": "Quiet Evening Glow",
+      "objectBehavior": "Objects return to rest. The dock feels settled, quiet, and slightly darker.",
+      "dockBehavior": "Dock appears darker, cooler, and gently reflective.",
+      "wildlifeBehavior": "Wildlife is minimal and quiet, with one strong subtle accent at most.",
+      "placementRule": "Prefer one calm wildlife element in the lower-right water or a small distant silhouette."
+    }
+  },
+
+  "pages": {
+    "home": {
+      "dockState": "arrival",
+      "heroProps": [],
+      "supportProps": ["resting fishing rod", "closed tackle box", "landing net"],
+      "meaning": "A quiet return point. The user has arrived and is deciding what to do.",
+      "avoid": ["maps", "journals", "pail with fish", "visible catch ledger"]
+    },
+    "fieldGuide": {
+      "dockState": "learning",
+      "heroProps": ["open tackle box or visible fishing gear"],
+      "supportProps": ["resting fishing rod", "landing net"],
+      "meaning": "A learning space where tools, species, and technique are observed.",
+      "avoid": ["journal notebook", "map and compass", "pail with fish"]
+    },
+    "locations": {
+      "dockState": "exploration",
+      "heroProps": ["folded fishing map", "brass compass"],
+      "supportProps": ["resting fishing rod", "closed tackle box"],
+      "meaning": "A spatial page focused on choosing waters and understanding place.",
+      "avoid": ["journal notebook", "pail with fish", "open catch ledger"]
+    },
+    "planTrip": {
+      "dockState": "planning",
+      "heroProps": ["folded fishing map", "brass compass"],
+      "supportProps": ["small pack or organized gear"],
+      "meaning": "A preparation moment before the trip begins.",
+      "avoid": ["pail with fish", "catch ledger notebook", "loose clutter"]
+    },
+    "journal": {
+      "dockState": "reflection",
+      "heroProps": ["weathered leather-bound notebook", "pencil"],
+      "supportProps": ["resting fishing rod"],
+      "meaning": "A reflective page for recording what the day felt like.",
+      "avoid": ["map", "compass", "pail with fish", "open tackle clutter"]
+    },
+    "catchLedger": {
+      "dockState": "memory",
+      "heroProps": ["small galvanized pail or catch ledger notebook"],
+      "supportProps": ["landing net", "resting fishing rod"],
+      "meaning": "A grounded record of what happened on the water.",
+      "avoid": ["map", "compass", "journal notebook"]
+    },
+    "profile": {
+      "dockState": "identity",
+      "heroProps": ["personal thermos or simple familiar gear"],
+      "supportProps": ["resting fishing rod", "closed tackle box"],
+      "meaning": "A personal page about the user’s familiar waters and fishing style.",
+      "avoid": ["pail with fish", "map clutter", "journal notebook"]
+    },
+    "papaDock": {
+      "dockState": "presence",
+      "heroProps": [],
+      "supportProps": ["Papa seated on dock", "fishing rod in use", "closed tackle box"],
+      "meaning": "A quiet conversational space with Papa beside the water.",
+      "avoid": ["extra props", "busy wildlife", "clutter"]
+    }
+  },
+
+  "wildlifeZones": {
+    "lowerRightWater": "Wildlife appears in the lower-right water area where it remains visible beneath UI overlays.",
+    "midRightWater": "Wildlife appears in the middle-right water zone with gentle ripples.",
+    "shorelineRight": "Wildlife appears near the right or mid-right shoreline, grounded and naturally placed.",
+    "skyUpperThird": "Birds appear in the upper third of the sky as small atmospheric accents.",
+    "dockPost": "A small bird may perch on a dock post if it does not compete with page content."
+  }
+}

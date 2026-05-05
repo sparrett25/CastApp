@@ -1,6 +1,7 @@
 // src/atmosphere/useAtmosphere.js
 import { useMemo } from "react";
 import { getSceneByPageAndTime } from "./sceneBuilder";
+import { mergeAtmosphereUi } from "./mergeAtmosphere";
 
 function buildAtmosphereStyles(ui = {}) {
   const cardBlur = ui.card?.blur ?? "16px";
@@ -62,8 +63,13 @@ export function useAtmosphere(pageId, options = {}) {
     return getSceneByPageAndTime(pageId, hour, options);
   }, [pageId, hour, options]);
 
-  const ui = atmosphere?.timeState?.ui ?? {};
-  const styles = buildAtmosphereStyles(ui);
+const ui = mergeAtmosphereUi(
+  atmosphere?.timeState?.ui ?? {},
+  atmosphere?.weatherState?.ui ?? {},
+  atmosphere?.pageProfile ?? {}
+);
+
+const styles = buildAtmosphereStyles(ui);
 
   return {
     scene: atmosphere,

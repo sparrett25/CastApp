@@ -6,6 +6,11 @@ export const REGION_OPTIONS = {
     label: "Florida Freshwater",
     description: "Humid lakes, moss, palms, cranes, and reflective stillness.",
   },
+  "200": {
+    key: "200",
+    label: "Northern Lake Country",
+    description: "Humid lakes, moss, palms, cranes, and reflective stillness.",
+  },
 
   "300": {
     key: "300",
