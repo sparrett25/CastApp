@@ -23,7 +23,7 @@ import TripLedger from "./pages/TripLedger";
 import { StoryProvider } from "./context/StoryContext";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import { ProfileContext, buildProfilePacket } from "./context/ProfileContext";
-import CastPromptBuilder from "./tools/CastPromptBuilder/CastPromptBuilder";
+import { CastPromptBuilder } from "./tools/CastPromptBuilder/CastPromptBuilder";
 
 export default function App() {
   const [session, setSession] = useState(null);
