@@ -17,6 +17,18 @@ export const REGION_OPTIONS = {
     label: "Midwest Farm Pond",
     description: "Open fields, cattails, fences, grasses, and rural calm.",
   },
+  
+  "400": {
+    key: "400",
+    label: "Appalachian Creek",
+    description: "Open fields, cattails, fences, grasses, and rural calm.",
+  },
+  
+  "500": {
+    key: "500",
+    label: "Pacific Northwest",
+    description: "Open fields, cattails, fences, grasses, and rural calm.",
+  },
 };
 
 export const DEFAULT_REGION_KEY = "100";
