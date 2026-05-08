@@ -457,6 +457,7 @@ const bubbleTheme = ui.bubble ?? {};
             <p className="papa-dock-save-error">{saveError}</p>
           )}
 
+		<div className="papa-dock-input-container">
           <form
             className="papa-dock-input-row"
             onSubmit={handleSubmit}
@@ -503,7 +504,7 @@ const bubbleTheme = ui.bubble ?? {};
               Send →
             </button>
           </form>
-        </div>
+        </div></div>
       </ChamberLayout>
     </CastBackground>
   );

@@ -49,5 +49,5 @@ export function resolveChamberBackgroundSrc({
 
   const imageNumber = base + offset;
 
-  return `/images/chambers/${folderKey}/${regionKey}/${imageNumber}-${fileSlug}-${timeKey}.png`;
+  return `/images/chambers/${folderKey}/${regionKey}/${imageNumber}-${fileSlug}-${timeKey}.webp`;
 }
