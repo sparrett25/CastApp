@@ -6,7 +6,10 @@ export const SPECIES = [
 	image: "/images/species/bluegill-sunfish.png",
     latin: "Lepomis macrochirus",
     category: "panfish",
-
+	regionIds: ["tampa", "midwest_pond", "appalachian_creek", "pacific_northwest", "northern_lakes"],
+	waterTypeIds: ["pond", "lake", "reservoir", "marsh-wetlands", "canal"],
+	gearIds: [],
+	techniqueIds: [],
     locations: ["backyard-pond", "edward-medard", "hardee-lakes"],
     unlock_source: "backyard-pond",
     difficulty: "beginner",
@@ -58,7 +61,10 @@ export const SPECIES = [
 	image: "/images/species/florida-largemouth-bass.png",
     latin: "Micropterus salmoides",
     category: "bass",
-
+	regionIds: ["tampa", "midwest_pond", "appalachian_creek", "pacific_northwest", "northern_lakes"],
+	waterTypeIds: ["pond", "lake", "reservoir", "marsh-wetlands", "canal"],
+	gearIds: [],
+	techniqueIds: [],
     locations: ["edward-medard", "morris-bridge", "hardee-lakes"],
     unlock_source: "hillsborough-river",
     difficulty: "intermediate",
@@ -109,7 +115,10 @@ export const SPECIES = [
   image: "/images/species/redear-sunfish.png",
   latin: "Lepomis microlophus",
   category: "panfish",
-
+	regionIds: ["tampa"],
+	waterTypeIds: ["pond", "lake", "reservoir"],
+	gearIds: [],
+	techniqueIds: [],
   locations: ["edward-medard", "morris-bridge", "hardee-lakes"],
   unlock_source: "edward-medard",
   difficulty: "beginner",
@@ -160,7 +169,10 @@ export const SPECIES = [
   image: "/images/species/black-crappie.png",
   latin: "Pomoxis nigromaculatus",
   category: "panfish",
-
+	regionIds: ["tampa", "midwest_pond", "northern_lakes"],
+	waterTypeIds: ["lake", "reservoir", "pond"],
+	gearIds: [],
+	techniqueIds: [],  
   locations: ["edward-medard", "morris-bridge", "hardee-lakes"],
   unlock_source: "edward-medard",
   difficulty: "intermediate",
@@ -211,7 +223,10 @@ export const SPECIES = [
   image: "/images/species/channel-catfish.png",
   latin: "Ictalurus punctatus",
   category: "catfish",
-
+	regionIds: ["tampa", "midwest_pond", "northern_lakes"],
+	waterTypeIds: ["pond", "lake", "reservoir", "river", "canal"],
+	gearIds: [],
+	techniqueIds: [],
   locations: ["edward-medard", "hardee-lakes"],
   unlock_source: "hardee-lakes",
   difficulty: "beginner",
@@ -262,7 +277,10 @@ export const SPECIES = [
   image: "/images/species/warmouth.png",
   latin: "Lepomis gulosus",
   category: "panfish",
-
+	regionIds: ["tampa", "appalachian_creek"],
+	waterTypeIds: ["pond", "marsh-wetlands", "creek"],
+	gearIds: [],
+	techniqueIds: [],
   locations: ["morris-bridge", "edward-medard"],
   difficulty: "beginner",
   tone: ["hidden", "reactive", "close-range"],
@@ -312,7 +330,10 @@ export const SPECIES = [
   image: "/images/species/bowfin.png",
   latin: "Amia calva",
   category: "predator",
-
+	regionIds: ["tampa"],
+	waterTypeIds: ["marsh-wetlands", "canal", "river"],
+	gearIds: [],
+	techniqueIds: [],
   locations: ["morris-bridge"],
   difficulty: "intermediate",
   tone: ["wild", "ancient", "powerful"],
@@ -362,7 +383,10 @@ export const SPECIES = [
   image: "/images/species/gar.png",
   latin: "Lepisosteus spp.",
   category: "predator",
-
+	regionIds: ["tampa"],
+	waterTypeIds: ["river", "canal", "marsh-wetlands", "lake"],
+	gearIds: [],
+	techniqueIds: [],
   locations: ["morris-bridge"],
   difficulty: "intermediate",
   tone: ["still", "visual", "ancient"],
@@ -413,7 +437,10 @@ export const SPECIES = [
   image: "/images/species/sunshine-bass.png",
   latin: "Morone chrysops × Morone saxatilis",
   category: "bass",
-
+	regionIds: ["tampa"],
+	waterTypeIds: ["reservoir", "lake"],
+	gearIds: [],
+	techniqueIds: [],
   locations: ["edward-medard", "hardee-lakes"],
   difficulty: "intermediate",
   tone: ["fast", "open-water", "energetic"],
@@ -455,6 +482,258 @@ export const SPECIES = [
     technique: "More active retrieve",
     behavior: "Fast-moving, often more energetic than largemouth"
   }
-}
+},
+  
+ {
+  id: "rainbow-trout",
+  slug: "rainbow-trout",
+  name: "Rainbow Trout",
+  image: "/images/species/rainbow-trout.png",
+  latin: "Oncorhynchus mykiss",
+  category: "trout",
+
+  regionIds: ["appalachian_creek", "pacific_northwest"],
+  waterTypeIds: ["creek", "river", "tailwater", "lake"],
+  gearIds: [],
+  techniqueIds: [],
+
+  locations: [],
+  difficulty: "intermediate",
+  tone: ["clear-water", "alert", "precise"],
+
+  tagline:
+    "A current-shaped fish that rewards quiet movement and careful presentation.",
+
+  intro:
+    "Rainbow trout live in water that stays cool, oxygen-rich, and alive with movement. They respond less to force and more to rhythm, drift, and subtle mistakes in presentation.",
+
+  description:
+    "A fast, attentive trout often found in cool creeks, rivers, tailwaters, and clear lakes with moving or oxygen-rich water.",
+
+  stats: [
+    { label: "Habitat", value: "Cool moving water" },
+    { label: "Method", value: "Natural drift" },
+    { label: "Temperament", value: "Alert strike" }
+  ],
+
+  whereTheyHide:
+    "Rainbow trout hold near seams, riffles, deeper runs, shaded pools, and oxygen-rich current where food naturally drifts toward them.",
+
+  bestTime:
+    "Lower light, cooler water, cloud cover, and calm movement around the bank often improve trout activity.",
+
+  scooterTips: [
+    "Approach slower than feels necessary.",
+    "Trout notice movement above the water almost as much as movement in it.",
+    "Watch the current before choosing where to cast."
+  ],
+
+  whatItFeelsLike:
+    "A trout feels less like forcing a bite and more like briefly aligning with the rhythm of the current.",
+
+  papaLine:
+    "Trout water teaches you to slow down before it teaches you to fish.",
+
+  tags: ["trout", "current", "clear-water", "precision"],
+
+  field_guide: {
+    habitat: "Cool creeks, rivers, and tailwaters",
+    technique: "Natural drift and subtle presentation",
+    behavior: "Alert, current-oriented, sensitive to movement"
+  }
+},
+
+ {
+  id: "brook-trout",
+  slug: "brook-trout",
+  name: "Brook Trout",
+  image: "/images/species/brook-trout.png",
+  latin: "Salvelinus fontinalis",
+  category: "trout",
+
+  regionIds: ["appalachian_creek", "pacific_northwest"],
+  waterTypeIds: ["creek", "river", "tailwater"],
+
+  gearIds: [],
+  techniqueIds: [],
+
+  locations: [],
+  difficulty: "intermediate",
+
+  tone: ["quiet", "sheltered", "cold-water"],
+
+  tagline:
+    "A hidden trout of cold creeks, shaded pools, and quiet mountain water.",
+
+  intro:
+    "Brook trout often live in smaller, colder water where movement matters less than patience and awareness. They reward careful approach, quiet steps, and attention to the subtle rhythm of the creek.",
+
+  description:
+    "A cold-water trout often found in shaded creeks, mountain streams, and smaller moving water with clean flow and cooler temperatures.",
+
+  stats: [
+    { label: "Habitat", value: "Cold shaded creeks" },
+    { label: "Method", value: "Quiet presentation" },
+    { label: "Temperament", value: "Cautious strike" }
+  ],
+
+  whereTheyHide:
+    "Brook trout hold near undercut banks, shaded pools, fallen timber, deeper pockets, and calmer current seams where colder water gathers.",
+
+  bestTime:
+    "Cool mornings, cloudy skies, and lower light often improve brook trout activity, especially in smaller creeks and mountain water.",
+
+  scooterTips: [
+    "Approach slower and quieter than feels necessary.",
+    "Sometimes the best cast is the one you almost don’t make.",
+    "Watch the creek before stepping closer."
+  ],
+
+  whatItFeelsLike:
+    "A brook trout feels like the creek briefly trusting you enough to reveal what it has been hiding.",
+
+  papaLine:
+    "Small mountain water teaches patience different than a lake ever could.",
+
+  tags: ["trout", "creek", "cold-water", "mountain"],
+
+  field_guide: {
+    habitat: "Cold creeks and shaded moving water",
+    technique: "Quiet casts and subtle drift",
+    behavior: "Cautious, current-aware, sensitive to disturbance"
+  }
+},
+
+{
+  id: "smallmouth-bass",
+  slug: "smallmouth-bass",
+  name: "Smallmouth Bass",
+  image: "/images/species/smallmouth-bass.png",
+  latin: "Micropterus dolomieu",
+  category: "bass",
+
+  regionIds: [
+    "appalachian_creek",
+    "northern_lakes",
+    "pacific_northwest"
+  ],
+
+  waterTypeIds: [
+    "river",
+    "creek",
+    "lake",
+    "tailwater"
+  ],
+
+  gearIds: [],
+  techniqueIds: [],
+
+  locations: [],
+  difficulty: "intermediate",
+
+  tone: ["current-aware", "aggressive", "rock-oriented"],
+
+  tagline:
+    "A river-shaped bass that rewards movement, structure awareness, and reading current.",
+
+  intro:
+    "Smallmouth bass live differently than largemouth. They relate closely to current, rock structure, depth transitions, and moving water that carries food naturally through the system.",
+
+  description:
+    "A strong and aggressive bass often found near rock, current seams, deeper runs, and moving water with oxygen and structure.",
+
+  stats: [
+    { label: "Habitat", value: "Rock + moving water" },
+    { label: "Method", value: "Active retrieve" },
+    { label: "Temperament", value: "Aggressive strike" }
+  ],
+
+  whereTheyHide:
+    "Smallmouth hold near rock piles, current seams, ledges, deeper pools, fallen timber, and transitions where moving water slows slightly.",
+
+  bestTime:
+    "Lower light, moving water, current changes, and overcast conditions often improve smallmouth activity.",
+
+  scooterTips: [
+    "Watch the current before you choose where to cast.",
+    "Rock transitions usually matter more than open water.",
+    "Moving water creates feeding lanes."
+  ],
+
+  whatItFeelsLike:
+    "A smallmouth feels like the river suddenly deciding to push back.",
+
+  papaLine:
+    "River bass don’t wait the same way pond bass do. Current changes everything.",
+
+  tags: ["bass", "river", "current", "rock"],
+
+  field_guide: {
+    habitat: "Rocky rivers, creeks, and moving water",
+    technique: "Current-aware retrieves and structure casting",
+    behavior: "Aggressive, current-oriented predator"
+  }
+},
+  
+ {
+  id: "yellow-perch",
+  slug: "yellow-perch",
+  name: "Yellow Perch",
+  image: "/images/species/yellow-perch.png",
+  latin: "Perca flavescens",
+  category: "panfish",
+
+  regionIds: ["northern_lakes", "midwest_pond", "pacific_northwest"],
+  waterTypeIds: ["pond", "lake", "reservoir"],
+
+  gearIds: [],
+  techniqueIds: [],
+
+  locations: [],
+  difficulty: "beginner",
+
+  tone: ["schooling", "steady", "cool-water"],
+
+  tagline:
+    "A schooling fish of cooler lakes and ponds that teaches patience, depth, and small repeated bites.",
+
+  intro:
+    "Yellow perch often move in groups, feeding in patterns that reward quiet attention. They may not announce themselves loudly, but when you find one, there are often others nearby.",
+
+  description:
+    "A cool-water panfish often found in lakes, ponds, and reservoirs, especially near vegetation, drop-offs, and softer bottom transitions.",
+
+  stats: [
+    { label: "Habitat", value: "Cool lakes + ponds" },
+    { label: "Method", value: "Small bait or jigs" },
+    { label: "Temperament", value: "Schooling bite" }
+  ],
+
+  whereTheyHide:
+    "Yellow perch often gather near weed edges, drop-offs, soft bottom transitions, and calmer areas where small food collects.",
+
+  bestTime:
+    "Morning, evening, and cooler conditions can be productive, especially when perch are gathered in feeding groups.",
+
+  scooterTips: [
+    "If you catch one perch, slow down and stay put for a few casts.",
+    "Small hooks and small baits matter more than big presentations.",
+    "Depth changes can matter more than distance."
+  ],
+
+  whatItFeelsLike:
+    "Yellow perch feel like finding a little rhythm in the water and realizing more are moving beneath it.",
+
+  papaLine:
+    "Some fish teach you to keep listening after the first answer.",
+
+  tags: ["panfish", "schooling", "cool-water", "lake"],
+
+  field_guide: {
+    habitat: "Cool ponds, lakes, reservoirs, and weed edges",
+    technique: "Small bait, light jigs, and patient depth control",
+    behavior: "Schooling fish that often feed in groups"
+  }
+} 
   
 ];

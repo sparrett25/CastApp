@@ -6,17 +6,31 @@ import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
 import { SPECIES } from "../data/species";
 import { CAST_LOCATIONS } from "../data/locations";
-import {
-  FIELD_GUIDE_GEAR,
-  FIELD_GUIDE_TECHNIQUES,
-} from "../data/fieldGuide";
+
 import "../styles/pages/field-guide.css";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
+import {
+  getRegionalWaterTypes,
+  getSpeciesForWater,
+} from "../data/waterTypeHelpers";
+import { getRegionIdFromKey } from "../data/regionOptions";
 
+import {
+  getRegionalSpecies,
+  getWatersForSpecies,
+  getSpeciesForWaterType,
+} from "../data/speciesHelpers";
 
+import { GEAR } from "../data/gear";
+import { TECHNIQUES } from "../data/techniques";
 
+import {
+  getRegionalGear,
+  getSpeciesForGear,
+  getWatersForGear,
+} from "../data/gearHelpers";
 
 // --- Species Chip to Locations ---
 
@@ -81,6 +95,53 @@ function SectionCard({
         style={{ color: buttonTheme?.text || color }}
       >
         {count} entries →
+      </div>
+    </motion.button>
+  );
+}
+
+// ── Water list card ────────────────────────────────
+function WaterCard({ water, onClick, cardTheme, textTheme, chipTheme }) {
+  return (
+    <motion.button
+      className="fg-entry-card"
+      onClick={() => onClick(water)}
+      whileHover={{ y: -2 }}
+      transition={{ type: "spring", stiffness: 300, damping: 24 }}
+      style={{
+        background: cardTheme?.bg,
+        border: `1px solid ${cardTheme?.border}`,
+        backdropFilter: `blur(${cardTheme?.blur || "12px"})`,
+        WebkitBackdropFilter: `blur(${cardTheme?.blur || "12px"})`,
+        boxShadow: cardTheme?.shadow,
+        color: textTheme?.primary,
+      }}
+    >
+      <div className="fg-entry-info">
+        <div className="fg-entry-header">
+          <div>
+            <h3 className="fg-entry-name" style={{ color: textTheme?.primary }}>
+              {water.label}
+            </h3>
+            <p className="fg-entry-sub" style={{ color: textTheme?.secondary }}>
+              {water.category}
+            </p>
+          </div>
+          <span
+            className="fg-unlocked-badge"
+            style={{
+              background: chipTheme?.activeBg,
+              border: `1px solid ${chipTheme?.border}`,
+              color: chipTheme?.text,
+            }}
+          >
+            Water
+          </span>
+        </div>
+
+        <p className="fg-entry-tagline" style={{ color: textTheme?.secondary }}>
+          {water.shortDescription}
+        </p>
       </div>
     </motion.button>
   );
@@ -156,12 +217,97 @@ function SimpleCard({ entry, onClick, accentColor, cardTheme, textTheme }) {
   );
 }
 
+
+// ── Water detail ────────────────────────────────────────────────
+function WaterDetail({ water, onBack, onOpenSpecies, backButtonStyle }) {
+  const linkedSpecies = getSpeciesForWaterType(
+  water.id,
+  water.activeRegionId
+);
+
+  return (
+    <motion.div
+      className="fg-detail"
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.3 }}
+    >
+      <div className="scroll-surface">
+        <button className="fg-back-btn" onClick={onBack} style={backButtonStyle}>
+          ← Waters
+        </button>
+
+        <p className="fg-detail-eyebrow">Field Guide · Waters</p>
+        <h2 className="fg-detail-name">{water.label}</h2>
+        <p className="fg-detail-latin">{water.category}</p>
+
+        <p className="fg-detail-intro" style={{ marginTop: "1rem" }}>
+          {water.summary}
+        </p>
+
+        <div className="fg-section">
+          <p className="fg-section-label">What to look for</p>
+          <div className="fg-tags">
+            {water.whatToLookFor?.map((item) => (
+              <span key={item} className="fg-tag">{item}</span>
+            ))}
+          </div>
+        </div>
+
+        <div className="fg-section">
+          <p className="fg-section-label">Learning focus</p>
+          <div className="fg-tags">
+            {water.learningFocus?.map((item) => (
+              <span key={item} className="fg-tag">{item}</span>
+            ))}
+          </div>
+        </div>
+
+        <div className="fg-section">
+          <p className="fg-section-label">Common species</p>
+          <div className="fg-tags">
+            {linkedSpecies.map((species) => (
+              <LocationChip
+                key={species.id}
+                label={species.name}
+                onClick={() => onOpenSpecies(species.id)}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="fg-section">
+          <p className="fg-section-label">Structure tags</p>
+          <div className="fg-tags">
+            {water.structureTags?.map((tag) => (
+              <span key={tag} className="fg-tag">{tag}</span>
+            ))}
+          </div>
+        </div>
+
+        <div className="fg-papa-block">
+          <p className="fg-voice-attr">Papa</p>
+          <p className="fg-papa-line">"{water.papaReflection}"</p>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 // ── Species detail ─────────────────────────────────────────────
-function SpeciesDetail({ species, onBack, onOpenLocation, backButtonStyle }) {
+function SpeciesDetail({
+  species,
+  onBack,
+  onOpenWater,
+  backButtonStyle,
+  regionalWaterTypes,
+}) {
   
-  const speciesLocations = CAST_LOCATIONS.filter((loc) =>
-  species.locations?.includes(loc.id)
-);  
+  const linkedWaters = getWatersForSpecies(
+  species,
+  regionalWaterTypes
+);
   
   return (
     <motion.div className="fg-detail" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
@@ -200,15 +346,15 @@ function SpeciesDetail({ species, onBack, onOpenLocation, backButtonStyle }) {
 		<p className="fg-section-body">{species.whereTheyHide}</p><div className="fg-tags">{species.tags.map(t => <span key={t} className="fg-tag">{t}</span>)}</div></div>
 		<div className="fg-section">
 		  <p className="fg-section-label">Found in</p>
-		  <div className="fg-tags">
-			{speciesLocations.map((loc) => (
-			  <LocationChip
-				key={loc.id}
-				label={loc.name}
-				onClick={() => onOpenLocation(loc.id)}
-			  />
-			))}
-		  </div>
+		<div className="fg-tags">
+		  {linkedWaters.map((water) => (
+			<LocationChip
+			  key={water.id}
+			  label={water.label}
+			  onClick={() => onOpenWater(water.id)}
+			/>
+		  ))}
+		</div>
 		</div>
 
       <div className="fg-section"><p className="fg-section-label">Best time</p><p className="fg-section-body">{species.bestTime}</p></div>
@@ -220,8 +366,23 @@ function SpeciesDetail({ species, onBack, onOpenLocation, backButtonStyle }) {
   );
 }
 
+
+
+
 // ── Gear detail ────────────────────────────────────────────────
-function GearDetail({ entry, onBack, backButtonStyle }) {
+function GearDetail({
+  gear,
+  onBack,
+  onOpenSpecies,
+  onOpenWater,
+  regionalSpecies,
+  regionalWaterTypes,
+  backButtonStyle,
+}) {
+	
+  const linkedSpecies = getSpeciesForGear(gear, regionalSpecies);
+  const linkedWaters = getWatersForGear(gear, regionalWaterTypes);
+	
   return (
     <motion.div className="fg-detail" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
       <div className="scroll-surface">
@@ -229,20 +390,64 @@ function GearDetail({ entry, onBack, backButtonStyle }) {
   ← Gear
 </button>
       <p className="fg-detail-eyebrow">Field Guide · Gear</p>
-      <h2 className="fg-detail-name">{entry.name}</h2>
-      <p className="fg-detail-latin">{entry.tagline}</p>
-      <p className="fg-detail-intro" style={{ marginTop: "1rem" }}>{entry.intro}</p>
+      <h2 className="fg-detail-name">{gear.name}</h2>
+      <p className="fg-detail-latin">{gear.tagline}</p>
+      <p className="fg-detail-intro" style={{ marginTop: "1rem" }}>{gear.intro}</p>
       <div className="fg-stats-row">
-        {entry.stats.map(s => (
+        {gear.stats.map(s => (
           <div key={s.label} className="fg-stat">
             <p className="fg-stat-label">{s.label}</p>
             <p className="fg-stat-value">{s.value}</p>
           </div>
         ))}
       </div>
-      <div className="fg-section"><p className="fg-section-label">How it works</p><p className="fg-section-body">{entry.howItWorks}</p><div className="fg-tags">{entry.tags.map(t => <span key={t} className="fg-tag">{t}</span>)}</div></div>
-      <div className="fg-section"><p className="fg-section-label">Scooter's notes</p>{entry.scooterTips.map((tip, i) => <div key={i} className="fg-voice-block scooter"><p className="fg-voice-text">"{tip}"</p></div>)}</div>
-      <div className="fg-papa-block"><p className="fg-voice-attr">Papa</p><p className="fg-papa-line">"{entry.papaLine}"</p></div>
+      <div className="fg-section">
+	  <p className="fg-section-label">How it works</p>
+	  <p className="fg-section-body">
+	  {gear.howItWorks}
+	  </p>
+	  <div className="fg-tags">
+	  {gear.tags.map(t => <span key={t} className="fg-tag">{t}</span>)
+	  }
+	  </div>
+	  </div>
+      
+<div className="fg-section">
+  <p className="fg-section-label">Good for species</p>
+  <div className="fg-tags">
+    {linkedSpecies.map((species) => (
+      <LocationChip
+        key={species.id}
+        label={species.name}
+        onClick={() => onOpenSpecies(species.id)}
+      />
+    ))}
+  </div>
+</div>
+
+<div className="fg-section">
+  <p className="fg-section-label">Ideal waters</p>
+  <div className="fg-tags">
+    {linkedWaters.map((water) => (
+      <LocationChip
+        key={water.id}
+        label={water.label}
+        onClick={() => onOpenWater(water.id)}
+      />
+    ))}
+  </div>
+</div>
+	  
+	  <div className="fg-section">
+	  <p className="fg-section-label">Scooter's notes</p>
+	  {gear.scooterTips.map((tip, i) => <div key={i} 
+	  className="fg-voice-block scooter">
+	  <p className="fg-voice-text">"{tip}"</p>
+	  </div>
+	  )
+	  }
+	  </div>
+      <div className="fg-papa-block"><p className="fg-voice-attr">Papa</p><p className="fg-papa-line">"{gear.papaLine}"</p></div>
 	  </div>
     </motion.div>
   );
@@ -295,6 +500,17 @@ export default function FieldGuidePage() {
   
   const [view, setView] = useState(null);
   const { profilePacket } = useProfile();
+  
+  const activeRegionKey =
+  profilePacket?.region_key ||
+  profilePacket?.regionKey ||
+  profilePacket?.region ||
+  "100";
+
+  const activeRegionId = getRegionIdFromKey(activeRegionKey);
+  const regionalWaterTypes = getRegionalWaterTypes(activeRegionId);
+  const regionalSpecies = getRegionalSpecies(activeRegionId);
+  const regionalGear = getRegionalGear(activeRegionId);
   
   const displayName =
   profilePacket?.display_name ||
@@ -418,10 +634,21 @@ const backButtonStyle = buttonSecondaryStyle;
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.25 }}
               >
-                <SectionCard
+			  <SectionCard
+				  title="Waters"
+				  description="Ponds, lakes, creeks, rivers, and the places fish learn to move."
+				  count={regionalWaterTypes.length}
+				  color="#6FA8A3"
+				  onClick={() => goList("waters")}
+				  cardTheme={cardTheme}
+				  textTheme={textTheme}
+				  buttonTheme={buttonTheme}
+				/>
+
+				 <SectionCard
                   title="Species"
                   description={`The fish ${displayName} knows and the ones still waiting to be found.`}
-                  count={SPECIES.length}
+                  count={regionalSpecies.length}
                   color="#BA7517"
                   onClick={() => goList("species")}
 				  cardTheme={cardTheme}
@@ -431,7 +658,7 @@ const backButtonStyle = buttonSecondaryStyle;
                 <SectionCard
                   title="Gear"
                   description="Rods, reels, lures, and line — the tools of the craft."
-                  count={FIELD_GUIDE_GEAR.length}
+                  count={regionalGear.length}
                   color="#185FA5"
                   onClick={() => goList("gear")}
 				  cardTheme={cardTheme}
@@ -441,7 +668,7 @@ const backButtonStyle = buttonSecondaryStyle;
                 <SectionCard
                   title="Techniques"
                   description="How to read the water, cast, set the hook, and think like a fish."
-                  count={FIELD_GUIDE_TECHNIQUES.length}
+                  count={TECHNIQUES.length}
                   color="#0F6E56"
                   onClick={() => goList("techniques")}
 				  cardTheme={cardTheme}
@@ -453,7 +680,32 @@ const backButtonStyle = buttonSecondaryStyle;
 				</p>
               </motion.div>
             )}
+			{section === "waters" && !entry && (
+			  <motion.div
+				key="waters-list"
+				initial={{ opacity: 0, x: 20 }}
+				animate={{ opacity: 1, x: 0 }}
+				exit={{ opacity: 0, x: -20 }}
+				transition={{ duration: 0.3 }}
+			  >
+				<button className="fg-back-btn" style={backButtonStyle} onClick={goHub}>
+				  ← Field Guide
+				</button>
 
+				<h3 className="fg-list-title">Waters</h3>
+
+				{regionalWaterTypes.map((water) => (
+				  <WaterCard
+					key={water.id}
+					water={water}
+					onClick={goDetail}
+					cardTheme={cardTheme}
+					textTheme={textTheme}
+					chipTheme={chipTheme}
+				  />
+				))}
+			  </motion.div>
+			)}
             {section === "species" && !entry && (
               <motion.div
                 key="species-list"
@@ -464,7 +716,7 @@ const backButtonStyle = buttonSecondaryStyle;
               >
                 <button className="fg-back-btn" style={backButtonStyle} onClick={goHub}>← Field Guide</button>
                 <h3 className="fg-list-title">Species</h3>
-                {SPECIES.map((s) => (
+                {regionalSpecies.map((s) => (
 				  <SpeciesCard
 					  key={s.id}
 					  species={s}
@@ -487,7 +739,7 @@ const backButtonStyle = buttonSecondaryStyle;
               >
                 <button className="fg-back-btn" style={backButtonStyle} onClick={goHub}>← Field Guide</button>
                 <h3 className="fg-list-title">Gear</h3>
-                {FIELD_GUIDE_GEAR.map((g) => (
+                {regionalGear.map((g) => (
                   <SimpleCard
 					  key={g.id}
 					  entry={g}
@@ -510,7 +762,7 @@ const backButtonStyle = buttonSecondaryStyle;
               >
                 <button className="fg-back-btn" style={backButtonStyle} onClick={goHub}>← Field Guide</button>
                 <h3 className="fg-list-title">Techniques</h3>
-                {FIELD_GUIDE_TECHNIQUES.map((t) => (
+                {TECHNIQUES.map((t) => (
                   <SimpleCard
 					  key={t.id}
 					  entry={t}
@@ -522,28 +774,66 @@ const backButtonStyle = buttonSecondaryStyle;
                 ))}
               </motion.div>
             )}
-
+			{section === "waters" && entry && (
+			  <WaterDetail
+				key={entry.id}
+				water={entry}
+				onBack={backToList}
+				backButtonStyle={backButtonStyle}
+				onOpenSpecies={(speciesId) => {
+				  const matchedSpecies = SPECIES.find((s) => s.id === speciesId);
+				  if (matchedSpecies) {
+					setView({
+					  section: "species",
+					  entry: matchedSpecies,
+					});
+				  }
+				}}
+			  />
+			)}
             {section === "species" && entry && (
               <SpeciesDetail
-				  key={entry.id}
-				  species={entry}
-				  onBack={backToList}
-				  backButtonStyle={backButtonStyle}
-				  onOpenLocation={(locationId) =>
-					navigate("/locations", {
-					  state: { selectedLocationId: locationId },
-					})
-				  }
-				/>
+			  key={entry.id}
+			  species={entry}
+			  onBack={backToList}
+			  backButtonStyle={backButtonStyle}
+			  regionalWaterTypes={regionalWaterTypes}
+			  onOpenWater={(waterId) => {
+				const matchedWater = regionalWaterTypes.find(
+				  (w) => w.id === waterId
+				);
+
+				if (matchedWater) {
+				  setView({
+					section: "waters",
+					entry: matchedWater,
+				  });
+				}
+			  }}
+			/>
             )}
 
             {section === "gear" && entry && (
               <GearDetail
-				  key={entry.id}
-				  entry={entry}
-				  onBack={backToList}
-				  backButtonStyle={backButtonStyle}
-				/>
+  key={entry.id}
+  gear={entry}
+  onBack={backToList}
+  backButtonStyle={backButtonStyle}
+  regionalSpecies={regionalSpecies}
+  regionalWaterTypes={regionalWaterTypes}
+  onOpenSpecies={(speciesId) => {
+    const matchedSpecies = regionalSpecies.find((s) => s.id === speciesId);
+    if (matchedSpecies) {
+      setView({ section: "species", entry: matchedSpecies });
+    }
+  }}
+  onOpenWater={(waterId) => {
+    const matchedWater = regionalWaterTypes.find((w) => w.id === waterId);
+    if (matchedWater) {
+      setView({ section: "waters", entry: matchedWater });
+    }
+  }}
+/>
             )}
 
             {section === "techniques" && entry && (
