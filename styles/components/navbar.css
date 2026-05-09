@@ -4,13 +4,18 @@
   position: sticky;
   top: 0;
   z-index: 1000;
+
   display: flex;
   flex-direction: column;
   align-items: center;
+
   padding: 8px 10px;
+
   background: transparent;
   border-bottom: none;
 }
+
+/* Main Atmospheric Shell */
 
 .cast-nav__inner {
   display: grid;
@@ -21,22 +26,17 @@
   border-radius: 18px;
   padding: 8px 10px;
 
-  background:
-    linear-gradient(
-      90deg,
-      rgba(7, 9, 12, 0.82),
-      rgba(28, 25, 24, 0.76),
-      rgba(42, 35, 30, 0.68)
-    );
+  background: rgba(24, 23, 22, 0.74);
+  border: 1px solid rgba(235, 225, 210, 0.13);
 
-  border: 1px solid rgba(235, 225, 210, 0.11);
-
-  backdrop-filter: blur(12px) saturate(1.04);
-  -webkit-backdrop-filter: blur(12px) saturate(1.04);
+  backdrop-filter: blur(16px) saturate(1.06);
+  -webkit-backdrop-filter: blur(16px) saturate(1.06);
 
   box-shadow:
     0 8px 28px rgba(0, 0, 0, 0.32),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  overflow: hidden;
 }
 
 /* Brand */
@@ -49,29 +49,37 @@
 
 .cast-brand__name {
   color: rgba(245, 238, 225, 0.95);
+
   font-weight: 700;
   font-size: 15px;
   font-family: Georgia, serif;
+
   letter-spacing: 0.5px;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+
+  text-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.45);
 }
 
-/* Desktop links */
+/* Desktop Links */
 
 .cast-nav__links {
   display: flex;
-  gap: 4px;
   justify-content: center;
   align-items: center;
+  gap: 4px;
 }
 
 .cast-nav__link {
   text-decoration: none;
   user-select: none;
+
   padding: 7px 11px;
   border-radius: 999px;
+
   font-size: 13px;
-  color: rgba(245, 238, 225, 0.64);
+
+  color: rgba(245, 238, 225, 0.68);
+
   border: 1px solid transparent;
 
   transition:
@@ -83,39 +91,52 @@
 }
 
 .cast-nav__link:hover {
-  background: rgba(255, 255, 255, 0.07);
-  color: rgba(255, 248, 236, 0.96);
-  border-color: rgba(230, 220, 205, 0.14);
+  background: rgba(255,255,255,0.08);
+
+  color: rgba(255,248,236,0.96);
+
+  border-color:
+    rgba(230,220,205,0.14);
 }
 
 .cast-nav__link.is-active {
-  background: rgba(255, 255, 255, 0.09);
-  color: rgba(255, 244, 226, 0.98);
-  border-color: rgba(230, 220, 205, 0.2);
+  background:
+    rgba(255,255,255,0.11);
+
+  color:
+    rgba(255,244,226,0.98);
+
+  border-color:
+    rgba(230,220,205,0.18);
+
   box-shadow:
-    0 0 14px rgba(255, 255, 255, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 0 14px rgba(255,255,255,0.05),
+    inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
-/* Mobile toggle */
+/* Mobile Toggle */
 
 .cast-nav__toggle {
   display: none;
+
   align-items: center;
+  justify-self: end;
   gap: 7px;
+
   height: 34px;
   padding: 0 12px 0 10px;
 
-  background: rgba(255, 255, 255, 0.055);
-  border: 1px solid rgba(235, 225, 210, 0.16);
   border-radius: 999px;
 
   cursor: pointer;
-  justify-self: end;
+
+  background: rgba(255,255,255,0.06);
+
+  border: 1px solid rgba(235,225,210,0.14);
 
   box-shadow:
-    0 0 14px rgba(255, 255, 255, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    0 0 14px rgba(255,255,255,0.03),
+    inset 0 1px 0 rgba(255,255,255,0.05);
 
   transition:
     background 0.25s ease,
@@ -125,31 +146,47 @@
 
 .cast-nav__toggle:hover,
 .cast-nav__toggle.is-open {
-  background: rgba(255, 255, 255, 0.09);
-  border-color: rgba(235, 225, 210, 0.26);
+  background:
+    rgba(255,255,255,0.10);
+
+  border-color:
+    rgba(235,225,210,0.22);
+
   box-shadow:
-    0 0 16px rgba(255, 255, 255, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 0 16px rgba(255,255,255,0.05),
+    inset 0 1px 0 rgba(255,255,255,0.08);
 }
+
+/* Toggle Bars */
 
 .toggle-bars {
   display: flex;
   flex-direction: column;
   gap: 3.5px;
+
   width: 14px;
 }
 
 .toggle-bars .bar {
   display: block;
+
   width: 14px;
   height: 1.5px;
-  background: rgba(232, 218, 194, 0.88);
+
+  background:
+    rgba(232,218,194,0.88);
+
   border-radius: 1px;
-  transition: transform 0.25s, opacity 0.25s, width 0.25s;
+
+  transition:
+    transform 0.25s,
+    opacity 0.25s,
+    width 0.25s;
 }
 
 .cast-nav__toggle.is-open .toggle-bars .bar:nth-child(1) {
-  transform: translateY(5px) rotate(45deg);
+  transform:
+    translateY(5px) rotate(45deg);
 }
 
 .cast-nav__toggle.is-open .toggle-bars .bar:nth-child(2) {
@@ -158,17 +195,21 @@
 }
 
 .cast-nav__toggle.is-open .toggle-bars .bar:nth-child(3) {
-  transform: translateY(-5px) rotate(-45deg);
+  transform:
+    translateY(-5px) rotate(-45deg);
 }
 
 .toggle-label {
   font-size: 12px;
   font-weight: 700;
-  color: rgba(232, 218, 194, 0.9);
+
+  color:
+    rgba(232,218,194,0.9);
+
   letter-spacing: 0.02em;
 }
 
-/* Mobile drawer */
+/* Drawer */
 
 .cast-nav__drawer {
   width: min(1060px, 100%);
@@ -179,9 +220,9 @@
   background:
     linear-gradient(
       135deg,
-      rgba(7, 9, 12, 0.9),
-      rgba(25, 24, 23, 0.87),
-      rgba(42, 36, 31, 0.82)
+      rgba(7, 9, 12, 0.88),
+      rgba(25, 24, 23, 0.82),
+      rgba(42, 36, 31, 0.76)
     );
 
   border: 1px solid rgba(235, 225, 210, 0.12);
@@ -190,7 +231,7 @@
   -webkit-backdrop-filter: blur(14px) saturate(1.04);
 
   box-shadow:
-    0 14px 36px rgba(0, 0, 0, 0.4),
+    0 14px 36px rgba(0, 0, 0, 0.38),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
 
   display: flex;
@@ -201,28 +242,41 @@
 .cast-nav__drawer .cast-nav__link {
   flex: 1;
   min-width: 80px;
+
   text-align: center;
+
   padding: 10px 8px;
 }
 
+/* Logout */
+
 .cast-nav__logout {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.82);
+  background: rgba(255,255,255,0.04);
+
+  border: 1px solid rgba(255,255,255,0.10);
+
+  color:
+    rgba(255,255,255,0.84);
+
   border-radius: 999px;
+
   padding: 10px 18px;
+
   font-size: 0.95rem;
+
   cursor: pointer;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: all 180ms ease;
+
+  transition:
+    all 180ms ease;
 }
 
 .cast-nav__logout:hover {
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(255,255,255,0.22);
-}
+  background:
+    rgba(255,255,255,0.08);
 
+  border-color:
+    rgba(255,255,255,0.20);
+}
 
 /* Responsive */
 
@@ -250,13 +304,6 @@
 
   .cast-nav__inner {
     border-radius: 16px;
-    background:
-      linear-gradient(
-        90deg,
-        rgba(7, 9, 12, 0.82),
-        rgba(27, 25, 24, 0.76),
-        rgba(43, 37, 32, 0.68)
-      );
   }
 
   .cast-nav__brand {
@@ -270,7 +317,9 @@
 
   .cast-nav__toggle {
     height: 30px;
+
     padding: 0 10px 0 9px;
+
     gap: 6px;
   }
 
@@ -288,16 +337,22 @@
 
   .cast-nav__drawer {
     margin-top: 6px;
+
     padding: 8px;
+
     border-radius: 16px;
+
     flex-direction: column;
     gap: 6px;
   }
 
   .cast-nav__drawer .cast-nav__link {
     min-width: 100%;
+
     text-align: left;
+
     padding: 10px 12px;
+
     border-radius: 12px;
   }
 }

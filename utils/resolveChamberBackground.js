@@ -11,8 +11,8 @@ const TIME_OFFSET = {
 };
 
 const CHAMBER_FOLDER_MAP = {
-  intro: "papa",
-  papaDock: "papa",
+  intro: "papaintro",
+  papaDock: "papadock",
   home: "home",
   "field-guide": "fieldguide",
   locations: "locations",
@@ -21,11 +21,12 @@ const CHAMBER_FOLDER_MAP = {
   journal: "journal",
   "catch-ledger": "catchledger",
   profile: "profile",
+  authpage: "authpage",
 };
 
 const FILE_SLUG_MAP = {
   intro: "papa",
-  papaDock: "papa",
+  papaDock: "papadock",
   home: "home",
   "field-guide": "fieldguide",
   locations: "locations",
@@ -34,6 +35,7 @@ const FILE_SLUG_MAP = {
   journal: "journal",
   "catch-ledger": "catchledger",
   profile: "profile",
+  authpage: "authpage",
 };
 
 export function resolveChamberBackgroundSrc({

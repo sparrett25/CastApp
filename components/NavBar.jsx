@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "../styles/components/navbar.css";
 import { supabase } from "../lib/supabase";
+import { useAtmosphere } from "../atmosphere/useAtmosphere";
+
+
 
 function LinkPill({ to, children }) {
   return (
@@ -17,6 +20,10 @@ function LinkPill({ to, children }) {
 }
 
 export default function NavBar() {
+	
+  const { ui } = useAtmosphere(); 
+  const nav = ui?.nav || {};
+	
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -58,8 +65,22 @@ const handleLogout = async () => {
 
 
   return (
-    <div className="cast-nav" role="navigation" aria-label="Primary">
-      <div className="cast-nav__inner">
+    <div
+  className="cast-nav"
+  role="navigation"
+  aria-label="Primary"
+  >
+      <div className="cast-nav__inner"
+	  style={{
+      background: nav.bg,
+      borderColor: nav.border,
+      backdropFilter: nav.blur ? `blur(${nav.blur})` : undefined,
+      WebkitBackdropFilter: nav.blur ? `blur(${nav.blur})` : undefined,
+      boxShadow: nav.shadow,
+      color: nav.text,
+    }}
+	  
+	  >
 
         {/* Brand */}
         <div className="cast-nav__brand">
@@ -85,7 +106,16 @@ const handleLogout = async () => {
           className={"cast-nav__toggle" + (open ? " is-open" : "")}
           aria-label="Toggle navigation menu"
           aria-expanded={open ? "true" : "false"}
-          onClick={() => setOpen(v => !v)}
+          style={{
+  background: nav.bg,
+  borderColor: nav.border,
+  backdropFilter: nav.blur ? `blur(${nav.blur})` : undefined,
+  WebkitBackdropFilter: nav.blur ? `blur(${nav.blur})` : undefined,
+  boxShadow: nav.shadow,
+  color: nav.text,
+}}
+		  
+		  onClick={() => setOpen(v => !v)}
         >
           <div className="toggle-bars">
             <span className="bar" />
@@ -98,7 +128,16 @@ const handleLogout = async () => {
 
       {/* Mobile drawer */}
       {open && (
-        <div className="cast-nav__drawer" onClick={handleLinkClick}>
+        <div className="cast-nav__drawer" 
+		style={{
+  background: nav.bg,
+  borderColor: nav.border,
+  backdropFilter: nav.blur ? `blur(${nav.blur})` : undefined,
+  WebkitBackdropFilter: nav.blur ? `blur(${nav.blur})` : undefined,
+  boxShadow: nav.shadow,
+  color: nav.text,
+}}
+	  onClick={handleLinkClick}>
           {links.map(l => (
   <LinkPill key={l.to} to={l.to}>{l.label}</LinkPill>
 ))}

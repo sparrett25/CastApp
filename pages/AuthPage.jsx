@@ -83,7 +83,7 @@ export default function AuthPage() {
 
   return (
     <CastBackground
-      chamberKey="auth-page"
+      chamberKey="authpage"
       variant={scene?.backgroundVariant}
       overlay={ui.overlay}
     >
