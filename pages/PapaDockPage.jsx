@@ -43,6 +43,7 @@ export default function PapaDockPage() {
 
   const recognitionRef = useRef(null);
   const endRef = useRef(null);
+  const inputRef = useRef(null);
 
   const atmosphere = useAtmosphere("papaDock", {
     user: profilePacket,
@@ -94,6 +95,15 @@ const bubbleTheme = ui.bubble ?? {};
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
+
+useEffect(() => {
+  const el = inputRef.current;
+  if (!el) return;
+
+  el.style.height = "auto";
+  el.style.height = `${Math.min(el.scrollHeight, 220)}px`;
+}, [input]);
+
 
   useEffect(() => {
     const SpeechRecognition =
@@ -519,23 +529,19 @@ recognition.onresult = (event) => {
             </button>
 
             <textarea
-              className="papa-dock-input"
-              value={input}
-              rows={1}
-              onChange={(e) => {
-                setInput(e.target.value);
-                e.target.style.height = "auto";
-                e.target.style.height = `${Math.min(
-                  e.target.scrollHeight,
-                  150
-                )}px`;
-              }}
-              placeholder={listening ? "Listening..." : "What's on your mind?"}
-              disabled={loading}
-              style={{
-				  color: textTheme?.primary,
-				}}
-            />
+			  ref={inputRef}
+			  className="papa-dock-input"
+			  value={input}
+			  rows={1}
+			  onChange={(e) => {
+				setInput(e.target.value);
+			  }}
+			  placeholder={listening ? "Listening..." : "What's on your mind?"}
+			  disabled={loading}
+			  style={{
+				color: textTheme?.primary,
+			  }}
+			/>
 
             <button
               type="submit"
