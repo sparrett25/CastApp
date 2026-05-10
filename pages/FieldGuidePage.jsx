@@ -32,6 +32,13 @@ import {
   getWatersForGear,
 } from "../data/gearHelpers";
 
+import {
+  getRegionalTechniques,
+  getSpeciesForTechnique,
+  getWatersForTechnique,
+  getGearForTechnique,
+} from "../data/techniqueHelpers";
+
 // --- Species Chip to Locations ---
 
 function LocationChip({ label, onClick }) {
@@ -454,7 +461,23 @@ function GearDetail({
 }
 
 // ── Technique detail ───────────────────────────────────────────
-function TechniqueDetail({ entry, onBack, backButtonStyle }) {
+function TechniqueDetail({
+  technique,
+  onBack,
+  backButtonStyle,
+  regionalSpecies,
+  regionalWaterTypes,
+  regionalGear,
+  onOpenSpecies,
+  onOpenWater,
+  onOpenGear,
+}) {
+	
+  const linkedSpecies = getSpeciesForTechnique(technique, regionalSpecies);
+  const linkedWaters = getWatersForTechnique(technique, regionalWaterTypes);
+  const linkedGear = getGearForTechnique(technique, regionalGear);	
+	
+	
   return (
     <motion.div className="fg-detail" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
       <div className="scroll-surface">
@@ -462,30 +485,69 @@ function TechniqueDetail({ entry, onBack, backButtonStyle }) {
   ← Techniques
 </button>
       <p className="fg-detail-eyebrow">Field Guide · Techniques</p>
-      <h2 className="fg-detail-name">{entry.name}</h2>
-      <p className="fg-detail-latin">{entry.tagline}</p>
-      {entry.difficulty && <span className="fg-difficulty-badge">{entry.difficulty}</span>}
-      <p className="fg-detail-intro" style={{ marginTop: "1rem" }}>{entry.intro}</p>
+      <h2 className="fg-detail-name">{technique.name}</h2>
+      <p className="fg-detail-latin">{technique.tagline}</p>
+      {technique.difficulty && <span className="fg-difficulty-badge">{technique.difficulty}</span>}
+      <p className="fg-detail-intro" style={{ marginTop: "1rem" }}>{technique.intro}</p>
       <div className="fg-section">
         <p className="fg-section-label">How to do it</p>
         <ol className="fg-steps-list">
-          {entry.steps.map((step, i) => (
+          {technique.steps.map((step, i) => (
             <li key={i} className="fg-step-item">
               <span className="fg-step-num">{i + 1}</span>
               <p className="fg-step-text">{step}</p>
             </li>
           ))}
         </ol>
-        <div className="fg-tags" style={{ marginTop: "0.75rem" }}>{entry.tags.map(t => <span key={t} className="fg-tag">{t}</span>)}</div>
+        <div className="fg-tags" style={{ marginTop: "0.75rem" }}>{technique.tags.map(t => <span key={t} className="fg-tag">{t}</span>)}</div>
       </div>
       <div className="fg-section">
         <p className="fg-section-label">Common mistakes</p>
-        {entry.commonMistakes.map((m, i) => (
+        {technique.commonMistakes.map((m, i) => (
           <div key={i} className="fg-mistake"><span className="fg-mistake-dot">·</span><p className="fg-section-body" style={{ margin: 0 }}>{m}</p></div>
         ))}
       </div>
-      <div className="fg-section"><p className="fg-section-label">Scooter's notes</p>{entry.scooterTips.map((tip, i) => <div key={i} className="fg-voice-block scooter"><p className="fg-voice-text">"{tip}"</p></div>)}</div>
-      <div className="fg-papa-block"><p className="fg-voice-attr">Papa</p><p className="fg-papa-line">"{entry.papaLine}"</p></div>
+      <div className="fg-section">
+  <p className="fg-section-label">Useful for species</p>
+  <div className="fg-tags">
+    {linkedSpecies.map((species) => (
+      <LocationChip
+        key={species.id}
+        label={species.name}
+        onClick={() => onOpenSpecies(species.id)}
+      />
+    ))}
+  </div>
+</div>
+
+<div className="fg-section">
+  <p className="fg-section-label">Works in waters</p>
+  <div className="fg-tags">
+    {linkedWaters.map((water) => (
+      <LocationChip
+        key={water.id}
+        label={water.label}
+        onClick={() => onOpenWater(water.id)}
+      />
+    ))}
+  </div>
+</div>
+
+<div className="fg-section">
+  <p className="fg-section-label">Works with gear</p>
+  <div className="fg-tags">
+    {linkedGear.map((gear) => (
+      <LocationChip
+        key={gear.id}
+        label={gear.name}
+        onClick={() => onOpenGear(gear.id)}
+      />
+    ))}
+  </div>
+</div>
+	  
+	  <div className="fg-section"><p className="fg-section-label">Scooter's notes</p>{technique.scooterTips.map((tip, i) => <div key={i} className="fg-voice-block scooter"><p className="fg-voice-text">"{tip}"</p></div>)}</div>
+      <div className="fg-papa-block"><p className="fg-voice-attr">Papa</p><p className="fg-papa-line">"{technique.papaLine}"</p></div>
 	  </div>
     </motion.div>
   );
@@ -511,6 +573,7 @@ export default function FieldGuidePage() {
   const regionalWaterTypes = getRegionalWaterTypes(activeRegionId);
   const regionalSpecies = getRegionalSpecies(activeRegionId);
   const regionalGear = getRegionalGear(activeRegionId);
+  const regionalTechniques = getRegionalTechniques(activeRegionId);
   
   const displayName =
   profilePacket?.display_name ||
@@ -668,7 +731,7 @@ const backButtonStyle = buttonSecondaryStyle;
                 <SectionCard
                   title="Techniques"
                   description="How to read the water, cast, set the hook, and think like a fish."
-                  count={TECHNIQUES.length}
+                  count={regionalTechniques.length}
                   color="#0F6E56"
                   onClick={() => goList("techniques")}
 				  cardTheme={cardTheme}
@@ -762,7 +825,7 @@ const backButtonStyle = buttonSecondaryStyle;
               >
                 <button className="fg-back-btn" style={backButtonStyle} onClick={goHub}>← Field Guide</button>
                 <h3 className="fg-list-title">Techniques</h3>
-                {TECHNIQUES.map((t) => (
+                {regionalTechniques.map((t) => (
                   <SimpleCard
 					  key={t.id}
 					  entry={t}
@@ -838,11 +901,32 @@ const backButtonStyle = buttonSecondaryStyle;
 
             {section === "techniques" && entry && (
               <TechniqueDetail
-				  key={entry.id}
-				  entry={entry}
-				  onBack={backToList}
-				  backButtonStyle={backButtonStyle}
-				/>
+  key={entry.id}
+  technique={entry}
+  onBack={backToList}
+  backButtonStyle={backButtonStyle}
+  regionalSpecies={regionalSpecies}
+  regionalWaterTypes={regionalWaterTypes}
+  regionalGear={regionalGear}
+  onOpenSpecies={(speciesId) => {
+    const matchedSpecies = regionalSpecies.find((s) => s.id === speciesId);
+    if (matchedSpecies) {
+      setView({ section: "species", entry: matchedSpecies });
+    }
+  }}
+  onOpenWater={(waterId) => {
+    const matchedWater = regionalWaterTypes.find((w) => w.id === waterId);
+    if (matchedWater) {
+      setView({ section: "waters", entry: matchedWater });
+    }
+  }}
+  onOpenGear={(gearId) => {
+    const matchedGear = regionalGear.find((g) => g.id === gearId);
+    if (matchedGear) {
+      setView({ section: "gear", entry: matchedGear });
+    }
+  }}
+/>
             )}
 
           </AnimatePresence>

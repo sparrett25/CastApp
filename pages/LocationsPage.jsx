@@ -4,30 +4,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import CastBackground from "../components/CastBackground";
 import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
-import { CAST_LOCATIONS } from "../data/locations";
 import "../styles/pages/locations.css";
 import grantQuests from "../data/stories/grant/quests.json";
 import { SPECIES } from "../data/species";
+import { GEAR } from "../data/gear";
+import { waterTypes } from "../data/waterTypes";
+import { REGION_OPTIONS } from "../data/regionOptions";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
-
-
-// ── Small helpers ──────────────────────────────────────────────
-function ToneBadge({ label, chipTheme }) {
-  return (
-    <span
-      className="loc-tone-badge"
-      style={{
-        background: chipTheme?.activeBg,
-        border: `1px solid ${chipTheme?.border}`,
-        color: chipTheme?.text,
-      }}
-    >
-      {label}
-    </span>
-  );
-}
+import { MY_LOCATIONS } from "../data/myLocations";
 
 function SpeciesChip({ label, onClick }) {
   return (
@@ -58,7 +44,6 @@ function SectionBlock({ label, children }) {
   );
 }
 
-// ── Adventure card ─────────────────────────────────────────────
 function AdventureLinkCard({ quest, onOpen, cardTheme, textTheme, chipTheme }) {
   return (
     <motion.button
@@ -115,8 +100,9 @@ function AdventureLinkCard({ quest, onOpen, cardTheme, textTheme, chipTheme }) {
   );
 }
 
-// ── Hub Card ───────────────────────────────────────────────────
 function LocationCard({ location, onClick, cardTheme, textTheme, chipTheme }) {
+  const water = waterTypes.find((w) => w.id === location.waterTypeId);
+
   return (
     <motion.button
       className="loc-card"
@@ -135,7 +121,7 @@ function LocationCard({ location, onClick, cardTheme, textTheme, chipTheme }) {
       <div className="loc-card-top">
         <div>
           <p className="loc-card-eyebrow" style={{ color: textTheme?.secondary }}>
-            {location.location_type_label}
+            {water?.label || location.waterTypeId || "Location"}
           </p>
           <h3 className="loc-card-title" style={{ color: textTheme?.primary }}>
             {location.name}
@@ -144,14 +130,14 @@ function LocationCard({ location, onClick, cardTheme, textTheme, chipTheme }) {
 
         <div className="loc-card-meta">
           <span
-            className={`loc-difficulty ${location.difficulty.beginner_friendly}`}
+            className="loc-difficulty"
             style={{
               background: chipTheme?.activeBg,
               border: `1px solid ${chipTheme?.border}`,
               color: chipTheme?.text,
             }}
           >
-            {location.difficulty_label}
+            Saved Place
           </span>
         </div>
       </div>
@@ -159,7 +145,6 @@ function LocationCard({ location, onClick, cardTheme, textTheme, chipTheme }) {
   );
 }
 
-// ── Detail View ────────────────────────────────────────────────
 function LocationDetail({
   location,
   onBack,
@@ -170,16 +155,19 @@ function LocationDetail({
   chipTheme,
   backButtonStyle,
 }) {
-  const locationAdventures = (location.adventure_ids || [])
+  const water = waterTypes.find((w) => w.id === location.waterTypeId);
+  const region = Object.values(REGION_OPTIONS).find(
+    (r) => r.id === location.regionId || r.key === location.regionId
+  );
+
+  const locationAdventures = (location.adventureIds || [])
     .map((id) => grantQuests.quests.find((q) => q.quest_id === id))
     .filter(Boolean);
 
-
-const FIELD_GUIDE_SPECIES = Object.fromEntries(
-  SPECIES.map((s) => [s.name.toLowerCase(), s.id])
-);
-
-
+  const memoryCount =
+    (location.photoUrls?.length || 0) +
+    (location.fieldNoteIds?.length || 0) +
+    (location.journalEntryIds?.length || 0);
 
   return (
     <motion.div
@@ -195,93 +183,118 @@ const FIELD_GUIDE_SPECIES = Object.fromEntries(
         </button>
 
         <p className="loc-detail-eyebrow">
-          Locations · {location.location_type_label}
+          Locations · {water?.label || location.waterTypeId || "Saved Place"}
         </p>
 
         <h2 className="loc-detail-title">{location.name}</h2>
-        <p className="loc-detail-subtitle">{location.tagline}</p>
 
-        <p className="loc-detail-intro">{location.long_intro}</p>
+        {location.notes && (
+          <p className="loc-detail-subtitle">{location.notes}</p>
+        )}
 
         <div className="loc-stats-row">
           <div className="loc-stat">
+            <p className="loc-stat-label">Region</p>
+            <p className="loc-stat-value">
+              {region?.label || location.regionId || "Unassigned"}
+            </p>
+          </div>
+
+          <div className="loc-stat">
             <p className="loc-stat-label">Water Type</p>
-            <p className="loc-stat-value">{location.environment.water_type}</p>
+            <p className="loc-stat-value">
+              {water?.label || location.waterTypeId || "Unassigned"}
+            </p>
           </div>
+
           <div className="loc-stat">
-            <p className="loc-stat-label">Access</p>
-            <p className="loc-stat-value">{location.access.summary}</p>
-          </div>
-          <div className="loc-stat">
-            <p className="loc-stat-label">Difficulty</p>
-            <p className="loc-stat-value">{location.difficulty_label}</p>
+            <p className="loc-stat-label">Memories</p>
+            <p className="loc-stat-value">{memoryCount}</p>
           </div>
         </div>
 
-        <SectionBlock label="Tone of the place">
-          <div className="loc-tone-wrap">
-            {location.tone_profile.map((tone) => (
-              <ToneBadge key={tone} label={tone} chipTheme={chipTheme} />
-            ))}
+        <SectionBlock label="Known species">
+          <div className="loc-species-row">
+            {location.speciesIds?.length ? (
+              location.speciesIds.map((speciesId) => {
+                const species = SPECIES.find((s) => s.id === speciesId);
+
+                return (
+                  <SpeciesChip
+                    key={speciesId}
+                    label={species?.name || speciesId}
+                    onClick={species ? () => onOpenSpecies(species.id) : null}
+                  />
+                );
+              })
+            ) : (
+              <p>No species added yet.</p>
+            )}
           </div>
         </SectionBlock>
 
-        <SectionBlock label="Water and structure">
-          <p>{location.environment_summary}</p>
-          <div className="loc-chip-row">
-            {location.environment.structure.map((item) => (
-              <span key={item} className="loc-chip">{item}</span>
-            ))}
+        <SectionBlock label="Preferred gear">
+          <div className="loc-species-row">
+            {location.gearIds?.length ? (
+              location.gearIds.map((gearId) => {
+                const gear = GEAR.find((g) => g.id === gearId);
+
+                return (
+                  <SpeciesChip
+                    key={gearId}
+                    label={gear?.name || gearId}
+                    onClick={null}
+                  />
+                );
+              })
+            ) : (
+              <p>No preferred gear added yet.</p>
+            )}
           </div>
         </SectionBlock>
 
-        <SectionBlock label="Vegetation">
-          <div className="loc-chip-row">
-            {location.environment.vegetation.map((item) => (
-              <span key={item} className="loc-chip">{item}</span>
-            ))}
-          </div>
+        {location.notes && (
+          <SectionBlock label="Notes">
+            <p>{location.notes}</p>
+          </SectionBlock>
+        )}
+
+        <SectionBlock label="Photos">
+          {location.photoUrls?.length ? (
+            <div className="loc-chip-row">
+              {location.photoUrls.map((url, i) => (
+                <span key={url || i} className="loc-chip">
+                  Photo {i + 1}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p>Photos will live here as this place gathers memories.</p>
+          )}
         </SectionBlock>
 
-        <SectionBlock label="Fishing access">
-          <p>{location.access.long_text}</p>
-          <div className="loc-chip-row">
-            {location.access.special_features.map((item) => (
-              <span key={item} className="loc-chip">{item}</span>
-            ))}
-          </div>
+        <SectionBlock label="Field notes">
+          {location.fieldNoteIds?.length ? (
+            <div className="loc-chip-row">
+              {location.fieldNoteIds.map((id) => (
+                <span key={id} className="loc-chip">{id}</span>
+              ))}
+            </div>
+          ) : (
+            <p>Papa field notes can later be attached to this location.</p>
+          )}
         </SectionBlock>
 
-        <SectionBlock label="Common species">
-		  <div className="loc-species-row">
-			{location.fish_species.map((species) => (
-			  <SpeciesChip
-  key={species}
-  label={species}
-  onClick={
-    FIELD_GUIDE_SPECIES[species.toLowerCase()]
-      ? () => onOpenSpecies(FIELD_GUIDE_SPECIES[species.toLowerCase()])
-      : null
-  }
-/>
-			))}
-		  </div>
-		</SectionBlock>
-
-        <SectionBlock label="What to look for">
-          <ul className="loc-list">
-            {location.fishing_patterns.primary_zones.map((zone) => (
-              <li key={zone}>{zone}</li>
-            ))}
-          </ul>
-        </SectionBlock>
-
-        <SectionBlock label="Learning focus">
-          <ul className="loc-list">
-            {location.difficulty.learning_focus.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
+        <SectionBlock label="Journal entries">
+          {location.journalEntryIds?.length ? (
+            <div className="loc-chip-row">
+              {location.journalEntryIds.map((id) => (
+                <span key={id} className="loc-chip">{id}</span>
+              ))}
+            </div>
+          ) : (
+            <p>Reflections from this place can later appear here.</p>
+          )}
         </SectionBlock>
 
         {locationAdventures.length > 0 && (
@@ -289,150 +302,105 @@ const FIELD_GUIDE_SPECIES = Object.fromEntries(
             <div className="loc-adventure-stack">
               {locationAdventures.map((quest) => (
                 <AdventureLinkCard
-				  key={quest.quest_id}
-				  quest={quest}
-				  onOpen={onOpenAdventure}
-				  cardTheme={cardTheme}
-				  textTheme={textTheme}
-				  chipTheme={chipTheme}
-				/>
+                  key={quest.quest_id}
+                  quest={quest}
+                  onOpen={onOpenAdventure}
+                  cardTheme={cardTheme}
+                  textTheme={textTheme}
+                  chipTheme={chipTheme}
+                />
               ))}
             </div>
           </SectionBlock>
-        )}
-
-        {location.sub_locations?.length > 0 && (
-          <SectionBlock label="Sub-locations">
-            <div className="loc-chip-row">
-              {location.sub_locations.map((item) => (
-                <span key={item} className="loc-chip">{item}</span>
-              ))}
-            </div>
-          </SectionBlock>
-        )}
-
-        {location.wildlife?.notable_species?.length > 0 && (
-          <SectionBlock label="Wildlife nearby">
-            <div className="loc-chip-row">
-              {location.wildlife.notable_species.map((item) => (
-                <span key={item} className="loc-chip">{item}</span>
-              ))}
-            </div>
-          </SectionBlock>
-        )}
-
-        {location.adventure_hooks?.length > 0 && (
-          <SectionBlock label="Adventure hooks">
-            <div className="loc-voice-stack">
-              {location.adventure_hooks.map((hook, i) => (
-                <div key={i} className="loc-voice-block">
-                  <p className="loc-voice-text">{hook}</p>
-                </div>
-              ))}
-            </div>
-          </SectionBlock>
-        )}
-
-        {location.papa_line && (
-          <div className="loc-papa-block">
-            <p className="loc-voice-attr">Papa</p>
-            <p className="loc-papa-line">"{location.papa_line}"</p>
-          </div>
         )}
       </div>
     </motion.div>
   );
 }
 
-// ── Main Page ──────────────────────────────────────────────────
 export default function LocationsPage() {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const navigate = useNavigate();
   const routeLocation = useLocation();
 
-const DEBUG_SCENE = null;
+  const DEBUG_SCENE = null;
 
+  const { profilePacket } = useProfile();
 
-const { profilePacket } = useProfile();
+  const displayName =
+    profilePacket?.display_name ||
+    profilePacket?.username ||
+    profilePacket?.name ||
+    "friend";
 
-const displayName =
-  profilePacket?.display_name ||
-  profilePacket?.username ||
-  profilePacket?.name ||
-  "friend";
+  const atmosphere = useAtmosphere("locations", {
+    user: profilePacket,
+    context: {
+      view: selectedLocation ? "entry" : "home",
+      locationName: selectedLocation?.name ?? null,
+      locationType: selectedLocation?.waterTypeId ?? null,
+    },
+  });
 
-const atmosphere = useAtmosphere("locations", {
-  user: profilePacket,
-  context: {
-    view: selectedLocation ? "entry" : "home",
-    locationName: selectedLocation?.name ?? null,
-    locationType: selectedLocation?.location_type_label ?? null,
-  },
-});
+  const scene = DEBUG_SCENE
+    ? getScene(DEBUG_SCENE, {
+        user: profilePacket,
+        context: {
+          view: selectedLocation ? "entry" : "home",
+          locationName: selectedLocation?.name ?? null,
+        },
+      })
+    : atmosphere.scene;
 
-const scene = DEBUG_SCENE
-  ? getScene(DEBUG_SCENE, {
-      user: profilePacket,
-      context: {
-        view: selectedLocation ? "entry" : "home",
-        locationName: selectedLocation?.name ?? null,
-      },
-    })
-  : atmosphere.scene;
+  const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
+  const styles = atmosphere.styles ?? {};
 
-const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
-const styles = atmosphere.styles ?? {};
+  const cardStyle = styles.cardStyle ?? {};
+  const transparentButtonStyle = styles.transparentButtonStyle ?? {};
+  const textTheme = ui.text ?? {};
+  const chipTheme = ui.chip ?? {};
 
-const cardStyle = styles.cardStyle ?? {};
-const buttonSecondaryStyle = styles.buttonSecondaryStyle ?? {};
-const transparentButtonStyle = styles.transparentButtonStyle ?? {};
-const textTheme = ui.text ?? {};
-const chipTheme = ui.chip ?? {};
+  const cardTheme = {
+    bg: cardStyle.background,
+    border: cardStyle.border?.replace("1px solid ", ""),
+    blur: ui.card?.blur,
+    shadow: cardStyle.boxShadow,
+  };
 
-const cardTheme = {
-  bg: cardStyle.background,
-  border: cardStyle.border?.replace("1px solid ", ""),
-  blur: ui.card?.blur,
-  shadow: cardStyle.boxShadow,
-};
-
-const backButtonStyle = transparentButtonStyle;
+  const backButtonStyle = transparentButtonStyle;
 
   const papaContext = {
-  page: "locations",
-  user: profilePacket,
-  atmosphere: scene,
-  view: selectedLocation ? "entry" : "home",
-  locationName: selectedLocation?.name || null,
-  locationType: selectedLocation?.location_type_label || null,
-  event: selectedLocation
-    ? `${displayName} is getting a feel for ${selectedLocation.name}`
-    : `${displayName} opened the location guide`,
-};
-  
-  
+    page: "locations",
+    user: profilePacket,
+    atmosphere: scene,
+    view: selectedLocation ? "entry" : "home",
+    locationName: selectedLocation?.name || null,
+    locationType: selectedLocation?.waterTypeId || null,
+    event: selectedLocation
+      ? `${displayName} is remembering ${selectedLocation.name}`
+      : `${displayName} opened their saved locations`,
+  };
+
   useEffect(() => {
-  const navState = routeLocation.state;
+    const navState = routeLocation.state;
 
-  if (navState?.selectedLocationId) {
-    const matchedLocation = CAST_LOCATIONS.find(
-      (loc) => loc.id === navState.selectedLocationId
-    );
+    if (navState?.selectedLocationId) {
+      const matchedLocation = MY_LOCATIONS.find(
+        (loc) => loc.id === navState.selectedLocationId
+      );
 
-    if (matchedLocation) {
-      setSelectedLocation(matchedLocation);
+      if (matchedLocation) {
+        setSelectedLocation(matchedLocation);
+      }
     }
-  }
-}, [routeLocation.state]);
-  
-  
+  }, [routeLocation.state]);
 
   return (
     <CastBackground
-	  chamberKey="locations"
-	  variant={scene?.backgroundVariant}
-	  overlay={ui.overlay}
-	>
+      chamberKey="locations"
+      variant={scene?.backgroundVariant}
+      overlay={ui.overlay}
+    >
       <ChamberLayout
         papa={
           <PapaMini
@@ -453,42 +421,42 @@ const backButtonStyle = transparentButtonStyle;
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.25 }}
               >
-                {CAST_LOCATIONS.map((location) => (
+                {MY_LOCATIONS.map((location) => (
                   <LocationCard
-				  key={location.id}
-				  location={location}
-				  onClick={setSelectedLocation}
-				  cardTheme={cardTheme}
-				  textTheme={textTheme}
-				  chipTheme={chipTheme}
-				/>
+                    key={location.id}
+                    location={location}
+                    onClick={setSelectedLocation}
+                    cardTheme={cardTheme}
+                    textTheme={textTheme}
+                    chipTheme={chipTheme}
+                  />
                 ))}
 
                 <p className="loc-more-hint">
-				  More waters will appear as you explore farther from home.
-				</p>
-			  </motion.div>
+                  Saved places become memory anchors as you return to the water.
+                </p>
+              </motion.div>
             )}
 
             {selectedLocation && (
               <LocationDetail
-				  key={selectedLocation.id}
-				  location={selectedLocation}
-				  onBack={() => setSelectedLocation(null)}
-				  onOpenAdventure={(questId) => navigate(`/adventures/${questId}`)}
-				  onOpenSpecies={(entryId) =>
-					navigate("/field-guide", {
-					  state: {
-						section: "species",
-						entryId,
-					  },
-					})
-				  }
-				  cardTheme={cardTheme}
-				  textTheme={textTheme}
-				  chipTheme={chipTheme}
-				  backButtonStyle={backButtonStyle}
-				/>
+                key={selectedLocation.id}
+                location={selectedLocation}
+                onBack={() => setSelectedLocation(null)}
+                onOpenAdventure={(questId) => navigate(`/adventures/${questId}`)}
+                onOpenSpecies={(entryId) =>
+                  navigate("/field-guide", {
+                    state: {
+                      section: "species",
+                      entryId,
+                    },
+                  })
+                }
+                cardTheme={cardTheme}
+                textTheme={textTheme}
+                chipTheme={chipTheme}
+                backButtonStyle={backButtonStyle}
+              />
             )}
           </AnimatePresence>
         </div>
