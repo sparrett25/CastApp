@@ -44,6 +44,8 @@ export default function PapaDockPage() {
   const recognitionRef = useRef(null);
   const endRef = useRef(null);
   const inputRef = useRef(null);
+  const finalTranscriptRef = useRef("");
+  const silenceTimerRef = useRef(null);
 
   const atmosphere = useAtmosphere("papaDock", {
     user: profilePacket,
@@ -106,72 +108,13 @@ useEffect(() => {
 
 
   useEffect(() => {
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
-
-    if (!SpeechRecognition) return;
-
-    const recognition = new SpeechRecognition();
-    recognition.lang = "en-US";
-    
-	recognition.interimResults = true;
-recognition.continuous = false;
-recognition.maxAlternatives = 1;
-
-let finalTranscript = "";
-let silenceTimer = null;
-
-recognition.onstart = () => setListening(true);
-
-recognition.onend = () => {
-  setListening(false);
-
-  if (silenceTimer) {
-    clearTimeout(silenceTimer);
-    silenceTimer = null;
-  }
-};
-
-recognition.onerror = () => {
-  setListening(false);
-
-  if (silenceTimer) {
-    clearTimeout(silenceTimer);
-    silenceTimer = null;
-  }
-};
-
-recognition.onresult = (event) => {
-  let interimTranscript = "";
-
-  for (let i = event.resultIndex; i < event.results.length; i += 1) {
-    const transcript = event.results[i]?.[0]?.transcript || "";
-
-    if (event.results[i].isFinal) {
-      finalTranscript += ` ${transcript}`;
-    } else {
-      interimTranscript += ` ${transcript}`;
-    }
-  }
-
-  const combinedTranscript = `${finalTranscript} ${interimTranscript}`.trim();
-
-  if (combinedTranscript) {
-    setInput(combinedTranscript);
-  }
-
-  if (silenceTimer) clearTimeout(silenceTimer);
-
-  silenceTimer = setTimeout(() => {
-    recognition.stop();
-  }, 1800);
-};
-	
-
-    recognitionRef.current = recognition;
-
-    return () => recognition.stop();
-  }, []);
+  return () => {
+    recognitionRef.current?.stop?.();
+  };
+}, []);
+  
+  
+  
 
   async function getCurrentUser() {
     const {
@@ -351,17 +294,101 @@ recognition.onresult = (event) => {
   function handleSubmit(e) {
     e.preventDefault();
     sendMessage();
+	
   }
+  
+ useEffect(() => {
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
 
-  function handleMicClick() {
-    if (!recognitionRef.current) {
-      alert("Voice input is not supported in this browser.");
-      return;
+  if (!SpeechRecognition) return;
+
+  const recognition = new SpeechRecognition();
+
+  recognition.lang = "en-US";
+  recognition.interimResults = true;
+  recognition.continuous = false;
+  recognition.maxAlternatives = 1;
+
+  recognition.onstart = () => {
+    setListening(true);
+  };
+
+  recognition.onend = () => {
+    setListening(false);
+
+    if (silenceTimerRef.current) {
+      clearTimeout(silenceTimerRef.current);
+      silenceTimerRef.current = null;
+    }
+  };
+
+  recognition.onerror = (event) => {
+    console.error("Speech recognition error:", event?.error);
+    setListening(false);
+
+    if (silenceTimerRef.current) {
+      clearTimeout(silenceTimerRef.current);
+      silenceTimerRef.current = null;
+    }
+  };
+
+  recognition.onresult = (event) => {
+    let interimTranscript = "";
+
+    for (let i = event.resultIndex; i < event.results.length; i += 1) {
+      const transcript = event.results[i]?.[0]?.transcript || "";
+
+      if (event.results[i].isFinal) {
+        finalTranscriptRef.current += ` ${transcript}`;
+      } else {
+        interimTranscript += ` ${transcript}`;
+      }
     }
 
-    if (listening) recognitionRef.current.stop();
-    else recognitionRef.current.start();
+    const combinedTranscript = `${finalTranscriptRef.current} ${interimTranscript}`.trim();
+
+    if (combinedTranscript) {
+      setInput(combinedTranscript);
+    }
+
+    if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
+
+    silenceTimerRef.current = setTimeout(() => {
+      recognition.stop();
+    }, 4000);
+  };
+
+  recognitionRef.current = recognition;
+
+  return () => {
+    recognition.stop();
+  };
+}, []);
+ 
+ 
+ 
+
+  function handleMicClick() {
+  if (!recognitionRef.current) {
+    alert("Voice input is not supported in this browser.");
+    return;
   }
+
+  if (listening) {
+    recognitionRef.current.stop();
+    return;
+  }
+
+  finalTranscriptRef.current = "";
+  setInput("");
+
+  try {
+    recognitionRef.current.start();
+  } catch (err) {
+    console.error("Speech recognition start error:", err);
+  }
+}
 
   return (
     <CastBackground
