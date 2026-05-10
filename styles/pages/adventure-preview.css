@@ -1,0 +1,96 @@
+.adventure-preview {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 1rem 1rem 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.adventure-preview-hero {
+  border-radius: 24px;
+  padding: 1.35rem;
+}
+
+.adventure-preview-kicker {
+  margin: 0 0 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.adventure-preview-hero h1 {
+  margin: 0 0 0.75rem;
+  font-family: Georgia, serif;
+  font-size: 1.55rem;
+  line-height: 1.2;
+}
+
+.adventure-preview-copy {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.adventure-preview-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.7rem;
+  margin-top: 1.1rem;
+}
+
+.adventure-preview-button {
+  width: 100%;
+  border-radius: 17px;
+  padding: 0.85rem 0.95rem;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 800;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.2s ease;
+}
+
+.adventure-preview-button:hover {
+  transform: translateY(-1px);
+}
+
+.adventure-preview-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.adventure-preview-card {
+  border-radius: 20px;
+  padding: 1rem;
+}
+
+.adventure-preview-card h2 {
+  margin: 0 0 0.4rem;
+  font-family: Georgia, serif;
+  font-size: 1.05rem;
+}
+
+.adventure-preview-card p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.adventure-preview-footer {
+  text-align: center;
+  font-size: 0.82rem;
+  font-style: italic;
+  margin: 0.75rem 0 0;
+  opacity: 0.78;
+}
+
+@media (min-width: 520px) {
+  .adventure-preview-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+}

@@ -103,22 +103,9 @@ const bubbleTheme = ui.bubble ?? {};
 
     const recognition = new SpeechRecognition();
     recognition.lang = "en-US";
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-
-    recognition.onstart = () => setListening(true);
-    recognition.onend = () => setListening(false);
-    recognition.onerror = () => setListening(false);
-
-    recognition.onresult = (event) => {
-      const transcript = event.results?.[0]?.[0]?.transcript?.trim();
-      if (!transcript) return;
-
-      setInput((prev) => {
-        if (!prev.trim()) return transcript;
-        return `${prev.trim()} ${transcript}`;
-      });
-    };
+    
+	
+	
 
     recognitionRef.current = recognition;
 
@@ -461,11 +448,13 @@ const bubbleTheme = ui.bubble ?? {};
           <form
             className="papa-dock-input-row"
             onSubmit={handleSubmit}
-            style={{
+            
+			
+			style={{
 			  ...cardStyle,
-			  background: inputStyle.background ?? cardStyle.background,
-			  border: inputStyle.border ?? cardStyle.border,
 			}}
+						
+			
           >
             <button
               type="button"
@@ -492,7 +481,9 @@ const bubbleTheme = ui.bubble ?? {};
               }}
               placeholder={listening ? "Listening..." : "What's on your mind?"}
               disabled={loading}
-              style={inputStyle}
+              style={{
+				  color: textTheme?.primary,
+				}}
             />
 
             <button

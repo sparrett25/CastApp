@@ -11,7 +11,10 @@ import FieldGuidePage from './pages/FieldGuidePage.jsx';
 import CatchLedger from './pages/CatchLedgerPage.jsx';
 import Journal from './pages/Journal.jsx';
 import JournalArchive from './pages/JournalArchive.jsx';
+
 import AdventureDetailPage from "./pages/AdventureDetailPage";
+import AdventurePreviewPage from "./pages/AdventurePreviewPage";
+
 import GrantMapPage from './pages/GrantMapPage.jsx';
 import PapaDockPage from './pages/PapaDockPage.jsx';
 import LocationsPage from './pages/LocationsPage.jsx';
@@ -24,8 +27,8 @@ import { StoryProvider } from "./context/StoryContext";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import { ProfileContext, buildProfilePacket } from "./context/ProfileContext";
 
+import CastPromptBuilder from "./tools/CastPromptBuilder/castPromptBuilder";
 
-  import CastPromptBuilder from "./tools/CastPromptBuilder/castPromptBuilder";
 
 export default function App() {
   const [session, setSession] = useState(null);
@@ -148,7 +151,10 @@ export default function App() {
           <Route path="/map" element={<GrantMapPage />} />
           <Route path="/journal" element={<Journal />} />
           <Route path="/journal-archive" element={<JournalArchive />} />
-          <Route path="/adventures/:questId" element={<AdventureDetailPage />} />
+		  
+		  <Route path="/adventures" element={<AdventurePreviewPage />} />
+		  <Route path="/adventures/:questId" element={<AdventureDetailPage />} />
+
           <Route path="/papa" element={<PapaDockPage />} />
           <Route path="/locations" element={<LocationsPage />} />
           <Route path="/plan-trip" element={<TripPlanner />} />
@@ -158,6 +164,7 @@ export default function App() {
 		  <Route path="/trips" element={<TripLedger />} />
 		  {import.meta.env.DEV && (
 		  <Route path="/prompt-builder" element={<CastPromptBuilder />} />
+		  
 		)}
         </Route>
       </Routes>

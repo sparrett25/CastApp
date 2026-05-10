@@ -15,7 +15,6 @@ import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
 
-// The five pillars — secondary navigation, quiet
 const PILLARS = [
   { emoji: "", title: "Field Guide", desc: "Explore and learn.", path: "/species" },
   { emoji: "️", title: "Locations", desc: "Your waters.", path: "/locations" },
@@ -59,8 +58,7 @@ export default function HomePage() {
   const primaryButtonStyle = styles.buttonPrimaryStyle ?? {};
   const secondaryButtonStyle = styles.buttonSecondaryStyle ?? {};
   const textTheme = ui.text ?? {};
-  
-  
+
   const footerWhisper = scene?.whisper || atmosphere?.whisper || "";
 
   const papaContext = {
@@ -122,6 +120,13 @@ export default function HomePage() {
     };
   }, []);
 
+  const cardTheme = {
+    bg: cardStyle.background,
+    border: cardStyle.border?.replace("1px solid ", ""),
+    blur: ui.card?.blur,
+    shadow: cardStyle.boxShadow,
+  };
+
   return (
     <CastBackground
       chamberKey="home"
@@ -138,37 +143,37 @@ export default function HomePage() {
       >
         <div className="home-dock home-dock--sections">
           <HomeSectionCard
-            title="Adventures"
-            summary={`${activeAdventure.title} · ${activeAdventure.step}`}
-            open={openSection === "adventures"}
+            title="Explore"
+            summary="Field Guide · Locations · Journal · Papa"
+            open={openSection === "explore"}
             onToggle={() =>
-              setOpenSection(openSection === "adventures" ? null : "adventures")
+              setOpenSection(openSection === "explore" ? null : "explore")
             }
-            cardTheme={{
-			  bg: cardStyle.background,
-			  border: cardStyle.border?.replace("1px solid ", ""),
-			  blur: ui.card?.blur,
-			  shadow: cardStyle.boxShadow,
-			}}
-			textTheme={textTheme}
+            cardTheme={cardTheme}
+            textTheme={textTheme}
           >
-            <div className="home-action-stack">
-              <button
-				  className="home-action-pill"
-				  style={primaryButtonStyle}
-				  onClick={() => nav(`/adventures/${activeAdventure.id}`)}
-				>
-                <span>Continue Adventure</span>
-                <small>{activeAdventure.title}</small>
-              </button>
+            <div className="home-action-grid">
+              {PILLARS.map((p) => (
+                <button
+                  key={p.path}
+                  className="home-action-pill"
+                  style={secondaryButtonStyle}
+                  onClick={() => nav(p.path)}
+                >
+                  <span>
+                    {p.emoji} {p.title}
+                  </span>
+                  <small>{p.desc}</small>
+                </button>
+              ))}
 
               <button
-				  className="home-action-pill"
-				  style={primaryButtonStyle}
-				  onClick={() => nav(`/adventures/${activeAdventure.id}`)}
-				>
-                <span>View Adventures</span>
-                <small>Choose a journey by the water.</small>
+                className="home-action-pill"
+                style={secondaryButtonStyle}
+                onClick={() => nav("/profile")}
+              >
+                <span>Profile</span>
+                <small>Shape how CAST remembers you.</small>
               </button>
             </div>
           </HomeSectionCard>
@@ -188,19 +193,14 @@ export default function HomePage() {
             onToggle={() =>
               setOpenSection(openSection === "trips" ? null : "trips")
             }
-            cardTheme={{
-			  bg: cardStyle.background,
-			  border: cardStyle.border?.replace("1px solid ", ""),
-			  blur: ui.card?.blur,
-			  shadow: cardStyle.boxShadow,
-			}}
-			textTheme={textTheme}
+            cardTheme={cardTheme}
+            textTheme={textTheme}
           >
             <div className="home-action-stack">
               {upcomingTrip && (
                 <button
                   className="home-action-pill"
-				  style={primaryButtonStyle}
+                  style={primaryButtonStyle}
                   onClick={() =>
                     nav("/trip-summary", { state: { tripId: upcomingTrip.id } })
                   }
@@ -214,69 +214,61 @@ export default function HomePage() {
               )}
 
               <button
-				  className="home-action-pill"
-				  style={primaryButtonStyle}
-				  onClick={() => nav("/plan-trip")}
-				>
+                className="home-action-pill"
+                style={primaryButtonStyle}
+                onClick={() => nav("/plan-trip")}
+              >
                 <span>Create New Trip</span>
                 <small>Plan where, when, and what you’re after.</small>
               </button>
 
               <button
-			  className="home-action-pill"
-			  style={primaryButtonStyle}
-			  onClick={() => nav("/trips?filter=upcoming")}
-			>
-			  <span>Upcoming Trips</span>
-			  <small>View or edit planned waters.</small>
-			</button>
+                className="home-action-pill"
+                style={primaryButtonStyle}
+                onClick={() => nav("/trips?filter=upcoming")}
+              >
+                <span>Upcoming Trips</span>
+                <small>View or edit planned waters.</small>
+              </button>
 
-			<button
-			  className="home-action-pill"
-			  style={primaryButtonStyle}
-			  onClick={() => nav("/trips?filter=past")}
-			>
-			  <span>Past Trips</span>
-			  <small>Return to where you’ve been.</small>
-			</button>
+              <button
+                className="home-action-pill"
+                style={primaryButtonStyle}
+                onClick={() => nav("/trips?filter=past")}
+              >
+                <span>Past Trips</span>
+                <small>Return to where you’ve been.</small>
+              </button>
             </div>
           </HomeSectionCard>
 
           <HomeSectionCard
-            title="Explore"
-            summary="Field Guide · Locations · Journal · Papa"
-            open={openSection === "explore"}
+            title="Adventures"
+            summary="Guided journeys are still being prepared"
+            open={openSection === "adventures"}
             onToggle={() =>
-              setOpenSection(openSection === "explore" ? null : "explore")
+              setOpenSection(openSection === "adventures" ? null : "adventures")
             }
-            cardTheme={{
-			  bg: cardStyle.background,
-			  border: cardStyle.border?.replace("1px solid ", ""),
-			  blur: ui.card?.blur,
-			  shadow: cardStyle.boxShadow,
-			}}
-			textTheme={textTheme}
+            cardTheme={cardTheme}
+            textTheme={textTheme}
           >
-            <div className="home-action-grid">
-              {PILLARS.map((p) => (
-                <button
-                  key={p.path}
-                  className="home-action-pill"
-				  style={secondaryButtonStyle}
-                  onClick={() => nav(p.path)}
-                >
-                  <span>
-                    {p.emoji} {p.title}
-                  </span>
-                  <small>{p.desc}</small>
-                </button>
-              ))}
+            <div className="home-action-stack">
+              <button
+                className="home-action-pill"
+                style={primaryButtonStyle}
+                onClick={() => nav("/adventures")}
+              >
+                <span>Preview Adventures</span>
+                <small>See what guided journeys will become.</small>
+              </button>
 
-              <button className="home-action-pill" 
-			  style={secondaryButtonStyle}
-			  onClick={() => nav("/profile")}>
-                <span>Profile</span>
-                <small>Shape how CAST remembers you.</small>
+              <button
+                className="home-action-pill"
+                style={primaryButtonStyle}
+                onClick={() => nav("/adventures")}
+              >
+                <span>Coming Soon</span>
+                <small>Reflective paths through water, weather, and discovery.</small>
               </button>
             </div>
           </HomeSectionCard>
