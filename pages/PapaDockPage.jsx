@@ -104,7 +104,58 @@ const bubbleTheme = ui.bubble ?? {};
     const recognition = new SpeechRecognition();
     recognition.lang = "en-US";
     
-	
+	recognition.interimResults = true;
+recognition.continuous = false;
+recognition.maxAlternatives = 1;
+
+let finalTranscript = "";
+let silenceTimer = null;
+
+recognition.onstart = () => setListening(true);
+
+recognition.onend = () => {
+  setListening(false);
+
+  if (silenceTimer) {
+    clearTimeout(silenceTimer);
+    silenceTimer = null;
+  }
+};
+
+recognition.onerror = () => {
+  setListening(false);
+
+  if (silenceTimer) {
+    clearTimeout(silenceTimer);
+    silenceTimer = null;
+  }
+};
+
+recognition.onresult = (event) => {
+  let interimTranscript = "";
+
+  for (let i = event.resultIndex; i < event.results.length; i += 1) {
+    const transcript = event.results[i]?.[0]?.transcript || "";
+
+    if (event.results[i].isFinal) {
+      finalTranscript += ` ${transcript}`;
+    } else {
+      interimTranscript += ` ${transcript}`;
+    }
+  }
+
+  const combinedTranscript = `${finalTranscript} ${interimTranscript}`.trim();
+
+  if (combinedTranscript) {
+    setInput(combinedTranscript);
+  }
+
+  if (silenceTimer) clearTimeout(silenceTimer);
+
+  silenceTimer = setTimeout(() => {
+    recognition.stop();
+  }, 1800);
+};
 	
 
     recognitionRef.current = recognition;
