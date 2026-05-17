@@ -4,14 +4,16 @@ import { DEFAULT_REGION_KEY } from "../data/regionOptions";
 
 const TIME_OFFSET = {
   "blue-hour-dawn": 1,
-  "soft-morning-rise": 2,
-  "late-afternoon-warmth": 3,
-  "golden-dusk": 4,
-  "quiet-evening-glow": 5,
+  "first-light": 2,
+  "soft-morning-rise": 3,
+  "warm-drift": 4,
+  "golden-dusk": 5,
+  "quiet-evening-glow": 6,
+  "ember-twilight": 7, 
 };
 
 const CHAMBER_FOLDER_MAP = {
-  intro: "papaintro",
+  intro: "papaintro", 
   papaDock: "papadock",
   home: "home",
   "field-guide": "fieldguide",
@@ -25,7 +27,7 @@ const CHAMBER_FOLDER_MAP = {
 };
 
 const FILE_SLUG_MAP = {
-  intro: "papa",
+  intro: "intro",
   papaDock: "papadock",
   home: "home",
   "field-guide": "fieldguide",
@@ -51,5 +53,5 @@ export function resolveChamberBackgroundSrc({
 
   const imageNumber = base + offset;
 
-  return `/images/chambers/${folderKey}/${regionKey}/${imageNumber}-${fileSlug}-${timeKey}.webp`;
+  return `/images/chambers/${folderKey}/${regionKey}/${imageNumber}-${fileSlug}-${timeKey}.png`;
 }

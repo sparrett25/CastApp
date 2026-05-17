@@ -7,10 +7,12 @@ import { getSceneWhisper } from "./whisperRegistry";
 
 const timeSuffixes = {
   "blue-hour-dawn": "blue_hour_dawn",
+  "first-light": "first_light",
   "soft-morning-rise": "soft_morning_rise",
-  "late-afternoon-warmth": "late_afternoon_warmth",
+  "warm-drift": "warm_drift",
   "golden-dusk": "golden_dusk",
   "quiet-evening-glow": "quiet_evening_glow",
+  "ember-twilight": "ember_twilight",
 };
 
 const dailyAtmosphereDefaults = {
@@ -20,17 +22,24 @@ const dailyAtmosphereDefaults = {
     papa: "quiet_observation",
     backgroundVariant: "blue-hour-dawn",
   },
+  "first-light": {
+    time: "first_light",
+    weather: "light_fog",
+    papa: "quiet_observation",
+    backgroundVariant: "first-light",
+  },
+  
   "soft-morning-rise": {
     time: "soft_morning_rise",
     weather: "lifting_fog",
     papa: "quiet_observation",
     backgroundVariant: "soft-morning-rise",
   },
-  "late-afternoon-warmth": {
-    time: "late_afternoon_warmth",
+  "warm-drift": {
+    time: "warm_drift",
     weather: "still_air",
     papa: "coffee_stillness",
-    backgroundVariant: "late-afternoon-warmth",
+    backgroundVariant: "warm-drift",
   },
   "golden-dusk": {
     time: "golden_dusk",
@@ -43,6 +52,12 @@ const dailyAtmosphereDefaults = {
     weather: "still_air",
     papa: "quiet_observation",
     backgroundVariant: "quiet-evening-glow",
+  },
+  "ember-twilight": {
+    time: "ember_twilight",
+    weather: "still_air",
+    papa: "quiet_observation",
+    backgroundVariant: "ember-twilight",
   },
 };
 
@@ -94,11 +109,13 @@ export function getScene(sceneId, options = {}) {
 }
 
 export function getTimeKey(hour = new Date().getHours()) {
-  if (hour < 7) return "blue-hour-dawn";
+  if (hour < 5) return "blue-hour-dawn";
+  if (hour < 7) return "first-light";
   if (hour < 11) return "soft-morning-rise";
-  if (hour < 16) return "late-afternoon-warmth";
-  if (hour < 19) return "golden-dusk";
-  return "quiet-evening-glow";
+  if (hour < 15) return "warm-drift";
+  if (hour < 18) return "golden-dusk";
+  if (hour < 20) return "quiet-evening-glow";
+  return "ember-twilight";
 }
 
 

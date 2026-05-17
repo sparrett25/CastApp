@@ -59,6 +59,66 @@ export const timeStates = {
     },
   },
 
+  first_light: {
+    id: "first_light",
+    label: "First Light",
+    mood: ["emerging", "clear", "gentle", "possible"],
+    lighting:
+      "Early dawn light begins to reveal the full scene. Cool mist remains over the water while pale gold softly enters the horizon, creating a balanced threshold between blue hour stillness and morning warmth.",
+    ui: {
+      overlay: "from-black/31 via-black/14 to-black/46",
+      card: {
+        bg: "rgba(52, 62, 64, 0.20)",
+        border: "rgba(235, 230, 205, 0.08)",
+        blur: "18px",
+        shadow: "0 0 18px rgba(210, 200, 160, 0.05)",
+      },
+      bubble: {
+        papaBg: "rgba(50, 62, 66, 0.30)",
+        userBg: "rgba(205, 195, 165, 0.17)",
+        border: "rgba(245, 240, 220, 0.10)",
+        text: "rgba(250, 250, 244, 0.94)",
+        blur: "18px",
+        shadow: "0 0 18px rgba(220, 205, 160, 0.07)",
+      },
+      input: {
+        bg: "rgba(165, 165, 145, 0.14)",
+        border: "rgba(255,255,255,0.09)",
+        text: "rgba(250,250,244,0.94)",
+        placeholder: "rgba(245,240,220,0.42)",
+      },
+      button: {
+        primaryBg: "rgba(88, 86, 76, 0.32)",
+        secondaryBg: "rgba(54, 62, 64, 0.25)",
+        text: "rgba(255,255,255,0.92)",
+        border: "rgba(255,255,255,0.12)",
+      },
+      chip: {
+        bg: "rgba(82, 90, 88, 0.27)",
+        activeBg: "rgba(220, 175, 90, 0.31)",
+        text: "rgba(248,245,235,0.88)",
+      },
+      text: {
+        primary: "rgba(250,250,244,0.94)",
+        secondary: "rgba(228,230,222,0.73)",
+        whisper: "rgba(218,220,210,0.52)",
+      },
+      glow: {
+        intensity: "threshold",
+        color: "rgba(235, 205, 140, 0.15)",
+      },
+      nav: {
+        bg: "rgba(32, 28, 24, 0.52)",
+        border: "rgba(255, 235, 205, 0.10)",
+        blur: "18px",
+        shadow: "0 10px 28px rgba(0, 0, 0, 0.22)",
+        text: "rgba(255, 248, 235, 0.94)",
+        buttonBg: "rgba(255, 255, 255, 0.08)",
+        buttonBorder: "rgba(255, 255, 255, 0.12)",
+      },
+    },
+  },
+
   soft_morning_rise: {
     id: "soft_morning_rise",
     label: "Soft Morning Rise",
@@ -119,9 +179,9 @@ export const timeStates = {
     },
   },
 
-  late_afternoon_warmth: {
-    id: "late_afternoon_warmth",
-    label: "Late Afternoon Warmth",
+  warm_drift: {
+    id: "warm_drift",
+    label: "Warm Drift",
     mood: ["warm", "grounded", "familiar", "easy"],
     lighting:
       "Warm afternoon daylight settles across water and vegetation. Reflections shimmer softly, shadows are gentle, and the scene feels grounded, familiar, and lived-in.",
@@ -298,4 +358,65 @@ export const timeStates = {
 	  },	    
     },
   },
+  
+    ember_twilight: {
+    id: "ember_twilight",
+    label: "Ember Twilight",
+    mood: ["closure", "remembrance", "still", "inward"],
+    lighting:
+      "Post-sunset ember glow lingers near the horizon while the foreground, dock, and water deepen into cool shadow. Reflections become minimal, distant shorelines soften into silhouettes, and the scene feels quiet, inward, and memory-like.",
+    ui: {
+      overlay: "from-black/52 via-black/34 to-black/68",
+      card: {
+        bg: "rgba(34, 34, 42, 0.28)",
+        border: "rgba(220, 205, 195, 0.06)",
+        blur: "22px",
+        shadow: "0 0 26px rgba(0, 0, 0, 0.18)",
+      },
+      bubble: {
+        papaBg: "rgba(42, 48, 56, 0.38)",
+        userBg: "rgba(105, 82, 76, 0.24)",
+        border: "rgba(225, 220, 220, 0.08)",
+        text: "rgba(242, 238, 234, 0.94)",
+        blur: "22px",
+        shadow: "0 0 24px rgba(0, 0, 0, 0.16)",
+      },
+      input: {
+        bg: "rgba(88, 76, 78, 0.22)",
+        border: "rgba(255,255,255,0.07)",
+        text: "rgba(242,238,234,0.94)",
+        placeholder: "rgba(220,210,205,0.36)",
+      },
+      button: {
+        primaryBg: "rgba(58, 64, 74, 0.36)",
+        secondaryBg: "rgba(42, 48, 56, 0.28)",
+        text: "rgba(255,255,255,0.92)",
+        border: "rgba(255,255,255,0.11)",
+      },
+      chip: {
+        bg: "rgba(66, 58, 62, 0.32)",
+        activeBg: "rgba(180, 105, 65, 0.34)",
+        text: "rgba(238,230,224,0.88)",
+      },
+      text: {
+        primary: "rgba(242,238,234,0.94)",
+        secondary: "rgba(210,202,198,0.70)",
+        whisper: "rgba(198,190,188,0.46)",
+      },
+      glow: {
+        intensity: "ember-low",
+        color: "rgba(220, 105, 65, 0.12)",
+      },
+      nav: {
+        bg: "rgba(28, 24, 24, 0.58)",
+        border: "rgba(255, 220, 200, 0.08)",
+        blur: "20px",
+        shadow: "0 10px 30px rgba(0, 0, 0, 0.28)",
+        text: "rgba(255, 244, 235, 0.94)",
+        buttonBg: "rgba(255, 255, 255, 0.07)",
+        buttonBorder: "rgba(255, 255, 255, 0.10)",
+      },
+    },
+  },
+  
 };
