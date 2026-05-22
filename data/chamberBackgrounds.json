@@ -1,593 +1,2356 @@
 {
-
-  "authpage": {
-  "default": {
-    "caption": "Login • quiet morning water"
-  },  
-  "variants": {
-    "blue-hour-dawn": {
-      "caption": "Login • beneath the surface", 
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-	},
-    "first-light": {	
-	  "caption": "Login • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "soft-morning-rise": {	
-	  "caption": "Login • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "warm-drift": {
-      "caption": "Login • steady daylight",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "golden-dusk": {
-      "caption": "Login • golden reflection",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "quiet-evening-glow": {
-      "caption": "Login • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-	"ember-twilight": {
-      "caption": "Login • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    }
-	}
-},
-	
-  "catch-ledger": {
-  "default": {
-    "caption": "Catch Ledger • quiet morning water"
-  },  
-  "variants": {
-    "blue-hour-dawn": {
-      "caption": "Catch Ledger • beneath the surface",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-	},
-    "first-light": {	
-	  "caption": "Catch Ledger • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "soft-morning-rise": {	
-	  "caption": "Catch Ledger • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "warm-drift": {
-      "caption": "Catch Ledger • steady daylight",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "golden-dusk": {
-      "caption": "Catch Ledger • golden reflection",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "quiet-evening-glow": {
-      "caption": "Catch Ledger • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-	"ember-twilight": {
-      "caption": "Catch Ledger • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    }
-	}
-},
-  "field-guide": {
-  "default": {
-    "caption": "Field Guide • quiet morning water"
-  },  
-  "variants": {
-    "blue-hour-dawn": {
-      "caption": "Field Guide • beneath the surface",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-	},
-    "first-light": {	
-	  "caption": "Field Guide • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "soft-morning-rise": {	
-	  "caption": "Field Guide • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "warm-drift": {
-      "caption": "Catch Ledger • steady daylight",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "golden-dusk": {
-      "caption": "Field Guide • golden reflection",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "quiet-evening-glow": {
-      "caption": "Field Guide • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-	"ember-twilight": {
-      "caption": "Field Guide • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    }
-	}
-},
-  "home": {
-  "default": {
-    "caption": "Home • quiet morning water"
-  },  
-  "variants": {
-    "blue-hour-dawn": {
-      "caption": "Home • beneath the surface", 
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-	},
-    "first-light": {	
-	  "caption": "Home • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "soft-morning-rise": {	
-	  "caption": "Home • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "warm-drift": {
-      "caption": "Home • steady daylight",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "golden-dusk": {
-      "caption": "Home • golden reflection",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "quiet-evening-glow": {
-      "caption": "Home • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-	"ember-twilight": {
-      "caption": "Home • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    }
-	}
-},
-  "journal": {
-  "default": {
-    "caption": "Journal • quiet morning water"
-  },  
-  "variants": {
-    "blue-hour-dawn": {
-      "caption": "Journal • beneath the surface",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-	},
-    "first-light": {	
-	  "caption": "Journal • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "soft-morning-rise": {	
-	  "caption": "Journal • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "warm-drift": {
-      "caption": "Journal • steady daylight",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "golden-dusk": {
-      "caption": "Journal • golden reflection",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "quiet-evening-glow": {
-      "caption": "Journal • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-	"ember-twilight": {
-      "caption": "Journal • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    }
-	}
-},
-  "locations": {
-  "default": {
-    "caption": "Locations • quiet morning water"
-  },  
-  "variants": {
-    "blue-hour-dawn": {
-      "caption": "Locations • beneath the surface",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-	},
-    "first-light": {	
-	  "caption": "Locations • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "soft-morning-rise": {	
-	  "caption": "Locations • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "warm-drift": {
-      "caption": "Locations • steady daylight",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "golden-dusk": {
-      "caption": "Locations • golden reflection",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "quiet-evening-glow": {
-      "caption": "Locations • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-	"ember-twilight": {
-      "caption": "Locations • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    }
-	}
-},
-  "papa-dock": {
-  "default": {
-    "caption": "Talk to Papa • quiet morning water"
-  },  
-  "variants": {
-    "blue-hour-dawn": {
-      "caption": "Talk to Papa • beneath the surface",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-	},
-    "first-light": {	
-	  "caption": "Talk to Papa • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "soft-morning-rise": {	
-	  "caption": "Talk to Papa • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "warm-drift": {
-      "caption": "Talk to Papa • steady daylight",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "golden-dusk": {
-      "caption": "Talk to Papa • golden reflection",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "quiet-evening-glow": {
-      "caption": "Talk to Papa • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-	"ember-twilight": {
-      "caption": "Talk to Papa • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    }
-	}
-},
-  "intro": {
-  "default": {
-    "caption": "Intro • quiet morning water"
-  },  
-  "variants": {
-    "blue-hour-dawn": {
-      "caption": "Intro • beneath the surface",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-	},
-    "first-light": {	
-	  "caption": "Intro • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "soft-morning-rise": {	
-	  "caption": "Intro • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "warm-drift": {
-      "caption": "Intro • steady daylight",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "golden-dusk": {
-      "caption": "Intro • golden reflection",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "quiet-evening-glow": {
-      "caption": "Intro • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-	"ember-twilight": {
-      "caption": "Intro • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    }
-	}
-},
-  "plan-trip": {
-  "default": {
-    "caption": "Plan Trip • quiet morning water"
-  },  
-  "variants": {
-    "blue-hour-dawn": {
-      "caption": "Plan Trip • beneath the surface",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-	},
-    "first-light": {	
-	  "caption": "Plan Trip • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "soft-morning-rise": {	
-	  "caption": "Plan Trip • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "warm-drift": {
-      "caption": "Plan Trip • steady daylight",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "golden-dusk": {
-      "caption": "Plan Trip • golden reflection",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "quiet-evening-glow": {
-      "caption": "Plan Trip • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-	"ember-twilight": {
-      "caption": "Plan Trip • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    }
-	}
-},
-  "profile": {
-  "default": {
-    "caption": "Profile • quiet morning water"
-  },  
-  "variants": {
-    "blue-hour-dawn": {
-      "caption": "Profile • beneath the surface",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-	},
-    "first-light": {	
-	  "caption": "Profile • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "soft-morning-rise": {	
-	  "caption": "Profile • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "warm-drift": {
-      "caption": "Profile • steady daylight",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "golden-dusk": {
-      "caption": "Profile • golden reflection",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "quiet-evening-glow": {
-      "caption": "Profile • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-	"ember-twilight": {
-      "caption": "Profile • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    }
-	}
-},
-  "trip-summary": {
-  "default": {
-    "caption": "Trip Summary • quiet morning water"
-  },  
-  "variants": {
-    "blue-hour-dawn": {
-      "caption": "Trip Summary • beneath the surface",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-	},
-    "first-light": {	
-	  "caption": "Trip Summary • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "soft-morning-rise": {	
-	  "caption": "Trip Summary • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "warm-drift": {
-      "caption": "Trip Summary • steady daylight",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "golden-dusk": {
-      "caption": "Trip Summary • golden reflection",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "quiet-evening-glow": {
-      "caption": "Trip Summary • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-	"ember-twilight": {
-      "caption": "Trip Summary • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    }
-	}
-},
-  "adventure": {
-  "default": {
-    "caption": "Adventure • quiet morning water"
-  },  
-  "variants": {
-    "blue-hour-dawn": {
-      "caption": "Adventure • beneath the surface",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-	},
-    "first-light": {	
-	  "caption": "Adventure • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "soft-morning-rise": {	
-	  "caption": "Adventure • quiet morning water",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "warm-drift": {
-      "caption": "Adventure • steady daylight",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "golden-dusk": {
-      "caption": "Adventure • golden reflection",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-    "quiet-evening-glow": {
-      "caption": "Adventure • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    },
-	"ember-twilight": {
-      "caption": "Adventure • evening stillness",
-	  "papacontext": "",
-	  "atmosphere": "",
-	  "summary": ""
-    }
-	}
-}
   
+"authpage": {
+  "default": {
+    "caption": "Login • default caption"
+  },
+  "variants": {
+    "blue-hour-dawn": {
+      "caption": "Login • blue hour dawn",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "blue-hour-dawn",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "first-light": {
+      "caption": "Login • first light",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "first-light",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "soft-morning-rise": {
+      "caption": "Login • soft morning rise",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "soft-morning-rise",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "warm-drift": {
+      "caption": "Login • warm drift",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "warm-drift",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "golden-dusk": {
+      "caption": "Login • golden dusk",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "golden-dusk",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "quiet-evening-glow": {
+      "caption": "Login • quiet evening glow",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "quiet-evening-glow",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "ember-twilight": {
+      "caption": "Login • ember twilight",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "ember-twilight",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    }
+  }
+},
+
+"catch-ledger": {
+  "default": {
+    "caption": "Catch Log • default caption"
+  },
+  "variants": {
+    "blue-hour-dawn": {
+      "caption": "Catch Log • blue hour dawn",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "blue-hour-dawn",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "first-light": {
+      "caption": "Catch Log • first light",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "first-light",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "soft-morning-rise": {
+      "caption": "Catch Log • soft morning rise",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "soft-morning-rise",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "warm-drift": {
+      "caption": "Catch Log • warm drift",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "warm-drift",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "golden-dusk": {
+      "caption": "Catch Log • golden dusk",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "golden-dusk",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "quiet-evening-glow": {
+      "caption": "Catch Log • quiet evening glow",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "quiet-evening-glow",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "ember-twilight": {
+      "caption": "Catch Log • ember twilight",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "ember-twilight",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    }
+  }
+},
+
+"field-guide": {
+  "default": {
+    "caption": "Field Guide • default caption"
+  },
+  "variants": {
+    "blue-hour-dawn": {
+      "caption": "Field Guide • blue hour dawn",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "blue-hour-dawn",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "first-light": {
+      "caption": "Field Guide • first light",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "first-light",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "soft-morning-rise": {
+      "caption": "Field Guide • soft morning rise",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "soft-morning-rise",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "warm-drift": {
+      "caption": "Field Guide • warm drift",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "warm-drift",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "golden-dusk": {
+      "caption": "Field Guide • golden dusk",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "golden-dusk",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "quiet-evening-glow": {
+      "caption": "Field Guide • quiet evening glow",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "quiet-evening-glow",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "ember-twilight": {
+      "caption": "Field Guide • ember twilight",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "ember-twilight",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    }
+  }
+},
+
+"home": {
+  "default": {
+    "caption": "Home • default caption"
+  },
+  "variants": {
+    "blue-hour-dawn": {
+      "caption": "Login • blue hour dawn",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "blue-hour-dawn",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "first-light": {
+      "caption": "Home • first light",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "first-light",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "soft-morning-rise": {
+      "caption": "Home • soft morning rise",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "soft-morning-rise",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "warm-drift": {
+      "caption": "Home • warm drift",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "warm-drift",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "golden-dusk": {
+      "caption": "Home • golden dusk",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "golden-dusk",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "quiet-evening-glow": {
+      "caption": "Home • quiet evening glow",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "quiet-evening-glow",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "ember-twilight": {
+      "caption": "Home • ember twilight",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "ember-twilight",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    }
+  }
+},
+
+"journal": {
+  "default": {
+    "caption": "Journal • default caption"
+  },
+  "variants": {
+    "blue-hour-dawn": {
+      "caption": "Login • blue hour dawn",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "blue-hour-dawn",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "first-light": {
+      "caption": "Journal • first light",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "first-light",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "soft-morning-rise": {
+      "caption": "Journal • soft morning rise",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "soft-morning-rise",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "warm-drift": {
+      "caption": "Journal • warm drift",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "warm-drift",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "golden-dusk": {
+      "caption": "Journal • golden dusk",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "golden-dusk",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "quiet-evening-glow": {
+      "caption": "Journal • quiet evening glow",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "quiet-evening-glow",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "ember-twilight": {
+      "caption": "Journal • ember twilight",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "ember-twilight",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    }
+  }
+},
+  
+"locations": {
+  "default": {
+    "caption": "Locations • default caption"
+  },
+  "variants": {
+    "blue-hour-dawn": {
+      "caption": "Locations • blue hour dawn",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "blue-hour-dawn",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "first-light": {
+      "caption": "Locations • first light",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "first-light",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "soft-morning-rise": {
+      "caption": "Locations • soft morning rise",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "soft-morning-rise",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "warm-drift": {
+      "caption": "Locations • warm drift",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "warm-drift",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "golden-dusk": {
+      "caption": "Locations • golden dusk",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "golden-dusk",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "quiet-evening-glow": {
+      "caption": "Locations • quiet evening glow",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "quiet-evening-glow",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "ember-twilight": {
+      "caption": "Locations • ember twilight",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "ember-twilight",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    }
+  }
+},
+
+"papd-dock": {
+  "default": {
+    "caption": "Talk to Papa • default caption"
+  },
+  "variants": {
+    "blue-hour-dawn": {
+      "caption": "Talk to Papa • blue hour dawn",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "blue-hour-dawn",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "first-light": {
+      "caption": "Talk to Papa • first light",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "first-light",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "soft-morning-rise": {
+      "caption": "Talk to Papa • soft morning rise",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "soft-morning-rise",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "warm-drift": {
+      "caption": "Talk to Papa • warm drift",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "warm-drift",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "golden-dusk": {
+      "caption": "Talk to Papa • golden dusk",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "golden-dusk",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "quiet-evening-glow": {
+      "caption": "Talk to Papa • quiet evening glow",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "quiet-evening-glow",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "ember-twilight": {
+      "caption": "Talk to Papa • ember twilight",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "ember-twilight",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    }
+  }
+},
+
+"intro": {
+  "default": {
+    "caption": "Intro • default caption"
+  },
+  "variants": {
+    "blue-hour-dawn": {
+      "caption": "Intro • blue hour dawn",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "blue-hour-dawn",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "first-light": {
+      "caption": "Intro • first light",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "first-light",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "soft-morning-rise": {
+      "caption": "Intro • soft morning rise",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "soft-morning-rise",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "warm-drift": {
+      "caption": "Intro • warm drift",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "warm-drift",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "golden-dusk": {
+      "caption": "Intro • golden dusk",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "golden-dusk",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "quiet-evening-glow": {
+      "caption": "Intro • quiet evening glow",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "quiet-evening-glow",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "ember-twilight": {
+      "caption": "Intro • ember twilight",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "ember-twilight",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    }
+  }
+},
+
+"plan-trip": {
+  "default": {
+    "caption": "Plan Trip • default caption"
+  },
+  "variants": {
+    "blue-hour-dawn": {
+      "caption": "Plan Trip • blue hour dawn",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "blue-hour-dawn",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "first-light": {
+      "caption": "Plan Trip • first light",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "first-light",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "soft-morning-rise": {
+      "caption": "Plan Trip • soft morning rise",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "soft-morning-rise",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "warm-drift": {
+      "caption": "Plan Trip • warm drift",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "warm-drift",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "golden-dusk": {
+      "caption": "Plan Trip • golden dusk",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "golden-dusk",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "quiet-evening-glow": {
+      "caption": "Plan Trip • quiet evening glow",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "quiet-evening-glow",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "ember-twilight": {
+      "caption": "Plan Trip • ember twilight",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "ember-twilight",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    }
+  }
+},
+
+"profile": {
+  "default": {
+    "caption": "Profile • default caption"
+  },
+  "variants": {
+    "blue-hour-dawn": {
+      "caption": "Profile • blue hour dawn",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "blue-hour-dawn",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "first-light": {
+      "caption": "Profile • first light",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "first-light",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "soft-morning-rise": {
+      "caption": "Profile • soft morning rise",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "soft-morning-rise",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "warm-drift": {
+      "caption": "Profile • warm drift",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "warm-drift",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "golden-dusk": {
+      "caption": "Profile • golden dusk",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "golden-dusk",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "quiet-evening-glow": {
+      "caption": "Profile • quiet evening glow",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "quiet-evening-glow",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "ember-twilight": {
+      "caption": "Profile • ember twilight",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "ember-twilight",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    }
+  }
+},
+
+"trip-summary": {
+  "default": {
+    "caption": "Trip Summary • default caption"
+  },
+  "variants": {
+    "blue-hour-dawn": {
+      "caption": "Trip Summary • blue hour dawn",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "blue-hour-dawn",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "first-light": {
+      "caption": "Trip Summary • first light",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "first-light",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "soft-morning-rise": {
+      "caption": "Trip Summary • soft morning rise",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "soft-morning-rise",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "warm-drift": {
+      "caption": "Trip Summary • warm drift",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "warm-drift",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "golden-dusk": {
+      "caption": "Trip Summary • golden dusk",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "golden-dusk",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "quiet-evening-glow": {
+      "caption": "Trip Summary • quiet evening glow",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "quiet-evening-glow",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "ember-twilight": {
+      "caption": "Trip Summary • ember twilight",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "ember-twilight",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    }
+  }
+},
+
+"adventure": {
+  "default": {
+    "caption": "Adventure • default caption"
+  },
+  "variants": {
+    "blue-hour-dawn": {
+      "caption": "Adventure • blue hour dawn",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "blue-hour-dawn",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "first-light": {
+      "caption": "Adventure • first light",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "first-light",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "soft-morning-rise": {
+      "caption": "Adventure • soft morning rise",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "soft-morning-rise",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "warm-drift": {
+      "caption": "Adventure • warm drift",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "warm-drift",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "golden-dusk": {
+      "caption": "Adventure • golden dusk",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "golden-dusk",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "quiet-evening-glow": {
+      "caption": "Adventure • quiet evening glow",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "quiet-evening-glow",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    },
+
+    "ember-twilight": {
+      "caption": "Adventure • ember twilight",
+      "summary": "",
+      "environmentalTone": "",
+      "atmosphere": {
+        "timeState": "ember-twilight",
+        "weatherState": "clear-sky",
+        "emotionalField": [],
+        "sensoryNotes": [],
+        "movement": "",
+        "soundscape": {
+          "ambient": [],
+          "wildlife": [],
+          "weather": [],
+          "intensity": ""
+        },
+        "wildlife": [],
+        "weatherEligible": true,
+        "regionSpecific": false
+      },
+      "papaContext": {
+        "tone": "",
+        "promptHints": [],
+        "whisperStyle": ""
+      }
+    }
+  }
+}
+
+ 
 }
