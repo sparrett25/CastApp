@@ -7,26 +7,26 @@ export const REGION_OPTIONS = {
     label: "Florida Freshwater",
     description: "Humid lakes, moss, palms, cranes, and reflective stillness.",
   },
-  "200": {
-    key: "200",
+  "300": {
+    key: "300",
     id: "northern_lakes",
     label: "Northern Lake Country",
     description: "Clear lakes, reeds, pines, cooler evenings, and northern stillness.",
   },
-  "300": {
-    key: "300",
+  "200": {
+    key: "200",
     id: "midwest_pond",
     label: "Midwest Farm Pond",
     description: "Open fields, cattails, fences, grasses, and rural calm.",
   },
-  "400": {
-    key: "400",
+  "500": {
+    key: "500",
     id: "appalachian_creek",
     label: "Appalachian Creek",
     description: "Sheltered creeks, wooded banks, mountain shade, and moving water.",
   },
-  "500": {
-    key: "500",
+  "400": {
+    key: "400",
     id: "pacific_northwest",
     label: "Pacific Northwest",
     description: "Evergreens, mist, cold water, quiet lakes, and deep forest air.",
