@@ -13,6 +13,7 @@ import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
 import {
   getRegionalWaterTypes,
+  getActiveRegionalWaterTypes,
   getSpeciesForWater,
 } from "../data/waterTypeHelpers";
 import { getRegionIdFromKey } from "../data/regionOptions";
@@ -570,7 +571,7 @@ export default function FieldGuidePage() {
   "100";
 
   const activeRegionId = getRegionIdFromKey(activeRegionKey);
-  const regionalWaterTypes = getRegionalWaterTypes(activeRegionId);
+  const regionalWaterTypes = getActiveRegionalWaterTypes(activeRegionId, SPECIES);
   const regionalSpecies = getRegionalSpecies(activeRegionId);
   const regionalGear = getRegionalGear(activeRegionId);
   const regionalTechniques = getRegionalTechniques(activeRegionId);

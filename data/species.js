@@ -3,15 +3,14 @@ export const SPECIES = [
     id: "bluegill",
     slug: "bluegill",
     name: "Bluegill",
-	image: "/images/species/bluegill-sunfish.png",
+	image: "/images/species/bluegill.webp",
     latin: "Lepomis macrochirus",
     category: "panfish",
-	regionIds: ["tampa", "midwest_pond", "appalachian_creek", "pacific_northwest", "northern_lakes"],
+	regionIds: ["tampa", "midwest_pond"],
 	waterTypeIds: ["pond", "lake", "reservoir", "marsh-wetlands", "canal"],
 	gearIds: [],
 	techniqueIds: [],
-    locations: ["backyard-pond", "edward-medard", "hardee-lakes"],
-    unlock_source: "backyard-pond",
+    locations: ["edward-medard", "backyard-pond", "hardee-lakes"],
     difficulty: "beginner",
     tone: ["calm", "responsive", "accessible"],
 
@@ -58,15 +57,14 @@ export const SPECIES = [
     id: "largemouth-bass",
     slug: "largemouth-bass",
     name: "Largemouth Bass",
-	image: "/images/species/florida-largemouth-bass.png",
+	image: "/images/species/florida-largemouth-bass.webp",
     latin: "Micropterus salmoides",
     category: "bass",
-	regionIds: ["tampa", "midwest_pond", "appalachian_creek", "pacific_northwest", "northern_lakes"],
+	regionIds: ["tampa", "midwest_pond"],
 	waterTypeIds: ["pond", "lake", "reservoir", "marsh-wetlands", "canal"],
 	gearIds: [],
 	techniqueIds: [],
     locations: ["edward-medard", "morris-bridge", "hardee-lakes"],
-    unlock_source: "hillsborough-river",
     difficulty: "intermediate",
     tone: ["predatory", "selective", "pattern-based"],
 
@@ -112,7 +110,7 @@ export const SPECIES = [
   id: "redear-sunfish",
   slug: "redear-sunfish",
   name: "Redear Sunfish",
-  image: "/images/species/redear-sunfish.png",
+  image: "/images/species/redear-sunfish.webp",
   latin: "Lepomis microlophus",
   category: "panfish",
 	regionIds: ["tampa"],
@@ -120,7 +118,6 @@ export const SPECIES = [
 	gearIds: [],
 	techniqueIds: [],
   locations: ["edward-medard", "morris-bridge", "hardee-lakes"],
-  unlock_source: "edward-medard",
   difficulty: "beginner",
   tone: ["patient", "subtle", "grounded"],
 
@@ -166,15 +163,14 @@ export const SPECIES = [
   id: "black-crappie",
   slug: "black-crappie",
   name: "Black Crappie",
-  image: "/images/species/black-crappie.png",
+  image: "/images/species/black-crappie.webp",
   latin: "Pomoxis nigromaculatus",
   category: "panfish",
-	regionIds: ["tampa", "midwest_pond", "northern_lakes"],
+	regionIds: ["tampa", "midwest_pond"],
 	waterTypeIds: ["lake", "reservoir", "pond"],
 	gearIds: [],
 	techniqueIds: [],  
   locations: ["edward-medard", "morris-bridge", "hardee-lakes"],
-  unlock_source: "edward-medard",
   difficulty: "intermediate",
   tone: ["timed", "observational", "rhythmic"],
 
@@ -220,15 +216,14 @@ export const SPECIES = [
   id: "channel-catfish",
   slug: "channel-catfish",
   name: "Channel Catfish",
-  image: "/images/species/channel-catfish.png",
+  image: "/images/species/channel-catfish.webp",
   latin: "Ictalurus punctatus",
   category: "catfish",
-	regionIds: ["tampa", "midwest_pond", "northern_lakes"],
+	regionIds: ["tampa", "midwest_pond"],
 	waterTypeIds: ["pond", "lake", "reservoir", "river", "canal"],
 	gearIds: [],
 	techniqueIds: [],
   locations: ["edward-medard", "hardee-lakes"],
-  unlock_source: "hardee-lakes",
   difficulty: "beginner",
   tone: ["patient", "steady", "grounded"],
 
@@ -274,10 +269,10 @@ export const SPECIES = [
   id: "warmouth",
   slug: "warmouth",
   name: "Warmouth",
-  image: "/images/species/warmouth.png",
+  image: "/images/species/warmouth.webp",
   latin: "Lepomis gulosus",
   category: "panfish",
-	regionIds: ["tampa", "appalachian_creek"],
+	regionIds: ["tampa"],
 	waterTypeIds: ["pond", "marsh-wetlands", "creek"],
 	gearIds: [],
 	techniqueIds: [],
@@ -327,7 +322,7 @@ export const SPECIES = [
   id: "bowfin",
   slug: "bowfin",
   name: "Bowfin",
-  image: "/images/species/bowfin.png",
+  image: "/images/species/bowfin.webp",
   latin: "Amia calva",
   category: "predator",
 	regionIds: ["tampa"],
@@ -380,7 +375,7 @@ export const SPECIES = [
   id: "gar",
   slug: "gar",
   name: "Gar",
-  image: "/images/species/gar.png",
+  image: "/images/species/gar.webp",
   latin: "Lepisosteus spp.",
   category: "predator",
 	regionIds: ["tampa"],
@@ -434,7 +429,7 @@ export const SPECIES = [
   id: "sunshine-bass",
   slug: "sunshine-bass",
   name: "Sunshine Bass",
-  image: "/images/species/sunshine-bass.png",
+  image: "/images/species/sunshine-bass.webp",
   latin: "Morone chrysops × Morone saxatilis",
   category: "bass",
 	regionIds: ["tampa"],
@@ -488,7 +483,7 @@ export const SPECIES = [
   id: "rainbow-trout",
   slug: "rainbow-trout",
   name: "Rainbow Trout",
-  image: "/images/species/rainbow-trout.png",
+  image: "/images/species/rainbow-trout.webp",
   latin: "Oncorhynchus mykiss",
   category: "trout",
 
@@ -547,7 +542,7 @@ export const SPECIES = [
   id: "brook-trout",
   slug: "brook-trout",
   name: "Brook Trout",
-  image: "/images/species/brook-trout.png",
+  image: "/images/species/brook-trout.webp",
   latin: "Salvelinus fontinalis",
   category: "trout",
 
@@ -608,7 +603,7 @@ export const SPECIES = [
   id: "smallmouth-bass",
   slug: "smallmouth-bass",
   name: "Smallmouth Bass",
-  image: "/images/species/smallmouth-bass.png",
+  image: "/images/species/smallmouth-bass.webp",
   latin: "Micropterus dolomieu",
   category: "bass",
 
@@ -619,7 +614,8 @@ export const SPECIES = [
   ],
 
   waterTypeIds: [
-    "river",
+    "pond",
+	"river",
     "creek",
     "lake",
     "tailwater"
@@ -679,11 +675,11 @@ export const SPECIES = [
   id: "yellow-perch",
   slug: "yellow-perch",
   name: "Yellow Perch",
-  image: "/images/species/yellow-perch.png",
+  image: "/images/species/yellow-perch.webp",
   latin: "Perca flavescens",
   category: "panfish",
 
-  regionIds: ["northern_lakes", "midwest_pond", "pacific_northwest"],
+  regionIds: ["northern_lakes", "midwest_pond"],
   waterTypeIds: ["pond", "lake", "reservoir"],
 
   gearIds: [],
@@ -734,6 +730,677 @@ export const SPECIES = [
     technique: "Small bait, light jigs, and patient depth control",
     behavior: "Schooling fish that often feed in groups"
   }
-} 
+},
+
+{
+  id: "bullhead",
+  slug: "bullhead",
+  name: "Bullhead",
+  image: "/images/species/bullhead.webp",
+  latin: "Ameiurus spp.",
+  category: "catfish",
+
+  regionIds: ["midwest_pond"],
+  waterTypeIds: ["pond", "creek", "river", "reservoir"],
+
+  gearIds: [],
+  techniqueIds: [],
+
+  locations: [],
+  difficulty: "beginner",
+
+  tone: ["patient", "grounded", "night-water"],
+
+  tagline:
+    "A hardy bottom fish that teaches patience, scent, and trust in quiet water.",
+
+  intro:
+    "Bullhead are often found in slower, muddier water where visibility matters less than scent, stillness, and timing. They reward anglers who are willing to sit longer, fish slower, and trust what they cannot always see.",
+
+  description:
+    "A small catfish often found in ponds, slower rivers, and reservoirs, especially near muddy bottoms, structure, and calmer water.",
+
+  stats: [
+    { label: "Habitat", value: "Slow bottom water" },
+    { label: "Method", value: "Bait + patience" },
+    { label: "Temperament", value: "Steady pull" }
+  ],
+
+  whereTheyHide:
+    "Bullhead often stay near muddy bottoms, deeper pockets, submerged timber, shoreline cover, and calmer stretches where scent can settle naturally through the water.",
+
+  bestTime:
+    "Evenings, cloudy conditions, and lower light often improve bullhead activity, especially in still or slow-moving water.",
+
+  scooterTips: [
+    "Let the bait rest longer than feels necessary.",
+    "Bullhead often find the bait slowly rather than striking quickly.",
+    "Quiet water near the bottom usually matters more than casting far."
+  ],
+
+  whatItFeelsLike:
+    "Bullhead feel like the water answering slowly after you finally stop trying to rush it.",
+
+  papaLine:
+    "Some fish teach patience by making you sit still long enough to notice the rest of the pond.",
+
+  tags: ["catfish", "bottom", "patient", "muddy-water"],
+
+  field_guide: {
+    habitat: "Muddy ponds, slower rivers, and calm bottom water",
+    technique: "Still bait presentation near the bottom",
+    behavior: "Slow-moving bottom feeder that follows scent and vibration"
+  }
+},
+
+{
+  id: "walleye",
+  slug: "walleye",
+  name: "Walleye",
+  image: "/images/species/walleye.webp",
+  latin: "Sander vitreus",
+  category: "predator",
+
+  regionIds: ["northern_lakes"],
+  waterTypeIds: ["lake", "river", "reservoir"],
+
+  gearIds: [],
+  techniqueIds: [],
+
+  locations: [],
+  difficulty: "intermediate",
+
+  tone: ["low-light", "deep-water", "deliberate"],
+
+  tagline:
+    "A low-light predator that teaches patience, depth, and trust in subtle movement.",
+
+  intro:
+    "Walleye are often most active when the light softens and the water quiets. They reward anglers who pay attention to depth, structure, and the slower rhythm of changing evening water.",
+
+  description:
+    "A cool-water predator often found near deeper structure, rocky transitions, current seams, and lower-light feeding zones in lakes, rivers, and reservoirs.",
+
+  stats: [
+    { label: "Habitat", value: "Deep structure + low light" },
+    { label: "Method", value: "Slow presentation" },
+    { label: "Temperament", value: "Subtle strike" }
+  ],
+
+  whereTheyHide:
+    "Walleye often hold near rocky drop-offs, deeper shelves, submerged structure, current seams, and transition zones where light becomes softer and baitfish gather.",
+
+  bestTime:
+    "Early morning, evening, overcast skies, and changing light conditions often improve walleye movement and feeding activity.",
+
+  scooterTips: [
+    "Slow down your presentation more than feels natural.",
+    "Depth changes often matter more than distance.",
+    "Pay attention to the edges where brighter water fades into shadow."
+  ],
+
+  whatItFeelsLike:
+    "A walleye feels like the lake quietly revealing something from deeper water just as the light begins to fade.",
+
+  papaLine:
+    "Some fish wait for the world to soften before they start moving.",
+
+  tags: ["predator", "deep-water", "low-light", "structure"],
+
+  field_guide: {
+    habitat: "Cool lakes, rivers, reservoirs, and rocky structure zones",
+    technique: "Slow presentations near depth transitions and low-light areas",
+    behavior: "Low-light predator that relates closely to structure and depth"
+  }
+},
+
+{
+  id: "northern-pike",
+  slug: "northern-pike",
+  name: "Northern Pike",
+  image: "/images/species/northern-pike.webp",
+  latin: "Esox lucius",
+  category: "predator",
+
+  regionIds: ["northern_lakes"],
+  waterTypeIds: ["pond", "lake", "river", "reservoir", "marsh-wetlands"],
+
+  gearIds: [],
+  techniqueIds: [],
+
+  locations: [],
+  difficulty: "intermediate",
+
+  tone: ["ambush", "stillness", "explosive"],
+
+  tagline:
+    "A quiet northern predator that waits motionless until the water suddenly erupts.",
+
+  intro:
+    "Northern pike often hold near weeds, reeds, structure, and calm edges where they can remain almost perfectly still before striking with sudden force. They reward patience, observation, and attention to quiet cover.",
+
+  description:
+    "A cold-water predator often found near vegetation, weed lines, reeds, shallow structure, and slower edges of lakes, rivers, reservoirs, and northern marsh water.",
+
+  stats: [
+    { label: "Habitat", value: "Weeds + ambush cover" },
+    { label: "Method", value: "Steady retrieve" },
+    { label: "Temperament", value: "Explosive strike" }
+  ],
+
+  whereTheyHide:
+    "Northern pike often remain near weed edges, reeds, submerged vegetation, fallen timber, and calmer structure where baitfish move close enough for sudden ambush strikes.",
+
+  bestTime:
+    "Cool mornings, cloudy conditions, and lower light often improve pike activity, especially near vegetation and shoreline transitions.",
+
+  scooterTips: [
+    "Watch the edges where weeds meet open water.",
+    "Pike often strike after long moments of stillness.",
+    "Steady movement usually works better than rushing the retrieve."
+  ],
+
+  whatItFeelsLike:
+    "A northern pike feels like the quiet edge of the lake suddenly deciding to move.",
+
+  papaLine:
+    "Some predators don’t chase the water. They become part of it until the right moment arrives.",
+
+  tags: ["predator", "weed-edge", "ambush", "northern-water"],
+
+  field_guide: {
+    habitat: "Weed lines, reeds, vegetation, and quiet northern structure",
+    technique: "Steady retrieves near cover and vegetation edges",
+    behavior: "Ambush predator that strikes suddenly from stillness"
+  }
+},
+
+{
+  id: "brown-trout",
+  slug: "brown-trout",
+  name: "Brown Trout",
+  image: "/images/species/brown-trout.webp",
+  latin: "Salmo trutta",
+  category: "trout",
+
+  regionIds: ["northern_lakes"],
+  waterTypeIds: ["creek", "river", "tailwater", "lake"],
+
+  gearIds: [],
+  techniqueIds: [],
+
+  locations: [],
+  difficulty: "intermediate",
+
+  tone: ["cautious", "low-light", "deep-current"],
+
+  tagline:
+    "A cautious trout of deeper runs and fading light that rewards patience, subtlety, and quiet movement.",
+
+  intro:
+    "Brown trout often hold in deeper current, shaded structure, and quieter seams where the water feels older and slower. They reward anglers who move carefully, fish patiently, and trust subtle presentations over force.",
+
+  description:
+    "A cold-water trout often found in rivers, creeks, lakes, and tailwaters with deeper structure, current seams, shaded banks, and cooler water.",
+
+  stats: [
+    { label: "Habitat", value: "Deep current + structure" },
+    { label: "Method", value: "Subtle presentation" },
+    { label: "Temperament", value: "Cautious strike" }
+  ],
+
+  whereTheyHide:
+    "Brown trout often hold near undercut banks, deeper runs, fallen timber, rocky structure, shaded seams, and calmer pockets beside stronger current.",
+
+  bestTime:
+    "Evening, dawn, cloud cover, and softer low-light periods often improve brown trout activity, especially when the water feels calm and quiet.",
+
+  scooterTips: [
+    "Approach slower than feels necessary.",
+    "The best water is often the seam beside stronger current.",
+    "Brown trout usually reward precision more than distance."
+  ],
+
+  whatItFeelsLike:
+    "A brown trout feels like the river quietly revealing something old and careful beneath the current.",
+
+  papaLine:
+    "Some fish teach you that silence and patience are part of the presentation too.",
+
+  tags: ["trout", "low-light", "current", "structure"],
+
+  field_guide: {
+    habitat: "Cool rivers, tailwaters, deeper seams, and shaded structure",
+    technique: "Subtle drifts and careful current presentation",
+    behavior: "Cautious trout that favors depth, cover, and lower light"
+  }
+},
+
+{
+  id: "muskie",
+  slug: "muskie",
+  name: "Muskie",
+  image: "/images/species/muskie.webp",
+  latin: "Esox masquinongy",
+  category: "predator",
+
+  regionIds: ["northern_lakes"],
+  waterTypeIds: ["lake", "river", "reservoir"],
+
+  gearIds: [],
+  techniqueIds: [],
+
+  locations: [],
+  difficulty: "advanced",
+
+  tone: ["mythic", "patient", "elusive"],
+
+  tagline:
+    "A legendary northern predator that rewards patience, persistence, and respect for quiet water.",
+
+  intro:
+    "Muskie are rarely rushed. They move through larger northern water with long periods of silence between moments of sudden presence. More than most fish, they teach patience, humility, and the understanding that some encounters cannot be forced.",
+
+  description:
+    "A large apex predator often found in northern lakes, rivers, and reservoirs near weed edges, structure, deeper transition zones, and quieter ambush water.",
+
+  stats: [
+    { label: "Habitat", value: "Large structured water" },
+    { label: "Method", value: "Persistent casting" },
+    { label: "Temperament", value: "Elusive strike" }
+  ],
+
+  whereTheyHide:
+    "Muskie often move near weed lines, deeper transition zones, rocky points, submerged timber, and broad northern structure where baitfish movement naturally gathers.",
+
+  bestTime:
+    "Low-light periods, changing weather, cloudy conditions, and calm northern evenings often create the strongest muskie movement.",
+
+  scooterTips: [
+    "Fish slowly enough to notice the water changing around you.",
+    "Persistence matters more than rushing.",
+    "Some days the lesson is simply learning how to stay patient."
+  ],
+
+  whatItFeelsLike:
+    "A muskie feels less like catching a fish and more like briefly crossing paths with something the lake almost decided not to reveal.",
+
+  papaLine:
+    "Some fish aren’t meant to be conquered. They’re meant to remind you how deep the water really is.",
+
+  tags: ["predator", "northern-water", "legendary", "patient"],
+
+  field_guide: {
+    habitat: "Large northern lakes, rivers, structure zones, and weed transitions",
+    technique: "Persistent casting near structure and transition water",
+    behavior: "Elusive apex predator known for rare but memorable encounters"
+  }
+},
+
+{
+  id: "salmon",
+  slug: "salmon",
+  name: "Salmon",
+  image: "/images/species/salmon.webp",
+  latin: "Oncorhynchus spp.",
+  category: "migratory",
+
+  regionIds: ["pacific_northwest"],
+  waterTypeIds: ["creek", "river", "tailwater", "lake"],
+
+  gearIds: [],
+  techniqueIds: [],
+
+  locations: [],
+  difficulty: "intermediate",
+
+  tone: ["migratory", "ancestral", "current-driven"],
+
+  tagline:
+    "A migratory fish shaped by current, distance, and the instinct to return upstream.",
+
+  intro:
+    "Salmon move through rivers with purpose. They follow cold current, changing seasons, and pathways older than memory itself, teaching patience, timing, and respect for moving water.",
+
+  description:
+    "A migratory fish often found in rivers, creeks, tailwaters, and connected northern waters where current, seasonal movement, and colder flow shape behavior.",
+
+  stats: [
+    { label: "Habitat", value: "Cold moving water" },
+    { label: "Method", value: "Current presentation" },
+    { label: "Temperament", value: "Powerful run" }
+  ],
+
+  whereTheyHide:
+    "Salmon often move through deeper runs, current seams, river channels, gravel stretches, and colder flowing water connected to seasonal migration paths.",
+
+  bestTime:
+    "Seasonal movement, cooler water, overcast skies, and active river flow often create the strongest salmon activity.",
+
+  scooterTips: [
+    "Watch the current before choosing where to stand.",
+    "Moving water matters more than casting distance.",
+    "Some days are more about timing than technique."
+  ],
+
+  whatItFeelsLike:
+    "A salmon feels like briefly touching something ancient that was already moving long before you arrived.",
+
+  papaLine:
+    "Some fish aren’t just living in the river. They’re returning to it.",
+
+  tags: ["migratory", "river", "current", "pacific-northwest"],
+
+  field_guide: {
+    habitat: "Cold rivers, creeks, tailwaters, and connected migratory water",
+    technique: "Current-aware presentations and reading river movement",
+    behavior: "Migratory fish strongly influenced by seasonal flow and current"
+  }
+},
+
+{
+  id: "steelhead",
+  slug: "steelhead",
+  name: "Steelhead",
+  image: "/images/species/steelhead.webp",
+  latin: "Oncorhynchus mykiss",
+  category: "migratory",
+
+  regionIds: ["pacific_northwest"],
+  waterTypeIds: ["creek", "river", "tailwater"],
+
+  gearIds: [],
+  techniqueIds: [],
+
+  locations: [],
+  difficulty: "advanced",
+
+  tone: ["migratory", "cold-current", "relentless"],
+
+  tagline:
+    "A migratory rainbow trout shaped by cold rivers, long movement, and relentless current.",
+
+  intro:
+    "Steelhead move through rivers with incredible endurance, following cold current and seasonal pathways that can stretch for immense distances. They reward patience, precision, and respect for moving water.",
+
+  description:
+    "A migratory form of rainbow trout often found in cold rivers, creeks, and tailwaters where current, seasonal movement, and oxygen-rich flow shape behavior.",
+
+  stats: [
+    { label: "Habitat", value: "Cold moving current" },
+    { label: "Method", value: "Precise drift" },
+    { label: "Temperament", value: "Powerful run" }
+  ],
+
+  whereTheyHide:
+    "Steelhead often hold near deeper seams, cold runs, softer current pockets, gravel transitions, and structure that breaks heavy river flow.",
+
+  bestTime:
+    "Cool conditions, seasonal runs, cloudy skies, and stronger river movement often improve steelhead activity.",
+
+  scooterTips: [
+    "Current seams matter more than distance.",
+    "Steelhead reward patience more than constant movement.",
+    "Sometimes the river teaches more than the fish does."
+  ],
+
+  whatItFeelsLike:
+    "A steelhead feels like trying to hold onto something built entirely from current and momentum.",
+
+  papaLine:
+    "Some fish spend their whole lives learning how to return against the current.",
+
+  tags: ["steelhead", "migratory", "river", "cold-current"],
+
+  field_guide: {
+    habitat: "Cold rivers, creeks, and tailwaters with strong current",
+    technique: "Precise drifts and current-aware presentations",
+    behavior: "Migratory trout known for endurance, movement, and powerful runs"
+  }
+},
+
+{
+  id: "cutthroat-trout",
+  slug: "cutthroat-trout",
+  name: "Cutthroat Trout",
+  image: "/images/species/cutthroat-trout.webp",
+  latin: "Oncorhynchus clarkii",
+  category: "trout",
+
+  regionIds: ["pacific_northwest"],
+  waterTypeIds: ["pond", "lake", "creek", "river", "tailwater"],
+
+  gearIds: [],
+  techniqueIds: [],
+
+  locations: [],
+  difficulty: "intermediate",
+
+  tone: ["wild", "clear-water", "wilderness-edge"],
+
+  tagline:
+    "A wild trout of clear water, quiet edges, and cold places that still feel untouched.",
+
+  intro:
+    "Cutthroat trout often feel closely tied to place. They belong to clear creeks, forest lakes, cold seams, and quiet water where careful movement matters more than force.",
+
+  description:
+    "A cold-water trout often found in clear creeks, rivers, lakes, tailwaters, and sheltered forest water where clean flow, shade, and subtle presentation matter.",
+
+  stats: [
+    { label: "Habitat", value: "Clear cold water" },
+    { label: "Method", value: "Light presentation" },
+    { label: "Temperament", value: "Careful strike" }
+  ],
+
+  whereTheyHide:
+    "Cutthroat trout often hold near shaded banks, cold seams, deeper pools, submerged cover, lake edges, and quiet pockets where clear water gives them both safety and feeding opportunities.",
+
+  bestTime:
+    "Cool mornings, cloudy skies, shaded water, and calmer low-light periods often improve cutthroat activity, especially in clear water.",
+
+  scooterTips: [
+    "Move quietly before you worry about casting far.",
+    "Clear water means the fish can see more than you think.",
+    "Small presentations often feel more natural in wild water."
+  ],
+
+  whatItFeelsLike:
+    "A cutthroat trout feels like the forest letting you notice one quiet secret beneath the surface.",
+
+  papaLine:
+    "Some fish don’t belong to the map as much as they belong to the place itself.",
+
+  tags: ["trout", "clear-water", "wild", "pacific-northwest"],
+
+  field_guide: {
+    habitat: "Clear creeks, rivers, lakes, tailwaters, and shaded cold water",
+    technique: "Light presentations, quiet approach, and careful current awareness",
+    behavior: "Wild trout that favors clean water, shade, and subtle movement"
+  }
+},
+
+{
+  id: "creek-chub",
+  slug: "creek-chub",
+  name: "Creek Chub",
+  image: "/images/species/creek-chub.webp",
+  latin: "Semotilus atromaculatus",
+  category: "minnow",
+
+  regionIds: ["appalachian_creek"],
+  waterTypeIds: ["creek", "river"],
+
+  gearIds: [],
+  techniqueIds: [],
+
+  locations: [],
+  difficulty: "beginner",
+
+  tone: ["small-water", "curious", "overlooked"],
+
+  tagline:
+    "A small creek fish that teaches curiosity, quiet observation, and attention to overlooked water.",
+
+  intro:
+    "Creek chub live in the smaller rhythms of moving water: shallow runs, rocky bends, shaded pools, and quiet current seams where life often goes unnoticed unless you slow down enough to look.",
+
+  description:
+    "A small freshwater fish commonly found in creeks and smaller rivers with rocky bottoms, current breaks, shallow pools, and shaded moving water.",
+
+  stats: [
+    { label: "Habitat", value: "Small moving water" },
+    { label: "Method", value: "Light bait or observation" },
+    { label: "Temperament", value: "Quick movement" }
+  ],
+
+  whereTheyHide:
+    "Creek chub often gather near shallow pools, rocky seams, undercut banks, calmer current pockets, and smaller areas where food drifts naturally through the creek.",
+
+  bestTime:
+    "Warm afternoons, calmer creek flow, and shaded water often make creek chub easier to notice near the surface and along rocky edges.",
+
+  scooterTips: [
+    "Small fish still teach important lessons about water.",
+    "Watch the current before worrying about catching something big.",
+    "Sometimes noticing movement is more important than making a cast."
+  ],
+
+  whatItFeelsLike:
+    "Creek chub feel like discovering that even the smallest parts of the creek are already alive with motion and attention.",
+
+  papaLine:
+    "Not every fish is there to impress you. Some are there to teach you how to notice.",
+
+  tags: ["creek", "small-water", "native", "observation"],
+
+  field_guide: {
+    habitat: "Rocky creeks, shallow pools, and smaller moving water",
+    technique: "Light tackle, observation, and subtle presentation",
+    behavior: "Small active fish often found in groups near current seams"
+  }
+},
+
+{
+  id: "rock-bass",
+  slug: "rock-bass",
+  name: "Rock Bass",
+  image: "/images/species/rock-bass.webp",
+  latin: "Ambloplites rupestris",
+  category: "panfish",
+
+  regionIds: ["appalachian_creek"],
+  waterTypeIds: ["creek", "river", "lake"],
+
+  gearIds: [],
+  techniqueIds: [],
+
+  locations: [],
+  difficulty: "beginner",
+
+  tone: ["rocky-water", "steady", "hidden-cover"],
+
+  tagline:
+    "A creek and river fish that rewards quiet casts near rock, shade, and slower current pockets.",
+
+  intro:
+    "Rock bass often live close to structure: rocky seams, shaded banks, submerged timber, and calmer pockets beside moving water. They teach anglers to notice smaller holding areas that other fish often overlook.",
+
+  description:
+    "A hardy freshwater fish commonly found in creeks, rivers, and lakes near rock structure, current breaks, timber, and shaded cover.",
+
+  stats: [
+    { label: "Habitat", value: "Rock + shaded cover" },
+    { label: "Method", value: "Light tackle" },
+    { label: "Temperament", value: "Steady strike" }
+  ],
+
+  whereTheyHide:
+    "Rock bass often hold near rock piles, submerged timber, undercut banks, calmer current seams, bridge shadows, and deeper pockets beside moving water.",
+
+  bestTime:
+    "Evenings, shaded water, and calmer current periods often improve rock bass activity, especially near structure.",
+
+  scooterTips: [
+    "Cast beside the rock, not just near it.",
+    "Shade lines and slower seams usually matter more than open current.",
+    "Small pockets of calm water often hold more life than they appear to."
+  ],
+
+  whatItFeelsLike:
+    "A rock bass feels like discovering that the quiet corners of the creek were holding life the entire time.",
+
+  papaLine:
+    "The creek usually hides its lessons beside the rocks, not out in the middle of the current.",
+
+  tags: ["creek", "rock-structure", "shade", "appalachia"],
+
+  field_guide: {
+    habitat: "Rocky creeks, rivers, shaded seams, and submerged structure",
+    technique: "Light casts near rock and calmer current pockets",
+    behavior: "Structure-oriented fish that relates closely to cover and slower seams"
+  }
+},
+
+{
+  id: "redeye-bass",
+  slug: "redeye-bass",
+  name: "Redeye Bass",
+  image: "/images/species/redeye-bass.webp",
+  latin: "Micropterus coosae",
+  category: "bass",
+
+  regionIds: ["appalachian_creek"],
+  waterTypeIds: ["creek", "river"],
+
+  gearIds: [],
+  techniqueIds: [],
+
+  locations: [],
+  difficulty: "intermediate",
+
+  tone: ["mountain-water", "wild", "current-aware"],
+
+  tagline:
+    "A mountain bass of rocky current and hidden southern creeks that rewards quiet movement and careful observation.",
+
+  intro:
+    "Redeye bass live in smaller Appalachian rivers and creeks where current, rock structure, and shaded water shape their behavior. They reward anglers who move carefully and pay attention to the subtle rhythm of mountain current.",
+
+  description:
+    "A native southern bass often found in rocky Appalachian creeks and rivers with clear current, shaded banks, deeper runs, and moving water.",
+
+  stats: [
+    { label: "Habitat", value: "Rocky mountain current" },
+    { label: "Method", value: "Light current casting" },
+    { label: "Temperament", value: "Aggressive strike" }
+  ],
+
+  whereTheyHide:
+    "Redeye bass often hold near rock seams, current breaks, deeper creek runs, fallen timber, shaded bends, and calmer pockets beside moving water.",
+
+  bestTime:
+    "Cool mornings, shaded water, overcast conditions, and active creek current often improve redeye bass movement and feeding activity.",
+
+  scooterTips: [
+    "Watch the current before choosing where to cast.",
+    "Mountain fish often hold closer to structure than you expect.",
+    "Quiet movement along the bank matters as much as the retrieve."
+  ],
+
+  whatItFeelsLike:
+    "A redeye bass feels like the mountain creek suddenly pushing back with more life than the water first revealed.",
+
+  papaLine:
+    "Mountain water teaches you that small rivers can still carry strong fish and old stories.",
+
+  tags: ["bass", "mountain-creek", "current", "appalachia"],
+
+  field_guide: {
+    habitat: "Rocky Appalachian creeks, rivers, and shaded moving water",
+    technique: "Current-aware casts near rock seams and structure",
+    behavior: "Aggressive native bass closely tied to mountain current"
+  }
+}
   
 ];

@@ -41,6 +41,19 @@ export function getRegionalWaterTypes(regionId) {
   return waterTypes.map((water) => getRegionalWaterType(water, regionId));
 }
 
+export function getActiveRegionalWaterTypes(regionId, speciesList = []) {
+  const regionalSpecies = speciesList.filter((species) =>
+    species.regionIds?.includes(regionId)
+  );
+
+  return getRegionalWaterTypes(regionId).filter((water) =>
+    regionalSpecies.some((species) =>
+      species.waterTypeIds?.includes(water.id)
+    )
+  );
+}
+
+
 export function getSpeciesForWater(water, speciesList) {
   if (!water || !Array.isArray(speciesList)) return [];
 
