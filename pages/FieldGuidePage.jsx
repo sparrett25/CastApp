@@ -631,23 +631,40 @@ const backButtonStyle = buttonSecondaryStyle;
   useEffect(() => {
   const navState = location.state;
 
-  if (navState?.section === "species" && navState?.entryId) {
-    const matchedSpecies = SPECIES.find(
+  if (!navState?.section || !navState?.entryId) return;
+
+  if (navState.section === "species") {
+    const matchedSpecies = regionalSpecies.find(
       (s) => s.id === navState.entryId || s.slug === navState.entryId
     );
 
     if (matchedSpecies) {
       setView({
         section: "species",
-        entry: matchedSpecies
+        entry: matchedSpecies,
       });
       return;
     }
 
     setView({ section: "species" });
   }
-}, [location.state]);
 
+  if (navState.section === "waters") {
+    const matchedWater = regionalWaterTypes.find(
+      (w) => w.id === navState.entryId
+    );
+
+    if (matchedWater) {
+      setView({
+        section: "waters",
+        entry: matchedWater,
+      });
+      return;
+    }
+
+    setView({ section: "waters" });
+  }
+}, [location.state, regionalSpecies, regionalWaterTypes]);
   const section = view?.section ?? null;
   const entry = view?.entry ?? null;
 
@@ -687,7 +704,7 @@ const backButtonStyle = buttonSecondaryStyle;
 		  }
 		>
         <div className="fg-page">
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="sync">
 
             {!section && !entry && (
               <motion.div
@@ -842,10 +859,18 @@ const backButtonStyle = buttonSecondaryStyle;
 			  <WaterDetail
 				key={entry.id}
 				water={entry}
-				onBack={backToList}
+				onBack={() => {
+				  navigate("/field-guide", {
+					replace: true,
+					state: null,
+				  });
+
+				  setView({ section: "waters" });
+				}}
 				backButtonStyle={backButtonStyle}
 				onOpenSpecies={(speciesId) => {
 				  const matchedSpecies = SPECIES.find((s) => s.id === speciesId);
+
 				  if (matchedSpecies) {
 					setView({
 					  section: "species",
@@ -855,6 +880,7 @@ const backButtonStyle = buttonSecondaryStyle;
 				}}
 			  />
 			)}
+
             {section === "species" && entry && (
               <SpeciesDetail
 			  key={entry.id}

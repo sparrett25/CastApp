@@ -228,7 +228,7 @@ export default function HomePage() {
                 onClick={() => nav("/trips?filter=upcoming")}
               >
                 <span>Upcoming Trips</span>
-                <small>View or edit planned waters.</small>
+                <small>View planned waters.</small>
               </button>
 
               <button

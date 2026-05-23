@@ -14,6 +14,7 @@ import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
 import { MY_LOCATIONS } from "../data/myLocations";
+import { supabase } from "../lib/supabase";
 
 function SpeciesChip({ label, onClick }) {
   return (
@@ -41,62 +42,6 @@ function SectionBlock({ label, children }) {
       <p className="loc-section-label">{label}</p>
       <div className="loc-section-body">{children}</div>
     </div>
-  );
-}
-
-function AdventureLinkCard({ quest, onOpen, cardTheme, textTheme, chipTheme }) {
-  return (
-    <motion.button
-      className={`loc-adventure-card ${quest.status === "locked" ? "locked" : ""}`}
-      onClick={() => quest.status !== "locked" && onOpen(quest.quest_id)}
-      whileHover={quest.status !== "locked" ? { y: -2 } : {}}
-      transition={{ type: "spring", stiffness: 300, damping: 24 }}
-      style={{
-        background: cardTheme?.bg,
-        border: `1px solid ${cardTheme?.border}`,
-        backdropFilter: `blur(${cardTheme?.blur || "12px"})`,
-        WebkitBackdropFilter: `blur(${cardTheme?.blur || "12px"})`,
-        boxShadow: cardTheme?.shadow,
-        color: textTheme?.primary,
-      }}
-    >
-      <div className="loc-adventure-top">
-        <div>
-          <p className="loc-adventure-eyebrow" style={{ color: textTheme?.secondary }}>
-            Adventure {quest.adventure_number}
-          </p>
-          <h4 className="loc-adventure-title" style={{ color: textTheme?.primary }}>
-            {quest.title}
-          </h4>
-          <p className="loc-adventure-subtitle" style={{ color: textTheme?.secondary }}>
-            {quest.subtitle}
-          </p>
-        </div>
-
-        <span
-          className={`loc-adventure-status ${quest.status}`}
-          style={{
-            background: chipTheme?.activeBg,
-            border: `1px solid ${chipTheme?.border}`,
-            color: chipTheme?.text,
-          }}
-        >
-          {quest.status === "locked" ? "Locked" : "Available"}
-        </span>
-      </div>
-
-      {quest.lore_intro && (
-        <p className="loc-adventure-intro" style={{ color: textTheme?.secondary }}>
-          {quest.lore_intro}
-        </p>
-      )}
-
-      <div className="loc-adventure-footer" style={{ color: textTheme?.secondary }}>
-        {quest.status === "locked"
-          ? "Complete earlier waters to unlock"
-          : "Begin adventure →"}
-      </div>
-    </motion.button>
   );
 }
 
@@ -150,6 +95,7 @@ function LocationDetail({
   onBack,
   onOpenAdventure,
   onOpenSpecies,
+  onOpenWaterType,
   cardTheme,
   textTheme,
   chipTheme,
@@ -160,14 +106,98 @@ function LocationDetail({
     (r) => r.id === location.regionId || r.key === location.regionId
   );
 
-  const locationAdventures = (location.adventureIds || [])
-    .map((id) => grantQuests.quests.find((q) => q.quest_id === id))
-    .filter(Boolean);
+  const [locationCatches, setLocationCatches] = useState([]);
+  const [catchesLoading, setCatchesLoading] = useState(false);
+  const [locationTrips, setLocationTrips] = useState([]);
+  const [tripsLoading, setTripsLoading] = useState(false);
 
   const memoryCount =
     (location.photoUrls?.length || 0) +
     (location.fieldNoteIds?.length || 0) +
     (location.journalEntryIds?.length || 0);
+
+useEffect(() => {
+  let isMounted = true;
+
+  async function loadLocationCatches() {
+    try {
+      setCatchesLoading(true);
+
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+
+      if (userError) throw userError;
+      if (!user) return;
+
+      const { data, error } = await supabase
+        .from("cast_catch_logs")
+        .select("*")
+        .eq("user_id", user.id)
+        .eq("location_key", location.id)
+        .order("catch_date", { ascending: false })
+        .limit(2);
+
+      if (error) throw error;
+
+      if (isMounted) setLocationCatches(data ?? []);
+    } catch (err) {
+      console.error("Location catches load error:", err);
+      if (isMounted) setLocationCatches([]);
+    } finally {
+      if (isMounted) setCatchesLoading(false);
+    }
+  }
+
+  loadLocationCatches();
+
+  return () => {
+    isMounted = false;
+  };
+}, [location.id]);
+
+useEffect(() => {
+  let isMounted = true;
+
+  async function loadLocationTrips() {
+    try {
+      setTripsLoading(true);
+
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+
+      if (userError) throw userError;
+      if (!user) return;
+
+      const { data, error } = await supabase
+        .from("cast_trip_plans")
+        .select("*")
+        .eq("user_id", user.id)
+        .eq("location_key", location.id)
+        .order("trip_date", { ascending: false })
+        .limit(2);
+
+      if (error) throw error;
+
+      if (isMounted) setLocationTrips(data ?? []);
+    } catch (err) {
+      console.error("Location trips load error:", err);
+      if (isMounted) setLocationTrips([]);
+    } finally {
+      if (isMounted) setTripsLoading(false);
+    }
+  }
+
+  loadLocationTrips();
+
+  return () => {
+    isMounted = false;
+  };
+}, [location.id]);
+
 
   return (
     <motion.div
@@ -200,12 +230,19 @@ function LocationDetail({
             </p>
           </div>
 
+
+
           <div className="loc-stat">
-            <p className="loc-stat-label">Water Type</p>
-            <p className="loc-stat-value">
-              {water?.label || location.waterTypeId || "Unassigned"}
-            </p>
-          </div>
+		  <p className="loc-stat-label">Water Type</p>
+
+		  <SpeciesChip
+			label={water?.label || location.waterTypeId || "Unassigned"}
+			onClick={water ? () => onOpenWaterType(water.id) : null}
+		  />
+		</div>
+				  
+		  
+		  
 
           <div className="loc-stat">
             <p className="loc-stat-label">Memories</p>
@@ -272,6 +309,39 @@ function LocationDetail({
             <p>Photos will live here as this place gathers memories.</p>
           )}
         </SectionBlock>
+		
+		<SectionBlock label="Recent catches here">
+		  {catchesLoading ? (
+			<p>Looking through the ledger...</p>
+		  ) : locationCatches.length ? (
+			<div className="loc-chip-row">
+			  {locationCatches.map((entry) => (
+				<span key={entry.id} className="loc-chip">
+				  {entry.species} · {new Date(entry.catch_date).toLocaleDateString()}
+				</span>
+			  ))}
+			</div>
+		  ) : (
+			<p>No catches logged here yet.</p>
+		  )}
+		</SectionBlock>
+
+		<SectionBlock label="Trips planned here">
+		  {tripsLoading ? (
+			<p>Looking through planned waters...</p>
+		  ) : locationTrips.length ? (
+			<div className="loc-chip-row">
+			  {locationTrips.map((trip) => (
+				<span key={trip.id} className="loc-chip">
+				  {trip.timing_label || trip.trip_date || "Planned trip"} ·{" "}
+				  {trip.target_species?.[0] || "Whatever bites"}
+				</span>
+			  ))}
+			</div>
+		  ) : (
+			<p>No trips planned here yet.</p>
+		  )}
+		</SectionBlock>
 
         <SectionBlock label="Field notes">
           {location.fieldNoteIds?.length ? (
@@ -297,22 +367,7 @@ function LocationDetail({
           )}
         </SectionBlock>
 
-        {locationAdventures.length > 0 && (
-          <SectionBlock label="Adventures here">
-            <div className="loc-adventure-stack">
-              {locationAdventures.map((quest) => (
-                <AdventureLinkCard
-                  key={quest.quest_id}
-                  quest={quest}
-                  onOpen={onOpenAdventure}
-                  cardTheme={cardTheme}
-                  textTheme={textTheme}
-                  chipTheme={chipTheme}
-                />
-              ))}
-            </div>
-          </SectionBlock>
-        )}
+        
       </div>
     </motion.div>
   );
@@ -443,7 +498,6 @@ export default function LocationsPage() {
                 key={selectedLocation.id}
                 location={selectedLocation}
                 onBack={() => setSelectedLocation(null)}
-                onOpenAdventure={(questId) => navigate(`/adventures/${questId}`)}
                 onOpenSpecies={(entryId) =>
                   navigate("/field-guide", {
                     state: {
@@ -452,6 +506,15 @@ export default function LocationsPage() {
                     },
                   })
                 }
+				onOpenWaterType={(entryId) =>
+				navigate("/field-guide", {
+				  state: {
+					section: "waters",
+					entryId,
+				  },
+				})
+			  }
+							
                 cardTheme={cardTheme}
                 textTheme={textTheme}
                 chipTheme={chipTheme}

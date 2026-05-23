@@ -105,7 +105,7 @@ const textTheme = ui.text ?? {};
           papa={<PapaMini context={{ event: "Loading saved trip summary" }} />}
         >
           <div className="trip-summary-page">
-		  <div className="trip-summary-card">
+		  <div className="trip-summary-card" style={cardStyle}>
             <p>Loading trip...</p>
           </div>
 		  </div>
@@ -129,12 +129,21 @@ const textTheme = ui.text ?? {};
           <div className="trip-summary-card">
             <p style={{ marginBottom: "1rem" }}>{error || "Trip not found."}</p>
             <div className="trip-summary-actions">
-              <button className="trip-home-btn" onClick={() => nav("/home")}>
-                Back to Home
-              </button>
-              <button className="trip-new-btn" onClick={() => nav("/plan-trip")}>
-                Plan a Trip
-              </button>
+              <button
+			  className="trip-home-btn"
+			  style={primaryButtonStyle}
+			  onClick={() => nav("/trips?filter=upcoming")}
+			>
+			  Back to Trips
+			</button>
+
+			<button
+			  className="trip-new-btn"
+			  style={secondaryButtonStyle}
+			  onClick={() => nav("/plan-trip")}
+			>
+			  Plan another trip
+			</button>
             </div>
           </div>
         </ChamberLayout>
@@ -148,7 +157,7 @@ const textTheme = ui.text ?? {};
     <CastBackground
 	  chamberKey="trip-summary"
 	  variant={scene?.backgroundVariant}
-	  overlay={scene?.timeState?.ui?.overlay}
+	  overlay={ui.overlay}
 	>
       <ChamberLayout
         title="Trip Summary"
@@ -219,8 +228,8 @@ const textTheme = ui.text ?? {};
           </div>
 
           <div className="trip-summary-actions">
-            <button className="trip-home-btn" onClick={() => nav("/home")}>
-              Back to Home
+            <button className="trip-home-btn" onClick={() => nav("/trips")}>
+              Back to Trips
             </button>
             <button className="trip-new-btn" onClick={() => nav("/plan-trip")}>
               Plan another trip

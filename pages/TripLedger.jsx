@@ -80,9 +80,7 @@ function TripCard({
           View
         </button>
 
-        <button style={secondaryButtonStyle} onClick={() => onEdit(trip)}>
-          Edit
-        </button>
+        
 
         <button style={secondaryButtonStyle} onClick={() => onDelete(trip)}>
           Remove

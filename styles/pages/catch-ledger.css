@@ -1,12 +1,12 @@
 /* ── Catch Ledger Page ── */
 
 .ledger-page {
-  padding: 5.5rem 1.5rem 6rem;
+  padding: 4.5rem 1.5rem 6rem;
   max-width: 480px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 2.25rem;
+  gap: 2.00rem;
 }
 
 /* Atmosphere transitions */
@@ -51,7 +51,7 @@
 
 .ledger-page .ledger-add-btn {
   display: block !important;
-  max-width: 340px !important;
+  max-width: 480px !important;
   padding: 0.875rem 1.5rem !important;
   font-size: 0.9rem !important;
   letter-spacing: 0.02em !important;
@@ -212,7 +212,7 @@
 .ledger-entry-card {
   border-radius: 14px;
   padding: 1rem 1.25rem;
-  max-width: 300px;
+  max-width: 480px;
 }
 
 .ledger-entry-card.no-catch {

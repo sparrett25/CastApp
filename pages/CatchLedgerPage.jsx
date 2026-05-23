@@ -7,7 +7,7 @@ import PapaMini from "../components/PapaMini";
 import PapaSpeaks from "../components/PapaSpeaks";
 
 import { supabase } from "../lib/supabase";
-import { getAllLocations } from "../utils/castData";
+import { MY_LOCATIONS } from "../data/myLocations";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
@@ -20,7 +20,7 @@ import {
 import "../styles/pages/catch-ledger.css";
 
 const LOCATION_OPTIONS = [
-  ...getAllLocations().map((loc) => ({
+  ...MY_LOCATIONS.map((loc) => ({
     id: loc.id,
     label: loc.name,
   })),
@@ -186,8 +186,8 @@ function NewEntryForm({
         {LOCATION_OPTIONS.map((l) => (
           <button
             key={l.id}
-            className={`ledger-location-btn ${location === l.label ? "active" : ""}`}
-            style={chipStyle(location === l.label)}
+            className={`ledger-location-btn ${locationKey === l.id ? "active" : ""}`}
+			style={chipStyle(locationKey === l.id)}
             onClick={() => handleLocationPick(l)}
           >
             {l.label}
@@ -394,6 +394,11 @@ export default function CatchLedgerPage() {
   }, []);
 
   const isFirstEntry = entries.length === 0;
+  
+  const [showHistory, setShowHistory] = useState(false);
+  const recentEntries = entries.slice(0, 2);
+  const visibleEntries = showHistory ? entries : recentEntries;
+  
 
   function handleSave(entry) {
     setEntries((current) => [entry, ...current]);
@@ -469,7 +474,7 @@ export default function CatchLedgerPage() {
             )}
           </AnimatePresence>
 
-          {!showForm && entries.length > 0 && (
+          {!showForm && entries.length > 0 && !showHistory && (
             <button
               className="ledger-add-btn"
               onClick={() => setShowForm(true)}
@@ -509,19 +514,33 @@ export default function CatchLedgerPage() {
             </div>
           )}
 
-          {entries.length > 0 && (
-            <div className="ledger-list">
-              {entries.map((entry) => (
-                <EntryCard
-                  key={entry.id}
-                  entry={entry}
-                  cardStyle={cardStyle}
-                  chipTheme={chipTheme}
-                  textTheme={textTheme}
-                />
-              ))}
-            </div>
-          )}
+          {entries.length > 0 && !showForm && (
+			  <>
+				<div className="ledger-list">
+				  {visibleEntries.map((entry) => (
+					<EntryCard
+					  key={entry.id}
+					  entry={entry}
+					  cardStyle={cardStyle}
+					  chipTheme={chipTheme}
+					  textTheme={textTheme}
+					/>
+				  ))}
+				</div>
+
+				{entries.length > 2 && (
+				  <button
+					className="ledger-history-btn"
+					style={buttonSecondaryStyle}
+					onClick={() => setShowHistory((v) => !v)}
+				  >
+					{showHistory ? "← Recent catches" : "View full catch history →"}
+				  </button>
+				)}
+			  </>
+			)}
+	  
+		  
         </div>
       </ChamberLayout>
     </CastBackground>

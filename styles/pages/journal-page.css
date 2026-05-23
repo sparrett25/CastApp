@@ -158,10 +158,11 @@
   resize: none;
   outline: none;
   box-sizing: border-box;
+  opacity: 0.68
 }
 
 .journal-textarea::placeholder {
-  opacity: 0.48;
+  opacity: 0.68;
   font-style: italic;
 }
 
