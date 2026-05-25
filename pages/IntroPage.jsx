@@ -95,7 +95,7 @@ export default function IntroPage() {
     : atmosphere.scene;
 
 const atmospherePacket = buildAtmospherePacket({
-  page: "home",
+  page: "intro",
   region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
   timeState: scene?.timeState?.key,
   weatherState: scene?.weatherState?.key || "clear-sky",

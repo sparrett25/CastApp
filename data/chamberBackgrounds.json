@@ -448,7 +448,7 @@
       }
     },
     "pages": {
-      "authpage": {
+      "authPage": {
         "label": "Login",
         "normalizedKey": "auth-page",
         "purpose": "threshold entry",
@@ -490,7 +490,7 @@
         "overlaySummary": "Home is the central dock where the user returns to orient, choose, and remember what is next. Its atmosphere should feel grounded and companionable, balancing exploration, calm, and continuity.",
         "papaPurposeHint": "Home is the central dock where the user returns to orient, choose, and remember what is next. Its atmosphere should feel grounded and companionable, balancing exploration, calm, and continuity."
       },
-      "field-guide": {
+      "fieldGuide": {
         "label": "Field Guide",
         "normalizedKey": "field-guide",
         "purpose": "learning, ecology, and reference",
@@ -499,7 +499,7 @@
           "clarity",
           "gentle instruction"
         ],
-        "defaultFallbackKey": "fieldGuide.open",
+        "defaultFallbackKey": "field-guide.open",
         "summary": "The Field Guide should feel like patient ecological learning rather than a technical manual. Its atmosphere supports curiosity, confidence, and grounded understanding of species, waters, gear, and techniques.",
         "overlaySummary": "The Field Guide should feel like patient ecological learning rather than a technical manual. Its atmosphere supports curiosity, confidence, and grounded understanding of species, waters, gear, and techniques.",
         "papaPurposeHint": "The Field Guide should feel like patient ecological learning rather than a technical manual. Its atmosphere supports curiosity, confidence, and grounded understanding of species, waters, gear, and techniques."
@@ -518,7 +518,7 @@
         "overlaySummary": "Locations are memory anchors where places gather catches, trips, reflections, and field notes over time. The atmosphere should feel rooted, relational, and quietly observant, as if each water is becoming known through return.",
         "papaPurposeHint": "Locations are memory anchors where places gather catches, trips, reflections, and field notes over time. The atmosphere should feel rooted, relational, and quietly observant, as if each water is becoming known through return."
       },
-      "catch-ledger": {
+      "catchLedger": {
         "label": "Catch Log",
         "normalizedKey": "catch-ledger",
         "purpose": "recording catches and near-water moments",
@@ -546,12 +546,9 @@
         "overlaySummary": "The Journal is a private reflective chamber where atmosphere supports emotional processing and memory. Its tone should feel safe, unhurried, and sensory, allowing the user to notice what the day, water, and inner field revealed.",
         "papaPurposeHint": "The Journal is a private reflective chamber where atmosphere supports emotional processing and memory. Its tone should feel safe, unhurried, and sensory, allowing the user to notice what the day, water, and inner field revealed."
       },
-      "papa-dock": {
+      "papaDock": {
         "label": "Talk to Papa",
         "normalizedKey": "papa-dock",
-        "aliases": [
-          "papd-dock"
-        ],
         "purpose": "conversation, companionship, and guidance",
         "pageTone": [
           "companionship",
@@ -563,7 +560,21 @@
         "overlaySummary": "Talk to Papa is a conversational dock for guidance, reassurance, fishing questions, and quiet reflection. Its atmosphere should feel warm, steady, and relational, like speaking with someone patient beside the water.",
         "papaPurposeHint": "Talk to Papa is a conversational dock for guidance, reassurance, fishing questions, and quiet reflection. Its atmosphere should feel warm, steady, and relational, like speaking with someone patient beside the water."
       },
-      "plan-trip": {
+	  "trips": {
+        "label": "Trips",
+        "normalizedKey": "trips",
+        "purpose": "intention setting and trip planning",
+        "pageTone": [
+          "anticipation",
+          "preparation",
+          "curiosity"
+        ],
+        "defaultFallbackKey": "trips.open",
+        "summary": "Plan Trip turns intention into a simple path toward the water. Its atmosphere should feel anticipatory but calm, helping the user choose when, where, and how to go without making planning feel administrative.",
+        "overlaySummary": "Plan Trip turns intention into a simple path toward the water. Its atmosphere should feel anticipatory but calm, helping the user choose when, where, and how to go without making planning feel administrative.",
+        "papaPurposeHint": "Plan Trip turns intention into a simple path toward the water. Its atmosphere should feel anticipatory but calm, helping the user choose when, where, and how to go without making planning feel administrative."
+      },
+      "planTrip": {
         "label": "Plan Trip",
         "normalizedKey": "plan-trip",
         "purpose": "intention setting and trip planning",
@@ -577,7 +588,7 @@
         "overlaySummary": "Plan Trip turns intention into a simple path toward the water. Its atmosphere should feel anticipatory but calm, helping the user choose when, where, and how to go without making planning feel administrative.",
         "papaPurposeHint": "Plan Trip turns intention into a simple path toward the water. Its atmosphere should feel anticipatory but calm, helping the user choose when, where, and how to go without making planning feel administrative."
       },
-      "trip-summary": {
+      "tripSummary": {
         "label": "Trip Summary",
         "normalizedKey": "trip-summary",
         "purpose": "reviewing a planned outing",
@@ -623,7 +634,7 @@
     }
   },
   "chambers": {
-    "authpage": {
+    "authPage": {
       "label": "Login",
       "normalizedKey": "auth-page",
       "aliases": [],
@@ -1748,7 +1759,7 @@
       "summary": "Locations are memory anchors where places gather catches, trips, reflections, and field notes over time. The atmosphere should feel rooted, relational, and quietly observant, as if each water is becoming known through return.",
       "overlaySummary": "Locations are memory anchors where places gather catches, trips, reflections, and field notes over time. The atmosphere should feel rooted, relational, and quietly observant, as if each water is becoming known through return."
     },
-    "catch-ledger": {
+    "catchLedger": {
       "label": "Catch Log",
       "normalizedKey": "catch-ledger",
       "aliases": [],
@@ -2198,12 +2209,9 @@
       "summary": "The Journal is a private reflective chamber where atmosphere supports emotional processing and memory. Its tone should feel safe, unhurried, and sensory, allowing the user to notice what the day, water, and inner field revealed.",
       "overlaySummary": "The Journal is a private reflective chamber where atmosphere supports emotional processing and memory. Its tone should feel safe, unhurried, and sensory, allowing the user to notice what the day, water, and inner field revealed."
     },
-    "papa-dock": {
+    "papaDock": {
       "label": "Talk to Papa",
       "normalizedKey": "papa-dock",
-      "aliases": [
-        "papd-dock"
-      ],
       "status": "active",
       "default": {
         "caption": "Talk to Papa \u2022 default atmosphere",
@@ -2425,7 +2433,7 @@
       "summary": "Talk to Papa is a conversational dock for guidance, reassurance, fishing questions, and quiet reflection. Its atmosphere should feel warm, steady, and relational, like speaking with someone patient beside the water.",
       "overlaySummary": "Talk to Papa is a conversational dock for guidance, reassurance, fishing questions, and quiet reflection. Its atmosphere should feel warm, steady, and relational, like speaking with someone patient beside the water."
     },
-    "plan-trip": {
+    "planTrip": {
       "label": "Plan Trip",
       "normalizedKey": "plan-trip",
       "aliases": [],
@@ -2650,7 +2658,7 @@
       "summary": "Plan Trip turns intention into a simple path toward the water. Its atmosphere should feel anticipatory but calm, helping the user choose when, where, and how to go without making planning feel administrative.",
       "overlaySummary": "Plan Trip turns intention into a simple path toward the water. Its atmosphere should feel anticipatory but calm, helping the user choose when, where, and how to go without making planning feel administrative."
     },
-    "trip-summary": {
+    "tripSummary": {
       "label": "Trip Summary",
       "normalizedKey": "trip-summary",
       "aliases": [],

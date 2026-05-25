@@ -346,7 +346,7 @@ export default function CatchLedgerPage() {
   const styles = atmosphere.styles ?? {};
 
 const atmospherePacket = buildAtmospherePacket({
-  page: "home",
+  page: "catchLedger",
   region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
   timeState: scene?.timeState?.key,
   weatherState: scene?.weatherState?.key || "clear-sky",
@@ -445,14 +445,14 @@ const atmospherePacket = buildAtmospherePacket({
 
   return (
     <CastBackground
-      chamberKey="catch-ledger"
+      chamberKey="catchLedger"
       variant={scene?.backgroundVariant}
       overlay={ui.overlay}
     >
       <ChamberLayout
         papa={
           <PapaMini
-            context={buildPapaPageContext("catch ledger", {
+            context={buildPapaPageContext("catch-ledger", {
               ...papaContext,
               entriesSummary: buildEntriesSummary(entries),
             })}
@@ -473,7 +473,7 @@ const atmospherePacket = buildAtmospherePacket({
               >
                 <p className="adv-voice-attr">Papa</p>
                 <PapaSpeaks
-                  context={buildPapaPageContext("catch ledger", {
+                  context={buildPapaPageContext("catch-ledger", {
                     user: profilePacket,
                     atmosphere: scene,
                     event: `${displayName} just logged a new catch.`,

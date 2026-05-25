@@ -9,10 +9,13 @@ import "../styles/pages/trip-summary.css";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
+import { useProfile } from "../context/ProfileContext";
 
 export default function TripSummary() {
   const nav = useNavigate();
   const location = useLocation();
+  
+  const { profilePacket } = useProfile();
   
     const DEBUG_SCENE = null;
 
@@ -25,17 +28,7 @@ const scene = DEBUG_SCENE
 const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
 const styles = atmosphere.styles ?? {};
 
-const atmospherePacket = buildAtmospherePacket({
-  page: "home",
-  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
-  timeState: scene?.timeState?.key,
-  weatherState: scene?.weatherState?.key || "clear-sky",
-  user: profilePacket,
-  context: {
-    hasUpcomingTrip: Boolean(upcomingTrip),
-    activeAdventure,
-  },
-});
+
 
 const cardStyle = styles.cardStyle ?? {};
 const primaryButtonStyle = styles.buttonPrimaryStyle ?? {};
@@ -50,6 +43,18 @@ const textTheme = ui.text ?? {};
   const [trip, setTrip] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  
+  const atmospherePacket = buildAtmospherePacket({
+  page: "tripSummary",
+  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  timeState: scene?.timeState?.key,
+  weatherState: scene?.weatherState?.key || "clear-sky",
+  user: profilePacket,
+  
+});
+  
+  
+  
 
   useEffect(() => {
     let isMounted = true;
@@ -129,7 +134,7 @@ const textTheme = ui.text ?? {};
   if (error || !trip) {
     return (
       <CastBackground
-	  chamberKey="trip-summary"
+	  chamberKey="tripSummary"
 	  variant={scene?.backgroundVariant}
 	  overlay={scene?.timeState?.ui?.overlay}
 	>

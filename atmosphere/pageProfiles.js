@@ -58,13 +58,13 @@ export const pageProfiles = {
 
     scenes: {
       default: {
-		  "blue-hour-dawn": "fieldguide_blue_hour_dawn",
-		  "first-light": "fieldguide_first_light",
-		  "soft-morning-rise": "fieldguide_soft_morning_rise",
-		  "warm-drift": "fieldguide_warm_drift",
-		  "golden-dusk": "fieldguide_golden_dusk",
-		  "quiet-evening-glow": "fieldguide_quiet_evening_glow",
-		  "ember-twilight": "fieldguide_ember_twilight",
+		  "blue-hour-dawn": "field_guide_blue_hour_dawn",
+		  "first-light": "field_guide_first_light",
+		  "soft-morning-rise": "field_guide_soft_morning_rise",
+		  "warm-drift": "field_guide_warm_drift",
+		  "golden-dusk": "field_guide_golden_dusk",
+		  "quiet-evening-glow": "field_guide_quiet_evening_glow",
+		  "ember-twilight": "field_guide_ember_twilight",
 		},
       seasonal: {},
       special: {},
@@ -94,6 +94,29 @@ export const pageProfiles = {
       special: {},
     },
   },
+  
+  
+trips: {
+  id: "trips",
+  label: "Trips",
+  role: "preparation",
+    uiStyle: "guidedFlow",
+    emotionalTone: ["intentional", "anticipatory", "calm"],
+    pacing: "guided",
+    papaWhisperStyle: "preparing",
+  
+  scenes: {
+    default: {
+      "blue-hour-dawn": "trips_blue_hour_dawn",
+      "first-light": "trips_first_light",
+      "soft-morning-rise": "trips_soft_morning_rise",
+      "warm-drift": "trips_warm_drift",
+      "golden-dusk": "trips_golden_dusk",
+      "quiet-evening-glow": "trips_quiet_evening_glow",
+      "ember-twilight": "trips_ember_twilight",
+    }
+  }
+},
 
   planTrip: {
     id: "planTrip",
@@ -106,18 +129,45 @@ export const pageProfiles = {
 
     scenes: {
       default: {
-		  "blue-hour-dawn": "plantrip_blue_hour_dawn",
-		  "first-light": "plantrip_first_light",
-		  "soft-morning-rise": "plantrip_soft_morning_rise",
-		  "warm-drift": "plantrip_warm_drift",
-		  "golden-dusk": "plantrip_golden_dusk",
-		  "quiet-evening-glow": "plantrip_quiet_evening_glow",
-		  "ember-twilight": "plantrip_ember_twilight",
+		  "blue-hour-dawn": "plan_trip_blue_hour_dawn",
+		  "first-light": "plan_trip_first_light",
+		  "soft-morning-rise": "plan_trip_soft_morning_rise",
+		  "warm-drift": "plan_trip_warm_drift",
+		  "golden-dusk": "plan_trip_golden_dusk",
+		  "quiet-evening-glow": "plan_trip_quiet_evening_glow",
+		  "ember-twilight": "plan_trip_ember_twilight",
 		},
       seasonal: {},
       special: {},
     },
   },
+  
+   
+  tripSummary: {
+    id: "tripSummary",
+    label: "Trip Summary",
+    role: "preparation",
+    uiStyle: "guidedFlow",
+    emotionalTone: ["intentional", "anticipatory", "calm"],
+    pacing: "guided",
+    papaWhisperStyle: "preparing",
+
+    scenes: {
+      default: {
+		  "blue-hour-dawn": "trip_summary_blue_hour_dawn",
+		  "first-light": "trip_summary_first_light",
+		  "soft-morning-rise": "trip_summary_soft_morning_rise",
+		  "warm-drift": "trip_summary_warm_drift",
+		  "golden-dusk": "trip_summary_golden_dusk",
+		  "quiet-evening-glow": "trip_summary_quiet_evening_glow",
+		  "ember-twilight": "trip_summary_ember_twilight",
+		},
+      seasonal: {},
+      special: {},
+    },
+  },
+  
+  
 
   catchLedger: {
     id: "catchLedger",
@@ -130,13 +180,13 @@ export const pageProfiles = {
 
     scenes: {
       default: {
-		  "blue-hour-dawn": "catchledger_blue_hour_dawn",
-		  "first-light": "catchledger_first_light",
-		  "soft-morning-rise": "catchledger_soft_morning_rise",
-		  "warm-drift": "catchledger_warm_drift",
-		  "golden-dusk": "catchledger_golden_dusk",
-		  "quiet-evening-glow": "catchledger_quiet_evening_glow",
-		  "ember-twilight": "catchledger_ember_twilight",
+		  "blue-hour-dawn": "catch_ledger_blue_hour_dawn",
+		  "first-light": "catch_ledger_first_light",
+		  "soft-morning-rise": "catch_ledger_soft_morning_rise",
+		  "warm-drift": "catch_ledger_warm_drift",
+		  "golden-dusk": "catch_ledger_golden_dusk",
+		  "quiet-evening-glow": "catch_ledger_quiet_evening_glow",
+		  "ember-twilight": "catch_ledger_ember_twilight",
 		},
       seasonal: {},
       special: {},
@@ -178,13 +228,13 @@ export const pageProfiles = {
 
     scenes: {
       default: {
-		  "blue-hour-dawn": "papa_blue_hour_dawn",
-		  "first-light": "papa_first_light",
-		  "soft-morning-rise": "papa_soft_morning_rise",
-		  "warm-drift": "papa_warm_drift",
-		  "golden-dusk": "papa_golden_dusk",
-		  "quiet-evening-glow": "papa_quiet_evening_glow",
-		  "ember-twilight": "papa_ember_twilight",
+		  "blue-hour-dawn": "talk_blue_hour_dawn",
+		  "first-light": "talk_first_light",
+		  "soft-morning-rise": "talk_soft_morning_rise",
+		  "warm-drift": "talk_warm_drift",
+		  "golden-dusk": "talk_golden_dusk",
+		  "quiet-evening-glow": "talk_quiet_evening_glow",
+		  "ember-twilight": "talk_ember_twilight",
 		},
       seasonal: {},
       special: {},
@@ -225,13 +275,13 @@ export const pageProfiles = {
 
     scenes: {
       default: {
-		  "blue-hour-dawn": "authpage_blue_hour_dawn",
-		  "first-light": "authpage_first_light",
-		  "soft-morning-rise": "authpage_soft_morning_rise",
-		  "warm-drift": "authpage_warm_drift",
-		  "golden-dusk": "authpage_golden_dusk",
-		  "quiet-evening-glow": "authpage_quiet_evening_glow",
-		  "ember-twilight": "authpage_ember_twilight",
+		  "blue-hour-dawn": "auth_page_blue_hour_dawn",
+		  "first-light": "auth_page_first_light",
+		  "soft-morning-rise": "auth_page_soft_morning_rise",
+		  "warm-drift": "auth_page_warm_drift",
+		  "golden-dusk": "auth_page_golden_dusk",
+		  "quiet-evening-glow": "auth_page_quiet_evening_glow",
+		  "ember-twilight": "auth_page_ember_twilight",
 		},
       seasonal: {},
       special: {},

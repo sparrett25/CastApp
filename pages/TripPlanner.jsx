@@ -211,15 +211,19 @@ export default function TripPlanner() {
     : atmosphere.scene;
 
 const atmospherePacket = buildAtmospherePacket({
-  page: "home",
+  page: "planTrip",
   region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
   timeState: scene?.timeState?.key,
   weatherState: scene?.weatherState?.key || "clear-sky",
   user: profilePacket,
   context: {
-    hasUpcomingTrip: Boolean(upcomingTrip),
-    activeAdventure,
-  },
+  step,
+  isEditing,
+  selectedWater,
+  selectedTarget,
+  selectedDuration,
+  hasResolvedDate: Boolean(resolvedDate),
+},
 });
 
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
@@ -314,7 +318,7 @@ const atmospherePacket = buildAtmospherePacket({
         ? "The angler has updated a fishing trip."
         : "The angler has planned a fishing trip.";
 
-    return buildPapaPageContext("plan trip", {
+    return buildPapaPageContext("planTrip", {
       user: profilePacket,
       atmosphere: atmospherePacket,
 	  scene,
@@ -327,7 +331,7 @@ const atmospherePacket = buildAtmospherePacket({
     if (!trip) return null;
 
     return {
-      page: "plan trip",
+      page: "planTrip",
       user: profilePacket,
       atmosphere: atmospherePacket,
 	  scene,
@@ -443,7 +447,7 @@ const atmospherePacket = buildAtmospherePacket({
   if (loadingTrip) {
     return (
       <CastBackground
-        chamberKey="plan-trip"
+        chamberKey="planTrip"
         variant={scene?.backgroundVariant}
         overlay={ui.overlay}
       >
@@ -451,7 +455,7 @@ const atmospherePacket = buildAtmospherePacket({
           papa={
             <PapaMini
               context={{
-                page: "plan trip",
+                page: "planTrip",
                 user: profilePacket,
                 atmosphere: atmospherePacket,
 				scene,
@@ -473,7 +477,7 @@ const atmospherePacket = buildAtmospherePacket({
 
   return (
     <CastBackground
-      chamberKey="plan-trip"
+      chamberKey="planTrip"
       variant={scene?.backgroundVariant}
       overlay={ui.overlay}
     >

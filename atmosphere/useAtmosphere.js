@@ -59,9 +59,33 @@ function buildAtmosphereStyles(ui = {}) {
 export function useAtmosphere(pageId, options = {}) {
   const hour = new Date().getHours();
 
-  const atmosphere = useMemo(() => {
-    return getSceneByPageAndTime(pageId, hour, options);
-  }, [pageId, hour, options]);
+const normalizedOptions = useMemo(() => {
+  return {
+    ...options,
+    user: {
+      ...(options.user ?? {}),
+      time_state_override:
+        options.user?.time_state_override ??
+        options.user?.timeStateOverride ??
+        options.context?.timeStateOverride ??
+        null,
+      weather_state_override:
+        options.user?.weather_state_override ??
+        options.user?.weatherStateOverride ??
+        options.context?.weatherStateOverride ??
+        null,
+    },
+    context: {
+      ...(options.context ?? {}),
+    },
+  };
+}, [options]);
+
+
+
+ const atmosphere = useMemo(() => {
+  return getSceneByPageAndTime(pageId, hour, normalizedOptions);
+}, [pageId, hour, normalizedOptions]);
 
 const ui = mergeAtmosphereUi(
   atmosphere?.timeState?.ui ?? {},

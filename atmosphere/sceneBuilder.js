@@ -87,6 +87,8 @@ const Scenes = {
   ...makeDailyScenes("fieldGuide", "field_guide"),
   ...makeDailyScenes("locations", "locations"),
   ...makeDailyScenes("planTrip", "plan_trip"),
+  ...makeDailyScenes("trips", "trips"),
+  ...makeDailyScenes("tripSummary", "trip_summary"),  
   ...makeDailyScenes("catchLedger", "catch_ledger"),
   ...makeDailyScenes("journal", "journal"),
   ...makeDailyScenes("papaDock", "talk"),

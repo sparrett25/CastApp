@@ -27,6 +27,10 @@ export function buildProfilePacket(profile) {
     papaPresenceKey: profile.papa_presence_key,
     regionKey: profile.region_key || DEFAULT_REGION_KEY,
     region_key: profile.region_key || DEFAULT_REGION_KEY,
+	timeStateOverride: profile.time_state_override || null,
+	time_state_override: profile.time_state_override || null,
+	weatherStateOverride: profile.weather_state_override || null,
+	weather_state_override: profile.weather_state_override || null,
     role: profile.role,
   };
 }

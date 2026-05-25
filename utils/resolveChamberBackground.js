@@ -13,31 +13,33 @@ const TIME_OFFSET = {
 };
 
 const CHAMBER_FOLDER_MAP = {
-  intro: "papaintro", 
+  intro: "intro", 
   papaDock: "papadock",
   home: "home",
-  "field-guide": "fieldguide",
+  fieldGuide: "fieldguide",
   locations: "locations",
-  "plan-trip": "plantrip",
-  "trip-summary": "plantrip",
+  trips: "trips",
+  tripSummary: "tripsummary",
+  planTrip: "plantrip",
   journal: "journal",
-  "catch-ledger": "catchledger",
+  catchLedger: "catchledger",
   profile: "profile",
-  authpage: "authpage",
+  authPage: "authpage",
 };
 
 const FILE_SLUG_MAP = {
   intro: "intro",
   papaDock: "papadock",
   home: "home",
-  "field-guide": "fieldguide",
+  fieldGuide: "fieldguide",
   locations: "locations",
-  "plan-trip": "plantrip",
-  "trip-summary": "plantrip",
+  trips: "trips",
+  tripSummary: "tripsummary",
+  planTrip: "plantrip",
   journal: "journal",
-  "catch-ledger": "catchledger",
+  catchLedger: "catchledger",
   profile: "profile",
-  authpage: "authpage",
+  authPage: "authpage",
 };
 
 export function resolveChamberBackgroundSrc({

@@ -410,15 +410,12 @@ export default function LocationsPage() {
 
 
 const atmospherePacket = buildAtmospherePacket({
-  page: "home",
+  page: "locations",
   region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
   timeState: scene?.timeState?.key,
   weatherState: scene?.weatherState?.key || "clear-sky",
   user: profilePacket,
-  context: {
-    hasUpcomingTrip: Boolean(upcomingTrip),
-    activeAdventure,
-  },
+  
 });
 
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};

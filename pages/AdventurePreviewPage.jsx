@@ -37,7 +37,7 @@ export default function AdventurePreviewPage() {
   const nav = useNavigate();
   const { profilePacket } = useProfile();
 
-  const atmosphere = useAtmosphere("adventures", {
+  const atmosphere = useAtmosphere("adventures-preview", {
     user: profilePacket,
     context: {
       preview: true,
@@ -48,7 +48,7 @@ export default function AdventurePreviewPage() {
   const scene = atmosphere.scene;
   
   const atmospherePacket = buildAtmospherePacket({
-  page: "home",
+  page: "adventures-preview",
   region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
   timeState: scene?.timeState?.key,
   weatherState: scene?.weatherState?.key || "clear-sky",
@@ -77,7 +77,7 @@ export default function AdventurePreviewPage() {
 
   return (
     <CastBackground
-      chamberKey="journal"
+      chamberKey="adventures-preview"
       variant={scene?.backgroundVariant}
       overlay={ui.overlay}
     >

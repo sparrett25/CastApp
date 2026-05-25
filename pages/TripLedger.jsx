@@ -98,7 +98,7 @@ export default function TripLedger() {
   
   const DEBUG_SCENE = null;
 
- const atmosphere = useAtmosphere("tripLedger", {
+ const atmosphere = useAtmosphere("trips", {
   user: profilePacket,
 });
 
@@ -110,15 +110,12 @@ export default function TripLedger() {
   const styles = atmosphere.styles ?? {};
 
 const atmospherePacket = buildAtmospherePacket({
-  page: "home",
+  page: "trips",
   region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
   timeState: scene?.timeState?.key,
   weatherState: scene?.weatherState?.key || "clear-sky",
   user: profilePacket,
-  context: {
-    hasUpcomingTrip: Boolean(upcomingTrip),
-    activeAdventure,
-  },
+  
 });
 
 const chipStyle = {
@@ -227,7 +224,7 @@ const displayName =
     activeFilter === "past" ? pastTrips : upcomingTrips;
 
   const papaContext = {
-    page: "trip ledger",
+    page: "trips",
     atmosphere: atmospherePacket,
 	scene,
     context: {
@@ -277,7 +274,7 @@ const displayName =
 
   return (
     <CastBackground
-      chamberKey="plan-trip"
+      chamberKey="planTrip"
       variant={scene?.backgroundVariant}
       overlay={ui.overlay}
     >

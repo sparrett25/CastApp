@@ -607,7 +607,7 @@ const scene = DEBUG_SCENE
 
 
 const atmospherePacket = buildAtmospherePacket({
-  page: "home",
+  page: "fieldGuide",
   region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
   timeState: scene?.timeState?.key,
   weatherState: scene?.weatherState?.key || "clear-sky",
@@ -681,7 +681,7 @@ const backButtonStyle = buttonSecondaryStyle;
   const entry = view?.entry ?? null;
 
   const papaContext = {
-  page: "field-guide",
+  page: "fieldGuide",
   user: profilePacket,
   atmosphere: atmospherePacket,
   scene,
@@ -703,7 +703,7 @@ const backButtonStyle = buttonSecondaryStyle;
 
   return (
     <CastBackground
-	  chamberKey="field-guide"
+	  chamberKey="fieldGuide"
 	  variant={scene?.backgroundVariant}
 	  overlay={ui.overlay}
 	>
