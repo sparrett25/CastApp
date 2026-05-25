@@ -15,6 +15,7 @@ import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
 import { MY_LOCATIONS } from "../data/myLocations";
 import { supabase } from "../lib/supabase";
+import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 
 function SpeciesChip({ label, onClick }) {
   return (
@@ -407,6 +408,19 @@ export default function LocationsPage() {
       })
     : atmosphere.scene;
 
+
+const atmospherePacket = buildAtmospherePacket({
+  page: "home",
+  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  timeState: scene?.timeState?.key,
+  weatherState: scene?.weatherState?.key || "clear-sky",
+  user: profilePacket,
+  context: {
+    hasUpcomingTrip: Boolean(upcomingTrip),
+    activeAdventure,
+  },
+});
+
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
   const styles = atmosphere.styles ?? {};
 
@@ -427,7 +441,8 @@ export default function LocationsPage() {
   const papaContext = {
     page: "locations",
     user: profilePacket,
-    atmosphere: scene,
+    atmosphere: atmospherePacket,
+	scene,
     view: selectedLocation ? "entry" : "home",
     locationName: selectedLocation?.name || null,
     locationType: selectedLocation?.waterTypeId || null,

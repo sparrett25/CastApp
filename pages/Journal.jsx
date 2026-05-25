@@ -11,6 +11,8 @@ import { buildPapaPageContext } from "../utils/buildPapaPageContext";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
+import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
+
 
 const PROMPTS = [
   "What did you notice today that you usually walk past?",
@@ -79,6 +81,20 @@ export default function JournalPage() {
       },
     })
   : atmosphere.scene;
+  
+  const atmospherePacket = buildAtmospherePacket({
+  page: "journal",
+  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  timeState: scene?.timeState?.key,
+  weatherState: scene?.weatherState?.key || "clear-sky",
+  user: profilePacket,
+  context: {
+    mode: saved ? "saved" : "writing",
+    hasText,
+    wordCount,
+    selectedPrompt,
+  },
+});
 
 const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
 const styles = atmosphere.styles ?? {};
@@ -204,7 +220,8 @@ const handlePapaResponse = async (line) => {
 			<PapaMini
 			  context={buildPapaPageContext("journal", {
 				user: profilePacket,
-				atmosphere: scene,
+				atmosphere: atmospherePacket,
+				scene,
 				event: saved
 				  ? "The user just saved a journal reflection."
 				  : "The user opened the journal to write.",
@@ -355,7 +372,8 @@ const handlePapaResponse = async (line) => {
                   <PapaSpeaks
 					  context={buildPapaPageContext("journal", {
 						user: profilePacket,
-						atmosphere: scene,
+						atmosphere: atmospherePacket, 
+						scene,
 						event: "The user just saved a journal reflection.",
 						journalEntry: lastEntry.entry_text,
 						catchContext: lastEntry.catch_context ?? [],

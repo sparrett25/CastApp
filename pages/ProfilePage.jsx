@@ -8,7 +8,7 @@ import { useProfile } from "../context/ProfileContext";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { REGION_OPTIONS, DEFAULT_REGION_KEY } from "../data/regionOptions";
-
+import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 
 const PAPA_PRESENCES = [
   { key: "classic_papa", label: "Classic Papa", desc: "Warm, steady, familiar guidance." },
@@ -16,6 +16,27 @@ const PAPA_PRESENCES = [
   { key: "practical_fisherman", label: "Practical Fisherman", desc: "Direct advice about fish, gear, and technique." },
   { key: "storyteller", label: "Storyteller", desc: "More memory, story, and gentle reflection." },
   { key: "gentle_elder", label: "Gentle Elder", desc: "Soft emotional support and patient presence." }
+];
+
+const TIME_STATE_OPTIONS = [
+  { key: "auto", label: "Automatic" },
+  { key: "blue-hour-dawn", label: "Blue Hour Dawn" },
+  { key: "first-light", label: "First Light" },
+  { key: "soft-morning-rise", label: "Soft Morning Rise" },
+  { key: "warm-drift", label: "Warm Drift" },
+  { key: "golden-dusk", label: "Golden Dusk" },
+  { key: "quiet-evening-glow", label: "Quiet Evening Glow" },
+  { key: "ember-twilight", label: "Ember Twilight" },
+];
+
+const WEATHER_STATE_OPTIONS = [
+  { key: "auto", label: "Automatic" },
+  { key: "first-fog", label: "First Fog" },
+  { key: "still-overcast", label: "Still Overcast" },
+  { key: "clear-sky", label: "Clear Sky" },
+  { key: "silver-rain", label: "Silver Rain" },
+  { key: "breezy", label: "Breezy" },
+  { key: "thunderstorm", label: "Thunderstorm" },
 ];
 
 const EXPERIENCE_LEVELS = ["beginner", "casual", "intermediate", "experienced"];
@@ -74,7 +95,13 @@ export default function ProfilePage() {
   const [message, setMessage] = useState("");
   
   const atmosphere = useAtmosphere("profile", {
-  user: profilePacket,
+  user: {
+    ...profilePacket,
+    time_state_override:
+      form?.timeStateOverride === "auto" ? null : form?.timeStateOverride,
+	  weather_state_override:
+  form?.weatherStateOverride === "auto" ? null : form?.weatherStateOverride,
+  },
   context: {
     openSection,
     selectedPresence: form?.papa_presence_key ?? null,
@@ -93,6 +120,15 @@ export default function ProfilePage() {
     })
   : atmosphere.scene;
 
+const atmospherePacket = buildAtmospherePacket({
+  page: "profile",
+  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  timeState: scene?.timeState?.key,
+  weatherState: scene?.weatherState?.key || "clear-sky",
+  user: profilePacket,
+  
+});
+
 const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
 const styles = atmosphere.styles ?? {};
 
@@ -105,8 +141,12 @@ const textTheme = ui.text ?? {};
   const papaContext = {
     page: "profile",
 	user: profilePacket,
+	atmosphere: atmospherePacket,
+    scene,
 	intent: "User is reviewing their CAST profile and preferences."
   };
+
+
 
   useEffect(() => {
     let mounted = true;
@@ -144,6 +184,8 @@ const textTheme = ui.text ?? {};
             target_species: formatArray(data?.target_species),
             preferred_baits: formatArray(data?.preferred_baits),
 			regionKey: data?.region_key || DEFAULT_REGION_KEY,
+			timeStateOverride: data?.time_state_override || "auto",
+			weatherStateOverride: data?.weather_state_override || "auto",
             papa_presence_key: data?.papa_presence_key || "classic_papa"
           });
         }
@@ -185,6 +227,10 @@ const textTheme = ui.text ?? {};
         target_species: parseCommaList(form.target_species),
         preferred_baits: parseCommaList(form.preferred_baits),
 		region_key: form.regionKey || DEFAULT_REGION_KEY,
+		time_state_override:
+		form.timeStateOverride === "auto" ? null : form.timeStateOverride,
+		weather_state_override:
+		form.weatherStateOverride === "auto" ? null : form.weatherStateOverride,
         papa_presence_key: form.papa_presence_key
       };
 
@@ -417,33 +463,66 @@ const textTheme = ui.text ?? {};
   </select>
 </label>
 
+<label>
+  Time state
+  <select
+    value={form.timeStateOverride || "auto"}
+    style={inputStyle}
+    onChange={(e) => updateField("timeStateOverride", e.target.value)}
+  >
+    {TIME_STATE_OPTIONS.map((state) => (
+      <option key={state.key} value={state.key}>
+        {state.label}
+      </option>
+    ))}
+  </select>
+</label>
+
+<label>
+  Weather state
+  <select
+    value={form.weatherStateOverride || "auto"}
+    style={inputStyle}
+    onChange={(e) => updateField("weatherStateOverride", e.target.value)}
+  >
+    {WEATHER_STATE_OPTIONS.map((state) => (
+      <option key={state.key} value={state.key}>
+        {state.label}
+      </option>
+    ))}
+  </select>
+</label>
+
+<p className="profile-help-text">
+  Choose Automatic to let CAST follow the natural time of day, or select a fixed time state for testing and atmosphere tuning.
+</p>
+
 <p className="profile-help-text">
   {REGION_OPTIONS[form.regionKey || DEFAULT_REGION_KEY]?.description}
 </p>
 <p className="profile-help-text">
   Choose how CAST feels beside you. More presence options can be added later.
 </p>
-              <div className="presence-grid">
-                {PAPA_PRESENCES.map((presence) => (
-                  <button
-                    key={presence.key}
-                    type="button"
-                    className={
-                      "presence-option" +
-                      (form.papa_presence_key === presence.key ? " is-selected" : "")
-                    }
-					style={
-					  form.papa_presence_key === presence.key
-						? buttonPrimaryStyle
-						: buttonSecondaryStyle
-					}
-                    onClick={() => updateField("papa_presence_key", presence.key)}
-                  >
-                    <span>{presence.label}</span>
-                    <small>{presence.desc}</small>
-                  </button>
-                ))}
-              </div>
+              <label>
+  Papa presence
+  <select
+    value={form.papa_presence_key}
+    style={inputStyle}
+    onChange={(e) => updateField("papa_presence_key", e.target.value)}
+  >
+    {PAPA_PRESENCES.map((presence) => (
+      <option key={presence.key} value={presence.key}>
+        {presence.label}
+      </option>
+    ))}
+  </select>
+</label>
+
+{selectedPresence && (
+  <p className="profile-help-text">
+    {selectedPresence.desc}
+  </p>
+)}
             </ProfileSection>
 
             <button

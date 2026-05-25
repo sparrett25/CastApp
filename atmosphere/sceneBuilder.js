@@ -128,12 +128,17 @@ export function getSceneByPageAndTime(pageId, hour = new Date().getHours(), opti
   const profile = pageProfiles[pageId];
   if (!profile?.scenes?.default) return null;
 
-  const timeKey = getTimeKey(hour);
+  const overrideTimeKey =
+    options?.user?.time_state_override ||
+    options?.user?.timeStateOverride ||
+    options?.context?.timeStateOverride ||
+    null;
+
+  const timeKey = overrideTimeKey || getTimeKey(hour);
   const sceneId = profile.scenes.default[timeKey];
-  
-  const suffix = timeSuffixes[timeKey];
-  
+
   return getScene(sceneId, options);
+
 }
 
 export { Scenes };

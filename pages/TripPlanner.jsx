@@ -28,6 +28,7 @@ import {
 
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
+import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 
 const DURATIONS = [
   { id: "quick", label: "Quick trip", sub: "1–2 hours" },
@@ -209,6 +210,18 @@ export default function TripPlanner() {
       })
     : atmosphere.scene;
 
+const atmospherePacket = buildAtmospherePacket({
+  page: "home",
+  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  timeState: scene?.timeState?.key,
+  weatherState: scene?.weatherState?.key || "clear-sky",
+  user: profilePacket,
+  context: {
+    hasUpcomingTrip: Boolean(upcomingTrip),
+    activeAdventure,
+  },
+});
+
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
   const styles = atmosphere.styles ?? {};
 
@@ -303,7 +316,8 @@ export default function TripPlanner() {
 
     return buildPapaPageContext("plan trip", {
       user: profilePacket,
-      atmosphere: scene,
+      atmosphere: atmospherePacket,
+	  scene,
       event,
       trip: buildTripContext(trip),
     });
@@ -315,7 +329,8 @@ export default function TripPlanner() {
     return {
       page: "plan trip",
       user: profilePacket,
-      atmosphere: scene,
+      atmosphere: atmospherePacket,
+	  scene,
       event: isEditing
         ? "A fishing trip has been updated."
         : "A fishing trip has been planned.",
@@ -438,7 +453,8 @@ export default function TripPlanner() {
               context={{
                 page: "plan trip",
                 user: profilePacket,
-                atmosphere: scene,
+                atmosphere: atmospherePacket,
+				scene,
                 event: "Loading a saved fishing trip for editing.",
               }}
               fallbackKey="fallback"

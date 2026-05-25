@@ -40,6 +40,8 @@ import {
   getGearForTechnique,
 } from "../data/techniqueHelpers";
 
+import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
+
 // --- Species Chip to Locations ---
 
 function LocationChip({ label, onClick }) {
@@ -603,6 +605,16 @@ const scene = DEBUG_SCENE
     })
   : atmosphere.scene;
 
+
+const atmospherePacket = buildAtmospherePacket({
+  page: "home",
+  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  timeState: scene?.timeState?.key,
+  weatherState: scene?.weatherState?.key || "clear-sky",
+  user: profilePacket,
+  
+});
+
 const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
 const styles = atmosphere.styles ?? {};
 
@@ -671,7 +683,8 @@ const backButtonStyle = buttonSecondaryStyle;
   const papaContext = {
   page: "field-guide",
   user: profilePacket,
-  atmosphere: scene,
+  atmosphere: atmospherePacket,
+  scene,
   view: entry ? "entry" : section ? "section" : "home",
   section: section || null,
   entryName: entry?.name || null,

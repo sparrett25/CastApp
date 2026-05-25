@@ -11,6 +11,7 @@ import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
 import "../styles/pages/trip-ledger.css";
+import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 
 function getTodayKey() {
   return new Date().toISOString().split("T")[0];
@@ -107,6 +108,18 @@ export default function TripLedger() {
 
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
   const styles = atmosphere.styles ?? {};
+
+const atmospherePacket = buildAtmospherePacket({
+  page: "home",
+  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  timeState: scene?.timeState?.key,
+  weatherState: scene?.weatherState?.key || "clear-sky",
+  user: profilePacket,
+  context: {
+    hasUpcomingTrip: Boolean(upcomingTrip),
+    activeAdventure,
+  },
+});
 
 const chipStyle = {
   background: ui.chip?.bg,
@@ -215,7 +228,8 @@ const displayName =
 
   const papaContext = {
     page: "trip ledger",
-    atmosphere: scene,
+    atmosphere: atmospherePacket,
+	scene,
     context: {
       upcomingCount: upcomingTrips.length,
       pastCount: pastTrips.length,

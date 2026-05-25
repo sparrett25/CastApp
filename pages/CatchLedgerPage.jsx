@@ -19,6 +19,8 @@ import {
 
 import "../styles/pages/catch-ledger.css";
 
+import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
+
 const LOCATION_OPTIONS = [
   ...MY_LOCATIONS.map((loc) => ({
     id: loc.id,
@@ -343,6 +345,15 @@ export default function CatchLedgerPage() {
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
   const styles = atmosphere.styles ?? {};
 
+const atmospherePacket = buildAtmospherePacket({
+  page: "home",
+  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  timeState: scene?.timeState?.key,
+  weatherState: scene?.weatherState?.key || "clear-sky",
+  user: profilePacket,
+ 
+});
+
   const cardStyle = styles.cardStyle ?? {};
   const buttonPrimaryStyle = styles.buttonPrimaryStyle ?? {};
   const buttonSecondaryStyle = styles.buttonSecondaryStyle ?? {};
@@ -411,7 +422,8 @@ export default function CatchLedgerPage() {
 
   const papaContext = {
     user: profilePacket,
-    atmosphere: scene,
+    atmosphere: atmospherePacket,
+	scene,
     event:
       entries.length === 0
         ? `${displayName} opened an empty catch ledger for the first time`

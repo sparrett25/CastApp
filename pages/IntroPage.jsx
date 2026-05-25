@@ -8,6 +8,7 @@ import "../styles/pages/intro-page.css";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
+import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 
 function getIntroUiStyles(scene) {
   const tone = scene?.timeState?.ui?.textTone ?? "balanced";
@@ -93,6 +94,14 @@ export default function IntroPage() {
       })
     : atmosphere.scene;
 
+const atmospherePacket = buildAtmospherePacket({
+  page: "home",
+  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  timeState: scene?.timeState?.key,
+  weatherState: scene?.weatherState?.key || "clear-sky",
+  user: profilePacket,
+  
+});
 
   const uiStyles = getIntroUiStyles(scene);
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};

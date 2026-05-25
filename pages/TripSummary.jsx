@@ -8,7 +8,7 @@ import { supabase } from "../lib/supabase";
 import "../styles/pages/trip-summary.css";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
-
+import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 
 export default function TripSummary() {
   const nav = useNavigate();
@@ -24,6 +24,18 @@ const scene = DEBUG_SCENE
 
 const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
 const styles = atmosphere.styles ?? {};
+
+const atmospherePacket = buildAtmospherePacket({
+  page: "home",
+  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  timeState: scene?.timeState?.key,
+  weatherState: scene?.weatherState?.key || "clear-sky",
+  user: profilePacket,
+  context: {
+    hasUpcomingTrip: Boolean(upcomingTrip),
+    activeAdventure,
+  },
+});
 
 const cardStyle = styles.cardStyle ?? {};
 const primaryButtonStyle = styles.buttonPrimaryStyle ?? {};
@@ -165,7 +177,7 @@ const textTheme = ui.text ?? {};
         papa={
           <PapaMini
             context={{
-              event: `Grant is viewing a saved trip to ${trip.location} targeting ${targetLabel}`,
+              event: `Viewing saved trip to ${trip.location} targeting ${targetLabel}`,
             }}
           />
         }
@@ -199,7 +211,7 @@ const textTheme = ui.text ?? {};
             <p className="trip-voice-attr">Papa</p>
             <PapaSpeaks
               context={{
-                event: `Grant is reviewing his trip to ${trip.location} targeting ${targetLabel} ${trip.timing_label?.toLowerCase() || ""}`,
+                event: `Angler is reviewing his trip to ${trip.location} targeting ${targetLabel} ${trip.timing_label?.toLowerCase() || ""}`,
               }}
               fallbackKey="fallback"
               trigger={trip.id}

@@ -8,6 +8,7 @@ import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
 
 import "../styles/pages/adventure-preview.css";
+import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 
 const TEASERS = [
   {
@@ -45,6 +46,16 @@ export default function AdventurePreviewPage() {
   });
 
   const scene = atmosphere.scene;
+  
+  const atmospherePacket = buildAtmospherePacket({
+  page: "home",
+  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  timeState: scene?.timeState?.key,
+  weatherState: scene?.weatherState?.key || "clear-sky",
+  user: profilePacket,
+  
+});
+
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
   const styles = atmosphere.styles ?? {};
 
@@ -56,7 +67,8 @@ export default function AdventurePreviewPage() {
   const papaContext = {
     page: "adventures-preview",
     user: profilePacket,
-    atmosphere: scene,
+    atmosphere: atmospherePacket,
+	scene,
     context: {
       preview: true,
       status: "coming-soon",

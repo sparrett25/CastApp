@@ -15,6 +15,8 @@ import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
 
+import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
+
 const PILLARS = [
   { emoji: "", title: "Field Guide", desc: "Explore and learn.", path: "/species" },
   { emoji: "️", title: "Locations", desc: "Your waters.", path: "/locations" },
@@ -51,6 +53,15 @@ export default function HomePage() {
       })
     : atmosphere.scene;
 
+const atmospherePacket = buildAtmospherePacket({
+  page: "home",
+  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  timeState: scene?.timeState?.key,
+  weatherState: scene?.weatherState?.key || "clear-sky",
+  user: profilePacket,
+  
+});
+
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
   const styles = atmosphere.styles ?? {};
 
@@ -64,7 +75,8 @@ export default function HomePage() {
   const papaContext = {
     page: "home",
     user: profilePacket,
-    atmosphere: scene,
+    atmosphere: atmospherePacket,
+	scene,
     context: {
       hasUpcomingTrip: Boolean(upcomingTrip),
       activeAdventure,

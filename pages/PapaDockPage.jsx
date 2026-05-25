@@ -10,6 +10,7 @@ import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { supabase } from "../lib/supabase";
 import { useProfile } from "../context/ProfileContext";
+import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 
 const DEFAULT_OPENING_LINE = "You can talk here. No rush.";
 
@@ -66,6 +67,19 @@ export default function PapaDockPage() {
         },
       })
     : atmosphere.scene;
+
+const atmospherePacket = buildAtmospherePacket({
+  page: "papaDock",
+  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  timeState: scene?.timeState?.key,
+  weatherState: scene?.weatherState?.key || "clear-sky",
+  user: profilePacket,
+  context: {
+    mode: "talk",
+    messageCount: messages.length,
+    hasSavedThread: savedThread,
+  },
+});
 
 const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
 const styles = atmosphere.styles ?? {};
@@ -237,7 +251,8 @@ useEffect(() => {
         userMessage: text,
         history: recentHistory,
         user: profilePacket,
-        atmosphere: scene,
+        atmosphere:  atmospherePacket,
+		scene,
       },
     };
   }

@@ -13,6 +13,8 @@ import { useProfile } from "../context/ProfileContext";
 
 import "../styles/pages/journal-page.css";
 
+import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
+
 function formatDate(iso) {
   return new Date(iso).toLocaleDateString("en-US", {
     weekday: "long",
@@ -110,6 +112,15 @@ export default function JournalArchive() {
       })
     : atmosphere.scene;
 
+const atmospherePacket = buildAtmospherePacket({
+  page: "home",
+  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  timeState: scene?.timeState?.key,
+  weatherState: scene?.weatherState?.key || "clear-sky",
+  user: profilePacket,
+  
+});
+
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
   const styles = atmosphere.styles ?? {};
 
@@ -172,7 +183,8 @@ export default function JournalArchive() {
   const papaContext = {
     page: "journal archive",
     user: profilePacket,
-    atmosphere: scene,
+    atmosphere: atmospherePacket,
+	scene,
     context: {
       entryCount: entries.length,
       isEmpty: entries.length === 0,
