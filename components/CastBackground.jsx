@@ -61,6 +61,11 @@ export default function CastBackground({
   profilePacket?.region_key ||
   DEFAULT_REGION_KEY;
 
+const activeWeatherKey =
+  profilePacket?.weatherStateOverride ||
+  profilePacket?.weather_state_override ||
+  "base";
+  
   const def = chamberDefaults[chamberKey];
 
   const activeBg = overrideSrc
@@ -74,11 +79,12 @@ export default function CastBackground({
 
   const src =
     overrideSrc ||
-    resolveChamberBackgroundSrc({
-      chamberKey,
-      timeKey,
-      regionKey: activeRegionKey,
-    }) ||
+		resolveChamberBackgroundSrc({
+	  chamberKey,
+	  timeKey,
+	  regionKey: activeRegionKey,
+	  weatherKey: activeWeatherKey,
+	}) ||
     activeBg?.src;
 
   return (
@@ -89,7 +95,7 @@ export default function CastBackground({
         <AnimatePresence mode="wait">
           {src && (
             <motion.img
-              key={`${chamberKey}:${activeRegionKey}:${timeKey}:${src}`}
+              key={`${chamberKey}:${activeRegionKey}:${timeKey}:${activeWeatherKey}:${src}`}
               src={src}
               alt={activeBg?.caption || chamberKey}
               className="pointer-events-none select-none absolute inset-0 h-full w-full object-cover object-[42%_center]"

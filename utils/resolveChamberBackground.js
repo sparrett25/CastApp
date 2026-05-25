@@ -1,6 +1,7 @@
 // src/utils/resolveChamberBackground.js
 
 import { DEFAULT_REGION_KEY } from "../data/regionOptions";
+import { weatherStates } from "../atmosphere/weatherStates";
 
 const TIME_OFFSET = {
   "blue-hour-dawn": 1,
@@ -46,6 +47,7 @@ export function resolveChamberBackgroundSrc({
   chamberKey,
   timeKey = "blue-hour-dawn",
   regionKey = DEFAULT_REGION_KEY,
+  weatherKey = "base",
 }) {
   const base = Number(regionKey);
   const offset = TIME_OFFSET[timeKey] || 1;
@@ -55,5 +57,11 @@ export function resolveChamberBackgroundSrc({
 
   const imageNumber = base + offset;
 
-  return `/images/chambers/${folderKey}/${regionKey}/${imageNumber}-${fileSlug}-${timeKey}.webp`;
+  const weatherFolder =
+    weatherKey === "base" ? "base" : `weather-${weatherKey}`;
+
+  const weatherSuffix =
+    weatherKey === "base" ? "" : `-${weatherKey}-v1`;
+
+  return `/images/chambers/${folderKey}/${regionKey}/${weatherFolder}/${imageNumber}-${fileSlug}-${timeKey}${weatherSuffix}.webp`;
 }

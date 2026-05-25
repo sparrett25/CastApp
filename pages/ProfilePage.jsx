@@ -36,7 +36,7 @@ const WEATHER_STATE_OPTIONS = [
   { key: "clear-sky", label: "Clear Sky" },
   { key: "silver-rain", label: "Silver Rain" },
   { key: "breezy", label: "Breezy" },
-  { key: "thunderstorm", label: "Thunderstorm" },
+  { key: "ember-storm", label: "Ember Storm" },
 ];
 
 const EXPERIENCE_LEVELS = ["beginner", "casual", "intermediate", "experienced"];
