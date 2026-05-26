@@ -95,6 +95,7 @@ const ui = mergeAtmosphereUi(
 
 const styles = buildAtmosphereStyles(ui);
 
+
   return {
     scene: atmosphere,
     backgroundVariant: atmosphere?.backgroundVariant ?? "morning",
@@ -105,5 +106,6 @@ const styles = buildAtmosphereStyles(ui);
     timeState: atmosphere?.timeState ?? null,
     weatherState: atmosphere?.weatherState ?? null,
     papaState: atmosphere?.papaState ?? null,
+	
   };
 }

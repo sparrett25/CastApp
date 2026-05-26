@@ -12,16 +12,19 @@ export function buildAtmospherePacket({
   user = null,
   context = {},
 } = {}) {
-  const registry = chamberBackgrounds?.registries ?? {};
-  const pages = chamberBackgrounds?.pages ?? {};
+  const registry = chamberBackgrounds?.registry ?? {};
+  const pages = chamberBackgrounds?.chambers ?? {};
 
   const pageMeta = pages?.[page] ?? pages?.home ?? {};
+
   const regionMeta =
     registry?.regions?.[region] ?? registry?.regions?.[FALLBACK_REGION] ?? {};
+
   const timeMeta =
     registry?.timeStates?.[timeState] ??
     registry?.timeStates?.[FALLBACK_TIME_STATE] ??
     {};
+
   const weatherMeta =
     registry?.weatherStates?.[weatherState] ??
     registry?.weatherStates?.[FALLBACK_WEATHER_STATE] ??
@@ -30,7 +33,9 @@ export function buildAtmospherePacket({
   const pageVariant = pageMeta?.variants?.[timeState] ?? {};
 
   const emotionalField = [
+    ...(regionMeta?.baseTone ?? []),
     ...(regionMeta?.emotionalField ?? []),
+    ...(pageMeta?.pageTone ?? []),
     ...(pageMeta?.emotionalField ?? []),
     ...(timeMeta?.emotionalField ?? []),
     ...(weatherMeta?.emotionalField ?? []),
@@ -38,11 +43,26 @@ export function buildAtmospherePacket({
   ];
 
   const sensoryNotes = [
+    ...(regionMeta?.atmosphere ?? []),
     ...(regionMeta?.sensoryNotes ?? []),
+    timeMeta?.sensoryLine,
+    weatherMeta?.sensoryLine,
     ...(timeMeta?.sensoryNotes ?? []),
     ...(weatherMeta?.sensoryNotes ?? []),
     ...(pageVariant?.atmosphere?.sensoryNotes ?? []),
-  ];
+  ].filter(Boolean);
+
+  const promptHints = [
+    ...(regionMeta?.papaContext?.promptHints ?? []),
+    pageMeta?.papaPurposeHint,
+    ...(pageMeta?.papaContext?.promptHints ?? []),
+    ...(timeMeta?.papaContext?.promptHints ?? []),
+    ...(weatherMeta?.papaContext?.promptHints ?? []),
+    ...(pageVariant?.papaContext?.promptHints ?? []),
+    weatherMeta?.papaToneModifier
+      ? `Weather tone modifier: ${weatherMeta.papaToneModifier}`
+      : null,
+  ].filter(Boolean);
 
   return {
     page,
@@ -53,10 +73,17 @@ export function buildAtmospherePacket({
     user,
     context,
 
+    labels: {
+      page: pageMeta?.label ?? page,
+      region: regionMeta?.label ?? region,
+      timeState: timeMeta?.label ?? timeState,
+      weatherState: weatherMeta?.label ?? weatherState,
+    },
+
     caption:
       pageVariant?.caption ??
       pageMeta?.default?.caption ??
-      `${page} • ${timeState}`,
+      `${pageMeta?.label ?? page} • ${timeMeta?.label ?? timeState}`,
 
     summary: {
       region: regionMeta?.summary ?? "",
@@ -65,15 +92,38 @@ export function buildAtmospherePacket({
       weather: weatherMeta?.summary ?? "",
       combined: [
         regionMeta?.summary,
+        pageMeta?.summary,
         timeMeta?.summary,
         weatherMeta?.summary,
-        pageMeta?.summary,
       ]
         .filter(Boolean)
         .join(" "),
     },
 
+    overlay: {
+      title: `${timeMeta?.label ?? timeState} • ${
+        weatherMeta?.label ?? weatherState
+      }`,
+      subtitle: `${pageMeta?.label ?? page} in ${
+        regionMeta?.label ?? region
+      }`,
+      summary:
+        weatherMeta?.overlaySummary ??
+        weatherMeta?.summary ??
+        timeMeta?.overlaySummary ??
+        timeMeta?.summary ??
+        "",
+      sensoryLine:
+        weatherMeta?.sensoryLine ?? timeMeta?.sensoryLine ?? "",
+      papaHint:
+        weatherMeta?.papaToneModifier ??
+        timeMeta?.papaTone ??
+        pageVariant?.papaContext?.tone ??
+        "",
+    },
+
     emotionalField: [...new Set(emotionalField)],
+
     sensoryNotes: [...new Set(sensoryNotes)],
 
     environmentalTone: [
@@ -81,6 +131,7 @@ export function buildAtmospherePacket({
       pageMeta?.environmentalTone,
       timeMeta?.environmentalTone,
       weatherMeta?.environmentalTone,
+      weatherMeta?.movement,
     ]
       .filter(Boolean)
       .join(" · "),
@@ -106,25 +157,30 @@ export function buildAtmospherePacket({
     papaContext: {
       tone:
         pageVariant?.papaContext?.tone ??
-        pageMeta?.papaContext?.tone ??
-        weatherMeta?.papaContext?.tone ??
-        timeMeta?.papaContext?.tone ??
+        timeMeta?.papaTone ??
         "calm",
+
+      weatherToneModifier: weatherMeta?.papaToneModifier ?? "",
 
       whisperStyle:
         pageVariant?.papaContext?.whisperStyle ??
         pageMeta?.papaContext?.whisperStyle ??
-        weatherMeta?.papaContext?.whisperStyle ??
-        timeMeta?.papaContext?.whisperStyle ??
-        "brief, grounded, reflective",
+        "short, sensory, and page-aware",
 
-      promptHints: [
-        ...(regionMeta?.papaContext?.promptHints ?? []),
-        ...(pageMeta?.papaContext?.promptHints ?? []),
-        ...(timeMeta?.papaContext?.promptHints ?? []),
-        ...(weatherMeta?.papaContext?.promptHints ?? []),
-        ...(pageVariant?.papaContext?.promptHints ?? []),
-      ],
+      promptHints,
+
+      emotionalField: [...new Set(emotionalField)],
+
+      sensoryLine:
+        weatherMeta?.sensoryLine ?? timeMeta?.sensoryLine ?? "",
+
+      soundscape: {
+        weather: weatherMeta?.soundscape?.weather ?? [],
+        intensity:
+          weatherMeta?.soundscape?.intensity ??
+          timeMeta?.soundscape?.intensity ??
+          "low",
+      },
     },
 
     source: {

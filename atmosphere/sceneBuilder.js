@@ -136,11 +136,25 @@ export function getSceneByPageAndTime(pageId, hour = new Date().getHours(), opti
     options?.context?.timeStateOverride ||
     null;
 
+  const overrideWeatherKey =
+    options?.user?.weather_state_override ||
+    options?.user?.weatherStateOverride ||
+    options?.context?.weatherStateOverride ||
+    null;
+
   const timeKey = overrideTimeKey || getTimeKey(hour);
   const sceneId = profile.scenes.default[timeKey];
 
-  return getScene(sceneId, options);
+  const scene = getScene(sceneId, options);
+  if (!scene) return null;
 
+  const weatherKey = overrideWeatherKey || scene.weather;
+
+  return {
+    ...scene,
+    weather: weatherKey,
+    weatherState: weatherStates[weatherKey],
+  };
 }
 
 export { Scenes };

@@ -3358,6 +3358,7 @@
           "first-fog",
           "still-overcast",
           "silver-rain",
+		  "breezy",
           "thunderstorm"
         ],
         "countFormula": "7 time states \u00d7 6 rendered states if base included = 42 Journal atmosphere images.",
