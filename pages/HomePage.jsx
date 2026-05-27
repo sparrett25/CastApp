@@ -53,7 +53,7 @@ export default function HomePage() {
       })
     : atmosphere.scene;
 
-const atmospherePacket = bbuildAtmospherePacket({
+const atmospherePacket = buildAtmospherePacket({
   page: "home",
   region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
   timeState: scene?.backgroundVariant || "soft-morning-rise",
