@@ -135,8 +135,6 @@ export function getSceneByPageAndTime(pageId, hour = new Date().getHours(), opti
   options?.context?.weatherStateOverride ||
   null;
 
-  const weatherKey = overrideWeatherKey || "base";
-
   const timeKey = overrideTimeKey || getTimeKey(hour);
   const sceneId = profile.scenes.default[timeKey];
 
