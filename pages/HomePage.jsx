@@ -53,13 +53,12 @@ export default function HomePage() {
       })
     : atmosphere.scene;
 
-const atmospherePacket = buildAtmospherePacket({
+const atmospherePacket = bbuildAtmospherePacket({
   page: "home",
   region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
-  timeState: scene?.timeState?.key,
-  weatherState: scene?.weatherState?.key || "clear-sky",
+  timeState: scene?.backgroundVariant || "soft-morning-rise",
+  weatherState: scene?.weather || "clear-sky",
   user: profilePacket,
-  
 });
 
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};

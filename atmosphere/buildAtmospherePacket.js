@@ -4,6 +4,33 @@ const FALLBACK_REGION = "central-florida";
 const FALLBACK_TIME_STATE = "soft-morning-rise";
 const FALLBACK_WEATHER_STATE = "clear-sky";
 
+const TIME_KEY_MAP = {
+  blue_hour_dawn: "blue-hour-dawn",
+  first_light: "first-light",
+  soft_morning_rise: "soft-morning-rise",
+  warm_drift: "warm-drift",
+  golden_dusk: "golden-dusk",
+  quiet_evening_glow: "quiet-evening-glow",
+  ember_twilight: "ember-twilight",
+};
+
+const WEATHER_KEY_MAP = {
+  still_air: "base",
+  light_fog: "first-fog",
+  lifting_fog: "first-fog",
+  thunderstorm: "ember-storm",
+};
+
+function normalizeKey(value, fallback, map = {}) {
+  if (!value) return fallback;
+
+  if (typeof value === "string") {
+    return map[value] ?? value;
+  }
+
+  return value.key ?? value.id ?? fallback;
+}
+
 export function buildAtmospherePacket({
   page,
   region = FALLBACK_REGION,
@@ -15,22 +42,34 @@ export function buildAtmospherePacket({
   const registry = chamberBackgrounds?.registry ?? {};
   const pages = chamberBackgrounds?.chambers ?? {};
 
+  const normalizedTimeState = normalizeKey(
+    timeState,
+    FALLBACK_TIME_STATE,
+    TIME_KEY_MAP
+  );
+
+  const normalizedWeatherState = normalizeKey(
+    weatherState,
+    FALLBACK_WEATHER_STATE,
+    WEATHER_KEY_MAP
+  );
+
   const pageMeta = pages?.[page] ?? pages?.home ?? {};
 
   const regionMeta =
     registry?.regions?.[region] ?? registry?.regions?.[FALLBACK_REGION] ?? {};
 
   const timeMeta =
-    registry?.timeStates?.[timeState] ??
+    registry?.timeStates?.[normalizedTimeState] ??
     registry?.timeStates?.[FALLBACK_TIME_STATE] ??
     {};
 
   const weatherMeta =
-    registry?.weatherStates?.[weatherState] ??
+    registry?.weatherStates?.[normalizedWeatherState] ??
     registry?.weatherStates?.[FALLBACK_WEATHER_STATE] ??
     {};
 
-  const pageVariant = pageMeta?.variants?.[timeState] ?? {};
+  const pageVariant = pageMeta?.variants?.[normalizedTimeState] ?? {};
 
   const emotionalField = [
     ...(regionMeta?.baseTone ?? []),
@@ -67,8 +106,8 @@ export function buildAtmospherePacket({
   return {
     page,
     region,
-    timeState,
-    weatherState,
+    timeState: normalizedTimeState,
+    weatherState: normalizedWeatherState,
 
     user,
     context,
@@ -76,14 +115,14 @@ export function buildAtmospherePacket({
     labels: {
       page: pageMeta?.label ?? page,
       region: regionMeta?.label ?? region,
-      timeState: timeMeta?.label ?? timeState,
-      weatherState: weatherMeta?.label ?? weatherState,
+      timeState: timeMeta?.label ?? normalizedTimeState,
+      weatherState: weatherMeta?.label ?? normalizedWeatherState,
     },
 
     caption:
       pageVariant?.caption ??
       pageMeta?.default?.caption ??
-      `${pageMeta?.label ?? page} • ${timeMeta?.label ?? timeState}`,
+      `${pageMeta?.label ?? page} • ${timeMeta?.label ?? normalizedTimeState}`,
 
     summary: {
       region: regionMeta?.summary ?? "",
@@ -101,20 +140,17 @@ export function buildAtmospherePacket({
     },
 
     overlay: {
-      title: `${timeMeta?.label ?? timeState} • ${
-        weatherMeta?.label ?? weatherState
+      title: `${timeMeta?.label ?? normalizedTimeState} • ${
+        weatherMeta?.label ?? normalizedWeatherState
       }`,
-      subtitle: `${pageMeta?.label ?? page} in ${
-        regionMeta?.label ?? region
-      }`,
+      subtitle: `${pageMeta?.label ?? page} in ${regionMeta?.label ?? region}`,
       summary:
         weatherMeta?.overlaySummary ??
         weatherMeta?.summary ??
         timeMeta?.overlaySummary ??
         timeMeta?.summary ??
         "",
-      sensoryLine:
-        weatherMeta?.sensoryLine ?? timeMeta?.sensoryLine ?? "",
+      sensoryLine: weatherMeta?.sensoryLine ?? timeMeta?.sensoryLine ?? "",
       papaHint:
         weatherMeta?.papaToneModifier ??
         timeMeta?.papaTone ??
@@ -155,10 +191,7 @@ export function buildAtmospherePacket({
     },
 
     papaContext: {
-      tone:
-        pageVariant?.papaContext?.tone ??
-        timeMeta?.papaTone ??
-        "calm",
+      tone: pageVariant?.papaContext?.tone ?? timeMeta?.papaTone ?? "calm",
 
       weatherToneModifier: weatherMeta?.papaToneModifier ?? "",
 
@@ -171,8 +204,7 @@ export function buildAtmospherePacket({
 
       emotionalField: [...new Set(emotionalField)],
 
-      sensoryLine:
-        weatherMeta?.sensoryLine ?? timeMeta?.sensoryLine ?? "",
+      sensoryLine: weatherMeta?.sensoryLine ?? timeMeta?.sensoryLine ?? "",
 
       soundscape: {
         weather: weatherMeta?.soundscape?.weather ?? [],

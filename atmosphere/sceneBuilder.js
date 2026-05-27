@@ -18,45 +18,38 @@ const timeSuffixes = {
 const dailyAtmosphereDefaults = {
   "blue-hour-dawn": {
     time: "blue_hour_dawn",
-    weather: "light_fog",
     papa: "quiet_observation",
     backgroundVariant: "blue-hour-dawn",
   },
   "first-light": {
     time: "first_light",
-    weather: "light_fog",
     papa: "quiet_observation",
     backgroundVariant: "first-light",
   },
   
   "soft-morning-rise": {
     time: "soft_morning_rise",
-    weather: "lifting_fog",
     papa: "quiet_observation",
     backgroundVariant: "soft-morning-rise",
   },
   "warm-drift": {
     time: "warm_drift",
-    weather: "still_air",
     papa: "coffee_stillness",
     backgroundVariant: "warm-drift",
   },
   "golden-dusk": {
     time: "golden_dusk",
-    weather: "still_air",
     papa: "quiet_observation",
     backgroundVariant: "golden-dusk",
   },
   "quiet-evening-glow": {
     time: "quiet_evening_glow",
-    weather: "still_air",
     papa: "quiet_observation",
     backgroundVariant: "quiet-evening-glow",
   },
   "ember-twilight": {
     time: "ember_twilight",
-    weather: "still_air",
-    papa: "quiet_observation",
+     papa: "quiet_observation",
     backgroundVariant: "ember-twilight",
   },
 };
@@ -137,10 +130,12 @@ export function getSceneByPageAndTime(pageId, hour = new Date().getHours(), opti
     null;
 
   const overrideWeatherKey =
-    options?.user?.weather_state_override ||
-    options?.user?.weatherStateOverride ||
-    options?.context?.weatherStateOverride ||
-    null;
+  options?.user?.weather_state_override ||
+  options?.user?.weatherStateOverride ||
+  options?.context?.weatherStateOverride ||
+  null;
+
+  const weatherKey = overrideWeatherKey || "base";
 
   const timeKey = overrideTimeKey || getTimeKey(hour);
   const sceneId = profile.scenes.default[timeKey];
@@ -151,10 +146,10 @@ export function getSceneByPageAndTime(pageId, hour = new Date().getHours(), opti
   const weatherKey = overrideWeatherKey || scene.weather;
 
   return {
-    ...scene,
-    weather: weatherKey,
-    weatherState: weatherStates[weatherKey],
-  };
+  ...scene,
+  weatherStateKey: weatherKey,
+  weatherState: weatherStates[weatherKey],
+};
 }
 
 export { Scenes };
