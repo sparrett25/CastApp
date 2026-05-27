@@ -86,7 +86,7 @@ export default function JournalPage() {
   page: "journal",
   region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
   timeState: scene?.timeState?.key,
-  weatherState: scene?.weatherState?.key || "clear-sky",
+  weatherState: scene?.weather || "clear-sky",
   user: profilePacket,
   context: {
     mode: saved ? "saved" : "writing",
