@@ -112,7 +112,7 @@ export default function TripLedger() {
 const atmospherePacket = buildAtmospherePacket({
   page: "trips",
   region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
-  timeState: scene?.timeState?.key,
+  timeState: scene?.backgroundVariant || "soft-morning-rise",
   weatherState: scene?.weather || "clear-sky",
   user: profilePacket,
   

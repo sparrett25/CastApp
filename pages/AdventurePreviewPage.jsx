@@ -50,7 +50,7 @@ export default function AdventurePreviewPage() {
   const atmospherePacket = buildAtmospherePacket({
   page: "adventures-preview",
   region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
-  timeState: scene?.timeState?.key,
+  timeState: scene?.backgroundVariant || "soft-morning-rise",
   weatherState: scene?.weather || "clear-sky",
   user: profilePacket,
   

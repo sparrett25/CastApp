@@ -115,7 +115,7 @@ export default function JournalArchive() {
 const atmospherePacket = buildAtmospherePacket({
   page: "journal",
   region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
-  timeState: scene?.timeState?.key,
+  timeState: scene?.backgroundVariant || "soft-morning-rise",
   weatherState: scene?.weather || "clear-sky",
   user: profilePacket,
   

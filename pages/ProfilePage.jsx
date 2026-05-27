@@ -123,7 +123,7 @@ export default function ProfilePage() {
 const atmospherePacket = buildAtmospherePacket({
   page: "profile",
   region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
-  timeState: scene?.timeState?.key,
+  timeState: scene?.backgroundVariant || "soft-morning-rise",
   weatherState: scene?.weather || "clear-sky",
   user: profilePacket,
   
