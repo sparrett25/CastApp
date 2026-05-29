@@ -31,6 +31,9 @@ export default function PapaDockPage() {
     createOpeningMessage(DEFAULT_OPENING_LINE),
   ]);
 
+  const [conversationMode, setConversationMode] = useState("guide");
+  const [responseLength, setResponseLength] = useState("normal");
+
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [listening, setListening] = useState(false);
@@ -246,15 +249,19 @@ useEffect(() => {
       }));
 
     return {
-      mode: "talk",
-      message: {
-        userMessage: text,
-        history: recentHistory,
-        user: profilePacket,
-        atmosphere:  atmospherePacket,
+	  mode: "talk",
+	  conversationMode,
+	  responseLength,
+	  message: {
+		userMessage: text,
+		history: recentHistory,
+		user: profilePacket,
+		atmosphere: atmospherePacket,
 		scene,
-      },
-    };
+	  },
+	  profilePacket,
+	  atmosphere: atmospherePacket,
+	};
   }
 
   async function sendMessage(textOverride) {
@@ -547,6 +554,41 @@ useEffect(() => {
             <p className="papa-dock-save-error">{saveError}</p>
           )}
 
+		<div className="papa-dock-mode-row" 
+		style={{
+		  ...buttonSecondaryStyle,
+		  color: textTheme?.primary,
+		  background: bubbleTheme?.papaBg,
+		  border: `1px solid ${bubbleTheme?.border}`,
+		  backdropFilter: `blur(${bubbleTheme?.blur || "12px"})`,
+		  WebkitBackdropFilter: `blur(${bubbleTheme?.blur || "12px"})`,
+		}}
+		
+		>
+		  <select
+			className="papa-dock-mode-select"
+			value={conversationMode}
+			onChange={(e) => setConversationMode(e.target.value)}
+			disabled={loading}
+		  >
+			<option value="guide">Guide</option>
+			<option value="reflection">Reflection</option>
+			<option value="storyteller">Storyteller</option>
+			<option value="quiet">Quiet Presence</option>
+		  </select>
+
+		  <select
+			className="papa-dock-mode-select"
+			value={responseLength}
+			onChange={(e) => setResponseLength(e.target.value)}
+			disabled={loading}
+		  >
+			<option value="normal">Normal</option>
+			<option value="brief">Brief</option>
+			<option value="deeper">Campfire</option>
+		  </select>
+		</div>
+
 		<div className="papa-dock-input-container">
           <form
             className="papa-dock-input-row"
@@ -569,6 +611,8 @@ useEffect(() => {
             >
               🎙
             </button>
+
+
 
             <textarea
 			  ref={inputRef}

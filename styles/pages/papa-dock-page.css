@@ -7,7 +7,42 @@
   flex-direction: column;
   gap: 2.25rem;
 }
+.papa-dock-mode-row {
+  display: flex;
+  gap: 0.55rem;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.55rem 0.65rem;
+  border-radius: 999px;
+}
 
+.papa-dock-mode-select {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid rgba(255, 232, 190, 0.16);
+  border-radius: 999px;
+  padding: 0.45rem 2rem 0.45rem 0.8rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255, 248, 232, 0.92);
+  background:
+    linear-gradient(135deg, rgba(20, 31, 42, 0.72), rgba(72, 93, 112, 0.46));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  outline: none;
+  cursor: pointer;
+}
+
+.papa-dock-mode-select:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.papa-dock-mode-select option {
+  color: #101820;
+  background: #eef4f7;
+}
 
 .papa-dock-bubble,
 .papa-dock-input-row,
@@ -16,7 +51,9 @@
 .papa-dock-send-btn,
 .papa-dock-save-note-btn,
 .papa-dock-save-thread-btn,
-.papa-dock-clear-btn {
+.papa-dock-clear-btn,
+.papa-dock-mode-row,
+.papa-dock-mode-select {
   transition:
     background 0.45s ease,
     border-color 0.45s ease,
@@ -285,4 +322,6 @@
     order: 3;
     width: 100%;
   }
+  
+ 
 }
