@@ -5,7 +5,6 @@ import CastBackground from "../components/CastBackground";
 import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
 import "../styles/pages/locations.css";
-import grantQuests from "../data/stories/grant/quests.json";
 import { SPECIES } from "../data/species";
 import { GEAR } from "../data/gear";
 import { waterTypes } from "../data/waterTypes";
@@ -16,6 +15,24 @@ import { useProfile } from "../context/ProfileContext";
 import { MY_LOCATIONS } from "../data/myLocations";
 import { supabase } from "../lib/supabase";
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
+
+const BAIT_OPTIONS = [
+  { id: "nightcrawlers", name: "Nightcrawlers" },
+  { id: "shrimp", name: "Shrimp" },
+  { id: "live-worms", name: "Live Worms" },
+  { id: "bread", name: "Bread" },
+  { id: "corn", name: "Corn" },
+  { id: "powerbait", name: "PowerBait" },
+  { id: "soft-plastics", name: "Soft Plastics" },
+];
+
+const TIME_STATE_OPTIONS = [
+  { id: "blue-hour-dawn", label: "Blue Hour Dawn" },
+  { id: "soft-morning-rise", label: "Soft Morning Rise" },
+  { id: "warm-drift", label: "Warm Drift" },
+  { id: "golden-dusk", label: "Golden Dusk" },
+  { id: "quiet-evening-glow", label: "Quiet Evening Glow" },
+];
 
 function SpeciesChip({ label, onClick }) {
   return (
@@ -43,6 +60,152 @@ function SectionBlock({ label, children }) {
       <p className="loc-section-label">{label}</p>
       <div className="loc-section-body">{children}</div>
     </div>
+  );
+}
+
+function CreateLocationForm({
+  onCreate,
+  onCancel,
+  cardTheme,
+  textTheme,
+  chipTheme,
+}) {
+  const regionList = Object.values(REGION_OPTIONS);
+
+  const [form, setForm] = useState({
+    name: "",
+    regionId: regionList?.[0]?.id || regionList?.[0]?.key || "",
+    waterTypeId: waterTypes?.[0]?.id || "",
+  });
+
+  function updateField(field, value) {
+    setForm((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!form.name.trim() || !form.regionId || !form.waterTypeId) return;
+
+    const water = waterTypes.find((w) => w.id === form.waterTypeId);
+
+    const newLocation = {
+      id:
+        typeof crypto !== "undefined" && crypto.randomUUID
+          ? crypto.randomUUID()
+          : `${form.name.toLowerCase().replace(/\s+/g, "-")}-${Date.now()}`,
+
+      name: form.name.trim(),
+      regionId: form.regionId,
+      waterTypeId: form.waterTypeId,
+
+	speciesIds: [],
+	preferredSpeciesIds: [],
+	gearIds: [],
+	preferredBaitIds: [],
+	preferredTimeStateId: "",
+	adventureIds: [],
+
+      notes: "",
+
+      photoUrls: [],
+      fieldNoteIds: [],
+      journalEntryIds: [],
+
+      details: {
+        tagline: "A new water waiting to be learned.",
+        locationTypeLabel: water?.label || "Location",
+      },
+    };
+
+    onCreate(newLocation);
+  }
+
+  return (
+    <motion.form
+      className="loc-create-form"
+      onSubmit={handleSubmit}
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -12 }}
+      style={{
+        background: cardTheme?.bg,
+        border: `1px solid ${cardTheme?.border}`,
+        backdropFilter: `blur(${cardTheme?.blur || "12px"})`,
+        WebkitBackdropFilter: `blur(${cardTheme?.blur || "12px"})`,
+        boxShadow: cardTheme?.shadow,
+        color: textTheme?.primary,
+      }}
+    >
+      <p className="loc-card-eyebrow" style={{ color: textTheme?.secondary }}>
+        Create Location
+      </p>
+
+      <h3 className="loc-card-title" style={{ color: textTheme?.primary }}>
+        Add a new water
+      </h3>
+
+      <label className="loc-form-label">
+        Location Name
+        <input
+          className="loc-form-input"
+          value={form.name}
+          onChange={(e) => updateField("name", e.target.value)}
+          placeholder="Edward Medard Reservoir"
+        />
+      </label>
+
+      <label className="loc-form-label">
+        Region
+        <select
+          className="loc-form-input"
+          value={form.regionId}
+          onChange={(e) => updateField("regionId", e.target.value)}
+        >
+          {regionList.map((region) => (
+            <option key={region.id || region.key} value={region.id || region.key}>
+              {region.label}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <label className="loc-form-label">
+        Water Type
+        <select
+          className="loc-form-input"
+          value={form.waterTypeId}
+          onChange={(e) => updateField("waterTypeId", e.target.value)}
+        >
+          {waterTypes.map((water) => (
+            <option key={water.id} value={water.id}>
+              {water.label}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <div className="loc-form-actions">
+        <button
+          type="submit"
+          className="loc-create-btn"
+          style={{
+            background: chipTheme?.activeBg,
+            border: `1px solid ${chipTheme?.border}`,
+            color: chipTheme?.text,
+          }}
+        >
+          Save Location
+        </button>
+
+        <button type="button" className="loc-cancel-btn" onClick={onCancel}>
+          Cancel
+        </button>
+      </div>
+    </motion.form>
   );
 }
 
@@ -94,28 +257,86 @@ function LocationCard({ location, onClick, cardTheme, textTheme, chipTheme }) {
 function LocationDetail({
   location,
   onBack,
-  onOpenAdventure,
   onOpenSpecies,
   onOpenWaterType,
+  onUpdateLocation,
   cardTheme,
   textTheme,
   chipTheme,
   backButtonStyle,
 }) {
+	
   const water = waterTypes.find((w) => w.id === location.waterTypeId);
   const region = Object.values(REGION_OPTIONS).find(
     (r) => r.id === location.regionId || r.key === location.regionId
   );
 
+const regionList = Object.values(REGION_OPTIONS);
+
+
+const [isEditing, setIsEditing] = useState(false);
+const [draftLocation, setDraftLocation] = useState(location);
+
+const selectedWater = waterTypes.find((w) => w.id === draftLocation.waterTypeId);
+
+useEffect(() => {
+  setDraftLocation(location);
+}, [location]);
+
+function updateDraft(field, value) {
+  setDraftLocation((prev) => ({
+    ...prev,
+    [field]: value,
+  }));
+}
+
+function toggleArrayValue(field, value) {
+  setDraftLocation((prev) => {
+    const current = prev[field] || [];
+    const exists = current.includes(value);
+
+    return {
+      ...prev,
+      [field]: exists
+        ? current.filter((item) => item !== value)
+        : [...current, value],
+    };
+  });
+}
+
+function saveEdits() {
+  onUpdateLocation(draftLocation);
+  setIsEditing(false);
+}
+
   const [locationCatches, setLocationCatches] = useState([]);
   const [catchesLoading, setCatchesLoading] = useState(false);
   const [locationTrips, setLocationTrips] = useState([]);
   const [tripsLoading, setTripsLoading] = useState(false);
-
+  
   const memoryCount =
     (location.photoUrls?.length || 0) +
     (location.fieldNoteIds?.length || 0) +
     (location.journalEntryIds?.length || 0);
+
+const likelySpecies = SPECIES.filter((species) => {
+  const matchesRegion =
+    species.regionIds?.includes(location.regionId) ||
+    species.regions?.includes(location.regionId);
+
+  const matchesWater =
+    species.waterTypeIds?.includes(location.waterTypeId) ||
+    species.waterTypes?.includes(location.waterTypeId);
+
+  return matchesRegion && matchesWater;
+});
+
+const observedLikelyCount =
+  location.speciesIds?.filter((speciesId) =>
+    likelySpecies.some((species) => species.id === speciesId)
+  ).length || 0;
+
+
 
 useEffect(() => {
   let isMounted = true;
@@ -214,32 +435,97 @@ useEffect(() => {
         </button>
 
         <p className="loc-detail-eyebrow">
-          Locations · {water?.label || location.waterTypeId || "Saved Place"}
-        </p>
+		  Locations ·{" "}
+		  {isEditing
+			? selectedWater?.label || draftLocation.waterTypeId || "Saved Place"
+			: water?.label || location.waterTypeId || "Saved Place"}
+		</p>
 
-        <h2 className="loc-detail-title">{location.name}</h2>
+        {isEditing ? (
+		  <input
+			className="loc-form-input loc-title-input"
+			value={draftLocation.name || ""}
+			onChange={(e) => updateDraft("name", e.target.value)}
+			placeholder="Location name"
+		  />
+		) : (
+		  <h2 className="loc-detail-title">{location.name}</h2>
+		)}
 
-        {location.notes && (
-          <p className="loc-detail-subtitle">{location.notes}</p>
-        )}
+        {(isEditing ? draftLocation.notes : location.notes) && (
+  <p className="loc-detail-subtitle">
+    {isEditing ? draftLocation.notes : location.notes}
+  </p>
+)}
+
+		<div className="loc-edit-actions">
+		  {isEditing ? (
+			<>
+			  <button className="loc-create-btn" onClick={saveEdits}>
+				Save Changes
+			  </button>
+			  <button
+				className="loc-cancel-btn"
+				onClick={() => {
+				  setDraftLocation(location);
+				  setIsEditing(false);
+				}}
+			  >
+				Cancel
+			  </button>
+			</>
+		  ) : (
+			<button className="loc-new-btn" onClick={() => setIsEditing(true)}>
+			  Edit Location
+			</button>
+		  )}
+		</div>
 
         <div className="loc-stats-row">
           <div className="loc-stat">
-            <p className="loc-stat-label">Region</p>
-            <p className="loc-stat-value">
-              {region?.label || location.regionId || "Unassigned"}
-            </p>
-          </div>
+		  <p className="loc-stat-label">Region</p>
 
+		  {isEditing ? (
+			<select
+			  className="loc-form-input"
+			  value={draftLocation.regionId || ""}
+			  onChange={(e) => updateDraft("regionId", e.target.value)}
+			>
+			  {regionList.map((region) => (
+				<option key={region.id || region.key} value={region.id || region.key}>
+				  {region.label}
+				</option>
+			  ))}
+			</select>
+		  ) : (
+			<p className="loc-stat-value">
+			  {region?.label || location.regionId || "Unassigned"}
+			</p>
+		  )}
+		</div>
 
 
           <div className="loc-stat">
 		  <p className="loc-stat-label">Water Type</p>
 
-		  <SpeciesChip
-			label={water?.label || location.waterTypeId || "Unassigned"}
-			onClick={water ? () => onOpenWaterType(water.id) : null}
-		  />
+		  {isEditing ? (
+			<select
+			  className="loc-form-input"
+			  value={draftLocation.waterTypeId || ""}
+			  onChange={(e) => updateDraft("waterTypeId", e.target.value)}
+			>
+			  {waterTypes.map((water) => (
+				<option key={water.id} value={water.id}>
+				  {water.label}
+				</option>
+			  ))}
+			</select>
+		  ) : (
+			<SpeciesChip
+			  label={water?.label || location.waterTypeId || "Unassigned"}
+			  onClick={water ? () => onOpenWaterType(water.id) : null}
+			/>
+		  )}
 		</div>
 				  
 		  
@@ -252,50 +538,216 @@ useEffect(() => {
         </div>
 
         <SectionBlock label="Known species">
-          <div className="loc-species-row">
-            {location.speciesIds?.length ? (
-              location.speciesIds.map((speciesId) => {
-                const species = SPECIES.find((s) => s.id === speciesId);
+		  {isEditing ? (
+			<div className="loc-species-row">
+			  {SPECIES.map((species) => (
+				<button
+				  key={species.id}
+				  type="button"
+				  className={`loc-species-chip ${
+					draftLocation.speciesIds?.includes(species.id) ? "active" : ""
+				  }`}
+				  onClick={() => toggleArrayValue("speciesIds", species.id)}
+				>
+				  {species.name}
+				</button>
+			  ))}
+			</div>
+		  ) : (
+			<div className="loc-species-row">
+			  {location.speciesIds?.length ? (
+				location.speciesIds.map((speciesId) => {
+				  const species = SPECIES.find((s) => s.id === speciesId);
 
-                return (
-                  <SpeciesChip
-                    key={speciesId}
-                    label={species?.name || speciesId}
-                    onClick={species ? () => onOpenSpecies(species.id) : null}
-                  />
-                );
-              })
-            ) : (
-              <p>No species added yet.</p>
-            )}
-          </div>
-        </SectionBlock>
+				  return (
+					<SpeciesChip
+					  key={speciesId}
+					  label={species?.name || speciesId}
+					  onClick={species ? () => onOpenSpecies(species.id) : null}
+					/>
+				  );
+				})
+			  ) : (
+				<p>No species added yet.</p>
+			  )}
+			</div>
+		  )}
+		</SectionBlock>
 
-        <SectionBlock label="Preferred gear">
-          <div className="loc-species-row">
-            {location.gearIds?.length ? (
-              location.gearIds.map((gearId) => {
-                const gear = GEAR.find((g) => g.id === gearId);
+		<SectionBlock label="Likely species">
+		  {likelySpecies.length ? (
+			<>
+			  <p className="loc-discovery-text">
+				{observedLikelyCount} of {likelySpecies.length} likely species observed.
+			  </p>
 
-                return (
-                  <SpeciesChip
-                    key={gearId}
-                    label={gear?.name || gearId}
-                    onClick={null}
-                  />
-                );
-              })
-            ) : (
-              <p>No preferred gear added yet.</p>
-            )}
-          </div>
-        </SectionBlock>
+			  <div className="loc-species-row">
+				{likelySpecies.map((species) => {
+				  const observed = location.speciesIds?.includes(species.id);
 
-        {location.notes && (
+				  return (
+					<span
+					  key={species.id}
+					  className={`loc-species-chip ${
+						observed ? "discovery" : ""
+					  }`}
+					  onClick={() => onOpenSpecies(species.id)}
+					>
+					  {observed ? `✓ ${species.name}` : species.name}
+					</span>
+				  );
+				})}
+			  </div>
+			</>
+		  ) : (
+			<p>No likely species mapped for this region and water type yet.</p>
+		  )}
+		</SectionBlock>
+
+
+		<SectionBlock label="Preferred species">
+		  {isEditing ? (
+			<div className="loc-species-row">
+			  {SPECIES.map((species) => (
+				<button
+				  key={species.id}
+				  type="button"
+				  className={`loc-species-chip ${
+					draftLocation.preferredSpeciesIds?.includes(species.id) ? "active" : ""
+				  }`}
+				  onClick={() => toggleArrayValue("preferredSpeciesIds", species.id)}
+				>
+				  {species.name}
+				</button>
+			  ))}
+			</div>
+		  ) : (
+			<div className="loc-species-row">
+			  {location.preferredSpeciesIds?.length ? (
+				location.preferredSpeciesIds.map((speciesId) => {
+				  const species = SPECIES.find((s) => s.id === speciesId);
+
+				  return (
+					<SpeciesChip
+					  key={speciesId}
+					  label={species?.name || speciesId}
+					  onClick={species ? () => onOpenSpecies(species.id) : null}
+					/>
+				  );
+				})
+			  ) : (
+				<p>No preferred species added yet.</p>
+			  )}
+			</div>
+		  )}
+		</SectionBlock>
+
+		<SectionBlock label="Preferred gear">
+		  {isEditing ? (
+			<div className="loc-species-row">
+			  {GEAR.map((gear) => (
+				<button
+				  key={gear.id}
+				  type="button"
+				  className={`loc-species-chip ${
+					draftLocation.gearIds?.includes(gear.id) ? "active" : ""
+				  }`}
+				  onClick={() => toggleArrayValue("gearIds", gear.id)}
+				>
+				  {gear.name}
+				</button>
+			  ))}
+			</div>
+		  ) : (
+			<div className="loc-species-row">
+			  {location.gearIds?.length ? (
+				location.gearIds.map((gearId) => {
+				  const gear = GEAR.find((g) => g.id === gearId);
+
+				  return (
+					<SpeciesChip key={gearId} label={gear?.name || gearId} />
+				  );
+				})
+			  ) : (
+				<p>No preferred gear added yet.</p>
+			  )}
+			</div>
+		  )}
+		</SectionBlock>
+
+		<SectionBlock label="Preferred bait">
+		  {isEditing ? (
+			<div className="loc-species-row">
+			  {BAIT_OPTIONS.map((bait) => (
+				<button
+				  key={bait.id}
+				  type="button"
+				  className={`loc-species-chip ${
+					draftLocation.preferredBaitIds?.includes(bait.id) ? "active" : ""
+				  }`}
+				  onClick={() => toggleArrayValue("preferredBaitIds", bait.id)}
+				>
+				  {bait.name}
+				</button>
+			  ))}
+			</div>
+		  ) : (
+			<div className="loc-species-row">
+			  {location.preferredBaitIds?.length ? (
+				location.preferredBaitIds.map((baitId) => {
+				  const bait = BAIT_OPTIONS.find((b) => b.id === baitId);
+
+				  return <SpeciesChip key={baitId} label={bait?.name || baitId} />;
+				})
+			  ) : (
+				<p>No preferred bait added yet.</p>
+			  )}
+			</div>
+		  )}
+		</SectionBlock>
+      
+		<SectionBlock label="Preferred time">
+		  {isEditing ? (
+			<select
+			  className="loc-form-input"
+			  value={draftLocation.preferredTimeStateId || ""}
+			  onChange={(e) => updateDraft("preferredTimeStateId", e.target.value)}
+			>
+			  <option value="">No preferred time yet</option>
+			  {TIME_STATE_OPTIONS.map((time) => (
+				<option key={time.id} value={time.id}>
+				  {time.label}
+				</option>
+			  ))}
+			</select>
+		  ) : location.preferredTimeStateId ? (
+			<p>
+			  {
+				TIME_STATE_OPTIONS.find(
+				  (time) => time.id === location.preferredTimeStateId
+				)?.label || location.preferredTimeStateId
+			  }
+			</p>
+		  ) : (
+			<p>No preferred time added yet.</p>
+		  )}
+		</SectionBlock>
+	  
           <SectionBlock label="Notes">
-            <p>{location.notes}</p>
-          </SectionBlock>
-        )}
+			  {isEditing ? (
+				<textarea
+				  className="loc-form-input loc-textarea"
+				  value={draftLocation.notes || ""}
+				  onChange={(e) => updateDraft("notes", e.target.value)}
+				  placeholder="Best time of day, water behavior, access notes, memories..."
+				/>
+			  ) : location.notes ? (
+				<p>{location.notes}</p>
+			  ) : (
+				<p>No notes added yet.</p>
+			  )}
+			</SectionBlock>
+        
 
         <SectionBlock label="Photos">
           {location.photoUrls?.length ? (
@@ -375,12 +827,15 @@ useEffect(() => {
 }
 
 export default function LocationsPage() {
+  const [locations, setLocations] = useState(MY_LOCATIONS);
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  
+
   const navigate = useNavigate();
   const routeLocation = useLocation();
 
   const DEBUG_SCENE = null;
-
   const { profilePacket } = useProfile();
 
   const displayName =
@@ -408,15 +863,13 @@ export default function LocationsPage() {
       })
     : atmosphere.scene;
 
-
-const atmospherePacket = buildAtmospherePacket({
-  page: "locations",
-  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
-  timeState: scene?.backgroundVariant || "soft-morning-rise",
-  weatherState: scene?.weather || "clear-sky",
-  user: profilePacket,
-  
-});
+  const atmospherePacket = buildAtmospherePacket({
+    page: "locations",
+    region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+    timeState: scene?.backgroundVariant || "soft-morning-rise",
+    weatherState: scene?.weather || "clear-sky",
+    user: profilePacket,
+  });
 
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
   const styles = atmosphere.styles ?? {};
@@ -439,7 +892,7 @@ const atmospherePacket = buildAtmospherePacket({
     page: "locations",
     user: profilePacket,
     atmosphere: atmospherePacket,
-	scene,
+    scene,
     view: selectedLocation ? "entry" : "home",
     locationName: selectedLocation?.name || null,
     locationType: selectedLocation?.waterTypeId || null,
@@ -448,11 +901,17 @@ const atmospherePacket = buildAtmospherePacket({
       : `${displayName} opened their saved locations`,
   };
 
+  function handleCreateLocation(newLocation) {
+    setLocations((prev) => [newLocation, ...prev]);
+    setShowCreateForm(false);
+    setSelectedLocation(newLocation);
+  }
+
   useEffect(() => {
     const navState = routeLocation.state;
 
     if (navState?.selectedLocationId) {
-      const matchedLocation = MY_LOCATIONS.find(
+      const matchedLocation = locations.find(
         (loc) => loc.id === navState.selectedLocationId
       );
 
@@ -460,7 +919,18 @@ const atmospherePacket = buildAtmospherePacket({
         setSelectedLocation(matchedLocation);
       }
     }
-  }, [routeLocation.state]);
+  }, [routeLocation.state, locations]);
+
+
+function handleUpdateLocation(updatedLocation) {
+  setLocations((prev) =>
+    prev.map((loc) =>
+      loc.id === updatedLocation.id ? updatedLocation : loc
+    )
+  );
+
+  setSelectedLocation(updatedLocation);
+}
 
   return (
     <CastBackground
@@ -488,7 +958,27 @@ const atmospherePacket = buildAtmospherePacket({
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.25 }}
               >
-                {MY_LOCATIONS.map((location) => (
+                <button
+                  className="loc-new-btn"
+                  onClick={() => setShowCreateForm((prev) => !prev)}
+                  style={backButtonStyle}
+                >
+                  {showCreateForm ? "Close" : "+ New Location"}
+                </button>
+
+                <AnimatePresence>
+                  {showCreateForm && (
+                    <CreateLocationForm
+                      onCreate={handleCreateLocation}
+                      onCancel={() => setShowCreateForm(false)}
+                      cardTheme={cardTheme}
+                      textTheme={textTheme}
+                      chipTheme={chipTheme}
+                    />
+                  )}
+                </AnimatePresence>
+
+                {locations.map((location) => (
                   <LocationCard
                     key={location.id}
                     location={location}
@@ -507,31 +997,31 @@ const atmospherePacket = buildAtmospherePacket({
 
             {selectedLocation && (
               <LocationDetail
-                key={selectedLocation.id}
-                location={selectedLocation}
-                onBack={() => setSelectedLocation(null)}
-                onOpenSpecies={(entryId) =>
-                  navigate("/field-guide", {
-                    state: {
-                      section: "species",
-                      entryId,
-                    },
-                  })
-                }
-				onOpenWaterType={(entryId) =>
-				navigate("/field-guide", {
-				  state: {
-					section: "waters",
-					entryId,
-				  },
-				})
-			  }
-							
-                cardTheme={cardTheme}
-                textTheme={textTheme}
-                chipTheme={chipTheme}
-                backButtonStyle={backButtonStyle}
-              />
+				  key={selectedLocation.id}
+				  location={selectedLocation}
+				  onBack={() => setSelectedLocation(null)}
+				  onUpdateLocation={handleUpdateLocation}
+				  onOpenSpecies={(entryId) =>
+					navigate("/field-guide", {
+					  state: {
+						section: "species",
+						entryId,
+					  },
+					})
+				  }
+				  onOpenWaterType={(entryId) =>
+					navigate("/field-guide", {
+					  state: {
+						section: "waters",
+						entryId,
+					  },
+					})
+				  }
+				  cardTheme={cardTheme}
+				  textTheme={textTheme}
+				  chipTheme={chipTheme}
+				  backButtonStyle={backButtonStyle}
+				/>
             )}
           </AnimatePresence>
         </div>

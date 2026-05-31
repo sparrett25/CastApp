@@ -419,4 +419,63 @@ export const timeStates = {
     },
   },
   
+  starry_night: {
+    id: "starry-night",
+    label: "Starry Night",
+    mood: ["closure", "remembrance", "still", "inward"],
+    lighting:
+      "Post-sunset ember glow lingers near the horizon while the foreground, dock, and water deepen into cool shadow. Reflections become minimal, distant shorelines soften into silhouettes, and the scene feels quiet, inward, and memory-like.",
+    ui: {
+      overlay: "from-black/52 via-black/34 to-black/68",
+      card: {
+        bg: "rgba(34, 34, 42, 0.28)",
+        border: "rgba(220, 205, 195, 0.06)",
+        blur: "22px",
+        shadow: "0 0 26px rgba(0, 0, 0, 0.18)",
+      },
+      bubble: {
+        papaBg: "rgba(42, 48, 56, 0.38)",
+        userBg: "rgba(105, 82, 76, 0.24)",
+        border: "rgba(225, 220, 220, 0.08)",
+        text: "rgba(242, 238, 234, 0.94)",
+        blur: "22px",
+        shadow: "0 0 24px rgba(0, 0, 0, 0.16)",
+      },
+      input: {
+        bg: "rgba(88, 76, 78, 0.22)",
+        border: "rgba(255,255,255,0.07)",
+        text: "rgba(242,238,234,0.94)",
+        placeholder: "rgba(220,210,205,0.36)",
+      },
+      button: {
+        primaryBg: "rgba(58, 64, 74, 0.36)",
+        secondaryBg: "rgba(42, 48, 56, 0.28)",
+        text: "rgba(255,255,255,0.92)",
+        border: "rgba(255,255,255,0.11)",
+      },
+      chip: {
+        bg: "rgba(66, 58, 62, 0.32)",
+        activeBg: "rgba(180, 105, 65, 0.34)",
+        text: "rgba(238,230,224,0.88)",
+      },
+      text: {
+        primary: "rgba(242,238,234,0.94)",
+        secondary: "rgba(210,202,198,0.70)",
+        whisper: "rgba(198,190,188,0.46)",
+      },
+      glow: {
+        intensity: "ember-low",
+        color: "rgba(220, 105, 65, 0.12)",
+      },
+      nav: {
+        bg: "rgba(28, 24, 24, 0.58)",
+        border: "rgba(255, 220, 200, 0.08)",
+        blur: "20px",
+        shadow: "0 10px 30px rgba(0, 0, 0, 0.28)",
+        text: "rgba(255, 244, 235, 0.94)",
+        buttonBg: "rgba(255, 255, 255, 0.07)",
+        buttonBorder: "rgba(255, 255, 255, 0.10)",
+      },
+    },
+  },
 };

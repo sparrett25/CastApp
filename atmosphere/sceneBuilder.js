@@ -13,6 +13,7 @@ const timeSuffixes = {
   "golden-dusk": "golden_dusk",
   "quiet-evening-glow": "quiet_evening_glow",
   "ember-twilight": "ember_twilight",
+  "starry-night": "starry_night",
 };
 
 const dailyAtmosphereDefaults = {
@@ -51,6 +52,11 @@ const dailyAtmosphereDefaults = {
     time: "ember_twilight",
      papa: "quiet_observation",
     backgroundVariant: "ember-twilight",
+  },
+  "starry-night": {
+    time: "starry_night",
+     papa: "quiet_observation",
+    backgroundVariant: "starry-night",
   },
 };
 
@@ -110,14 +116,9 @@ export function getTimeKey(hour = new Date().getHours()) {
   if (hour < 15) return "warm-drift";
   if (hour < 18) return "golden-dusk";
   if (hour < 20) return "quiet-evening-glow";
-  return "ember-twilight";
+  if (hour < 22) return "ember-twilight";
+  return "starry-night";
 }
-
-
-
-
-
-
 
 export function getSceneByPageAndTime(pageId, hour = new Date().getHours(), options = {}) {
   const profile = pageProfiles[pageId];

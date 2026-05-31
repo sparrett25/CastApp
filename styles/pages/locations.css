@@ -30,6 +30,47 @@
     transform 0.2s ease;
 }
 
+.loc-title-input {
+  font-family: inherit;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin: 0.25rem 0 0.5rem;
+}
+
+.loc-stat select.loc-form-input {
+  width: 100%;
+}
+
+.loc-discovery-text {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+  opacity: 0.85;
+  font-style: italic;
+}
+
+/* Species confirmed at this location */
+
+.loc-species-chip.discovery {
+  background: rgba(110, 220, 185, 0.18);
+  border: 1px solid rgba(110, 220, 185, 0.65);
+  color: #d8fff1;
+
+  box-shadow:
+    0 0 10px rgba(110, 220, 185, 0.15),
+    inset 0 0 10px rgba(110, 220, 185, 0.05);
+
+  font-weight: 600;
+}
+
+/* Optional Hover */
+.loc-species-chip.discovery:hover {
+  background: rgba(110, 220, 185, 0.28);
+  border-color: rgba(110, 220, 185, 0.9);
+
+  transform: translateY(-1px);
+}
+
+
 /* Hub */
 
 .loc-hub {
@@ -158,6 +199,23 @@
 .loc-species-chip.clickable:hover {
   background: rgba(255, 255, 255, 0.18);
   border-color: rgba(255, 255, 255, 0.28);
+}
+
+.loc-species-chip.active {
+  background: rgba(255, 235, 170, 0.28);
+  border-color: rgba(255, 235, 170, 0.75);
+  color: #fff6d6;
+  box-shadow: 0 0 12px rgba(255, 235, 170, 0.25);
+}
+
+.loc-species-chip {
+  cursor: pointer;
+}
+
+.loc-textarea {
+  min-height: 120px;
+  width: 100%;
+  resize: vertical;
 }
 
 /* Back Button */

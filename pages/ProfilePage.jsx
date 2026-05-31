@@ -27,6 +27,8 @@ const TIME_STATE_OPTIONS = [
   { key: "golden-dusk", label: "Golden Dusk" },
   { key: "quiet-evening-glow", label: "Quiet Evening Glow" },
   { key: "ember-twilight", label: "Ember Twilight" },
+  { key: "starry-night", label: "Starry Night" },
+  
 ];
 
 const WEATHER_STATE_OPTIONS = [

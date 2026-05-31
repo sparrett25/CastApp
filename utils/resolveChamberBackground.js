@@ -11,6 +11,7 @@ const TIME_OFFSET = {
   "golden-dusk": 5,
   "quiet-evening-glow": 6,
   "ember-twilight": 7, 
+  "starry-night": 8,
 };
 
 const CHAMBER_FOLDER_MAP = {

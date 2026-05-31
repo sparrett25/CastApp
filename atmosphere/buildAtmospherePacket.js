@@ -12,6 +12,7 @@ const TIME_KEY_MAP = {
   golden_dusk: "golden-dusk",
   quiet_evening_glow: "quiet-evening-glow",
   ember_twilight: "ember-twilight",
+  starry_night: "starry-night",
 };
 
 const WEATHER_KEY_MAP = {

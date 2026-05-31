@@ -7,14 +7,14 @@ import { useProfile } from "../context/ProfileContext";
 
 function getTimeKey() {
   const hour = new Date().getHours();
-
   if (hour < 5) return "blue-hour-dawn";
   if (hour < 7) return "first-light";
   if (hour < 11) return "soft-morning-rise";
   if (hour < 15) return "warm-drift";
   if (hour < 18) return "golden-dusk";
   if (hour < 20) return "quiet-evening-glow";
-  return "ember-twilight";
+  if (hour < 22) return "ember-twilight";
+  return "starry-night";
 }
 
 function resolveBackground(def, { variant, useTimeVariant = true } = {}) {
