@@ -26,6 +26,34 @@
     opacity 0.25s ease,
     transform 0.2s ease;
 }
+/* ── Cast Atmosphere Signature ── */
+
+.cast-atmosphere-signature {
+  margin: -2.75rem 0 1.85rem;
+  padding-left: 0.35rem;
+  max-width: 420px;
+  
+
+  font-size: 0.68rem;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  color: rgba(255,248,232,0.92);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.38);
+}
+
+.cast-atmosphere-signature strong {
+  display: block;
+  margin-bottom: 0.12rem;
+
+  font-size: 0.78rem;
+  color: rgba(255, 248, 232, 0.72);
+}
+
+.cast-atmosphere-signature span {
+  display: block;
+}
 
 /* ── Section Labels ── */
 

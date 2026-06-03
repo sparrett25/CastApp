@@ -3,6 +3,14 @@
 import { DEFAULT_REGION_KEY } from "../data/regionOptions";
 import { weatherStates } from "../atmosphere/weatherStates";
 
+export const REGION_ATMOSPHERE_KEY_MAP = {
+  "100": "central-florida",
+  "200": "midwest-farm",
+  "300": "northeast-lakes",
+  "400": "pacific-northwest",
+  "500": "appalachian-creek",
+};
+
 const TIME_OFFSET = {
   "blue-hour-dawn": 1,
   "first-light": 2,
@@ -43,6 +51,9 @@ const FILE_SLUG_MAP = {
   profile: "profile",
   authPage: "authpage",
 };
+export function getAtmosphereRegionKey(regionKey = DEFAULT_REGION_KEY) {
+  return REGION_ATMOSPHERE_KEY_MAP[String(regionKey)] || "central-florida";
+}
 
 export function resolveChamberBackgroundSrc({
   chamberKey,
@@ -64,5 +75,9 @@ export function resolveChamberBackgroundSrc({
   const weatherSuffix =
     weatherKey === "base" ? "" : `-${weatherKey}-v1`;
 
+
+const atmosphereRegionKey =
+  REGION_ATMOSPHERE_KEY_MAP[String(regionKey)] || "central-florida";
+  
   return `/images/chambers/${folderKey}/${regionKey}/${weatherFolder}/${imageNumber}-${fileSlug}-${timeKey}${weatherSuffix}.webp`;
 }

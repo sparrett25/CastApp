@@ -553,8 +553,7 @@ useEffect(() => {
           {saveError && (
             <p className="papa-dock-save-error">{saveError}</p>
           )}
-
-		<div className="papa-dock-mode-row" 
+<div className="papa-dock-mode-row" 
 		style={{
 		  ...buttonSecondaryStyle,
 		  color: textTheme?.primary,
@@ -565,6 +564,7 @@ useEffect(() => {
 		}}
 		
 		>
+		
 		  <select
 			className="papa-dock-mode-select"
 			value={conversationMode}
@@ -588,7 +588,9 @@ useEffect(() => {
 			<option value="deeper">Campfire</option>
 		  </select>
 		</div>
-
+		
+		
+		
 		<div className="papa-dock-input-container">
           <form
             className="papa-dock-input-row"

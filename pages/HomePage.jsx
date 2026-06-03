@@ -16,6 +16,7 @@ import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
 
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
+import { getAtmosphereRegionKey } from "../utils/resolveChamberBackground";
 
 const PILLARS = [
   { emoji: "", title: "Field Guide", desc: "Explore and learn.", path: "/species" },
@@ -53,11 +54,13 @@ export default function HomePage() {
       })
     : atmosphere.scene;
 
+const resolvedRegion = getAtmosphereRegionKey(profilePacket?.favoriteRegion);
+
 const atmospherePacket = buildAtmospherePacket({
   page: "home",
-  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  region: resolvedRegion,
   timeState: scene?.backgroundVariant || "soft-morning-rise",
-  weatherState: scene?.weather || "clear-sky",
+  weatherState: scene?.weatherState?.id || scene?.weather || "clear-sky",
   user: profilePacket,
 });
 
@@ -81,6 +84,27 @@ const atmospherePacket = buildAtmospherePacket({
       activeAdventure,
     },
   };
+
+const atmosphereSignature = {
+  page: atmospherePacket?.labels?.page || "Home",
+  region: atmospherePacket?.labels?.region || "Central Florida",
+  time: atmospherePacket?.labels?.timeState || scene?.backgroundVariant,
+  weather: atmospherePacket?.labels?.weatherState || scene?.weather,
+};
+
+console.log("HOME atmosphere signature scene:", {
+  regionName: scene?.regionName,
+  region: scene?.region,
+  regionKey: scene?.regionKey,
+  backgroundVariant: scene?.backgroundVariant,
+  weather: scene?.weather,
+  timeState: scene?.timeState,
+  weatherState: scene?.weatherState,
+});
+
+
+console.log("HOME atmosphere packet:", atmospherePacket);
+console.log("HOME atmosphere signature:", atmosphereSignature);
 
   useEffect(() => {
     let isMounted = true;
@@ -152,8 +176,24 @@ const atmospherePacket = buildAtmospherePacket({
           />
         }
       >
+	  
+
+
+
+	  
         <div className="home-dock home-dock--sections">
-          <HomeSectionCard
+          <div className="cast-atmosphere-signature">
+  <strong>{atmosphereSignature.page}</strong>
+  <span>{atmosphereSignature.region}</span>
+  <span>
+    {atmosphereSignature.time}
+    {atmosphereSignature.weather &&
+      atmosphereSignature.weather !== "clear-sky"
+      ? ` • ${atmosphereSignature.weather}`
+      : ""}
+  </span>
+</div>
+		  <HomeSectionCard
             title="Explore"
             summary="Field Guide · Locations · Journal · Papa"
             open={openSection === "explore"}
