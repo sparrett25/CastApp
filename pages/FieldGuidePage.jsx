@@ -42,6 +42,8 @@ import {
 
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 
+import { getAtmosphereRegionKey } from "../utils/resolveChamberBackground";
+
 // --- Species Chip to Locations ---
 
 function LocationChip({ label, onClick }) {
@@ -605,12 +607,15 @@ const scene = DEBUG_SCENE
     })
   : atmosphere.scene;
 
+const resolvedRegion =
+  scene?.regionKey ||
+  getAtmosphereRegionKey(profilePacket?.favoriteRegion);
 
 const atmospherePacket = buildAtmospherePacket({
   page: "fieldGuide",
-  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  region: resolvedRegion,
   timeState: scene?.backgroundVariant || "soft-morning-rise",
-  weatherState: scene?.weather || "clear-sky",
+  weatherState: scene?.weatherState?.id || scene?.weather || "clear-sky",
   user: profilePacket,
   
 });
@@ -635,7 +640,12 @@ const cardTheme = {
 const buttonTheme = ui.button ?? {};
 const backButtonStyle = buttonSecondaryStyle;
 
-
+const atmosphereSignature = {
+  page: atmospherePacket?.labels?.page || "Home",
+  region: atmospherePacket?.labels?.region || "Central Florida",
+  time: atmospherePacket?.labels?.timeState || scene?.backgroundVariant,
+  weather: atmospherePacket?.labels?.weatherState || scene?.weather,
+};
   
   
   
@@ -708,6 +718,19 @@ const backButtonStyle = buttonSecondaryStyle;
 	  overlay={ui.overlay}
 	>
       <ChamberLayout
+  signature={
+    <div className="cast-atmosphere-signature cast-atmosphere-signature--inline">
+      <span>
+        {atmosphereSignature.page} • {atmosphereSignature.region} •{" "}
+        {atmosphereSignature.time}
+        {atmosphereSignature.weather &&
+        atmosphereSignature.weather !== "Clear Sky" &&
+        atmosphereSignature.weather !== "clear-sky"
+          ? ` • ${atmosphereSignature.weather}`
+          : ""}
+      </span>
+    </div>
+  }
 		  papa={
 			<PapaMini
 			  context={papaContext}

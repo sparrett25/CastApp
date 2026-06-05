@@ -1,7 +1,7 @@
 /* ── Home Dock ── */
 
 .home-dock {
-  padding: 4.5rem 1.5rem 4rem;
+  padding: 2.5rem 1.5rem 4rem;
   max-width: 480px;
   margin: 0 auto;
   display: flex;
@@ -28,33 +28,32 @@
 }
 /* ── Cast Atmosphere Signature ── */
 
-.cast-atmosphere-signature {
-  margin: -2.75rem 0 1.85rem;
-  padding-left: 0.35rem;
-  max-width: 420px;
-  
 
-  font-size: 0.68rem;
-  line-height: 1.5;
-  letter-spacing: 0.08em;
+
+.cast-atmosphere-signature--inline {
+  width: min(86vw, 760px);
+  margin: 0 auto 0.85rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(30, 34, 38, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
-
-  color: rgba(255,248,232,0.92);
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.38);
+  text-align: center;
+  line-height: 1.25;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
 }
-
-.cast-atmosphere-signature strong {
-  display: block;
-  margin-bottom: 0.12rem;
-
-  font-size: 0.78rem;
-  color: rgba(255, 248, 232, 0.72);
-}
-
-.cast-atmosphere-signature span {
-  display: block;
-}
-
 /* ── Section Labels ── */
 
 .home-section-label {

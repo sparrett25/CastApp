@@ -538,7 +538,7 @@ button:active::after, .ui-button:active::after {
   .papa-slot {
     width: 100%;
     justify-content: center;
-    margin-top: 6rem;
+    margin-top: 3rem;
     padding: 0 0.75rem;
     box-sizing: border-box;
   }

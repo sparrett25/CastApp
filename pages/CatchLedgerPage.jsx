@@ -21,6 +21,8 @@ import "../styles/pages/catch-ledger.css";
 
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 
+import { getAtmosphereRegionKey } from "../utils/resolveChamberBackground";
+
 const LOCATION_OPTIONS = [
   ...MY_LOCATIONS.map((loc) => ({
     id: loc.id,
@@ -345,11 +347,15 @@ export default function CatchLedgerPage() {
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
   const styles = atmosphere.styles ?? {};
 
+const resolvedRegion =
+  scene?.regionKey ||
+  getAtmosphereRegionKey(profilePacket?.favoriteRegion);
+
 const atmospherePacket = buildAtmospherePacket({
   page: "catchLedger",
-  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  region: resolvedRegion,
   timeState: scene?.backgroundVariant || "soft-morning-rise",
-  weatherState: scene?.weather || "clear-sky",
+  weatherState: scene?.weatherState?.id || scene?.weather || "clear-sky",
   user: profilePacket,
  
 });
@@ -361,6 +367,13 @@ const atmospherePacket = buildAtmospherePacket({
   const textTheme = ui.text ?? {};
   const chipTheme = ui.chip ?? {};
   const bubbleTheme = ui.bubble ?? {};
+
+const atmosphereSignature = {
+  page: atmospherePacket?.labels?.page || "Home",
+  region: atmospherePacket?.labels?.region || "Central Florida",
+  time: atmospherePacket?.labels?.timeState || scene?.backgroundVariant,
+  weather: atmospherePacket?.labels?.weatherState || scene?.weather,
+};
 
   useEffect(() => {
     let isMounted = true;
@@ -450,6 +463,19 @@ const atmospherePacket = buildAtmospherePacket({
       overlay={ui.overlay}
     >
       <ChamberLayout
+  signature={
+    <div className="cast-atmosphere-signature cast-atmosphere-signature--inline">
+      <span>
+        {atmosphereSignature.page} • {atmosphereSignature.region} •{" "}
+        {atmosphereSignature.time}
+        {atmosphereSignature.weather &&
+        atmosphereSignature.weather !== "Clear Sky" &&
+        atmosphereSignature.weather !== "clear-sky"
+          ? ` • ${atmosphereSignature.weather}`
+          : ""}
+      </span>
+    </div>
+  }
         papa={
           <PapaMini
             context={buildPapaPageContext("catch-ledger", {

@@ -12,6 +12,7 @@ import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
 import "../styles/pages/trip-ledger.css";
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
+import { getAtmosphereRegionKey } from "../utils/resolveChamberBackground";
 
 function getTodayKey() {
   return new Date().toISOString().split("T")[0];
@@ -109,11 +110,15 @@ export default function TripLedger() {
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
   const styles = atmosphere.styles ?? {};
 
+const resolvedRegion =
+  scene?.regionKey ||
+  getAtmosphereRegionKey(profilePacket?.favoriteRegion);
+
 const atmospherePacket = buildAtmospherePacket({
   page: "trips",
-  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  region: resolvedRegion,
   timeState: scene?.backgroundVariant || "soft-morning-rise",
-  weatherState: scene?.weather || "clear-sky",
+  weatherState: scene?.weatherState?.id || scene?.weather || "clear-sky",
   user: profilePacket,
   
 });
@@ -138,6 +143,13 @@ const chipStyle = {
   const [loading, setLoading] = useState(true);
   const [ledgerError, setLedgerError] = useState("");
   const [deletingId, setDeletingId] = useState(null);
+
+const atmosphereSignature = {
+  page: atmospherePacket?.labels?.page || "Home",
+  region: atmospherePacket?.labels?.region || "Central Florida",
+  time: atmospherePacket?.labels?.timeState || scene?.backgroundVariant,
+  weather: atmospherePacket?.labels?.weatherState || scene?.weather,
+};
 
 const displayName =
   profilePacket?.display_name ||
@@ -279,7 +291,19 @@ const displayName =
       overlay={ui.overlay}
     >
       <ChamberLayout
-        
+  signature={
+    <div className="cast-atmosphere-signature cast-atmosphere-signature--inline">
+      <span>
+        {atmosphereSignature.page} • {atmosphereSignature.region} •{" "}
+        {atmosphereSignature.time}
+        {atmosphereSignature.weather &&
+        atmosphereSignature.weather !== "Clear Sky" &&
+        atmosphereSignature.weather !== "clear-sky"
+          ? ` • ${atmosphereSignature.weather}`
+          : ""}
+      </span>
+    </div>
+  }
         papa={
           <PapaMini
             context={papaContext}

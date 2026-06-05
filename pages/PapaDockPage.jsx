@@ -11,6 +11,7 @@ import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { supabase } from "../lib/supabase";
 import { useProfile } from "../context/ProfileContext";
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
+import { getAtmosphereRegionKey } from "../utils/resolveChamberBackground";
 
 const DEFAULT_OPENING_LINE = "You can talk here. No rush.";
 
@@ -71,11 +72,15 @@ export default function PapaDockPage() {
       })
     : atmosphere.scene;
 
+const resolvedRegion =
+  scene?.regionKey ||
+  getAtmosphereRegionKey(profilePacket?.favoriteRegion);
+  
 const atmospherePacket = buildAtmospherePacket({
   page: "papaDock",
-  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  region: resolvedRegion,
   timeState: scene?.backgroundVariant || "soft-morning-rise",
-  weatherState: scene?.weather || "clear-sky",
+  weatherState: scene?.weatherState?.id || scene?.weather || "clear-sky",
   user: profilePacket,
   context: {
     mode: "talk",
@@ -95,6 +100,13 @@ const transparentButtonStyle = styles.transparentButtonStyle ?? {};
 const textTheme = ui.text ?? {};
 const bubbleTheme = ui.bubble ?? {};
 
+const atmosphereSignature = {
+  page: atmospherePacket?.labels?.page || "Home",
+  region: atmospherePacket?.labels?.region || "Central Florida",
+  time: atmospherePacket?.labels?.timeState || scene?.backgroundVariant,
+  weather: atmospherePacket?.labels?.weatherState || scene?.weather,
+};
+
   useEffect(() => {
     const sceneOpening = scene?.whisper || DEFAULT_OPENING_LINE;
 
@@ -111,9 +123,18 @@ const bubbleTheme = ui.bubble ?? {};
     });
   }, [scene?.whisper]);
 
-  useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, loading]);
+  const hasMountedRef = useRef(false);
+
+useEffect(() => {
+  if (!hasMountedRef.current) {
+    hasMountedRef.current = true;
+    window.scrollTo(0, 0);
+    return;
+  }
+
+  endRef.current?.scrollIntoView({ behavior: "smooth" });
+}, [messages, loading]);
+
 
 useEffect(() => {
   const el = inputRef.current;
@@ -418,7 +439,21 @@ useEffect(() => {
       variant={scene?.backgroundVariant}
       overlay={ui.overlay}
     >
-      <ChamberLayout papa={null}>
+      <ChamberLayout
+signature={
+    <div className="cast-atmosphere-signature cast-atmosphere-signature--inline">
+      <span>
+        {atmosphereSignature.page} • {atmosphereSignature.region} •{" "}
+        {atmosphereSignature.time}
+        {atmosphereSignature.weather &&
+        atmosphereSignature.weather !== "Clear Sky" &&
+        atmosphereSignature.weather !== "clear-sky"
+          ? ` • ${atmosphereSignature.weather}`
+          : ""}
+      </span>
+    </div>
+  }
+  papa={null}>
         <div className="papa-dock-page">
           <div className="papa-dock-conversation">
             <AnimatePresence initial={false}>

@@ -5,17 +5,20 @@ import React from "react";
  *   <div className="tile-grid">…cards…</div>
  * </ChamberLayout>
  */
-export default function ChamberLayout({ title, sub, papa, children }) {
+export default function ChamberLayout({ title, sub, papa, signature, children }) {
   return (
-    // add a little top padding for clearance
     <div className="chamber-page pt-10 md:pt-16">
       <div className="chamber-header">
         <div>
           <h1 className="chamber-title">{title}</h1>
           {sub && <p className="chamber-sub">{sub}</p>}
         </div>
-        {!!papa && <div className="papa-slot">{papa}</div>}
       </div>
+
+      {signature && <div className="chamber-signature-slot">{signature}</div>}
+
+      {!!papa && <div className="papa-slot">{papa}</div>}
+
       {children}
     </div>
   );

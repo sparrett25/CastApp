@@ -1,8 +1,8 @@
 /* ── Journal Page & Archive ── */
 
 .journal-page {
-  padding: 5.5rem 1.5rem 6rem;
-  max-width: 520px;
+  padding: 2.5rem 1.5rem 6rem;
+  max-width: 480px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;

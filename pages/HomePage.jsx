@@ -54,7 +54,9 @@ export default function HomePage() {
       })
     : atmosphere.scene;
 
-const resolvedRegion = getAtmosphereRegionKey(profilePacket?.favoriteRegion);
+const resolvedRegion =
+  scene?.regionKey ||
+  getAtmosphereRegionKey(profilePacket?.favoriteRegion);
 
 const atmospherePacket = buildAtmospherePacket({
   page: "home",
@@ -168,32 +170,34 @@ console.log("HOME atmosphere signature:", atmosphereSignature);
       variant={scene?.backgroundVariant}
       overlay={ui.overlay}
     >
+	
+	
       <ChamberLayout
-        papa={
-          <PapaMini
-            context={papaContext}
-            fallbackKey="home.welcome"
-          />
-        }
-      >
-	  
+  signature={
+    <div className="cast-atmosphere-signature cast-atmosphere-signature--inline">
+      <span>
+        {atmosphereSignature.page} • {atmosphereSignature.region} •{" "}
+        {atmosphereSignature.time}
+        {atmosphereSignature.weather &&
+        atmosphereSignature.weather !== "Clear Sky" &&
+        atmosphereSignature.weather !== "clear-sky"
+          ? ` • ${atmosphereSignature.weather}`
+          : ""}
+      </span>
+    </div>
+  }
+  papa={
+    <PapaMini
+      context={papaContext}
+      fallbackKey="home.welcome"
+    />
+  }
+>
 
-
-
-	  
-        <div className="home-dock home-dock--sections">
-          <div className="cast-atmosphere-signature">
-  <strong>{atmosphereSignature.page}</strong>
-  <span>{atmosphereSignature.region}</span>
-  <span>
-    {atmosphereSignature.time}
-    {atmosphereSignature.weather &&
-      atmosphereSignature.weather !== "clear-sky"
-      ? ` • ${atmosphereSignature.weather}`
-      : ""}
-  </span>
-</div>
-		  <HomeSectionCard
+  <div className="home-dock home-dock--sections">
+		
+		
+          <HomeSectionCard
             title="Explore"
             summary="Field Guide · Locations · Journal · Papa"
             open={openSection === "explore"}

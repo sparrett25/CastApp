@@ -1,12 +1,14 @@
 .papa-dock-page {
-  padding: 4.5rem 1.5rem 2.5rem;
+  padding: 2rem 1.5rem 2.5rem;
   max-width: 480px;
-  min-height: calc(100svh - 18rem);
+  min-height: auto;
   margin: 0 auto;
+
   display: flex;
   flex-direction: column;
-  gap: 2.25rem;
+  gap: 1.5rem;
 }
+
 .papa-dock-mode-row {
   display: flex;
   gap: 0.65rem;
@@ -15,11 +17,10 @@
   max-width: 100%;
   padding: 0.55rem;
   border-radius: 999px;
-  margin-top: auto;
-  margin-bottom: 0.65rem;
-  margin-left: 5.65rem;
-  transform: translateY(-4.5rem);
-   }
+
+  margin: 1.25rem auto 0.25rem;
+  transform: none;
+}
 
 .papa-dock-mode-select {
   appearance: none;
@@ -321,20 +322,18 @@
 /* Anchor Input Lower On Screen */
 
 .papa-dock-input-container {
-  margin-top: auto;
   width: 100%;
-  padding-top: 2rem;
+  padding-top: 0;
   z-index: 10;
-
-  transform: translateY(-4.5rem);
+  transform: none;
 }
 
 /* Mobile */
 
 @media (max-width: 480px) {
   .papa-dock-page {
-    padding: 0 1rem 2.25rem;
-    min-height: calc(100svh - 8rem);
+    padding: 1.5rem 1rem 2.25rem;
+    min-height: auto;
   }
 
   .papa-dock-input-row {
@@ -345,6 +344,4 @@
     order: 3;
     width: 100%;
   }
-  
- 
 }

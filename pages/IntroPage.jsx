@@ -9,6 +9,7 @@ import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
+import { getAtmosphereRegionKey } from "../utils/resolveChamberBackground";
 
 function getIntroUiStyles(scene) {
   const tone = scene?.timeState?.ui?.textTone ?? "balanced";
@@ -94,11 +95,15 @@ export default function IntroPage() {
       })
     : atmosphere.scene;
 
+const resolvedRegion =
+  scene?.regionKey ||
+  getAtmosphereRegionKey(profilePacket?.favoriteRegion);
+  
 const atmospherePacket = buildAtmospherePacket({
   page: "intro",
-  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  region: resolvedRegion,
   timeState: scene?.backgroundVariant || "soft-morning-rise",
-  weatherState: scene?.weather || "clear-sky",
+  weatherState: scene?.weatherState?.id || scene?.weather || "clear-sky",
   user: profilePacket,
   
 });
@@ -115,13 +120,34 @@ const buttonPrimaryStyle = styles.buttonPrimaryStyle ?? {};
   ...buttonPrimaryStyle,
 };
 
+const atmosphereSignature = {
+  page: atmospherePacket?.labels?.page || "Home",
+  region: atmospherePacket?.labels?.region || "Central Florida",
+  time: atmospherePacket?.labels?.timeState || scene?.backgroundVariant,
+  weather: atmospherePacket?.labels?.weatherState || scene?.weather,
+};
+
   return (
     <CastBackground
       chamberKey="intro"
       variant={scene?.backgroundVariant}
       overlay={ui.overlay}
     >
-      <ChamberLayout>
+      <ChamberLayout
+  signature={
+    <div className="cast-atmosphere-signature cast-atmosphere-signature--inline">
+      <span>
+        {atmosphereSignature.page} • {atmosphereSignature.region} •{" "}
+        {atmosphereSignature.time}
+        {atmosphereSignature.weather &&
+        atmosphereSignature.weather !== "Clear Sky" &&
+        atmosphereSignature.weather !== "clear-sky"
+          ? ` • ${atmosphereSignature.weather}`
+          : ""}
+      </span>
+    </div>
+  }
+  >
         <div className={uiStyles.containerClass}>
           {scene?.whisper && (
             <div className={uiStyles.whisperClass}>{scene.whisper}</div>

@@ -9,6 +9,7 @@ import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { REGION_OPTIONS, DEFAULT_REGION_KEY } from "../data/regionOptions";
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
+import { getAtmosphereRegionKey } from "../utils/resolveChamberBackground";
 
 const PAPA_PRESENCES = [
   { key: "classic_papa", label: "Classic Papa", desc: "Warm, steady, familiar guidance." },
@@ -96,6 +97,7 @@ export default function ProfilePage() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   
+  
   const atmosphere = useAtmosphere("profile", {
   user: {
     ...profilePacket,
@@ -122,11 +124,16 @@ export default function ProfilePage() {
     })
   : atmosphere.scene;
 
+const resolvedRegion =
+  scene?.regionKey ||
+  getAtmosphereRegionKey(profilePacket?.favoriteRegion);
+  
+  
 const atmospherePacket = buildAtmospherePacket({
   page: "profile",
-  region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
+  region: resolvedRegion,
   timeState: scene?.backgroundVariant || "soft-morning-rise",
-  weatherState: scene?.weather || "clear-sky",
+  weatherState: scene?.weatherState?.id || scene?.weather || "clear-sky",
   user: profilePacket,
   
 });
@@ -148,7 +155,12 @@ const textTheme = ui.text ?? {};
 	intent: "User is reviewing their CAST profile and preferences."
   };
 
-
+const atmosphereSignature = {
+  page: atmospherePacket?.labels?.page || "Home",
+  region: atmospherePacket?.labels?.region || "Central Florida",
+  time: atmospherePacket?.labels?.timeState || scene?.backgroundVariant,
+  weather: atmospherePacket?.labels?.weatherState || scene?.weather,
+};
 
   useEffect(() => {
     let mounted = true;
@@ -305,14 +317,26 @@ const textTheme = ui.text ?? {};
 	  overlay={ui.overlay}
 	>
       <ChamberLayout
-        papa={
-          <PapaMini
-            context={papaContext}
-            fallbackKey="profile.open"
-            trigger={form.papa_presence_key}
-          />
-        }
-      >
+  signature={
+    <div className="cast-atmosphere-signature cast-atmosphere-signature--inline">
+      <span>
+        {atmosphereSignature.page} • {atmosphereSignature.region} •{" "}
+        {atmosphereSignature.time}
+        {atmosphereSignature.weather &&
+        atmosphereSignature.weather !== "Clear Sky" &&
+        atmosphereSignature.weather !== "clear-sky"
+          ? ` • ${atmosphereSignature.weather}`
+          : ""}
+      </span>
+    </div>
+  }
+  papa={
+    <PapaMini
+      context={papaContext}
+      fallbackKey="fallback"
+    />
+  }
+>
         <main className="profile-page">
           <section className="profile-hero">
             <p className="profile-kicker">Your Profile</p>

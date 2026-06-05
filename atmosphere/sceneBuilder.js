@@ -3,7 +3,8 @@ import { weatherStates } from "./weatherStates";
 import { papaStates } from "./papaStates";
 import { pageProfiles } from "./pageProfiles";
 import { getSceneWhisper } from "./whisperRegistry";
-
+import { DEFAULT_REGION_KEY } from "../data/regionOptions";
+import { getAtmosphereRegionKey } from "../utils/resolveChamberBackground";
 
 const timeSuffixes = {
   "blue-hour-dawn": "blue_hour_dawn",
@@ -136,6 +137,14 @@ export function getSceneByPageAndTime(pageId, hour = new Date().getHours(), opti
   options?.context?.weatherStateOverride ||
   null;
 
+  const profileRegionKey =
+  options?.user?.favoriteRegion ||
+  options?.user?.regionKey ||
+  options?.context?.regionKey ||
+  DEFAULT_REGION_KEY;
+
+const atmosphereRegionKey = getAtmosphereRegionKey(profileRegionKey);
+  
   const timeKey = overrideTimeKey || getTimeKey(hour);
   const sceneId = profile.scenes.default[timeKey];
 
@@ -146,6 +155,8 @@ export function getSceneByPageAndTime(pageId, hour = new Date().getHours(), opti
 
   return {
   ...scene,
+  regionNumber: profileRegionKey,
+  regionKey: atmosphereRegionKey,
   weatherStateKey: weatherKey,
   weatherState: weatherStates[weatherKey],
 };

@@ -15,6 +15,7 @@ import { useProfile } from "../context/ProfileContext";
 import { MY_LOCATIONS } from "../data/myLocations";
 import { supabase } from "../lib/supabase";
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
+import { getAtmosphereRegionKey } from "../utils/resolveChamberBackground";
 
 const BAIT_OPTIONS = [
   { id: "nightcrawlers", name: "Nightcrawlers" },
@@ -863,11 +864,15 @@ export default function LocationsPage() {
       })
     : atmosphere.scene;
 
+  const resolvedRegion =
+  scene?.regionKey ||
+  getAtmosphereRegionKey(profilePacket?.favoriteRegion);
+  
   const atmospherePacket = buildAtmospherePacket({
     page: "locations",
-    region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
-    timeState: scene?.backgroundVariant || "soft-morning-rise",
-    weatherState: scene?.weather || "clear-sky",
+    region: resolvedRegion,
+  timeState: scene?.backgroundVariant || "soft-morning-rise",
+  weatherState: scene?.weatherState?.id || scene?.weather || "clear-sky",
     user: profilePacket,
   });
 
@@ -900,6 +905,13 @@ export default function LocationsPage() {
       ? `${displayName} is remembering ${selectedLocation.name}`
       : `${displayName} opened their saved locations`,
   };
+
+const atmosphereSignature = {
+  page: atmospherePacket?.labels?.page || "Home",
+  region: atmospherePacket?.labels?.region || "Central Florida",
+  time: atmospherePacket?.labels?.timeState || scene?.backgroundVariant,
+  weather: atmospherePacket?.labels?.weatherState || scene?.weather,
+};
 
   function handleCreateLocation(newLocation) {
     setLocations((prev) => [newLocation, ...prev]);
@@ -939,14 +951,26 @@ function handleUpdateLocation(updatedLocation) {
       overlay={ui.overlay}
     >
       <ChamberLayout
-        papa={
-          <PapaMini
-            context={papaContext}
-            fallbackKey="locations.open"
-            trigger={selectedLocation?.id ?? "locations-hub"}
-          />
-        }
-      >
+  signature={
+    <div className="cast-atmosphere-signature cast-atmosphere-signature--inline">
+      <span>
+        {atmosphereSignature.page} • {atmosphereSignature.region} •{" "}
+        {atmosphereSignature.time}
+        {atmosphereSignature.weather &&
+        atmosphereSignature.weather !== "Clear Sky" &&
+        atmosphereSignature.weather !== "clear-sky"
+          ? ` • ${atmosphereSignature.weather}`
+          : ""}
+      </span>
+    </div>
+  }
+  papa={
+    <PapaMini
+      context={papaContext}
+      fallbackKey="fallback"
+    />
+  }
+>
         <div className="loc-page">
           <AnimatePresence mode="wait">
             {!selectedLocation && (

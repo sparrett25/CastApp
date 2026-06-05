@@ -76,8 +76,6 @@ export function resolveChamberBackgroundSrc({
     weatherKey === "base" ? "" : `-${weatherKey}-v1`;
 
 
-const atmosphereRegionKey =
-  REGION_ATMOSPHERE_KEY_MAP[String(regionKey)] || "central-florida";
   
   return `/images/chambers/${folderKey}/${regionKey}/${weatherFolder}/${imageNumber}-${fileSlug}-${timeKey}${weatherSuffix}.webp`;
 }
