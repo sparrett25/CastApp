@@ -26,11 +26,13 @@ export function usePapa() {
       abortRef.current = new AbortController();
 
       const {
-        profilePacket = null,
-        pageProfile = null,
-        atmosphere = null,
-        message = null,
-      } = options;
+	  profilePacket = null,
+	  pageProfile = null,
+	  atmosphere = null,
+	  message = null,
+	  conversationMode = "guide",
+	  responseLength = "normal",
+	} = options;
 
       setLoading(true);
 
@@ -42,13 +44,15 @@ export function usePapa() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            mode,
-            message,
-            context,
-            profilePacket,
-            pageProfile,
-            atmosphere,
-          }),
+			  mode,
+			  conversationMode,
+			  responseLength,
+			  message,
+			  context,
+			  profilePacket,
+			  pageProfile,
+			  atmosphere,
+			}),
         });
 
         if (!response.ok) {

@@ -35,6 +35,7 @@ const CHAMBER_FOLDER_MAP = {
   catchLedger: "catchledger",
   profile: "profile",
   authPage: "authpage",
+  cabin: "cabin",
 };
 
 const FILE_SLUG_MAP = {
@@ -50,6 +51,7 @@ const FILE_SLUG_MAP = {
   catchLedger: "catchledger",
   profile: "profile",
   authPage: "authpage",
+  cabin: "cabin",
 };
 export function getAtmosphereRegionKey(regionKey = DEFAULT_REGION_KEY) {
   return REGION_ATMOSPHERE_KEY_MAP[String(regionKey)] || "central-florida";

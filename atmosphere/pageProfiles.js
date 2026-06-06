@@ -299,4 +299,29 @@ trips: {
       special: {},
     },
   },
+  cabin: {
+    id: "cabin",
+    label: "Cabin",
+    role: "storytelling",
+    uiStyle: "companionship",
+    emotionalTone: ["warmth", "reflection", "companionship"],
+    pacing: "steady",
+    papaWhisperStyle: "companion",
+
+    scenes: {
+      default: {
+		  "blue-hour-dawn": "cabin_blue_hour_dawn",
+		  "first-light": "cabin_first_light",
+		  "soft-morning-rise": "cabin_soft_morning_rise",
+		  "warm-drift": "cabin_warm_drift",
+		  "golden-dusk": "cabin_golden_dusk",
+		  "quiet-evening-glow": "cabin_quiet_evening_glow",
+		  "ember-twilight": "cabin_ember_twilight",
+		  "starry-night": "cabin_starry_night",
+		},
+      seasonal: {},
+      special: {},
+    },
+  },
+
 };

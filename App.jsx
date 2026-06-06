@@ -23,6 +23,8 @@ import TripPlanner from "./pages/TripPlanner.jsx";
 import TripSummary from "./pages/TripSummary.jsx";
 import TripLedger from "./pages/TripLedger";
 
+import Cabin from "./pages/CabinPage";
+
 import { StoryProvider } from "./context/StoryContext";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import { ProfileContext, buildProfilePacket } from "./context/ProfileContext";
@@ -162,6 +164,7 @@ export default function App() {
 		  <Route path="/profile" element={<ProfilePage />} />
 		  <Route path="/auth-page" element={<AuthPage />} />
 		  <Route path="/trips" element={<TripLedger />} />
+		  <Route path="/cabin" element={<Cabin />} />
 		  {import.meta.env.DEV && (
 		  <Route path="/prompt-builder" element={<CastPromptBuilder />} />
 		  

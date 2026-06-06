@@ -93,6 +93,7 @@ const Scenes = {
   ...makeDailyScenes("journal", "journal"),
   ...makeDailyScenes("papaDock", "talk"),
   ...makeDailyScenes("profile", "profile"),
+   ...makeDailyScenes("cabin", "cabin"),  
 };
 
 

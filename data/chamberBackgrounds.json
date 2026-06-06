@@ -630,6 +630,20 @@
         "summary": "Adventure remains a future-facing space for guided invitations rather than rigid quests. Its atmosphere should support curiosity, seasonal exploration, and presence-based discovery without forcing achievement.",
         "overlaySummary": "Adventure remains a future-facing space for guided invitations rather than rigid quests. Its atmosphere should support curiosity, seasonal exploration, and presence-based discovery without forcing achievement.",
         "papaPurposeHint": "Adventure remains a future-facing space for guided invitations rather than rigid quests. Its atmosphere should support curiosity, seasonal exploration, and presence-based discovery without forcing achievement."
+      },
+	  "cabin": {
+        "label": "Cabin",
+        "normalizedKey": "cabin",
+        "purpose": "storytelling",
+        "pageTone": [
+          "warmth",
+          "reflection",
+          "companionship"
+        ],
+        "defaultFallbackKey": "cabin.welcome",
+		"summary": "The Cabin is where Papa tells stories. It serves as a place of memory, reflection, and quiet companionship. The atmosphere should feel warm, lived-in, and gently timeless, as though stories have accumulated here across many seasons of weather, water, and experience.",
+		"overlaySummary": "The Cabin is a storytelling space shaped by region, weather, and time. Storms, sunsets, moonlight, fog, and changing seasons influence the mood of the stories shared here, allowing the same place to feel different each time the user returns.",
+		"papaPurposeHint": "When in the Cabin, Papa acts primarily as a storyteller. He may share memories, fishing tales, folklore, reflective observations, life lessons, regional stories, weather-inspired narratives, or quiet fictional tales. Stories should be emotionally grounded, atmospheric, and shaped by the current region, time state, weather state, and cabin activity."
       }
     }
   },
@@ -3332,7 +3346,236 @@
       },
       "summary": "Adventure remains a future-facing space for guided invitations rather than rigid quests. Its atmosphere should support curiosity, seasonal exploration, and presence-based discovery without forcing achievement.",
       "overlaySummary": "Adventure remains a future-facing space for guided invitations rather than rigid quests. Its atmosphere should support curiosity, seasonal exploration, and presence-based discovery without forcing achievement."
-    }
+    },
+	
+	"cabin": {
+"label": "Cabin",
+"normalizedKey": "cabin",
+"aliases": [],
+"status": "active",
+"default": {
+"caption": "Cabin • default atmosphere",
+"regionRef": "central-florida",
+"timeStateRef": "soft-morning-rise",
+"weatherStateRef": "base"
+},
+"purpose": "storytelling chamber and reflective return",
+"pageTone": [
+"warmth",
+"memory",
+"companionship",
+"wonder"
+],
+"weatherEligible": true,
+"regionSpecific": false,
+"assetRules": {
+"basePattern": "{timeIndex}-{pageKey}-{timeState}.webp",
+"weatherPattern": "{timeIndex}-{pageKey}-{timeState}-{weatherState}-v1.webp",
+"notes": "Use basePattern when weatherState is base. Use weatherPattern for rendered weather modifiers. Page keys should match exported asset filenames."
+},
+"variants": {
+"blue-hour-dawn": {
+"caption": "Cabin • Blue Hour Dawn",
+"summary": "Cabin in Blue Hour Dawn: The cabin rests in the hush before morning, when stories feel half-remembered and the world outside has not fully spoken yet. This state carries quiet memory, gentle mystery, and the first warmth of companionship.",
+"timeStateRef": "blue-hour-dawn",
+"defaultWeatherStateRef": "base",
+"atmosphereRefs": {
+"region": "central-florida",
+"timeState": "blue-hour-dawn",
+"weatherState": "base",
+"page": "cabin"
+},
+"papaContext": {
+"tone": "hushed, intimate, and memory-rich",
+"promptHints": [
+"Respect the blue hour dawn pacing.",
+"Keep the Cabin purpose in view: storytelling, memory, and companionship.",
+"Let Papa speak as if a quiet story is beginning before the day fully wakes."
+],
+"whisperStyle": "short, warm, sensory, and story-aware"
+},
+"overlaySummary": "Cabin in Blue Hour Dawn: The cabin rests in the hush before morning, when stories feel half-remembered and the world outside has not fully spoken yet.",
+"packetHints": {
+"title": "Blue Hour Dawn • Base",
+"subtitle": "Cabin in Central Florida",
+"sensoryLine": "Dim blue light gathers around the cabin while the morning waits outside.",
+"papaHint": "hushed, intimate, and memory-rich"
+}
+},
+"first-light": {
+"caption": "Cabin • First Light",
+"summary": "Cabin in First Light: The first light reaches the cabin softly, turning old wood, windows, and quiet corners into a place of gentle beginning. This state carries renewal, tenderness, and stories that open slowly.",
+"timeStateRef": "first-light",
+"defaultWeatherStateRef": "base",
+"atmosphereRefs": {
+"region": "central-florida",
+"timeState": "first-light",
+"weatherState": "base",
+"page": "cabin"
+},
+"papaContext": {
+"tone": "soft, tender, and gently unfolding",
+"promptHints": [
+"Respect the first light pacing.",
+"Keep the Cabin purpose in view: storytelling, memory, and companionship.",
+"Let Papa begin with warmth, patience, and a sense of the day opening."
+],
+"whisperStyle": "short, warm, sensory, and story-aware"
+},
+"overlaySummary": "Cabin in First Light: The first light reaches the cabin softly, turning old wood, windows, and quiet corners into a place of gentle beginning.",
+"packetHints": {
+"title": "First Light • Base",
+"subtitle": "Cabin in Central Florida",
+"sensoryLine": "First light touches the cabin like the beginning of an old story.",
+"papaHint": "soft, tender, and gently unfolding"
+}
+},
+"soft-morning-rise": {
+"caption": "Cabin • Soft Morning Rise",
+"summary": "Cabin in Soft Morning Rise: Morning warmth gathers around the cabin, making it feel lived-in, welcoming, and ready for conversation. This state carries comfort, quiet attention, and the easy beginning of a story.",
+"timeStateRef": "soft-morning-rise",
+"defaultWeatherStateRef": "base",
+"atmosphereRefs": {
+"region": "central-florida",
+"timeState": "soft-morning-rise",
+"weatherState": "base",
+"page": "cabin"
+},
+"papaContext": {
+"tone": "warm, welcoming, and gently reflective",
+"promptHints": [
+"Respect the soft morning rise pacing.",
+"Keep the Cabin purpose in view: storytelling, memory, and companionship.",
+"Let Papa tell stories that feel approachable, grounded, and kind."
+],
+"whisperStyle": "short, warm, sensory, and story-aware"
+},
+"overlaySummary": "Cabin in Soft Morning Rise: Morning warmth gathers around the cabin, making it feel lived-in, welcoming, and ready for conversation.",
+"packetHints": {
+"title": "Soft Morning Rise • Base",
+"subtitle": "Cabin in Central Florida",
+"sensoryLine": "Morning warmth settles into the cabin boards and open air.",
+"papaHint": "warm, welcoming, and gently reflective"
+}
+},
+"warm-drift": {
+"caption": "Cabin • Warm Drift",
+"summary": "Cabin in Warm Drift: The cabin settles into the familiar warmth of day, steady and comfortable. This state carries ease, old stories told plainly, and the feeling of resting somewhere that remembers you.",
+"timeStateRef": "warm-drift",
+"defaultWeatherStateRef": "base",
+"atmosphereRefs": {
+"region": "central-florida",
+"timeState": "warm-drift",
+"weatherState": "base",
+"page": "cabin"
+},
+"papaContext": {
+"tone": "easygoing, familiar, and plainspoken",
+"promptHints": [
+"Respect the warm drift pacing.",
+"Keep the Cabin purpose in view: storytelling, memory, and companionship.",
+"Let Papa tell grounded stories with practical wisdom and relaxed warmth."
+],
+"whisperStyle": "short, warm, sensory, and story-aware"
+},
+"overlaySummary": "Cabin in Warm Drift: The cabin settles into the familiar warmth of day, steady and comfortable.",
+"packetHints": {
+"title": "Warm Drift • Base",
+"subtitle": "Cabin in Central Florida",
+"sensoryLine": "The cabin feels warm, familiar, and full of stories waiting their turn.",
+"papaHint": "easygoing, familiar, and plainspoken"
+}
+},
+"golden-dusk": {
+"caption": "Cabin • Golden Dusk",
+"summary": "Cabin in Golden Dusk: Warm evening light gathers around the cabin as the day begins to soften. This state carries gratitude, remembrance, and stories told near the end of a good day.",
+"timeStateRef": "golden-dusk",
+"defaultWeatherStateRef": "base",
+"atmosphereRefs": {
+"region": "central-florida",
+"timeState": "golden-dusk",
+"weatherState": "base",
+"page": "cabin"
+},
+"papaContext": {
+"tone": "golden, reflective, and quietly grateful",
+"promptHints": [
+"Respect the golden dusk pacing.",
+"Keep the Cabin purpose in view: storytelling, memory, and companionship.",
+"Let Papa tell stories that feel shaped by evening light, gratitude, and memory."
+],
+"whisperStyle": "short, warm, sensory, and story-aware"
+},
+"overlaySummary": "Cabin in Golden Dusk: Warm evening light gathers around the cabin as the day begins to soften.",
+"packetHints": {
+"title": "Golden Dusk • Base",
+"subtitle": "Cabin in Central Florida",
+"sensoryLine": "Golden light gathers at the cabin windows as the day loosens its grip.",
+"papaHint": "golden, reflective, and quietly grateful"
+}
+},
+"quiet-evening-glow": {
+"caption": "Cabin • Quiet Evening Glow",
+"summary": "Cabin in Quiet Evening Glow: Evening settles around the cabin with a companionable stillness. This state carries rest, tenderness, and the kind of story that feels best when the world has grown quiet.",
+"timeStateRef": "quiet-evening-glow",
+"defaultWeatherStateRef": "base",
+"atmosphereRefs": {
+"region": "central-florida",
+"timeState": "quiet-evening-glow",
+"weatherState": "base",
+"page": "cabin"
+},
+"papaContext": {
+"tone": "low, tender, and companionable",
+"promptHints": [
+"Respect the quiet evening glow pacing.",
+"Keep the Cabin purpose in view: storytelling, memory, and companionship.",
+"Let Papa tell slower, softer stories suited to emotional rest."
+],
+"whisperStyle": "short, warm, sensory, and story-aware"
+},
+"overlaySummary": "Cabin in Quiet Evening Glow: Evening settles around the cabin with a companionable stillness.",
+"packetHints": {
+"title": "Quiet Evening Glow • Base",
+"subtitle": "Cabin in Central Florida",
+"sensoryLine": "Evening glow softens the cabin into a place of memory and rest.",
+"papaHint": "low, tender, and companionable"
+}
+},
+"ember-twilight": {
+"caption": "Cabin • Ember Twilight",
+"summary": "Cabin in Ember Twilight: The last warmth of the day lingers around the cabin like an ember. This state carries closure, deep memory, and stories that feel almost sacred in their quietness.",
+"timeStateRef": "ember-twilight",
+"defaultWeatherStateRef": "base",
+"atmosphereRefs": {
+"region": "central-florida",
+"timeState": "ember-twilight",
+"weatherState": "base",
+"page": "cabin"
+},
+"papaContext": {
+"tone": "hushed, intimate, and reverent",
+"promptHints": [
+"Respect the ember twilight pacing.",
+"Keep the Cabin purpose in view: storytelling, memory, and companionship.",
+"Let Papa tell stories with closure, tenderness, and quiet emotional weight."
+],
+"whisperStyle": "short, warm, sensory, and story-aware"
+},
+"overlaySummary": "Cabin in Ember Twilight: The last warmth of the day lingers around the cabin like an ember.",
+"packetHints": {
+"title": "Ember Twilight • Base",
+"subtitle": "Cabin in Central Florida",
+"sensoryLine": "The cabin holds the last ember of daylight like an old memory.",
+"papaHint": "hushed, intimate, and reverent"
+}
+}
+},
+"summary": "The Cabin is Papa’s storytelling chamber, a warm and reflective place where memory, weather, water, and region gather into narrative. It should feel lived-in, companionable, and gently timeless.",
+"overlaySummary": "The Cabin is Papa’s storytelling chamber. Its atmosphere should support stories shaped by the current region, time state, weather state, and Papa’s page activity."
+}
+
+	
   },
   "packetCollections": {
     "recommendedCollections": {

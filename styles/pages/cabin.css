@@ -1,0 +1,160 @@
+.cabin-page {
+  padding: 2.5rem 1.5rem 4rem;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.cabin-hero-card {
+  border-radius: 24px;
+  padding: 1.25rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.cabin-eyebrow {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(238, 175, 80, 0.86);
+}
+
+.cabin-hero-card h1 {
+  margin: 0 0 0.75rem;
+  font-family: Georgia, serif;
+  font-size: 1.55rem;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.cabin-hero-card p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.cabin-action-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 0.85rem 0 1rem;
+}
+
+.cabin-action-pill {
+  width: 100%;
+  text-align: left;
+  border-radius: 17px;
+  padding: 0.85rem 0.95rem;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.2s ease;
+}
+
+.cabin-action-pill:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(238, 175, 80, 0.34);
+}
+
+.cabin-action-pill.is-selected {
+  border-color: rgba(238, 175, 80, 0.42);
+}
+
+.cabin-action-pill span {
+  display: block;
+  margin-bottom: 0.22rem;
+  font-weight: 800;
+}
+
+.cabin-action-pill small {
+  display: block;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.54);
+}
+
+.cabin-story-prompt {
+  padding: 0.85rem 0 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.cabin-story-prompt p {
+  margin: 0 0 0.75rem;
+}
+
+.cabin-story-prompt p:last-child {
+  margin-bottom: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+
+.cabin-whisper-bar {
+  text-align: center;
+  padding: 2rem 0 0;
+  min-height: 2rem;
+}
+
+.cabin-whisper-line {
+  font-size: 0.825rem;
+  font-style: italic;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.cabin-page--story {
+  gap: 1rem;
+}
+
+.cabin-story-button {
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: 18px;
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.cabin-story-button:disabled {
+  opacity: 0.68;
+  cursor: wait;
+}
+
+.cabin-story-card {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+.cabin-story-card p {
+  margin: 0 0 0.85rem;
+}
+
+.cabin-story-card p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+  .cabin-page {
+    padding: 1rem 1rem 6rem;
+  }
+
+  .cabin-hero-card h1 {
+    font-size: 1.35rem;
+  }
+}
+
