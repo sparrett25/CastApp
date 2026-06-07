@@ -434,7 +434,7 @@
         "overlaySummary": "A gentle breeze opens the surface and adds movement without disrupting calm. The atmosphere feels clear, attentive, and lightly energized, encouraging awareness of shoreline motion and changing air.",
         "sensoryLine": "Light movement crosses the water and keeps attention gently awake."
       },
-      "thunderstorm": {
+      "ember-storm": {
         "label": "Thunderstorm",
         "summary": "Thunderstorm weather brings reverence, shelter, and quiet power into the scene. The atmosphere feels charged and vast, but still emotionally safe, inviting humility, pause, and deeper reflection.",
         "emotionalField": [
@@ -3619,7 +3619,7 @@
           "still-overcast",
           "silver-rain",
 		  "breezy",
-          "thunderstorm"
+          "ember-storm"
         ],
         "countFormula": "7 time states \u00d7 6 rendered states if base included = 42 Journal atmosphere images.",
         "filenamePattern": "{timeIndex}-journal-{timeState}-{weatherState}-v1.webp or .png during render staging"
