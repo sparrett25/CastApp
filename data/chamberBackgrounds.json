@@ -267,7 +267,24 @@
         "uiPacing": "slow",
         "overlaySummary": "The last warmth of the day becomes memory as twilight deepens. This state feels tender, hushed, and intimate, inviting closure without heaviness.",
         "sensoryLine": "Twilight holds the last ember of the day in quiet reflection."
-      }
+      },
+	  "starry-night": {
+  "index": 108,
+  "label": "Starry Night",
+  "dayPhase": "night",
+  "summary": "Moonlight settles across the water as stars emerge overhead. The world grows quiet, reflective, and spacious.",
+  "emotionalField": [
+    "closure",
+    "remembrance",
+    "companionship",
+    "emotional quiet",
+    "tender stillness"
+  ],
+  "papaTone": "quiet, reflective, and spacious",
+  "uiPacing": "slow",
+  "overlaySummary": "The day has finished its work. Moonlight and starlight settle over the water, inviting reflection, gratitude, and gentle remembrance.",
+  "sensoryLine": "Moonlight drifts across still water while the stars keep quiet company."
+}
     },
     "weatherStates": {
       "base": {
