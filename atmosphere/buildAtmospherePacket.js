@@ -2,7 +2,7 @@ import chamberBackgrounds from "../data/chamberBackgrounds.json";
 
 const FALLBACK_REGION = "central-florida";
 const FALLBACK_TIME_STATE = "soft-morning-rise";
-const FALLBACK_WEATHER_STATE = "clear-sky";
+const FALLBACK_WEATHER_STATE = "base";
 
 const TIME_KEY_MAP = {
   blue_hour_dawn: "blue-hour-dawn",
@@ -16,11 +16,32 @@ const TIME_KEY_MAP = {
 };
 
 const WEATHER_KEY_MAP = {
+  // legacy
   still_air: "base",
+
+  // clear sky
+  clear_sky: "clear-sky",
+
+  // breezy
+  light_breeze: "breezy",
+  breezy_wind: "breezy",
+
+  // fog
   light_fog: "first-fog",
   lifting_fog: "first-fog",
+
+  // rain
+  silver_rain: "silver-rain",
+
+  // overcast
+  overcast: "still-overcast",
+  still_overcast: "still-overcast",
+
+  // storm
   thunderstorm: "ember-storm",
+  ember_storm: "ember-storm",
 };
+
 
 function normalizeKey(value, fallback, map = {}) {
   if (!value) return fallback;

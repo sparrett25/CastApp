@@ -214,7 +214,7 @@ const atmospherePacket = buildAtmospherePacket({
   page: "planTrip",
   region: scene?.regionKey || profilePacket?.favoriteRegion || "central-florida",
   timeState: scene?.backgroundVariant || "soft-morning-rise",
-  weatherState: scene?.weather || "clear-sky",
+  weatherState: scene?.weather || "base",
   user: profilePacket,
   context: {
   step,

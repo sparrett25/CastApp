@@ -103,7 +103,7 @@ const atmospherePacket = buildAtmospherePacket({
   page: "intro",
   region: resolvedRegion,
   timeState: scene?.backgroundVariant || "soft-morning-rise",
-  weatherState: scene?.weatherState?.id || scene?.weather || "clear-sky",
+  weatherState: scene?.weatherState?.id || scene?.weather || "base",
   user: profilePacket,
   
 });
@@ -140,8 +140,8 @@ const atmosphereSignature = {
         {atmosphereSignature.page} • {atmosphereSignature.region} •{" "}
         {atmosphereSignature.time}
         {atmosphereSignature.weather &&
-        atmosphereSignature.weather !== "Clear Sky" &&
-        atmosphereSignature.weather !== "clear-sky"
+        atmosphereSignature.weather !== "Base" &&
+        atmosphereSignature.weather !== "base"
           ? ` • ${atmosphereSignature.weather}`
           : ""}
       </span>
