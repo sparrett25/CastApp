@@ -527,28 +527,10 @@ const atmosphereSignature = {
   {REGION_OPTIONS[form.regionKey || DEFAULT_REGION_KEY]?.description}
 </p>
 <p className="profile-help-text">
-  Choose how CAST feels beside you. More presence options can be added later.
+  Choose how CAST feels beside you. 
 </p>
-              <label>
-  Papa presence
-  <select
-    value={form.papa_presence_key}
-    style={inputStyle}
-    onChange={(e) => updateField("papa_presence_key", e.target.value)}
-  >
-    {PAPA_PRESENCES.map((presence) => (
-      <option key={presence.key} value={presence.key}>
-        {presence.label}
-      </option>
-    ))}
-  </select>
-</label>
 
-{selectedPresence && (
-  <p className="profile-help-text">
-    {selectedPresence.desc}
-  </p>
-)}
+
             </ProfileSection>
 
             <button
