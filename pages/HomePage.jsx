@@ -200,10 +200,11 @@ console.log("HOME atmosphere signature:", atmosphereSignature);
           : ""}
       
 	
-	 <div className="cast-atmospheric-invitation">
-      {atmosphericInvitation}
-    </div>
+	 
 	</span>
+    </div>
+	<div className="cast-atmospheric-invitation">
+      {atmosphericInvitation}
     </div>
   </>
   }
