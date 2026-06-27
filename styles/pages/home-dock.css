@@ -54,6 +54,27 @@
   line-height: 1.25;
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
 }
+
+.cast-atmospheric-invitation {
+  width: min(86vw, 760px);
+  margin: .35rem auto 0.85rem;
+  padding: 0 1rem;
+  text-transform: none;
+  color: rgba(255, 255, 255, 0.82);
+
+  font-size: 0.85rem;
+  font-weight: 400;
+  font-style: italic;
+
+  line-height: 1.45;
+  text-align: center;
+
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+}
+
+
+
+
 /* ── Section Labels ── */
 
 .home-section-label {

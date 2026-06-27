@@ -2,6 +2,7 @@
 
 import { DEFAULT_REGION_KEY } from "../data/regionOptions";
 import { weatherStates } from "../atmosphere/weatherStates";
+import chamberBackgrounds from "../data/chamberBackgrounds.json";
 
 export const REGION_ATMOSPHERE_KEY_MAP = {
   "100": "central-florida",
@@ -55,6 +56,42 @@ const FILE_SLUG_MAP = {
 };
 export function getAtmosphereRegionKey(regionKey = DEFAULT_REGION_KEY) {
   return REGION_ATMOSPHERE_KEY_MAP[String(regionKey)] || "central-florida";
+}
+
+export function getAtmosphericInvitations({
+  registry = chamberBackgrounds.registry,
+  regionKey = DEFAULT_REGION_KEY,
+  timeKey = "blue-hour-dawn",
+  weatherKey = "base",
+}) {
+  const atmosphereRegionKey = getAtmosphereRegionKey(regionKey);
+
+  console.log("INVITATION LOOKUP:", {
+    atmosphereRegionKey,
+    timeKey,
+    weatherKey,
+    found:
+      registry?.atmosphericInvitations?.[atmosphereRegionKey]?.[timeKey]?.[
+        weatherKey
+      ],
+  });
+
+console.log("INVITATION REGISTRY EXISTS:", registry?.atmosphericInvitations);
+console.log("INVITATION REGION EXISTS:", registry?.atmosphericInvitation?.["central-florida"]);
+console.log("INVITATION TIME EXISTS:", registry?.atmosphericInvitations?.["central-florida"]?.["warm-drift"]);
+
+  const invitations =
+    registry?.atmosphericInvitations?.[atmosphereRegionKey]?.[timeKey]?.[weatherKey]?.invitations;
+
+  if (Array.isArray(invitations) && invitations.length > 0) {
+    return invitations[Math.floor(Math.random() * invitations.length)];
+  }
+
+  return (
+    registry?.weatherStates?.[weatherKey]?.sensoryLine ||
+    registry?.timeStates?.[timeKey]?.sensoryLine ||
+    "Notice what the atmosphere is quietly revealing."
+  );
 }
 
 export function resolveChamberBackgroundSrc({

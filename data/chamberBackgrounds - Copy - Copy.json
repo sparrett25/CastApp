@@ -662,28 +662,7 @@
 		"overlaySummary": "The Cabin is a storytelling space shaped by region, weather, and time. Storms, sunsets, moonlight, fog, and changing seasons influence the mood of the stories shared here, allowing the same place to feel different each time the user returns.",
 		"papaPurposeHint": "When in the Cabin, Papa acts primarily as a storyteller. He may share memories, fishing tales, folklore, reflective observations, life lessons, regional stories, weather-inspired narratives, or quiet fictional tales. Stories should be emotionally grounded, atmospheric, and shaped by the current region, time state, weather state, and cabin activity."
       }
-    },
-	"atmosphericInvitations": {
-      "central-florida": {
-        "warm-drift": {
-          "base": {
-            "invitations": [
-              "The pond borrows its colors from the sky above it.",
-              "Notice how familiar light settles differently across the same water.",
-              "The afternoon reveals itself slowly when nothing is rushed."
-            ]
-        },
-         "breezy": {
-          "invitations": [
-            "The breeze shows itself first in the places that were almost still.",
-            "Notice how gentle movement changes the way the water holds light.",
-            "The afternoon feels more awake when the shoreline begins to move."
-          ]
-        }
-      }
-     }
     }
-	
   },
   "chambers": {
     "authPage": {

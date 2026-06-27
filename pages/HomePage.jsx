@@ -16,7 +16,12 @@ import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
 
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
-import { getAtmosphereRegionKey } from "../utils/resolveChamberBackground";
+import {
+  getAtmosphereRegionKey,
+  getAtmosphericInvitations,
+} from "../utils/resolveChamberBackground";
+
+
 
 const PILLARS = [
   { emoji: "", title: "Field Guide", desc: "Explore and learn.", path: "/species" },
@@ -65,6 +70,15 @@ const atmospherePacket = buildAtmospherePacket({
   weatherState: scene?.weatherState?.id || scene?.weather || "base",
   user: profilePacket,
 });
+
+const atmosphericInvitation = getAtmosphericInvitations({
+  registry: atmospherePacket.registry,
+  regionKey: atmospherePacket.region,
+  timeKey: atmospherePacket.timeState,
+  weatherKey: atmospherePacket.weatherState,
+});
+
+
 
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
   const styles = atmosphere.styles ?? {};
@@ -174,6 +188,7 @@ console.log("HOME atmosphere signature:", atmosphereSignature);
 	
       <ChamberLayout
   signature={
+	  <>
     <div className="cast-atmosphere-signature cast-atmosphere-signature--inline">
       <span>
         {atmosphereSignature.page} • {atmosphereSignature.region} •{" "}
@@ -183,8 +198,14 @@ console.log("HOME atmosphere signature:", atmosphereSignature);
         atmosphereSignature.weather !== "base"
           ? ` • ${atmosphereSignature.weather}`
           : ""}
-      </span>
+      
+	
+	 <div className="cast-atmospheric-invitation">
+      {atmosphericInvitation}
     </div>
+	</span>
+    </div>
+  </>
   }
   papa={
     <PapaMini
