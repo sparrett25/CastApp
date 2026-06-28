@@ -27,9 +27,6 @@
     transform 0.2s ease;
 }
 /* ── Cast Atmosphere Signature ── */
-
-
-
 .cast-atmosphere-signature--inline {
   width: min(86vw, 480px);
   margin: 0 auto 0.85rem;
@@ -80,26 +77,6 @@
   line-height: 1.25;
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
 }
-
-.cast-atmospheric-invitation22 {
-  width: min(86vw, 760px);
-  margin: .35rem auto 0.85rem;
-  padding: 0 1rem;
-  text-transform: none;
-  color: rgba(255, 255, 255, 0.82);
-
-  font-size: 0.85rem;
-  font-weight: 400;
-  font-style: italic;
-
-  line-height: 1.45;
-  text-align: center;
-
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
-}
-
-
-
 
 /* ── Section Labels ── */
 

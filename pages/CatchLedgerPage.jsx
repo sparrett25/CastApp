@@ -21,7 +21,10 @@ import "../styles/pages/catch-ledger.css";
 
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 
-import { getAtmosphereRegionKey } from "../utils/resolveChamberBackground";
+import {
+  getAtmosphereRegionKey,
+  getAtmosphericInvitations,
+} from "../utils/resolveChamberBackground";
 
 const LOCATION_OPTIONS = [
   ...MY_LOCATIONS.map((loc) => ({
@@ -360,6 +363,14 @@ const atmospherePacket = buildAtmospherePacket({
  
 });
 
+const atmosphericInvitation = getAtmosphericInvitations({
+  registry: atmospherePacket.registry,
+  regionKey: atmospherePacket.region,
+  timeKey: atmospherePacket.timeState,
+  weatherKey: atmospherePacket.weatherState,
+});
+
+
   const cardStyle = styles.cardStyle ?? {};
   const buttonPrimaryStyle = styles.buttonPrimaryStyle ?? {};
   const buttonSecondaryStyle = styles.buttonSecondaryStyle ?? {};
@@ -464,6 +475,7 @@ const atmosphereSignature = {
     >
       <ChamberLayout
   signature={
+	  <>
     <div className="cast-atmosphere-signature cast-atmosphere-signature--inline">
       <span>
         {atmosphereSignature.page} • {atmosphereSignature.region} •{" "}
@@ -475,6 +487,10 @@ const atmosphereSignature = {
           : ""}
       </span>
     </div>
+	<div className="cast-atmospheric-invitation">
+      {atmosphericInvitation}
+    </div>
+  </>
   }
         papa={
           <PapaMini

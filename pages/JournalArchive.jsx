@@ -212,7 +212,7 @@ const atmosphereSignature = {
 
   return (
     <CastBackground
-      chamberKey="journal-archive"
+      chamberKey="journal"
       variant={scene?.backgroundVariant}
       overlay={ui.overlay}
     >

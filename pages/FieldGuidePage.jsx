@@ -42,7 +42,10 @@ import {
 
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 
-import { getAtmosphereRegionKey } from "../utils/resolveChamberBackground";
+import {
+  getAtmosphereRegionKey,
+  getAtmosphericInvitations,
+} from "../utils/resolveChamberBackground";
 
 // --- Species Chip to Locations ---
 
@@ -620,6 +623,13 @@ const atmospherePacket = buildAtmospherePacket({
   
 });
 
+const atmosphericInvitation = getAtmosphericInvitations({
+  registry: atmospherePacket.registry,
+  regionKey: atmospherePacket.region,
+  timeKey: atmospherePacket.timeState,
+  weatherKey: atmospherePacket.weatherState,
+});
+
 const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
 const styles = atmosphere.styles ?? {};
 
@@ -719,6 +729,7 @@ const atmosphereSignature = {
 	>
       <ChamberLayout
   signature={
+	  <>
     <div className="cast-atmosphere-signature cast-atmosphere-signature--inline">
       <span>
         {atmosphereSignature.page} • {atmosphereSignature.region} •{" "}
@@ -730,6 +741,10 @@ const atmosphereSignature = {
           : ""}
       </span>
     </div>
+	<div className="cast-atmospheric-invitation">
+      {atmosphericInvitation}
+    </div>
+  </>
   }
 		  papa={
 			<PapaMini

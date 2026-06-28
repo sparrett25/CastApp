@@ -77,7 +77,7 @@ export default function AdventurePreviewPage() {
 
   return (
     <CastBackground
-      chamberKey="adventures-preview"
+      chamberKey="home"
       variant={scene?.backgroundVariant}
       overlay={ui.overlay}
     >

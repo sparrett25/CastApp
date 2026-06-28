@@ -112,7 +112,7 @@ const textTheme = ui.text ?? {};
   if (loading) {
     return (
       <CastBackground
-	  chamberKey="trip-summary"
+	  chamberKey="planTrip"
 	  variant={scene?.backgroundVariant}
 	  overlay={ui.overlay}
 	>
@@ -134,7 +134,7 @@ const textTheme = ui.text ?? {};
   if (error || !trip) {
     return (
       <CastBackground
-	  chamberKey="tripSummary"
+	  chamberKey="planTrip"
 	  variant={scene?.backgroundVariant}
 	  overlay={scene?.timeState?.ui?.overlay}
 	>
@@ -172,7 +172,7 @@ const textTheme = ui.text ?? {};
 
   return (
     <CastBackground
-	  chamberKey="trip-summary"
+	  chamberKey="planTrip"
 	  variant={scene?.backgroundVariant}
 	  overlay={ui.overlay}
 	>

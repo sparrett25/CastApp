@@ -11,7 +11,10 @@ import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
-import { getAtmosphereRegionKey } from "../utils/resolveChamberBackground";
+import {
+  getAtmosphereRegionKey,
+  getAtmosphericInvitations,
+} from "../utils/resolveChamberBackground";
 
 export default function CabinPage() {
   const { profilePacket } = useProfile();
@@ -51,6 +54,13 @@ export default function CabinPage() {
     weatherState: scene?.weatherState?.id || scene?.weather || "base",
     user: profilePacket,
   });
+  
+  const atmosphericInvitation = getAtmosphericInvitations({
+  registry: atmospherePacket.registry,
+  regionKey: atmospherePacket.region,
+  timeKey: atmospherePacket.timeState,
+  weatherKey: atmospherePacket.weatherState,
+});
 
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
   const styles = atmosphere.styles ?? {};
@@ -111,6 +121,7 @@ function handleSitWithPapa() {
     >
       <ChamberLayout
         signature={
+			<>
           <div className="cast-atmosphere-signature cast-atmosphere-signature--inline">
             <span>
               {atmosphereSignature.page} • {atmosphereSignature.region} •{" "}
@@ -121,7 +132,11 @@ function handleSitWithPapa() {
                 ? ` • ${atmosphereSignature.weather}`
                 : ""}
             </span>
-          </div>
+    </div>
+	<div className="cast-atmospheric-invitation">
+      {atmosphericInvitation}
+    </div>
+  </>
         }
         
       >

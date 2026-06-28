@@ -15,7 +15,10 @@ import { useProfile } from "../context/ProfileContext";
 import { MY_LOCATIONS } from "../data/myLocations";
 import { supabase } from "../lib/supabase";
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
-import { getAtmosphereRegionKey } from "../utils/resolveChamberBackground";
+import {
+  getAtmosphereRegionKey,
+  getAtmosphericInvitations,
+} from "../utils/resolveChamberBackground";
 
 const BAIT_OPTIONS = [
   { id: "nightcrawlers", name: "Nightcrawlers" },
@@ -875,6 +878,13 @@ export default function LocationsPage() {
   weatherState: scene?.weatherState?.id || scene?.weather || "base",
     user: profilePacket,
   });
+  
+  const atmosphericInvitation = getAtmosphericInvitations({
+  registry: atmospherePacket.registry,
+  regionKey: atmospherePacket.region,
+  timeKey: atmospherePacket.timeState,
+  weatherKey: atmospherePacket.weatherState,
+});
 
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
   const styles = atmosphere.styles ?? {};
@@ -952,6 +962,7 @@ function handleUpdateLocation(updatedLocation) {
     >
       <ChamberLayout
   signature={
+	  <>
     <div className="cast-atmosphere-signature cast-atmosphere-signature--inline">
       <span>
         {atmosphereSignature.page} • {atmosphereSignature.region} •{" "}
@@ -963,6 +974,10 @@ function handleUpdateLocation(updatedLocation) {
           : ""}
       </span>
     </div>
+	<div className="cast-atmospheric-invitation">
+      {atmosphericInvitation}
+    </div>
+  </>
   }
   papa={
     <PapaMini

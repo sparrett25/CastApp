@@ -9,7 +9,10 @@ import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { REGION_OPTIONS, DEFAULT_REGION_KEY } from "../data/regionOptions";
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
-import { getAtmosphereRegionKey } from "../utils/resolveChamberBackground";
+import {
+  getAtmosphereRegionKey,
+  getAtmosphericInvitations,
+} from "../utils/resolveChamberBackground";
 
 const PAPA_PRESENCES = [
   { key: "classic_papa", label: "Classic Papa", desc: "Warm, steady, familiar guidance." },
@@ -136,6 +139,13 @@ const atmospherePacket = buildAtmospherePacket({
   weatherState: scene?.weatherState?.id || scene?.weather || "base",
   user: profilePacket,
   
+});
+
+const atmosphericInvitation = getAtmosphericInvitations({
+  registry: atmospherePacket.registry,
+  regionKey: atmospherePacket.region,
+  timeKey: atmospherePacket.timeState,
+  weatherKey: atmospherePacket.weatherState,
 });
 
 const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
@@ -318,6 +328,7 @@ const atmosphereSignature = {
 	>
       <ChamberLayout
   signature={
+	  <>
     <div className="cast-atmosphere-signature cast-atmosphere-signature--inline">
       <span>
         {atmosphereSignature.page} • {atmosphereSignature.region} •{" "}
@@ -329,6 +340,10 @@ const atmosphereSignature = {
           : ""}
       </span>
     </div>
+	<div className="cast-atmospheric-invitation">
+      {atmosphericInvitation}
+    </div>
+  </>
   }
   papa={
     <PapaMini
