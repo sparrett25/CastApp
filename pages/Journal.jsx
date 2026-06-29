@@ -254,22 +254,7 @@ const handlePapaResponse = async (line) => {
     </div>
   </>
   }
-  papa={
-			<PapaMini
-			  context={buildPapaPageContext("journal", {
-				user: profilePacket,
-				atmosphere: atmospherePacket,
-				scene,
-				event: saved
-				  ? "The user just saved a journal reflection."
-				  : "The user opened the journal to write.",
-				writingState: hasText ? "in_progress" : "empty",
-				wordCount,
-				selectedPrompt,
-			  })}
-			  fallbackKey="journal.prompt"
-			/>
-		  }
+ 
 		>
         <div className="journal-page">
           <AnimatePresence mode="wait">

@@ -345,12 +345,7 @@ const atmosphereSignature = {
     </div>
   </>
   }
-  papa={
-    <PapaMini
-      context={papaContext}
-      fallbackKey="fallback"
-    />
-  }
+
 >
         <main className="profile-page">
           <section className="profile-hero">

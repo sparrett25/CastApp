@@ -259,7 +259,7 @@
   }
 
   .intro-container h2 {
-    font-size: clamp(1.45rem, 5.8vw, 2.35rem);
+    font-size: clamp(1.45rem, 5.8vw, 1.35rem);
     line-height: 1.12;
     max-width: 320px;
   }

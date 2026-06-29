@@ -979,12 +979,7 @@ function handleUpdateLocation(updatedLocation) {
     </div>
   </>
   }
-  papa={
-    <PapaMini
-      context={papaContext}
-      fallbackKey="fallback"
-    />
-  }
+  
 >
         <div className="loc-page">
           <AnimatePresence mode="wait">

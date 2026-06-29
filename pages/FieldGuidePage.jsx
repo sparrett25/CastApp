@@ -746,13 +746,7 @@ const atmosphereSignature = {
     </div>
   </>
   }
-		  papa={
-			<PapaMini
-			  context={papaContext}
-			  fallbackKey="fieldguide.open"
-			  trigger={entry?.id ?? section}
-			/>
-		  }
+		  
 		>
         <div className="fg-page">
           <AnimatePresence mode="sync">

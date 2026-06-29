@@ -320,14 +320,7 @@ const displayName =
     </div>
   </>
   }
-        papa={
-          <PapaMini
-            context={papaContext}
-            fallbackKey="fallback"
-            trigger={`${activeFilter}-${upcomingTrips.length}-${pastTrips.length}`}
-          />
-        }
-      >
+    >
         <div className="trip-ledger-page">
           <div className="trip-ledger-top" style={cardStyle}>
             <div>

@@ -492,15 +492,7 @@ const atmosphereSignature = {
     </div>
   </>
   }
-        papa={
-          <PapaMini
-            context={buildPapaPageContext("catch-ledger", {
-              ...papaContext,
-              entriesSummary: buildEntriesSummary(entries),
-            })}
-            fallbackKey={papaKey}
-          />
-        }
+        
       >
         <div className="ledger-page">
           <AnimatePresence>

@@ -208,12 +208,7 @@ console.log("HOME atmosphere signature:", atmosphereSignature);
     </div>
   </>
   }
-  papa={
-    <PapaMini
-      context={papaContext}
-      fallbackKey="home.welcome"
-    />
-  }
+  
 >
 
   <div className="home-dock home-dock--sections">
