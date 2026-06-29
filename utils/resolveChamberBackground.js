@@ -66,22 +66,10 @@ export function getAtmosphericInvitations({
 }) {
   const atmosphereRegionKey = getAtmosphereRegionKey(regionKey);
 
-  console.log("INVITATION LOOKUP:", {
-    atmosphereRegionKey,
-    timeKey,
-    weatherKey,
-    found:
-      registry?.atmosphericInvitations?.[atmosphereRegionKey]?.[timeKey]?.[
-        weatherKey
-      ],
-  });
-
-console.log("INVITATION REGISTRY EXISTS:", registry?.atmosphericInvitations);
-console.log("INVITATION REGION EXISTS:", registry?.atmosphericInvitation?.["central-florida"]);
-console.log("INVITATION TIME EXISTS:", registry?.atmosphericInvitations?.["central-florida"]?.["warm-drift"]);
-
   const invitations =
-    registry?.atmosphericInvitations?.[atmosphereRegionKey]?.[timeKey]?.[weatherKey]?.invitations;
+    registry?.atmosphericInvitations?.[atmosphereRegionKey]?.[weatherKey]?.[
+      timeKey
+    ]?.invitations;
 
   if (Array.isArray(invitations) && invitations.length > 0) {
     return invitations[Math.floor(Math.random() * invitations.length)];

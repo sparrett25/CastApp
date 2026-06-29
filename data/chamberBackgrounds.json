@@ -664,27 +664,91 @@
       }
     },
 	"atmosphericInvitations": {
-      "central-florida": {
-        "warm-drift": {
-          "base": {
-            "invitations": [
-              "The pond borrows its colors from the sky above it.",
-              "Notice how familiar light settles differently across the same water.",
-              "The afternoon reveals itself slowly when nothing is rushed."
-            ]
-        },
-         "breezy": {
-          "invitations": [
-            "The breeze shows itself first in the places that were almost still.",
-            "Notice how gentle movement changes the way the water holds light.",
-            "The afternoon feels more awake when the shoreline begins to move."
-          ]
-        }
-      }
-     }
-    }
-	
-  },
+	  "central-florida": {
+		"base": {
+		  "blue-hour-dawn": {
+			"invitations": [
+			  "Notice how the first light appears in the water before it reaches the shore.",
+			  "The morning begins long before the sun asks for your attention.",
+			  "Look for the places where the mist quietly softens the edge of the lake.",
+			  "The pond reflects the coming day while the trees still hold the night.",
+			  "Notice how even the quietest water is already preparing for morning."
+			]
+		  },
+
+		  "first-light": {
+			"invitations": [
+			  "Notice how the shoreline becomes clearer before the sun fully arrives.",
+			  "The first colors of morning often appear in the water before they reach the trees.",
+			  "Look for the details that quietly return with the growing light.",
+			  "The morning reveals itself one reflection at a time.",
+			  "Notice how the lake begins to separate sky, shoreline, and shadow."
+			]
+		  },
+
+		  "soft-morning-rise": {
+			"invitations": [
+				"Notice how the morning light begins to warm both the water and the trees.",
+				"The lake settles gently into the day as the mist slowly gives way to light.",
+				"Look for the reflections that grow brighter as the morning unfolds.",
+				"The quiet of early morning lingers even as the day begins to gather around it.",
+				"Notice how the shoreline welcomes the day without ever leaving its calm."
+			  ]
+		  },
+
+		  "warm-drift": {
+			"invitations": [
+				"The pond borrows its colors from the sky above it.",
+				"Notice how familiar light settles differently across the same water.",
+				"The afternoon reveals itself slowly when nothing is rushed.",
+				"Look for the places where light and reflection become almost indistinguishable.",
+				"The shoreline has settled into the day without ever losing its quiet."
+			  ]
+		  },
+
+		  "golden-dusk": {
+			"invitations": [
+				"The lake gathers the last warm light and holds it a little longer.",
+				"Notice how the evening sky finds its reflection before the sun disappears.",
+				"Look for the places where golden light lingers after the shadows have begun to grow.",
+				"The day softens quietly as the shoreline settles into evening.",
+				"Notice how even familiar water becomes new beneath the warmth of the setting sun."
+			  ]
+		  },
+		  
+		  "quiet-evening-glow": {
+			"invitations": [
+				"The last colors of the day linger longest upon the water.",
+				"Notice how the shoreline grows quieter as the light begins to fade.",
+				"Look for the reflections that remain after the brightest light has passed.",
+				"The evening settles gently across the lake without disturbing its calm.",
+				"Notice how the sky leaves its colors behind long after the sun has gone."
+			  ]
+		  },
+		  
+		  "ember-twilight": {
+			"invitations": [
+				"The horizon carries the last ember of daylight while the sky quietly welcomes the night.",
+				"Notice how the brightest color now lives where the earth and sky meet.",
+				"Look for the reflections that remain after the landscape has faded into silhouette.",
+				"The lake holds both the memory of the day and the promise of the coming night.",
+				"Notice how the water keeps the evening light long after the shore has let it go."
+			  ]
+		  },
+		  
+		  "starry-night": {
+			"invitations": [
+				"The night reveals its quietest details to those who linger.",
+				"Notice how the stars find their reflection in the places the day has left behind.",
+				"Look for the light that remains after the world has grown still.",
+				"The lake carries the sky without asking anything in return.",
+				"Notice how the night makes room for everything the day could not hold."
+			  ]
+		  }
+		}
+	  }
+	}
+   },
   "chambers": {
     "authPage": {
       "label": "Login",
