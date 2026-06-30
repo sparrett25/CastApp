@@ -56,6 +56,9 @@ export default function JournalPage() {
   const [saveError, setSaveError] = useState("");
   const [selectedPrompt, setSelectedPrompt] = useState(null);
 
+  const [entryType, setEntryType] = useState("reflection");
+  const [locationKey, setLocationKey] = useState(null);
+
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
   const hasText = text.trim().length > 0;
   
@@ -130,6 +133,8 @@ const atmosphericInvitation = getAtmosphericInvitations({
   weatherKey: atmospherePacket.weatherState,
 });
 
+
+
   const handlePrompt = (prompt) => {
     setText(prompt + " ");
     setSelectedPrompt(prompt);
@@ -167,13 +172,15 @@ const atmosphericInvitation = getAtmosphericInvitations({
       if (catchError) throw catchError;
 
       const payload = {
-        user_id: user.id,
-        entry_text: text.trim(),
-        entry_date: new Date().toISOString(),
-        prompt_used: selectedPrompt,
-        papa_response: null,
-        catch_context: todayCatches ?? [],
-      };
+		  user_id: user.id,
+		  entry_text: text.trim(),
+		  entry_date: new Date().toISOString(),
+		  prompt_used: selectedPrompt,
+		  papa_response: null,
+		  catch_context: todayCatches ?? [],
+		  entry_type: entryType,
+		  location_key: locationKey,
+		};
 
       const { data, error } = await supabase
         .from("cast_journal_entries")
@@ -229,6 +236,20 @@ const handlePapaResponse = async (line) => {
     ? lastEntry.catch_context.length
     : 0;
 
+const journalCopy = {
+  reflection: {
+    label: "Your Reflection",
+    placeholder: "What stayed with you from this moment?",
+    event: "The user just saved a journal reflection.",
+  },
+  observation: {
+    label: "Field Notes",
+    placeholder: "What did you notice about the water, weather, fish, or place?",
+    event: "The user just saved a field observation.",
+  },
+};
+
+
   return (
     <CastBackground
 	  chamberKey="journal"
@@ -273,55 +294,49 @@ const handlePapaResponse = async (line) => {
 				  Take a breath. There’s no rush here.
 				</p>
 
-                <div className="journal-prompt-row">
-                  <button
-					  className="journal-prompt-toggle"
-					  style={buttonSecondaryStyle}
-                    onClick={() => setShowPrompts((v) => !v)}
-                  >
-                    {showPrompts ? "Hide prompts" : "Need a nudge? →"}
-                  </button>
-                </div>
+				<div className="journal-entry-type-row"
+				>
+				  <button
+				  className={entryType === "reflection" ? "active" : ""}
+				  style={
+					entryType === "reflection"
+					  ? buttonPrimaryStyle
+					  : buttonSecondaryStyle
+				  }
+				  onClick={() => setEntryType("reflection")}
+				>
+				  Reflection
+				</button>
 
-                <AnimatePresence>
-                  {showPrompts && (
-                    <motion.div
-					  className="journal-prompts"
-					  style={cardStyle}
-                      initial={{ opacity: 0, y: -8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
-                      transition={{ duration: 0.25 }}
-                    >
-                      <p className="journal-prompts-label">Scooter's prompts</p>
-                      {PROMPTS.map((p, i) => (
-                        <button
-						  key={i}
-						  className="journal-prompt-item"
-						  style={buttonSecondaryStyle}
-                          onClick={() => handlePrompt(p)}
-                        >
-                          {p}
-                        </button>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                <p className="journal-paper-label">Your Journal</p>
+				<button
+				  className={entryType === "observation" ? "active" : ""}
+				  style={
+					entryType === "observation"
+					  ? buttonPrimaryStyle
+					  : buttonSecondaryStyle
+				  }
+				  onClick={() => setEntryType("observation")}
+				>
+				  Field Note
+				</button>
+				</div>
+				                
+                <p className="journal-paper-label">{journalCopy[entryType].label}</p>
+			
                 <div
 					  className="journal-paper"
 					  style={cardStyle}
 					>
+										
                   <textarea
-                    ref={textareaRef}
-                    className="journal-textarea"
-                    placeholder="What did the water teach you today?"
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                    rows={10}
-					style={inputStyle}
-                  />
+				  ref={textareaRef}
+				  className="journal-textarea"
+				  placeholder={journalCopy[entryType].placeholder}
+				  value={text}
+				  onChange={(e) => setText(e.target.value)}
+				  rows={10}
+				  style={inputStyle}
+				/>
                   <div className="journal-footer">
                     <span className="journal-wordcount">
                       {wordCount > 0 ? `${wordCount} word${wordCount === 1 ? "" : "s"}` : ""}
@@ -397,7 +412,8 @@ const handlePapaResponse = async (line) => {
 						user: profilePacket,
 						atmosphere: atmospherePacket, 
 						scene,
-						event: "The user just saved a journal reflection.",
+						event: journalCopy[lastEntry.entry_type || "reflection"].event,
+						entryType: lastEntry.entry_type || "reflection",
 						journalEntry: lastEntry.entry_text,
 						catchContext: lastEntry.catch_context ?? [],
 						linkedCatchCount: Array.isArray(lastEntry.catch_context)

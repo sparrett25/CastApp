@@ -38,6 +38,22 @@
 
 /* Intro / prompt area */
 
+.journal-entry-type-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 18px 0 20px;
+}
+
+.journal-entry-type-row button {
+    min-width: 180px;
+    border-radius: 16px;
+    padding: 12px 22px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
 .journal-pause-line {
   margin: 0 0 0.4rem;
   text-align: center;

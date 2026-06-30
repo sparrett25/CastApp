@@ -745,7 +745,82 @@
 				"Notice how the night makes room for everything the day could not hold."
 			  ]
 		  }
+		},
+	    "still-overcast": {
+		  "blue-hour-dawn": {
+			"invitations": [ "The morning arrives without hurry, and the world settles into quiet attention.",
+			  "Soft light reveals what stronger light often hides. Look a little closer.",
+			  "The water keeps its calm even when the sky cannot decide.",
+			  "Small movements carry the morning forward. Notice the ones that usually pass unseen.",
+			  "Some moments are not meant to be exciting. They are meant to be steady.",
+			  "What feels ordinary now may become the memory you carry home."
+			]
+		  },
+
+		  "first-light": {
+			"invitations": [ "The first light arrives gently, asking nothing more than your attention.",
+			  "Even beneath a quiet sky, the morning finds its way across the water.",
+			  "Not every beginning announces itself. Some simply unfold one small moment at a time.",
+			  "The world is waking in quiet layers. Notice what appears before the day grows busy.",
+			  "Steady light often reveals more than brilliant light. Stay long enough to see it."
+			]
+		  },
+
+		  "soft-morning-rise": {
+			"invitations": ["The morning has found its rhythm. Let yourself settle into it.",
+			  "The sky asks for nothing today except quiet attention. See what answers back.",
+			  "When the light is gentle, even familiar places have something new to share.",
+			  "The calm of the water is not the absence of life. It is life moving without hurry.",
+			  "Some mornings are not meant to inspire you. They are meant to steady you."
+			  ]
+		  },
+
+		  "warm-drift": {
+			"invitations": ["The day has found its quiet rhythm. Let yourself move with it instead of ahead of it.",
+			  "Even beneath a gentle sky, warmth finds its way across the water.",
+			  "Not every beautiful day begins with brilliant sunshine. Some reveal their beauty slowly.",
+			  "The world is asking for your attention, not your hurry. Stay present with what is already here.",
+			  "The calmest moments are often the ones we remember long after they have passed."
+			  ]
+		  },
+
+		  "golden-dusk": {
+			"invitations": ["Even beneath a quiet sky, the evening finds a way to share its light.",
+			  "The day does not need a brilliant sunset to leave something beautiful behind.",
+			  "Notice what stayed with you after the busyness of the day began to fade.",
+			  "Soft endings often linger longer than dramatic ones. Let this one unfold at its own pace.",
+			  "The light is changing, but the calm remains. Carry a little of it with you."
+			  ]
+		  },
+		  
+		  "quiet-evening-glow": {
+			"invitations": ["The day is settling into stillness. Let your thoughts settle with it.",
+			  "Some evenings ask nothing of you except your presence. This is one of them.",
+			  "The light has softened, but the world has not grown empty. Notice what remains.",
+			  "Quiet is not the absence of life. It is the place where gentle things become easier to hear.",
+			  "Before you leave, take one last look across the water. You may notice something you almost missed."
+			  ]
+		  },
+		  
+		  "ember-twilight": {
+			"invitations": ["Even beneath a heavy sky, the horizon remembers how to glow.",
+			  "The brightest light has faded, but not every ember has gone out.",
+			  "Hope does not always arrive as sunshine. Sometimes it rests quietly along the horizon.",
+			  "Some days end gently, asking only that you notice what remained instead of what was lost.",
+			  "Stay a little longer. The last light often leaves the deepest impression."
+			  ]
+		  },
+		  
+		  "starry-night": {
+			"invitations": [ "The day has slipped quietly into night. Let your thoughts do the same.",
+			  "Even when the stars are hidden, the night carries its own kind of light.",
+			  "The pond asks for nothing now except your company. Stay as long as you like.",
+			  "Stillness is not something you find. It is something you begin to notice.",
+			  "Some nights leave no remarkable story behind, only the quiet feeling that you were exactly where you needed to be."
+			  ]
+		  }
 		}
+		
 	  }
 	}
    },
