@@ -82,12 +82,7 @@ export default function AdventurePreviewPage() {
       overlay={ui.overlay}
     >
       <ChamberLayout
-        papa={
-          <PapaMini
-            context={papaContext}
-            fallbackKey="adventures.preview"
-          />
-        }
+        
       >
         <main className="adventure-preview">
           <section

@@ -451,20 +451,7 @@ const atmospherePacket = buildAtmospherePacket({
         variant={scene?.backgroundVariant}
         overlay={ui.overlay}
       >
-        <ChamberLayout
-          papa={
-            <PapaMini
-              context={{
-                page: "planTrip",
-                user: profilePacket,
-                atmosphere: atmospherePacket,
-				scene,
-                event: "Loading a saved fishing trip for editing.",
-              }}
-              fallbackKey="fallback"
-            />
-          }
-        >
+        <ChamberLayout >
           <div className="trip-page">
             <div className="trip-summary-card" style={cardStyle}>
               <p>Loading trip...</p>
@@ -482,13 +469,7 @@ const atmospherePacket = buildAtmospherePacket({
       overlay={ui.overlay}
     >
       <ChamberLayout
-        papa={
-          <PapaMini
-            context={chamberPapaContext}
-            fallbackKey="fallback"
-            trigger={step === 5 ? `planned-${trip?.id}` : `step-${step}`}
-          />
-        }
+        
       >
         <div className="trip-page">
           <AnimatePresence mode="wait">

@@ -181,7 +181,7 @@ const atmosphereSignature = {
             style={entryButtonStyle}
           />
 
-          <p className="home-tip">The water remembers every visit.</p>
+          <p className="home-tip">The water asks for nothing except your presence.</p>
         </div>
       </ChamberLayout>
     </CastBackground>

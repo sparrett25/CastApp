@@ -11,26 +11,19 @@ import FieldGuidePage from './pages/FieldGuidePage.jsx';
 import CatchLedger from './pages/CatchLedgerPage.jsx';
 import Journal from './pages/Journal.jsx';
 import JournalArchive from './pages/JournalArchive.jsx';
-
 import AdventureDetailPage from "./pages/AdventureDetailPage";
 import AdventurePreviewPage from "./pages/AdventurePreviewPage";
-
-import GrantMapPage from './pages/GrantMapPage.jsx';
 import PapaDockPage from './pages/PapaDockPage.jsx';
 import LocationsPage from './pages/LocationsPage.jsx';
-
 import TripPlanner from "./pages/TripPlanner.jsx";
 import TripSummary from "./pages/TripSummary.jsx";
 import TripLedger from "./pages/TripLedger";
-
 import Cabin from "./pages/CabinPage";
-
-import { StoryProvider } from "./context/StoryContext";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import { ProfileContext, buildProfilePacket } from "./context/ProfileContext";
 
 import CastPromptBuilder from "./tools/CastPromptBuilder/castPromptBuilder";
-
+import { StoryProvider } from "./context/StoryContext";
 
 export default function App() {
   const [session, setSession] = useState(null);
@@ -150,7 +143,6 @@ export default function App() {
           <Route path="/field-guide" element={<FieldGuidePage />} />
           <Route path="/species" element={<FieldGuidePage />} />
           <Route path="/catch-ledger" element={<CatchLedger />} />
-          <Route path="/map" element={<GrantMapPage />} />
           <Route path="/journal" element={<Journal />} />
           <Route path="/journal-archive" element={<JournalArchive />} />
 		  

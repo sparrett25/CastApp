@@ -119,7 +119,7 @@ const textTheme = ui.text ?? {};
         <ChamberLayout
           title="Trip Summary"
           sub="Loading your itinerary..."
-          papa={<PapaMini context={{ event: "Loading saved trip summary" }} />}
+          
         >
           <div className="trip-summary-page">
 		  <div className="trip-summary-card" style={cardStyle}>
@@ -141,8 +141,7 @@ const textTheme = ui.text ?? {};
         <ChamberLayout
           title="Trip Summary"
           sub="Something interrupted the itinerary."
-          papa={<PapaMini context={{ event: "Trip summary unavailable" }} />}
-        >
+                  >
           <div className="trip-summary-card">
             <p style={{ marginBottom: "1rem" }}>{error || "Trip not found."}</p>
             <div className="trip-summary-actions">
@@ -179,13 +178,7 @@ const textTheme = ui.text ?? {};
       <ChamberLayout
         title="Trip Summary"
         sub="A saved plan for the water ahead."
-        papa={
-          <PapaMini
-            context={{
-              event: `Viewing saved trip to ${trip.location} targeting ${targetLabel}`,
-            }}
-          />
-        }
+        
       >
         <div className="trip-summary-card">
           <div className="trip-summary-header">
