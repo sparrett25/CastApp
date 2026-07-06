@@ -324,10 +324,10 @@ const displayName =
         <div className="trip-ledger-page">
           <div className="trip-ledger-top" style={cardStyle}>
             <div>
-              <p className="trip-ledger-kicker" style={{ color: textTheme?.secondary }}>
+              <p className="trip-ledger-kicker" style={{ color: textTheme?.primary }}>
                 Your waters
               </p>
-              <h2 className="trip-ledger-heading">Trip Ledger</h2>
+              
               <p className="trip-ledger-intro" style={{ color: textTheme?.secondary }}>
                 Plan what is ahead, return to where you have been, and let each trip become part of the story.
               </p>
@@ -347,6 +347,7 @@ const displayName =
               className={activeFilter === "upcoming" ? "active" : ""}
               style={activeFilter === "upcoming" ? primaryButtonStyle : secondaryButtonStyle}
               onClick={() => setActiveFilter("upcoming")}
+			  
             >
               Upcoming · {upcomingTrips.length}
             </button>

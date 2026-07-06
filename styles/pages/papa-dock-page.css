@@ -370,12 +370,54 @@
 .papa-dock-save-thread-btn:disabled {
   opacity: 0.45;
 }
+/* Papa Dock Settings Card */
+
+.papa-dock-settings-card {
+  margin-top: 1rem;
+  padding: 0.9rem;
+  border-radius: 22px;
+}
+
+.papa-dock-settings-title {
+  margin: 0 0 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+
+.papa-dock-settings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.papa-dock-setting {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.papa-dock-setting span {
+  font-size: 0.72rem;
+  font-weight: 600;
+  opacity: 0.72;
+}
+
+@media (max-width: 480px) {
+  .papa-dock-settings-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
 
 /* Anchor Input Lower On Screen */
 
 .papa-dock-input-container {
   width: 100%;
-  margin-top: 4.5rem;
+  margin-top: 18rem;
 }
 
 /* Mobile */

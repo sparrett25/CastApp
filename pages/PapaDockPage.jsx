@@ -575,69 +575,7 @@ signature={
             <div ref={endRef} />
           </div>
 
-          <div className="papa-dock-thread-actions">
-            <button
-              type="button"
-              className="papa-dock-save-thread-btn"
-              onClick={saveThread}
-              disabled={savingThread || savedThread || messages.length <= 1}
-              style={buttonSecondaryStyle}
-            >
-              {savedThread
-                ? "Thread saved"
-                : savingThread
-                ? "Saving..."
-                : "Save Thread"}
-            </button>
-
-            <button
-              type="button"
-              className="papa-dock-clear-btn"
-              onClick={clearChat}
-              style={buttonSecondaryStyle}
-            >
-              Clear Chat
-            </button>
-          </div>
-
-          {saveError && (
-            <p className="papa-dock-save-error">{saveError}</p>
-          )}
-<div className="papa-dock-mode-row" 
-		style={{
-		  ...buttonSecondaryStyle,
-		  color: textTheme?.primary,
-		  background: bubbleTheme?.papaBg,
-		  border: `1px solid ${bubbleTheme?.border}`,
-		  backdropFilter: `blur(${bubbleTheme?.blur || "12px"})`,
-		  WebkitBackdropFilter: `blur(${bubbleTheme?.blur || "12px"})`,
-		}}
-		
-		>
-		
-		  <select
-			className="papa-dock-mode-select"
-			value={conversationMode}
-			onChange={(e) => setConversationMode(e.target.value)}
-			disabled={loading}
-		  >
-			<option value="guide">Guide</option>
-			<option value="reflection">Reflection</option>
-			<option value="storyteller">Storyteller</option>
-			<option value="quiet">Quiet Presence</option>
-		  </select>
-
-		  <select
-			className="papa-dock-mode-select"
-			value={responseLength}
-			onChange={(e) => setResponseLength(e.target.value)}
-			disabled={loading}
-		  >
-			<option value="normal">Normal</option>
-			<option value="brief">Brief</option>
-			<option value="deeper">Campfire</option>
-		  </select>
-		</div>
+ 
 		
 		
 		
@@ -690,7 +628,79 @@ signature={
               Send →
             </button>
           </form>
-        </div></div>
+        </div>
+		
+		<div
+		  className="papa-dock-settings-card"
+		  style={{
+			...cardStyle,
+		  }}
+		>
+		  <p className="papa-dock-settings-title">Conversation Settings</p>
+
+		  <div className="papa-dock-settings-grid">
+			<label className="papa-dock-setting">
+			  <span>Style</span>
+			  <select
+				className="papa-dock-mode-select"
+				value={conversationMode}
+				onChange={(e) => setConversationMode(e.target.value)}
+				disabled={loading}
+			  >
+				<option value="guide">Guide</option>
+				<option value="reflection">Reflection</option>
+				<option value="storyteller">Storyteller</option>
+				<option value="quiet">Quiet Presence</option>
+			  </select>
+			</label>
+
+			<label className="papa-dock-setting">
+			  <span>Depth</span>
+			  <select
+				className="papa-dock-mode-select"
+				value={responseLength}
+				onChange={(e) => setResponseLength(e.target.value)}
+				disabled={loading}
+			  >
+				<option value="normal">Normal</option>
+				<option value="brief">Brief</option>
+				<option value="deeper">Campfire</option>
+			  </select>
+			</label>
+		  </div>
+		</div>
+		
+		
+		<div className="papa-dock-thread-actions">
+            <button
+              type="button"
+              className="papa-dock-save-thread-btn"
+              onClick={saveThread}
+              disabled={savingThread || savedThread || messages.length <= 1}
+              style={buttonSecondaryStyle}
+            >
+              {savedThread
+                ? "Thread saved"
+                : savingThread
+                ? "Saving..."
+                : "Save Thread"}
+            </button>
+
+            <button
+              type="button"
+              className="papa-dock-clear-btn"
+              onClick={clearChat}
+              style={buttonSecondaryStyle}
+            >
+              Clear Chat
+            </button>
+          </div>
+
+          {saveError && (
+            <p className="papa-dock-save-error">{saveError}</p>
+          )}
+
+		</div>
       </ChamberLayout>
     </CastBackground>
   );
