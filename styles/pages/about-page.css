@@ -1,0 +1,195 @@
+.about-container {
+  width: min(980px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 36px 0 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  color: rgba(255, 248, 232, 0.94);
+}
+
+.about-container--cool {
+  color: rgba(236, 246, 255, 0.94);
+}
+
+.about-container--dim {
+  color: rgba(242, 237, 226, 0.92);
+}
+
+.about-scene-whisper {
+  align-self: center;
+  max-width: 720px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  text-align: center;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.about-scene-whisper--warm {
+  background: rgba(70, 38, 14, 0.22);
+  color: rgba(255, 236, 198, 0.95);
+}
+
+.about-scene-whisper--cool {
+  background: rgba(18, 34, 48, 0.24);
+  color: rgba(223, 241, 255, 0.95);
+}
+
+.about-scene-whisper--dim {
+  background: rgba(20, 20, 20, 0.24);
+  color: rgba(238, 232, 218, 0.92);
+}
+
+.about-hero,
+.about-section-card,
+.about-closing {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px) saturate(125%);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+}
+
+.about-hero {
+  border-radius: 28px;
+  padding: clamp(28px, 5vw, 52px);
+  text-align: center;
+}
+
+.about-kicker {
+  margin-bottom: 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 231, 185, 0.82);
+}
+
+.about-headline {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 6vw, 4.25rem);
+  line-height: 0.98;
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+.about-headline--soft {
+  color: rgba(255, 244, 222, 0.9);
+  text-shadow: 0 2px 22px rgba(20, 12, 6, 0.32);
+}
+
+.about-headline--balanced {
+  color: rgba(255, 248, 232, 0.96);
+  text-shadow: 0 2px 24px rgba(20, 12, 6, 0.38);
+}
+
+.about-headline--clear {
+  color: rgba(255, 252, 242, 0.98);
+  text-shadow: 0 2px 26px rgba(0, 0, 0, 0.45);
+}
+
+.about-hero-copy {
+  max-width: 680px;
+  margin: 22px auto 0;
+  font-size: clamp(1rem, 2vw, 1.18rem);
+  line-height: 1.65;
+  color: rgba(255, 248, 232, 0.84);
+}
+
+.about-section-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.about-section-card {
+  border-radius: 24px;
+  padding: 24px;
+}
+
+.about-card--warm {
+  color: rgba(255, 248, 232, 0.93);
+}
+
+.about-card--cool {
+  color: rgba(235, 246, 255, 0.93);
+}
+
+.about-card--dim {
+  color: rgba(242, 237, 226, 0.9);
+}
+
+.about-section-card h2 {
+  margin: 0 0 12px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  font-weight: 500;
+  color: rgba(255, 241, 211, 0.96);
+}
+
+.about-section-card p {
+  margin: 0 0 12px;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: rgba(255, 248, 232, 0.82);
+}
+
+.about-section-card p:last-child {
+  margin-bottom: 0;
+}
+
+.about-closing {
+  border-radius: 28px;
+  padding: 28px;
+  text-align: center;
+}
+
+.about-closing-line {
+  margin: 0 0 18px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  color: rgba(255, 241, 211, 0.96);
+}
+
+.about-dock-button {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  padding: 13px 22px;
+  font: inherit;
+  font-weight: 700;
+  color: rgba(255, 248, 232, 0.96);
+  cursor: pointer;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.about-dock-button:hover,
+.about-dock-button:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.34);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  outline: none;
+}
+
+@media (max-width: 760px) {
+  .about-container {
+    width: min(100% - 24px, 980px);
+    padding: 24px 0 56px;
+  }
+
+  .about-section-list {
+    grid-template-columns: 1fr;
+  }
+
+  .about-hero,
+  .about-section-card,
+  .about-closing {
+    border-radius: 22px;
+  }
+}

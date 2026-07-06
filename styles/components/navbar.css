@@ -301,6 +301,13 @@
   .cast-nav {
     padding: 6px 8px;
   }
+  
+   .cast-nav__inner,
+  .cast-nav__drawer {
+    width: min(94vw, 620px);
+    max-width: calc(100vw - 16px);
+    box-sizing: border-box;
+  }
 
   .cast-nav__inner {
     border-radius: 16px;

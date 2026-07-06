@@ -15,6 +15,19 @@ const TIME_KEY_MAP = {
   starry_night: "starry-night",
 };
 
+const PAGE_KEY_MAP = {
+  fieldGuide: "field-guide",
+  catchLedger: "catch-ledger",
+  tripSummary: "trip-summary",
+  planTrip: "plan-trip",
+  authPage: "auth-page",
+  papaDock: "papa-dock",
+};
+
+function normalizePageKey(page) {
+  return PAGE_KEY_MAP[page] ?? page;
+}
+
 const WEATHER_KEY_MAP = {
   // legacy
   still_air: "base",
@@ -76,7 +89,13 @@ export function buildAtmospherePacket({
     WEATHER_KEY_MAP
   );
 
-  const pageMeta = pages?.[page] ?? pages?.home ?? {};
+  const normalizedPage = normalizePageKey(page);
+
+const pageMeta =
+  pages?.[normalizedPage] ??
+  pages?.[page] ??
+  pages?.home ??
+  {};
 
   const regionMeta =
     registry?.regions?.[region] ?? registry?.regions?.[FALLBACK_REGION] ?? {};
@@ -126,7 +145,7 @@ export function buildAtmospherePacket({
   ].filter(Boolean);
 
   return {
-    page,
+    page: normalizedPage,
     region,
     timeState: normalizedTimeState,
     weatherState: normalizedWeatherState,

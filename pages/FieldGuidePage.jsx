@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import CastBackground from "../components/CastBackground";
@@ -578,10 +578,26 @@ export default function FieldGuidePage() {
   "100";
 
   const activeRegionId = getRegionIdFromKey(activeRegionKey);
-  const regionalWaterTypes = getActiveRegionalWaterTypes(activeRegionId, SPECIES);
-  const regionalSpecies = getRegionalSpecies(activeRegionId);
-  const regionalGear = getRegionalGear(activeRegionId);
-  const regionalTechniques = getRegionalTechniques(activeRegionId);
+
+const regionalWaterTypes = useMemo(
+  () => getActiveRegionalWaterTypes(activeRegionId, SPECIES),
+  [activeRegionId]
+);
+
+const regionalSpecies = useMemo(
+  () => getRegionalSpecies(activeRegionId),
+  [activeRegionId]
+);
+
+const regionalGear = useMemo(
+  () => getRegionalGear(activeRegionId),
+  [activeRegionId]
+);
+
+const regionalTechniques = useMemo(
+  () => getRegionalTechniques(activeRegionId),
+  [activeRegionId]
+);
   
   const displayName =
   profilePacket?.display_name ||

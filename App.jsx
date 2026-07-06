@@ -21,7 +21,7 @@ import TripLedger from "./pages/TripLedger";
 import Cabin from "./pages/CabinPage";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import { ProfileContext, buildProfilePacket } from "./context/ProfileContext";
-
+import About from "./pages/AboutPage";
 import CastPromptBuilder from "./tools/CastPromptBuilder/castPromptBuilder";
 import { StoryProvider } from "./context/StoryContext";
 
@@ -157,6 +157,7 @@ export default function App() {
 		  <Route path="/auth-page" element={<AuthPage />} />
 		  <Route path="/trips" element={<TripLedger />} />
 		  <Route path="/cabin" element={<Cabin />} />
+		  <Route path="/about" element={<About />} />
 		  {import.meta.env.DEV && (
 		  <Route path="/prompt-builder" element={<CastPromptBuilder />} />
 		  

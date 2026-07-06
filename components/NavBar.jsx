@@ -49,7 +49,7 @@ export default function NavBar() {
    	{ to: "/papa",   label: "Talk"  },
 	{ to: "/cabin",   label: "Cabin"  },
 	{ to: "/profile",   label: "Profile"  },
-		
+	{ to: "/about",   label: "About"  },	
   ];
 
 const handleLogout = async () => {
