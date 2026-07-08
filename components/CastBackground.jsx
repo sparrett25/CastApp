@@ -64,6 +64,8 @@ export default function CastBackground({
 const activeWeatherKey =
   profilePacket?.weatherStateOverride ||
   profilePacket?.weather_state_override ||
+  profilePacket?.liveWeatherState ||
+  profilePacket?.live_weather_state ||
   "base";
   
   const def = chamberDefaults[chamberKey];

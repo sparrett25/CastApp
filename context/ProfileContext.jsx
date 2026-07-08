@@ -31,6 +31,13 @@ export function buildProfilePacket(profile) {
 	time_state_override: profile.time_state_override || null,
 	weatherStateOverride: profile.weather_state_override || null,
 	weather_state_override: profile.weather_state_override || null,
+	weatherZipCode: profile.weather_zip_code || "",
+	weather_zip_code: profile.weather_zip_code || "",
+	liveWeatherState: profile.live_weather_state || null,
+	live_weather_state: profile.live_weather_state || null,
+	liveWeatherSnapshot: profile.live_weather_snapshot || null,
+	live_weather_snapshot: profile.live_weather_snapshot || null,
     role: profile.role,
   };
 }
+

@@ -74,6 +74,22 @@ const normalizedOptions = useMemo(() => {
         options.user?.weatherStateOverride ??
         options.context?.weatherStateOverride ??
         null,
+	  weather_mode:
+	    options.user?.weather_mode ??
+	    options.user?.weatherMode ??
+	    options.context?.weatherMode ??
+	    "manual",
+
+	  weather_zip_code:
+	    options.user?.weather_zip_code ??
+	    options.user?.weatherZipCode ??
+	    options.context?.weatherZipCode ??
+	    null,
+	  live_weather_state:
+	    options.user?.live_weather_state ??
+	    options.user?.liveWeatherState ??
+	    options.context?.liveWeatherState ??
+	    null,
     },
     context: {
       ...(options.context ?? {}),

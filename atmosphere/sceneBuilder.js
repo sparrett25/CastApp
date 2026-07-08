@@ -138,6 +138,15 @@ export function getSceneByPageAndTime(pageId, hour = new Date().getHours(), opti
   options?.context?.weatherStateOverride ||
   null;
 
+const automaticWeatherKey =
+  !overrideWeatherKey
+    ? options?.user?.live_weather_state
+    : null;
+	
+	
+	
+	
+	
   const profileRegionKey =
   options?.user?.favoriteRegion ||
   options?.user?.regionKey ||
@@ -152,7 +161,16 @@ const atmosphereRegionKey = getAtmosphereRegionKey(profileRegionKey);
   const scene = getScene(sceneId, options);
   if (!scene) return null;
 
-  const weatherKey = overrideWeatherKey || scene.weather;
+  const liveWeatherKey =
+  options?.user?.weather_mode === "live"
+    ? options?.user?.live_weather_state
+    : null;
+
+const weatherKey =
+  automaticWeatherKey ||
+  overrideWeatherKey ||
+  scene.weather ||
+  "base";
 
   return {
   ...scene,

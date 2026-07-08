@@ -100,6 +100,7 @@ export default function ProfilePage() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   
+  console.log("CAST profilePacket:", profilePacket);
   
   const atmosphere = useAtmosphere("profile", {
   user: {
@@ -172,6 +173,8 @@ const atmosphereSignature = {
   weather: atmospherePacket?.labels?.weatherState || scene?.weather,
 };
 
+const isWeatherAutomatic = form?.weatherStateOverride === "auto";
+
   useEffect(() => {
     let mounted = true;
 
@@ -194,7 +197,6 @@ const atmosphereSignature = {
           .maybeSingle();
 
         if (error) throw error;
-
         if (mounted) {
           setProfile(data);
           setForm({
@@ -210,6 +212,7 @@ const atmosphereSignature = {
 			regionKey: data?.region_key || DEFAULT_REGION_KEY,
 			timeStateOverride: data?.time_state_override || "auto",
 			weatherStateOverride: data?.weather_state_override || "auto",
+			weatherZipCode: data?.weather_zip_code || "",
             papa_presence_key: data?.papa_presence_key || "classic_papa"
           });
         }
@@ -223,10 +226,17 @@ const atmosphereSignature = {
 
     loadProfile();
 
+
+
+
     return () => {
       mounted = false;
     };
   }, []);
+
+
+
+
 
   function updateField(field, value) {
     setForm((current) => ({ ...current, [field]: value }));
@@ -255,6 +265,7 @@ const atmosphereSignature = {
 		form.timeStateOverride === "auto" ? null : form.timeStateOverride,
 		weather_state_override:
 		form.weatherStateOverride === "auto" ? null : form.weatherStateOverride,
+		weather_zip_code: form.weatherZipCode || null,
         papa_presence_key: form.papa_presence_key
       };
 
@@ -529,16 +540,27 @@ const atmosphereSignature = {
   </select>
 </label>
 
-<p className="profile-help-text">
-  Choose Automatic to let CAST follow the natural time of day, or select a fixed time state for testing and atmosphere tuning.
-</p>
+{form.weatherStateOverride === "auto" && (
+  <label>
+    Weather Mirror
+    <input
+      value={form.weatherZipCode || ""}
+      style={inputStyle}
+      onChange={(e) => updateField("weatherZipCode", e.target.value)}
+      placeholder="Zip Code"
+      inputMode="numeric"
+      maxLength={5}
+    />
+  </label>
+)}
+
+
+
 
 <p className="profile-help-text">
-  {REGION_OPTIONS[form.regionKey || DEFAULT_REGION_KEY]?.description}
+  Automatic lets CAST quietly follow the rhythm of the day while mirroring the live weather from the place you choose below. Select a specific time or weather state whenever you'd like to manually shape the atmosphere.
 </p>
-<p className="profile-help-text">
-  Choose how CAST feels beside you. 
-</p>
+
 
 
             </ProfileSection>

@@ -24,11 +24,37 @@ import { ProfileContext, buildProfilePacket } from "./context/ProfileContext";
 import About from "./pages/AboutPage";
 import CastPromptBuilder from "./tools/CastPromptBuilder/castPromptBuilder";
 import { StoryProvider } from "./context/StoryContext";
+import { getLiveWeatherSnapshot } from "./services/weatherService";
 
 export default function App() {
   const [session, setSession] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
   const [profile, setProfile] = useState(null);
+
+async function hydrateProfileWeather(profile) {
+  if (!profile) return null;
+
+  if (profile.weather_state_override || !profile.weather_zip_code) {
+    return profile;
+  }
+
+  try {
+    const snapshot = await getLiveWeatherSnapshot(profile.weather_zip_code);
+
+    return {
+      ...profile,
+      live_weather_state: snapshot?.state ?? null,
+      live_weather_snapshot: snapshot ?? null,
+    };
+  } catch (err) {
+    console.error("Weather mirror error:", err);
+    return {
+      ...profile,
+      live_weather_state: null,
+      live_weather_snapshot: null,
+    };
+  }
+}
 
   async function loadOrCreateProfile(user) {
     const { data: existingProfile, error: fetchError } = await supabase
@@ -43,8 +69,9 @@ export default function App() {
     }
 
     if (existingProfile) {
-      setProfile(existingProfile);
-      return existingProfile;
+      const hydratedProfile = await hydrateProfileWeather(existingProfile);
+		setProfile(hydratedProfile);
+		return hydratedProfile;
     }
 
     const newProfilePayload = {
@@ -68,8 +95,9 @@ export default function App() {
       return null;
     }
 
-    setProfile(newProfile);
-    return newProfile;
+    const hydratedProfile = await hydrateProfileWeather(newProfile);
+setProfile(hydratedProfile);
+return hydratedProfile;
   }
 
   useEffect(() => {
