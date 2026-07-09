@@ -127,7 +127,7 @@ const resolvedRegion =
   getAtmosphereRegionKey(profilePacket?.favoriteRegion);
 
 const atmospherePacket = buildAtmospherePacket({
-  page: "trips",
+  page: "planTrip",
   region: resolvedRegion,
   timeState: scene?.backgroundVariant || "soft-morning-rise",
   weatherState: scene?.weatherState?.id || scene?.weather || "base",

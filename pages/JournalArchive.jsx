@@ -15,7 +15,10 @@ import "../styles/pages/journal-page.css";
 import "../styles/global/atmosphere.css";
 
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
-import { getAtmosphereRegionKey } from "../utils/resolveChamberBackground";
+import {
+  getAtmosphereRegionKey,
+  getAtmosphericInvitations,
+} from "../utils/resolveChamberBackground";
 
 function formatDate(iso) {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -94,14 +97,13 @@ export default function JournalArchive() {
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const atmosphere = useAtmosphere("journalArchive", {
-    user: profilePacket,
-    context: {
-      entryCount: entries.length,
-      isEmpty: entries.length === 0,
-      loading,
-    },
-  });
+  const atmosphere = useAtmosphere("journal", {
+  user: profilePacket,
+  context: {
+    
+    
+  },
+});
 
   const scene = DEBUG_SCENE
     ? getScene(DEBUG_SCENE, {
@@ -113,6 +115,7 @@ export default function JournalArchive() {
         },
       })
     : atmosphere.scene;
+	
 const resolvedRegion =
   scene?.regionKey ||
   getAtmosphereRegionKey(profilePacket?.favoriteRegion);
@@ -142,6 +145,13 @@ const atmosphereSignature = {
   time: atmospherePacket?.labels?.timeState || scene?.backgroundVariant,
   weather: atmospherePacket?.labels?.weatherState || scene?.weather,
 };
+
+const atmosphericInvitation = getAtmosphericInvitations({
+  registry: atmospherePacket.registry,
+  regionKey: atmospherePacket.region,
+  timeKey: atmospherePacket.timeState,
+  weatherKey: atmospherePacket.weatherState,
+});
 
   const displayName =
     profilePacket?.display_name ||
@@ -218,7 +228,8 @@ const atmosphereSignature = {
       overlay={ui.overlay}
     >
       <ChamberLayout
-  signature={
+		  signature={
+			  <>
     <div className="cast-atmosphere-signature cast-atmosphere-signature--inline">
       <span>
         {atmosphereSignature.page} • {atmosphereSignature.region} •{" "}
@@ -230,14 +241,13 @@ const atmosphereSignature = {
           : ""}
       </span>
     </div>
+	<div className="cast-atmospheric-invitation">
+      {atmosphericInvitation}
+    </div>
+  </>
   }
-        papa={
-          <PapaMini
-            context={papaContext}
-            fallbackKey="journal.prompt"
-          />
-        }
-      >
+ 
+		>
         <div className="journal-page">
           <button
             className="journal-back-btn"

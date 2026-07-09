@@ -59,28 +59,15 @@ function getIntroUiStyles(scene) {
   };
 }
 
-function ActionTile({ title, onClick, className = "", style }) {
-  return (
-    <button
-      className={`portal-card portal-card--intro ${className}`.trim()}
-      style={style}
-      onClick={onClick}
-    >
-      <div className="portal-header portal-header--intro">
-        <h3 className="portal-title-only">{title}</h3>
-      </div>
 
-      <div className="portal-enter portal-enter--intro">Enter →</div>
-    </button>
-  );
-}
 
 export default function IntroPage() {
   const nav = useNavigate();
   const { profilePacket } = useProfile();
 
   const begin = () => nav("/home");
-
+  const about = () => nav("/about");
+  
   const DEBUG_SCENE = null;
 
   const atmosphere = useAtmosphere("intro", {
@@ -175,13 +162,23 @@ const atmosphereSignature = {
             <span>Or just sit and listen.</span>
           </h2>
 
-          <ActionTile
-            title="Step onto the Dock"
-            onClick={begin}
-            className={uiStyles.cardClass}
-            style={entryButtonStyle}
-          />
-
+          
+		  
+	<button
+  className={`intro-about-pill ${uiStyles.cardClass}`.trim()}
+  style={entryButtonStyle}
+  onClick={begin}
+>
+  Step onto the Dock →
+</button>	  
+		  
+<button
+  className={`intro-about-pill ${uiStyles.cardClass}`.trim()}
+  style={entryButtonStyle}
+  onClick={about}
+>
+  About CAST →
+</button>
           <p className="home-tip">The water asks for nothing except your presence.</p>
         </div>
       </ChamberLayout>
