@@ -18,6 +18,7 @@ import {
 } from "../utils/buildPapaPageContext";
 
 import "../styles/pages/catch-ledger.css";
+import "../styles/global/atmosphere.css";
 
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 

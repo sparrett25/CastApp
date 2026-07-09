@@ -6,6 +6,7 @@ import PapaMini from "../components/PapaMini";
 import { usePapa } from "../hooks/usePapa";
 
 import "../styles/pages/cabin.css";
+import "../styles/global/atmosphere.css";
 
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";

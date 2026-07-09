@@ -1,4 +1,5 @@
 // src/services/weatherService.js
+import { normalizeWeatherState } from "../atmosphere/normalizeWeatherState";
 
 const CACHE_MINUTES = 30;
 const CACHE_KEY_PREFIX = "cast_weather_snapshot_";
@@ -7,22 +8,6 @@ function isFresh(snapshot) {
   if (!snapshot?.updatedAt) return false;
   const ageMs = Date.now() - new Date(snapshot.updatedAt).getTime();
   return ageMs < CACHE_MINUTES * 60 * 1000;
-}
-
-function normalizeWeatherState(current = {}) {
-  const code = current.weather_code;
-  const wind = current.wind_speed_10m ?? 0;
-  const precip = current.precipitation ?? 0;
-  const cloud = current.cloud_cover ?? 0;
-
-  if ([95, 96, 99].includes(code)) return "ember-storm";
-  if (precip > 0 || [51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code)) return "silver-rain";
-  if ([45, 48].includes(code)) return "first-fog";
-  if (wind >= 10) return "breezy";
-  if (cloud >= 70) return "still-overcast";
-  if ([0, 1, 2].includes(code)) return "clear-sky";
-
-  return "still-overcast";
 }
 
 async function getCoordinatesFromZip(zipCode) {
@@ -62,6 +47,8 @@ async function fetchCurrentWeather(zipCode) {
 
   const data = await res.json();
   const state = normalizeWeatherState(data.current);
+
+localStorage.removeItem("cast_weather_snapshot_33579");
 
   return {
     zipCode,

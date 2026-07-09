@@ -13,6 +13,7 @@ import { supabase } from "../lib/supabase";
 import { useProfile } from "../context/ProfileContext";
 
 import "../styles/pages/trip-planner.css";
+import "../styles/global/atmosphere.css";
 
 import {
   getAllLocations,

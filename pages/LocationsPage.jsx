@@ -5,6 +5,7 @@ import CastBackground from "../components/CastBackground";
 import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
 import "../styles/pages/locations.css";
+import "../styles/global/atmosphere.css";
 import { SPECIES } from "../data/species";
 import { GEAR } from "../data/gear";
 import { waterTypes } from "../data/waterTypes";

@@ -8,6 +8,7 @@ import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 
 import "../styles/pages/auth.css";
+import "../styles/global/atmosphere.css";
 
 export default function AuthPage() {
   const [mode, setMode] = useState("login");

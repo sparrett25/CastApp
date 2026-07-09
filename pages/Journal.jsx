@@ -7,6 +7,7 @@ import PapaMini from "../components/PapaMini";
 import PapaSpeaks from "../components/PapaSpeaks";
 import { supabase } from "../lib/supabase";
 import "../styles/pages/journal-page.css";
+import "../styles/global/atmosphere.css";
 import { buildPapaPageContext } from "../utils/buildPapaPageContext";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";

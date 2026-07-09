@@ -11,6 +11,7 @@ import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
 import "../styles/pages/trip-ledger.css";
+import "../styles/global/atmosphere.css";
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 import {
   getAtmosphereRegionKey,
@@ -103,8 +104,15 @@ export default function TripLedger() {
   
   const DEBUG_SCENE = null;
 
- const atmosphere = useAtmosphere("trips", {
+ const [view, setView] = useState(null);
+
+const atmosphere = useAtmosphere("planTrip", {
   user: profilePacket,
+  context: {
+    section: view?.section ?? null,
+    entryName: view?.entry?.name ?? null,
+    entryType: view?.entry?.type || view?.section || null,
+  },
 });
 
   const scene = DEBUG_SCENE

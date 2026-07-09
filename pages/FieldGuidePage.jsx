@@ -8,6 +8,7 @@ import { SPECIES } from "../data/species";
 import { CAST_LOCATIONS } from "../data/locations";
 
 import "../styles/pages/field-guide.css";
+import "../styles/global/atmosphere.css";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";

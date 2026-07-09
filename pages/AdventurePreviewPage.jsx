@@ -8,6 +8,7 @@ import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
 
 import "../styles/pages/adventure-preview.css";
+import "../styles/global/atmosphere.css";
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 
 const TEASERS = [

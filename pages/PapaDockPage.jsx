@@ -5,6 +5,7 @@ import CastBackground from "../components/CastBackground";
 import ChamberLayout from "../components/ChamberLayout";
 
 import "../styles/pages/papa-dock-page.css";
+import "../styles/global/atmosphere.css";
 
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";

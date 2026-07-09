@@ -6,6 +6,7 @@ import PapaMini from "../components/PapaMini";
 import PapaSpeaks from "../components/PapaSpeaks";
 import { supabase } from "../lib/supabase";
 import "../styles/pages/trip-summary.css";
+import "../styles/global/atmosphere.css";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";

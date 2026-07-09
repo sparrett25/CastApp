@@ -91,9 +91,14 @@ const activeWeatherKey =
 
   return (
     <div className="min-h-screen bg-[#0a0f14] px-0 py-0 md:px-4 md:py-4">
-      <div
-        className={`relative mx-auto min-h-screen w-full overflow-hidden rounded-none md:min-h-[calc(100vh-2rem)] md:max-w-[1080px] md:rounded-[24px] ${className}`}
-      >
+  <div
+  className={`relative mx-auto min-h-screen w-full overflow-hidden rounded-none md:min-h-[calc(100vh-2rem)] md:rounded-[28px] ${className}`}
+  style={{
+  maxWidth: "580px",
+  
+  boxShadow: "0 24px 80px rgba(0,0,0,0.45)",
+}}
+>
         <AnimatePresence mode="wait">
           {src && (
             <motion.img

@@ -8,6 +8,7 @@ import PapaMini from "../components/PapaMini";
 import HomeSectionCard from "../components/HomeSectionCard";
 
 import "../styles/pages/home-dock.css";
+import "../styles/global/atmosphere.css";
 
 import { getActiveAdventure } from "../utils/adventureState";
 import { supabase } from "../lib/supabase";

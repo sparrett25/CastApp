@@ -9,6 +9,7 @@ import PapaSpeaks from "../components/PapaSpeaks";
 import grantQuests from "../data/stories/grant/quests.json";
 
 import "../styles/pages/adventure.css";
+import "../styles/global/atmosphere.css";
 
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";

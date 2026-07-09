@@ -4,6 +4,7 @@ import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
 import { supabase } from "../lib/supabase";
 import "../styles/pages/profile.css";
+import "../styles/global/atmosphere.css";
 import { useProfile } from "../context/ProfileContext";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";

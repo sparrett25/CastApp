@@ -5,6 +5,11 @@
   top: 0;
   z-index: 1000;
 
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+  box-sizing: border-box;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,6 +20,13 @@
   border-bottom: none;
 }
 
+.cast-nav__inner,
+.cast-nav__drawer {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
 /* Main Atmospheric Shell */
 
 .cast-nav__inner {
@@ -22,7 +34,8 @@
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 8px;
-  width: min(1060px, 100%);
+  width: 100%;
+  max-width: 100%;
   border-radius: 18px;
   padding: 8px 10px;
 
@@ -63,7 +76,7 @@
 /* Desktop Links */
 
 .cast-nav__links {
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   gap: 4px;
@@ -117,7 +130,7 @@
 /* Mobile Toggle */
 
 .cast-nav__toggle {
-  display: none;
+  display: inline-flex;
 
   align-items: center;
   justify-self: end;
@@ -212,7 +225,7 @@
 /* Drawer */
 
 .cast-nav__drawer {
-  width: min(1060px, 100%);
+  width: 100%;
   margin: 8px auto 0;
   padding: 8px;
   border-radius: 18px;
@@ -302,12 +315,12 @@
     padding: 6px 8px;
   }
   
-   .cast-nav__inner,
-  .cast-nav__drawer {
-    width: min(94vw, 620px);
-    max-width: calc(100vw - 16px);
-    box-sizing: border-box;
-  }
+  .cast-nav__inner,
+.cast-nav__drawer {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
 
   .cast-nav__inner {
     border-radius: 16px;

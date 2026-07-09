@@ -1,0 +1,42 @@
+/* ── Cast Atmosphere Signature ── */
+
+.cast-atmosphere-signature--inline,
+.cast-atmospheric-invitation {
+  width: calc(100% - 2rem);
+  max-width: 100%;
+  margin: 0 auto 0.85rem;
+  padding: 0.55rem 1rem;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+  background: rgba(30, 34, 38, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.88);
+  text-align: center;
+  line-height: 1.25;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+}
+
+.cast-atmosphere-signature--inline {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.cast-atmospheric-invitation {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  font-size: 0.72rem;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.11em;
+}

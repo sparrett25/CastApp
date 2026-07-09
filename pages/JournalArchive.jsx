@@ -12,6 +12,7 @@ import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
 
 import "../styles/pages/journal-page.css";
+import "../styles/global/atmosphere.css";
 
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 import { getAtmosphereRegionKey } from "../utils/resolveChamberBackground";
