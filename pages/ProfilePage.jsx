@@ -13,7 +13,10 @@ import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 import {
   getAtmosphereRegionKey,
   getAtmosphericInvitations,
+  getAtmosphericPerception,
 } from "../utils/resolveChamberBackground";
+
+
 
 const PAPA_PRESENCES = [
   { key: "classic_papa", label: "Classic Papa", desc: "Warm, steady, familiar guidance." },
@@ -145,6 +148,13 @@ const atmospherePacket = buildAtmospherePacket({
 });
 
 const atmosphericInvitation = getAtmosphericInvitations({
+  registry: atmospherePacket.registry,
+  regionKey: atmospherePacket.region,
+  timeKey: atmospherePacket.timeState,
+  weatherKey: atmospherePacket.weatherState,
+});
+
+const atmosphericPerception = getAtmosphericPerception({
   registry: atmospherePacket.registry,
   regionKey: atmospherePacket.region,
   timeKey: atmospherePacket.timeState,
@@ -353,13 +363,25 @@ const isWeatherAutomatic = form?.weatherStateOverride === "auto";
           : ""}
       </span>
     </div>
-	<div className="cast-atmospheric-invitation">
-      {atmosphericInvitation}
-    </div>
+	
+	{atmosphericPerception && (
+	  <div className="cast-atmospheric-perception">
+		<strong>{atmosphericPerception.title}</strong>
+		<span>{atmosphericPerception.description}</span>
+	  </div>
+	)}
+	
+	
+	<div className="cast-atmospheric-awareness">
+	  <strong>Awareness</strong>
+	  <span>{atmosphericInvitation}</span>
+	</div>
+	
   </>
   }
-
+  
 >
+
         <main className="profile-page">
           <section className="profile-hero">
             <p className="profile-kicker">Your Profile</p>

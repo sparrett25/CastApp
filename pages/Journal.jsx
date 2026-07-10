@@ -16,6 +16,7 @@ import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 import {
   getAtmosphereRegionKey,
   getAtmosphericInvitations,
+  getAtmosphericPerception,
 } from "../utils/resolveChamberBackground";
 
 const PROMPTS = [
@@ -134,6 +135,12 @@ const atmosphericInvitation = getAtmosphericInvitations({
   weatherKey: atmospherePacket.weatherState,
 });
 
+const atmosphericPerception = getAtmosphericPerception({
+  registry: atmospherePacket.registry,
+  regionKey: atmospherePacket.region,
+  timeKey: atmospherePacket.timeState,
+  weatherKey: atmospherePacket.weatherState,
+});
 
 
   const handlePrompt = (prompt) => {
@@ -271,13 +278,26 @@ const journalCopy = {
           : ""}
       </span>
     </div>
-	<div className="cast-atmospheric-invitation">
-      {atmosphericInvitation}
-    </div>
+	
+	
+	{atmosphericPerception && (
+	  <div className="cast-atmospheric-perception">
+		<strong>{atmosphericPerception.title}</strong>
+		<span>{atmosphericPerception.description}</span>
+	  </div>
+	)}
+	
+	
+	<div className="cast-atmospheric-awareness">
+	  <strong>Awareness</strong>
+	  <span>{atmosphericInvitation}</span>
+	</div>
+	
   </>
   }
- 
-		>
+  
+>
+
         <div className="journal-page">
           <AnimatePresence mode="wait">
             {!saved && (

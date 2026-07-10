@@ -13,7 +13,9 @@ import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 import {
   getAtmosphereRegionKey,
   getAtmosphericInvitations,
+  getAtmosphericPerception,
 } from "../utils/resolveChamberBackground";
+
 
 function getAboutUiStyles(scene) {
   const tone = scene?.timeState?.ui?.textTone ?? "balanced";
@@ -162,6 +164,14 @@ export default function AboutPage() {
     weatherKey: atmospherePacket.weatherState,
   });
 
+const atmosphericPerception = getAtmosphericPerception({
+  registry: atmospherePacket.registry,
+  regionKey: atmospherePacket.region,
+  timeKey: atmospherePacket.timeState,
+  weatherKey: atmospherePacket.weatherState,
+});
+
+
   const uiStyles = getAboutUiStyles(scene);
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
   const styles = atmosphere.styles ?? {};
@@ -200,12 +210,27 @@ export default function AboutPage() {
                   : ""}
               </span>
             </div>
-            <div className="cast-atmospheric-invitation">
-              {atmosphericInvitation}
-            </div>
-          </>
-        }
-      >
+			
+			
+            {atmosphericPerception && (
+	  <div className="cast-atmospheric-perception">
+		<strong>{atmosphericPerception.title}</strong>
+		<span>{atmosphericPerception.description}</span>
+	  </div>
+	)}
+	
+	
+	<div className="cast-atmospheric-awareness">
+	  <strong>Awareness</strong>
+	  <span>{atmosphericInvitation}</span>
+	</div>
+	
+  </>
+  }
+  
+>
+
+
         <main className={uiStyles.containerClass}>
           {scene?.whisper && (
             <div className={uiStyles.whisperClass}>{scene.whisper}</div>

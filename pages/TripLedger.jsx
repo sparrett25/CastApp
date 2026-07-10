@@ -16,7 +16,9 @@ import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 import {
   getAtmosphereRegionKey,
   getAtmosphericInvitations,
+  getAtmosphericPerception,
 } from "../utils/resolveChamberBackground";
+
 
 
 function getTodayKey() {
@@ -169,6 +171,14 @@ const atmosphericInvitation = getAtmosphericInvitations({
   timeKey: atmospherePacket.timeState,
   weatherKey: atmospherePacket.weatherState,
 });
+
+const atmosphericPerception = getAtmosphericPerception({
+  registry: atmospherePacket.registry,
+  regionKey: atmospherePacket.region,
+  timeKey: atmospherePacket.timeState,
+  weatherKey: atmospherePacket.weatherState,
+});
+
 
 const displayName =
   profilePacket?.display_name ||
@@ -323,12 +333,26 @@ const displayName =
           : ""}
       </span>
     </div>
-	<div className="cast-atmospheric-invitation">
-      {atmosphericInvitation}
-    </div>
+	
+	
+	{atmosphericPerception && (
+	  <div className="cast-atmospheric-perception">
+		<strong>{atmosphericPerception.title}</strong>
+		<span>{atmosphericPerception.description}</span>
+	  </div>
+	)}
+	
+	
+	<div className="cast-atmospheric-awareness">
+	  <strong>Awareness</strong>
+	  <span>{atmosphericInvitation}</span>
+	</div>
+	
   </>
   }
-    >
+  
+>
+
         <div className="trip-ledger-page">
           <div className="trip-ledger-top" style={cardStyle}>
             <div>

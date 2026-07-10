@@ -15,7 +15,9 @@ import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
 import {
   getAtmosphereRegionKey,
   getAtmosphericInvitations,
+  getAtmosphericPerception,
 } from "../utils/resolveChamberBackground";
+
 
 export default function CabinPage() {
   const { profilePacket } = useProfile();
@@ -62,6 +64,14 @@ export default function CabinPage() {
   timeKey: atmospherePacket.timeState,
   weatherKey: atmospherePacket.weatherState,
 });
+
+const atmosphericPerception = getAtmosphericPerception({
+  registry: atmospherePacket.registry,
+  regionKey: atmospherePacket.region,
+  timeKey: atmospherePacket.timeState,
+  weatherKey: atmospherePacket.weatherState,
+});
+
 
   const ui = scene?.timeState?.ui ?? atmosphere.ui ?? {};
   const styles = atmosphere.styles ?? {};
@@ -134,13 +144,25 @@ function handleSitWithPapa() {
                 : ""}
             </span>
     </div>
-	<div className="cast-atmospheric-invitation">
-      {atmosphericInvitation}
-    </div>
+	
+	{atmosphericPerception && (
+	  <div className="cast-atmospheric-perception">
+		<strong>{atmosphericPerception.title}</strong>
+		<span>{atmosphericPerception.description}</span>
+	  </div>
+	)}
+	
+	
+	<div className="cast-atmospheric-awareness">
+	  <strong>Awareness</strong>
+	  <span>{atmosphericInvitation}</span>
+	</div>
+	
   </>
-        }
-        
-      >
+  }
+  
+>
+
         <div className="cabin-page cabin-page--story">
           <section className="cabin-hero-card" style={cardStyle}>
             <p className="cabin-eyebrow">Papa’s Cabin</p>
