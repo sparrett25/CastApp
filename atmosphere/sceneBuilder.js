@@ -112,13 +112,14 @@ export function getScene(sceneId, options = {}) {
 }
 
 export function getTimeKey(hour = new Date().getHours()) {
-  if (hour < 5) return "blue-hour-dawn";
-  if (hour < 7) return "first-light";
-  if (hour < 11) return "soft-morning-rise";
-  if (hour < 15) return "warm-drift";
-  if (hour < 18) return "golden-dusk";
-  if (hour < 20) return "quiet-evening-glow";
-  if (hour < 22) return "ember-twilight";
+  if (hour >= 5 && hour < 6) return "blue-hour-dawn";
+  if (hour >= 6 && hour < 8) return "first-light";
+  if (hour >= 8 && hour < 12) return "soft-morning-rise";
+  if (hour >= 12 && hour < 18) return "warm-drift";
+  if (hour >= 18 && hour < 20) return "golden-dusk";
+  if (hour >= 20 && hour < 21) return "quiet-evening-glow";
+  if (hour >= 21 && hour < 22) return "ember-twilight";
+
   return "starry-night";
 }
 

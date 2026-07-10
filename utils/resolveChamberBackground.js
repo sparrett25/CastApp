@@ -82,6 +82,28 @@ export function getAtmosphericInvitations({
   );
 }
 
+export function getAtmosphericPerception({
+  registry = chamberBackgrounds.registry,
+  regionKey = DEFAULT_REGION_KEY,
+  timeKey = "blue-hour-dawn",
+  weatherKey = "base",
+}) {
+  const atmosphereRegionKey = getAtmosphereRegionKey(regionKey);
+
+  const perception =
+    registry?.atmospherePerceptions?.[atmosphereRegionKey]?.[timeKey]?.[
+      weatherKey
+    ];
+
+  if (perception?.title || perception?.description) {
+    return perception;
+  }
+
+  return null;
+}
+
+
+
 export function resolveChamberBackgroundSrc({
   chamberKey,
   timeKey = "blue-hour-dawn",

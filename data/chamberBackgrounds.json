@@ -288,7 +288,7 @@
     },
     "weatherStates": {
       "base": {
-        "label": "Base State",
+        "label": "Native",
         "summary": "The native atmosphere of the selected time state remains uninterrupted. Weather does not dominate the scene, allowing the page, region, and time of day to carry the primary emotional tone.",
         "emotionalField": [
           "natural continuity",
@@ -822,7 +822,21 @@
 		}
 		
 	  }
+	},
+	
+	"atmospherePerceptions": {
+	  "central-florida": {
+		"warm-drift": {
+		  "base": {
+			"title": "Heavy Summer Stillness",
+			"description": "The light is bright, but the world seems to conserve its energy. The air hangs quietly over the landscape as though everything is patiently waiting for the afternoon to unfold."
+		  }
+		}
+	  }
 	}
+   
+   
+   
    },
   "chambers": {
     "authPage": {
