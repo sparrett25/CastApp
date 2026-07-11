@@ -91,8 +91,8 @@ export function getAtmosphericPerception({
   const atmosphereRegionKey = getAtmosphereRegionKey(regionKey);
 
   const perception =
-    registry?.atmospherePerceptions?.[atmosphereRegionKey]?.[timeKey]?.[
-      weatherKey
+    registry?.atmospherePerceptions?.[atmosphereRegionKey]?.[weatherKey]?.[
+      timeKey
     ];
 
   if (perception?.title || perception?.description) {
