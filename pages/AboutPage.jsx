@@ -84,7 +84,7 @@ const aboutSections = [
 "Not to tell you what to see.",
 "But to help you notice what is already there.",
 "The water has always been speaking.",
-"CAST simply offers a place to listen.",
+"CAST offers a place to listen.",
    ],
   },
 {
