@@ -63,59 +63,57 @@ function getAboutUiStyles(scene) {
 
 const aboutSections = [
   {
-    title: "More Than a Fishing App",
+    title: "A Quiet Beginning",
     body: [
-      "CAST began as a simple idea: build a fishing companion for a young nephew learning to fish.",
-      "Over time, that idea changed. The greatest moments beside the water were not always measured by the fish that were caught. They were found in quiet mornings, changing skies, familiar places, thoughtful conversations, and memories that stayed long after the trip was over.",
-      "Today, CAST is a quiet companion built around fishing, observation, memory, and presence.",
+      "There is a quiet place by the water.",
+	  "Some arrive hoping to catch fish.",
+	  "Some come searching for peace after a long day.",
+	  "Others simply need a reason to step outside and breathe.",
+	  "At first, these reasons seem different.",
+	  "In time, they often become the same.",
+	  "Fishing has always been more than catching fish.",
+	  "For generations, people learned the waters not from maps or screens, but by returning. They noticed where the first light touched the shoreline, how the wind carried insects across the surface, and how each season slowly changed the character of a familiar place. They learned to recognize the songs of birds, the arrival of dragonflies, the silence before rain, and the subtle movements that revealed life beneath the water.",
+	  "These observations were never separate from fishing.",
+	  "They were fishing.",
+	  "The water rewarded those who paid attention.",
+	  "Not only with fish, but with understanding.",
+	  "CAST was born from that tradition.",
+		"Not from a desire to improve fishing through technology, but from a belief that technology can quietly support the timeless practice of paying attention.",
+"Its purpose is not to replace experience.",
+"It is to help preserve it.",
+"Not to tell you what to see.",
+"But to help you notice what is already there.",
+"The water has always been speaking.",
+"CAST simply offers a place to listen.",
+   ],
+  },
+{
+    title: "A Different Kind of Companion",
+    body: [
+"Most applications begin with a question.",
+"What are you trying to accomplish?",
+"CAST begins with a different question.",
+"Where are you today?",
+"That distinction matters.",
+"Before there are catches, there is water.",
+"Before there are techniques, there is atmosphere.",
+"Before there is success, there is presence.",
+"A pond is never simply a pond.",
+"The same shoreline changes with morning fog, summer heat, silver rain, autumn wind, and quiet evening light.",
+"The fish respond.",
+"The birds respond.",
+"The insects respond.",
+"And so do we.",
+"No two visits are ever exactly alike.",
+"To return to the same place is not to repeat an experience.",
+"It is to begin a new relationship.",
+"~",
+"The water asks for nothing except your presence.",
     ],
   },
-  {
-    title: "A Living World",
-    body: [
-      "CAST changes throughout the day. Morning light feels different than evening. A still pond feels different than gentle rain. A Midwestern farm pond carries a different atmosphere than a Florida lake or an Appalachian creek.",
-      "Rather than treating these as backgrounds, CAST treats them as places. Every region, weather state, and time of day creates a different emotional landscape that gently shapes the experience.",
-    ],
-  },
-  {
-    title: "Learning the Water",
-    body: [
-      "The Field Guide introduces waters, species, gear, techniques, and the quiet art of observation.",
-      "Trips help you set an intention before you go. Catch Logs remember what happened. Locations gradually learn what each place has taught you.",
-      "Rather than rushing toward success, CAST encourages something older and simpler: stand still, observe first, and let the water tell its story before the first cast.",
-    ],
-  },
-  {
-    title: "Remembering What Matters",
-    body: [
-      "Every fishing trip becomes more than a date on a calendar. Reflections, field notes, catches, photographs, conversations with Papa, and future adventures slowly gather around the places you return to.",
-      "Over time, locations become memory anchors. They remember not only what you caught, but how that place made you feel.",
-    ],
-  },
-  {
-    title: "Papa",
-    body: [
-      "Papa is CAST's companion. Sometimes he teaches. Sometimes he listens. Sometimes he simply tells a story.",
-      "You can ask about fishing techniques, gear, wildlife, or share an observation from the shoreline. Papa's conversations are not intended to replace the experience beside the water. They are meant to deepen it.",
-      "At the end of the day, you can visit Papa's Cabin, where stories arrive with the changing atmosphere and every evening feels a little different than the last.",
-    ],
-  },
-  {
-    title: "Your World",
-    body: [
-      "Every person experiences the outdoors differently. CAST allows you to shape that experience.",
-      "Choose the region that feels like home. Follow the natural rhythm of the day, or linger in a favorite time of evening. Let changing weather influence the world around you.",
-      "As CAST continues to grow, it will quietly follow the atmosphere around you, allowing the experience to change naturally with your local conditions.",
-    ],
-  },
-  {
-    title: "Why CAST Exists",
-    body: [
-      "Modern apps often ask us to move faster. CAST quietly asks something different.",
-      "Slow down. Look a little longer. Listen. Remember.",
-      "Whether you catch the biggest fish of your life or nothing at all, the evening was never empty. Every cast has a story. Every place remembers. And sometimes the most meaningful thing left to do is simply sit beside the water for a while.",
-    ],
-  },
+ 
+  
+  
 ];
 
 export default function AboutPage() {
@@ -210,20 +208,6 @@ const atmosphericPerception = getAtmosphericPerception({
                   : ""}
               </span>
             </div>
-			
-			
-            {atmosphericPerception && (
-	  <div className="cast-atmospheric-perception">
-		<strong>{atmosphericPerception.title}</strong>
-		<span>{atmosphericPerception.description}</span>
-	  </div>
-	)}
-	
-	
-	<div className="cast-atmospheric-awareness">
-	  <strong>Awareness</strong>
-	  <span>{atmosphericInvitation}</span>
-	</div>
 	
   </>
   }
@@ -236,19 +220,9 @@ const atmosphericPerception = getAtmosphericPerception({
             <div className={uiStyles.whisperClass}>{scene.whisper}</div>
           )}
 
-          <section className="about-hero" style={uiStyles.cardStyle}>
-            <div className="about-kicker">About CAST</div>
-            <h1 className={uiStyles.headlineClass}>
-              <span>Fishing remains its language. </span>
-              <span>Presence is its purpose.</span>
-            </h1>
-            <p className="about-hero-copy">
-              CAST is a quiet companion built around fishing, observation,
-              memory, and the places that slowly become part of us.
-            </p>
-          </section>
+          
 
-          <section className="about-section-list" aria-label="About CAST sections">
+          <section className="about-hero-copy" aria-label="About CAST sections">
             {aboutSections.map((section) => (
               <article
                 key={section.title}
@@ -264,9 +238,7 @@ const atmosphericPerception = getAtmosphericPerception({
           </section>
 
           <section className="about-closing" style={uiStyles.cardStyle}>
-            <p className="about-closing-line">
-              The water asks for nothing except your presence.
-            </p>
+            
             <button
               className={`about-dock-button ${uiStyles.cardClass}`.trim()}
               style={entryButtonStyle}

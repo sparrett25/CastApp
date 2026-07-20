@@ -820,7 +820,6 @@
 			  ]
 		  }
 		},
-		
 		"breezy": {
 		  "blue-hour-dawn": {
 			"invitations": [ "Notice how even the gentlest breeze gives the morning a quiet sense of direction.",
@@ -902,7 +901,6 @@
 			  ]
 		  }
 		},
-		
 		"ember-storm": {
 		  "blue-hour-dawn": {
 			"invitations": [ "Some mornings begin with silence. Others begin with weather. Both have something to teach.",
@@ -984,84 +982,181 @@
 			  ]
 		  }
 		},
-		
 		"silver-rain": {
 		  "blue-hour-dawn": {
-			"invitations": [ "Some mornings begin with silence. Others begin with weather. Both have something to teach.",
-			  "The storm does not interrupt the morning. Today, it becomes part of it.",
-			  "Watch how the water accepts each raindrop without needing the sky to become clear.",
-			  "There is strength in remaining present while the world rearranges itself around you.",
-			  "Not every beginning arrives beneath calm skies. Some arrive carried on rain."
+			"invitations": [ "Rain writes gentle circles across the pond. Watch how each one disappears without asking to be remembered.",
+			"The morning has not yet hurried into the day. Let the steady rain set the pace for your first quiet observations.",
+			"Notice how every surface receives the rain differently—the water welcomes it, the dock holds it, and the trees quietly wear it.",
+			"The world has become softer beneath the rainfall. Listen for the sounds that remain when everything else grows quiet.",
+			"Nothing here asks you to escape the rain. Stay for a moment and discover how even gentle weather changes the way the pond speaks."
 			  
 			]
 		  },
 
 		  "first-light": {
-			"invitations": ["Morning finds the storm already waiting. Meet it with the same quiet presence you brought to dawn.",
-			  "As the light grows, the rain reveals more of itself without asking the sky to become calm.",
-			  "Notice how the water receives every drop without losing its own rhythm.",
-			  "You do not need clear skies to begin paying attention. This morning is already enough.",
-			  "Even beneath heavy clouds, the day continues to unfold one quiet moment at a time."
+			"invitations": ["Morning arrives one quiet reflection at a time. Watch the pond brighten without ever losing its calm.",
+			"The rain has not hidden the sunrise—it has softened it. Notice how gentle light finds its way through every opening.",
+			"Every ripple catches a little more light than the one before it. Let your attention follow the slow awakening of the water.",
+			"The day doesn't wait for perfect weather to begin. Listen as birds, breeze, and rain quietly welcome the morning together.",
+			"Even beneath silver rain, the world continues to wake. Sit for a moment and notice what chooses to begin before the sky is clear."
 			  
 			]
 		  },
 
 		  "soft-morning-rise": {
-			"invitations": ["Even the heaviest rain cannot keep morning from quietly arriving.",
-			  "Look beyond the nearest curtain of rain. The horizon is still finding its light.",
-			  "The storm reshapes the surface, but the water beneath continues in its own rhythm.",
-			  "Some mornings ask for movement. Others simply ask you to witness what is unfolding.",
-			  "The day does not begin after the storm. Sometimes it begins beautifully within it."
+			"invitations": ["The morning no longer feels like it is beginning—it has quietly found its rhythm. Let yourself arrive with it.",
+			"Soft rain settles over the pond like a familiar conversation. Listen without searching for anything more.",
+			"Every reflection is softened, yet nothing has been lost. Notice how gentleness can reveal its own kind of clarity.",
+			"There is no hurry beneath silver rain. Sit long enough to discover how slowly the world is willing to unfold.",
+			"Some mornings ask for movement. This one asks only that you remain present as rain and light continue their quiet work."
 				
 			  ]
 		  },
 
 		  "warm-drift": {
-			"invitations": ["The day has not disappeared. It is simply passing through another expression of itself.",
-			  "Even storms move with their own rhythm. You do not have to hurry simply because the sky has.",
-			  "Notice how the water accepts every drop without losing its nature. There is wisdom in that.",
-			  "Some afternoons are bright with sunlight. Others are bright with understanding. Both leave something behind.",
-			  "There is strength in remaining present while the world rearranges itself around you."
+			"invitations": ["Warm rain has a different rhythm than cold rain. Let yourself notice the comfort that can exist even beneath gray skies.",
+			"Not every shower interrupts the day. Some simply become part of it. Stay long enough to feel the difference.",
+			"The pond continues its quiet work whether the sky is clear or filled with rain. Presence doesn't wait for perfect weather.",
+			"Watch how the rain softens every reflection without taking the light away. Sometimes gentleness changes more than brightness ever could.",
+			"Even under steady rain, the shoreline remains welcoming. Let the day be exactly what it is without asking it to become something else."
 							
 			  ]
 		  },
 
 		  "golden-dusk": {
-			"invitations": ["Even through heavy clouds, light finds a way to announce the evening.",
-			  "The sky does not need to clear before it begins to glow.",
-			  "Storms soften the sunset in ways clear skies never can.",
-			  "Some endings arrive in brilliance. Others arrive as quiet light behind the rain.",
-			  "Watch what the storm reveals when the day begins to let go."
+			"invitations": ["Evening arrives quietly beneath the rain. Notice how the light lingers even as the day begins to let go.",
+			"The pond gathers the last warmth of the afternoon beneath a silver sky. Sit with the moment before it slips gently into evening.",
+			"Rain softens the day's ending without taking its beauty away. Sometimes the quietest sunsets are the ones hidden behind clouds.",
+			"Let your attention rest where light still finds the water. Even a dim horizon has something worth noticing.",
+			"Golden Dusk does not ask the rain to stop. It simply welcomes evening exactly as it arrives."
 				
 			  ]
 		  },
 		  
 		  "quiet-evening-glow": {
-			"invitations": ["The storm no longer asks for your attention. It simply shares the evening beside you.",
-			  "Even as daylight fades, the horizon keeps one small promise of light.",
-			  "Peace is not always found after the rain. Sometimes it arrives while the rain is still falling.",
-			  "When the world grows quiet enough, even a storm begins to whisper.",
-			  "You do not have to wait for calm to discover that you already carry it."
+			"invitations": ["Evening settles softly beneath the rain. Let the quiet become something you notice rather than something you try to fill.",
+			"The last light lingers on the water long after the sun has disappeared. Stay with it for one more moment.",
+			"Rain and twilight ask for very little. They simply invite you to slow down enough to notice they have arrived together.",
+			"As daylight fades, the pond begins speaking in reflections instead of light. Watch what remains when brightness gently steps away.",
+			"There is no need to hurry toward tomorrow. This quiet evening still has something beautiful to offer."
 				
 			  ]
 		  },
 		  
 		  "ember-twilight": {
-			"invitations": [ "Some evenings ask nothing of you except that you remain a little longer.",
-			  "As the last light slips away, notice what still remains with you.",
-			  "There are moments when the world grows so quiet that memory begins to speak.",
-			  "The horizon has disappeared, yet the water still knows where to rest.",
-			  "Not every silence is empty. Some are simply waiting to be noticed."
+			"invitations": [ "The day has almost finished speaking. Let the rain carry the last few thoughts gently across the water.",
+			"Evening grows quieter with every passing moment. There is nothing left to hurry toward.",
+			"Soft rain and fading light share the pond without competing. Notice how peace can exist without silence.",
+			"Stay for the moment between evening and night. Sometimes the gentlest transitions are the easiest to miss.",
+			"The horizon still remembers the sun, even as the water welcomes the coming night. Sit with both for a little while."
 				
 			  ]
 		  },
 		  
 		  "starry-night": {
-			"invitations": ["Night does not always arrive beneath clear skies. Sometimes it arrives beneath faithful rain.",
-			  "Even when the stars remain hidden, the sky remembers where they are.",
-			  "The horizon still carries light long after the day has let go.",
-			  "Some nights invite wonder. Others invite rest. Both are gifts.",
-			  "When nothing asks for your attention anymore, simply remain with what is here."
+			"invitations": ["Even beneath passing rain, the night keeps a quiet light for those who remain.",
+			"The water still gathers every drop, asking nothing more than your company.",
+			"Moonlight and rain share the same sky tonight. Not every beautiful thing arrives alone.",
+			"Let the quiet settle where words no longer need to.",
+			"Stay a little longer. Some evenings reveal themselves only after the day has disappeared."
+				
+			  ]
+		  }
+		},
+		"clear-sky": {
+		  "blue-hour-dawn": {
+			"invitations": [ 
+			  
+			]
+		  },
+
+		  "first-light": {
+			"invitations": [
+			  
+			]
+		  },
+
+		  "soft-morning-rise": {
+			"invitations": [
+				
+			  ]
+		  },
+
+		  "warm-drift": {
+			"invitations": [
+							
+			  ]
+		  },
+
+		  "golden-dusk": {
+			"invitations": [
+				
+			  ]
+		  },
+		  
+		  "quiet-evening-glow": {
+			"invitations": [
+				
+			  ]
+		  },
+		  
+		  "ember-twilight": {
+			"invitations": [ 
+				
+			  ]
+		  },
+		  
+		  "starry-night": {
+			"invitations": [
+				
+			  ]
+		  }
+		},
+		"first-fog": {
+		  "blue-hour-dawn": {
+			"invitations": [ 
+			  
+			]
+		  },
+
+		  "first-light": {
+			"invitations": [
+			  
+			]
+		  },
+
+		  "soft-morning-rise": {
+			"invitations": [
+				
+			  ]
+		  },
+
+		  "warm-drift": {
+			"invitations": [
+							
+			  ]
+		  },
+
+		  "golden-dusk": {
+			"invitations": [
+				
+			  ]
+		  },
+		  
+		  "quiet-evening-glow": {
+			"invitations": [
+				
+			  ]
+		  },
+		  
+		  "ember-twilight": {
+			"invitations": [ 
+				
+			  ]
+		  },
+		  
+		  "starry-night": {
+			"invitations": [
 				
 			  ]
 		  }
