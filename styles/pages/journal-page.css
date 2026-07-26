@@ -471,6 +471,121 @@
   opacity: 0.68;
 }
 
+/* Journal voice input — automatic transcription flow */
+
+.journal-voice-input {
+  padding: 0.9rem 0;
+}
+
+.journal-voice-start-btn,
+.journal-voice-stop-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.journal-voice-recording {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.15rem 0;
+  text-align: center;
+}
+
+.journal-voice-recording-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.journal-voice-recording-dot {
+  width: 0.58rem;
+  height: 0.58rem;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.32);
+  animation: journalVoicePulse 1.8s ease-out infinite;
+}
+
+.journal-voice-timer {
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+
+.journal-voice-transcribing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 2.75rem;
+  text-align: center;
+}
+
+.journal-voice-transcribing-mark {
+  display: inline-block;
+  min-width: 1.2rem;
+  letter-spacing: 0.12em;
+  animation: journalVoiceBreathe 1.6s ease-in-out infinite;
+}
+
+.journal-voice-error {
+  margin: 0.75rem 0 0;
+  color: #f4c7c3;
+}
+
+.journal-textarea {
+  transition: opacity 220ms ease, filter 220ms ease;
+}
+
+.journal-textarea--listening {
+  opacity: 0.86;
+  filter: saturate(0.92);
+}
+
+@keyframes journalVoicePulse {
+  0% {
+    transform: scale(0.88);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.28);
+  }
+
+  65% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0.45rem rgba(255, 255, 255, 0);
+  }
+
+  100% {
+    transform: scale(0.88);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+@keyframes journalVoiceBreathe {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journal-voice-recording-dot,
+  .journal-voice-transcribing-mark {
+    animation: none;
+  }
+
+  .journal-textarea {
+    transition: none;
+  }
+}
+
+
 /* Mobile */
 
 @media (max-width: 480px) {

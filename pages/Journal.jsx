@@ -5,6 +5,7 @@ import CastBackground from "../components/CastBackground";
 import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
 import PapaSpeaks from "../components/PapaSpeaks";
+import JournalVoiceInput from "../components/JournalVoiceInput";
 import { supabase } from "../lib/supabase";
 import "../styles/pages/journal-page.css";
 import "../styles/global/atmosphere.css";
@@ -57,6 +58,7 @@ export default function JournalPage() {
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState("");
   const [selectedPrompt, setSelectedPrompt] = useState(null);
+  const [voiceStatus, setVoiceStatus] = useState("idle");
 
   const [entryType, setEntryType] = useState("reflection");
   const [locationKey, setLocationKey] = useState(null);
@@ -148,6 +150,23 @@ const atmosphericPerception = getAtmosphericPerception({
     setSelectedPrompt(prompt);
     setShowPrompts(false);
     textareaRef.current?.focus();
+  };
+
+  const handleVoiceTranscript = (transcript) => {
+    const cleanTranscript = transcript?.trim();
+    if (!cleanTranscript) return;
+
+    setText((currentText) => {
+      const existingText = currentText.trimEnd();
+
+      return existingText
+        ? `${existingText} ${cleanTranscript}`
+        : cleanTranscript;
+    });
+
+    window.requestAnimationFrame(() => {
+      textareaRef.current?.focus();
+    });
   };
 
   const handleSave = async () => {
@@ -351,13 +370,27 @@ const journalCopy = {
 										
                   <textarea
 				  ref={textareaRef}
-				  className="journal-textarea"
+				  className={`journal-textarea ${
+                    (voiceStatus === "recording" || voiceStatus === "transcribing")
+                      ? "journal-textarea--listening"
+                      : ""
+                  }`}
 				  placeholder={journalCopy[entryType].placeholder}
 				  value={text}
 				  onChange={(e) => setText(e.target.value)}
 				  rows={10}
 				  style={inputStyle}
 				/>
+
+                  <JournalVoiceInput
+                    buttonPrimaryStyle={buttonPrimaryStyle}
+                    buttonSecondaryStyle={buttonSecondaryStyle}
+                    textTheme={textTheme}
+                    disabled={saving}
+                    onTranscript={handleVoiceTranscript}
+                    onStatusChange={setVoiceStatus}
+                  />
+
                   <div className="journal-footer">
                     <span className="journal-wordcount">
                       {wordCount > 0 ? `${wordCount} word${wordCount === 1 ? "" : "s"}` : ""}
