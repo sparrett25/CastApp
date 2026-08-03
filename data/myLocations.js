@@ -5,15 +5,18 @@ export const MY_LOCATIONS = [
     regionId: "tampa",
     waterTypeId: "pond",
 
-    speciesIds: ["bluegill", "channel-catfish"],
+    knownSpeciesIds: ["bluegill", "channel-catfish"],
+    observedSpeciesIds: ["bluegill"],
+    preferredSpeciesIds: [],
 
-    gearIds: [
+    recommendedGearIds: [
       "spinning-reel",
-      "bobber",
-      "small-hooks",
-      "live-bait",
+      "float-rig",
+      "nightcrawlers",
       "monofilament-line",
     ],
+    fieldKitGearIds: [],
+    techniqueIds: [],
 
     adventureIds: ["backyard-pond"],
 
@@ -68,7 +71,7 @@ export const MY_LOCATIONS = [
     regionId: "tampa",
     waterTypeId: "reservoir",
 
-    speciesIds: [
+    knownSpeciesIds: [
       "largemouth-bass",
       "bluegill",
       "redear-sunfish",
@@ -77,13 +80,18 @@ export const MY_LOCATIONS = [
       "black-crappie",
       "warmouth",
     ],
+    observedSpeciesIds: [],
+    preferredSpeciesIds: [],
 
-    gearIds: [
+    recommendedGearIds: [
       "spinning-reel",
       "soft-plastic-worm",
       "spinnerbait",
+      "carolina-rig",
       "monofilament-line",
     ],
+    fieldKitGearIds: [],
+    techniqueIds: [],
 
     adventureIds: ["edward-medard"],
 
@@ -137,7 +145,7 @@ export const MY_LOCATIONS = [
     regionId: "tampa",
     waterTypeId: "river",
 
-    speciesIds: [
+    knownSpeciesIds: [
       "largemouth-bass",
       "bluegill",
       "redear-sunfish",
@@ -147,14 +155,18 @@ export const MY_LOCATIONS = [
       "gar",
       "warmouth",
     ],
+    observedSpeciesIds: [],
+    preferredSpeciesIds: [],
 
-    gearIds: [
+    recommendedGearIds: [
       "spinning-reel",
-      "topwater-lure",
+      "topwater-frog",
       "soft-plastic-worm",
-      "live-bait",
+      "live-baitfish",
       "monofilament-line",
     ],
+    fieldKitGearIds: [],
+    techniqueIds: [],
 
     adventureIds: ["hillsborough-river"],
 
@@ -218,7 +230,7 @@ export const MY_LOCATIONS = [
     regionId: "tampa",
     waterTypeId: "lake",
 
-    speciesIds: [
+    knownSpeciesIds: [
       "largemouth-bass",
       "bluegill",
       "redear-sunfish",
@@ -226,14 +238,18 @@ export const MY_LOCATIONS = [
       "channel-catfish",
       "black-crappie",
     ],
+    observedSpeciesIds: [],
+    preferredSpeciesIds: [],
 
-    gearIds: [
+    recommendedGearIds: [
       "spinning-reel",
       "soft-plastic-worm",
       "spinnerbait",
-      "live-bait",
+      "live-baitfish",
       "monofilament-line",
     ],
+    fieldKitGearIds: [],
+    techniqueIds: [],
 
     adventureIds: ["hardee-lakes"],
 

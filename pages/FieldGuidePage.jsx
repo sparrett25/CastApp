@@ -5,7 +5,11 @@ import CastBackground from "../components/CastBackground";
 import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
 import { SPECIES } from "../data/species";
-import { CAST_LOCATIONS } from "../data/locations";
+import {
+  loadLocations,
+  subscribeToLocations,
+  updateLocation,
+} from "../data/locationStorage";
 
 import "../styles/pages/field-guide.css";
 import "../styles/global/atmosphere.css";
@@ -48,6 +52,15 @@ import {
   getAtmosphericInvitations,
   getAtmosphericPerception,
 } from "../utils/resolveChamberBackground";
+
+const GEAR_GROUPS = [
+  ["rod-reel", "Rods & Reels"],
+  ["line", "Line"],
+  ["terminal-tackle", "Terminal Tackle"],
+  ["rig", "Rigs"],
+  ["bait", "Baits"],
+  ["lure", "Lures"],
+];
 
 
 // --- Species Chip to Locations ---
@@ -395,6 +408,8 @@ function GearDetail({
   onOpenWater,
   regionalSpecies,
   regionalWaterTypes,
+  locations,
+  onToggleLocation,
   backButtonStyle,
 }) {
 	
@@ -453,6 +468,26 @@ function GearDetail({
         onClick={() => onOpenWater(water.id)}
       />
     ))}
+  </div>
+</div>
+
+<div className="fg-section">
+  <p className="fg-section-label">Save to a location</p>
+  <p className="fg-section-body">
+    Add this to the field kit for a water where you use it or want to remember it.
+  </p>
+  <div className="fg-tags">
+    {locations.map((location) => {
+      const isSaved = location.fieldKitGearIds?.includes(gear.id);
+
+      return (
+        <LocationChip
+          key={location.id}
+          label={`${isSaved ? "✓ " : ""}${location.name}`}
+          onClick={() => onToggleLocation(location.id, gear.id)}
+        />
+      );
+    })}
   </div>
 </div>
 	  
@@ -572,6 +607,7 @@ export default function FieldGuidePage() {
   const DEBUG_SCENE = null;
   
   const [view, setView] = useState(null);
+  const [locations, setLocations] = useState(() => loadLocations());
   const { profilePacket } = useProfile();
   
   const activeRegionKey =
@@ -597,10 +633,12 @@ const regionalGear = useMemo(
   [activeRegionId]
 );
 
-const regionalTechniques = useMemo(
+  const regionalTechniques = useMemo(
   () => getRegionalTechniques(activeRegionId),
   [activeRegionId]
 );
+
+  useEffect(() => subscribeToLocations(setLocations), []);
   
   const displayName =
   profilePacket?.display_name ||
@@ -723,7 +761,51 @@ const atmosphereSignature = {
 
     setView({ section: "waters" });
   }
-}, [location.state, regionalSpecies, regionalWaterTypes]);
+
+  if (navState.section === "gear") {
+    const matchedGear = regionalGear.find((g) => g.id === navState.entryId);
+
+    setView(
+      matchedGear
+        ? { section: "gear", entry: matchedGear }
+        : { section: "gear" }
+    );
+  }
+
+  if (navState.section === "techniques") {
+    const matchedTechnique = regionalTechniques.find(
+      (technique) => technique.id === navState.entryId
+    );
+
+    setView(
+      matchedTechnique
+        ? { section: "techniques", entry: matchedTechnique }
+        : { section: "techniques" }
+    );
+  }
+}, [
+  location.state,
+  regionalSpecies,
+  regionalWaterTypes,
+  regionalGear,
+  regionalTechniques,
+]);
+
+  function toggleGearForLocation(locationId, gearId) {
+    const updated = updateLocation(locationId, (savedLocation) => {
+      const current = savedLocation.fieldKitGearIds ?? [];
+      const isSaved = current.includes(gearId);
+
+      return {
+        ...savedLocation,
+        fieldKitGearIds: isSaved
+          ? current.filter((id) => id !== gearId)
+          : [...current, gearId],
+      };
+    });
+
+    setLocations(updated);
+  }
   const section = view?.section ?? null;
   const entry = view?.entry ?? null;
 
@@ -906,16 +988,29 @@ const atmosphereSignature = {
               >
                 <button className="fg-back-btn" style={backButtonStyle} onClick={goHub}>← Field Guide</button>
                 <h3 className="fg-list-title">Gear</h3>
-                {regionalGear.map((g) => (
-                  <SimpleCard
-					  key={g.id}
-					  entry={g}
-					  onClick={goDetail}
-					  accentColor="#185FA5"
-					  cardTheme={cardTheme}
-					  textTheme={textTheme}
-					/>
-                ))}
+                {GEAR_GROUPS.map(([category, label]) => {
+                  const entries = regionalGear.filter(
+                    (gear) => gear.category === category
+                  );
+
+                  if (!entries.length) return null;
+
+                  return (
+                    <div key={category} className="fg-list-group">
+                      <p className="fg-detail-eyebrow">{label}</p>
+                      {entries.map((gear) => (
+                        <SimpleCard
+                          key={gear.id}
+                          entry={gear}
+                          onClick={goDetail}
+                          accentColor="#185FA5"
+                          cardTheme={cardTheme}
+                          textTheme={textTheme}
+                        />
+                      ))}
+                    </div>
+                  );
+                })}
               </motion.div>
             )}
 
@@ -997,6 +1092,8 @@ const atmosphereSignature = {
   backButtonStyle={backButtonStyle}
   regionalSpecies={regionalSpecies}
   regionalWaterTypes={regionalWaterTypes}
+  locations={locations}
+  onToggleLocation={toggleGearForLocation}
   onOpenSpecies={(speciesId) => {
     const matchedSpecies = regionalSpecies.find((s) => s.id === speciesId);
     if (matchedSpecies) {
