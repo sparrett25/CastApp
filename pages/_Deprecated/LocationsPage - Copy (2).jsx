@@ -6,22 +6,39 @@ import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
 import "../styles/pages/locations.css";
 import "../styles/global/atmosphere.css";
+import { SPECIES } from "../data/species";
 import { GEAR } from "../data/gear";
 import { TECHNIQUES } from "../data/techniques";
 import { waterTypes } from "../data/waterTypes";
-import { REGION_OPTIONS, getRegionIdFromKey } from "../data/regionOptions";
+import { REGION_OPTIONS } from "../data/regionOptions";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
 import { supabase } from "../lib/supabase";
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
-import { getSpeciesForWaterType } from "../data/speciesHelpers";
 import {
   getAtmosphereRegionKey,
   getAtmosphericInvitations,
   getAtmosphericPerception,
 } from "../utils/resolveChamberBackground";
 
+
+const GEAR_CATEGORY_LABELS = {
+  "rod-reel": "Rods & Reels",
+  line: "Line",
+  "terminal-tackle": "Terminal Tackle",
+  rig: "Rigs",
+  bait: "Baits",
+  lure: "Lures",
+};
+
+const TIME_STATE_OPTIONS = [
+  { id: "blue-hour-dawn", label: "Blue Hour Dawn" },
+  { id: "soft-morning-rise", label: "Soft Morning Rise" },
+  { id: "warm-drift", label: "Warm Drift" },
+  { id: "golden-dusk", label: "Golden Dusk" },
+  { id: "quiet-evening-glow", label: "Quiet Evening Glow" },
+];
 
 function SpeciesChip({ label, onClick }) {
   return (
@@ -191,18 +208,6 @@ function LocationCard({ location, onClick, cardTheme, textTheme, chipTheme }) {
         </div>
 
         <div className="loc-card-meta">
-          {location.isFavorite && (
-            <span
-              className="loc-difficulty"
-              style={{
-                background: chipTheme?.activeBg,
-                border: `1px solid ${chipTheme?.border}`,
-                color: chipTheme?.text,
-              }}
-            >
-              ★ Favorite
-            </span>
-          )}
           <span
             className="loc-difficulty"
             style={{
@@ -211,7 +216,7 @@ function LocationCard({ location, onClick, cardTheme, textTheme, chipTheme }) {
               color: chipTheme?.text,
             }}
           >
-            {location.isActive === false ? "Inactive" : "Active"}
+            Saved Place
           </span>
         </div>
       </div>
@@ -257,6 +262,20 @@ function updateDraft(field, value) {
   }));
 }
 
+function toggleArrayValue(field, value) {
+  setDraftLocation((prev) => {
+    const current = prev[field] || [];
+    const exists = current.includes(value);
+
+    return {
+      ...prev,
+      [field]: exists
+        ? current.filter((item) => item !== value)
+        : [...current, value],
+    };
+  });
+}
+
 function saveEdits() {
   onUpdateLocation(draftLocation);
   setIsEditing(false);
@@ -266,21 +285,38 @@ function saveEdits() {
   const [catchesLoading, setCatchesLoading] = useState(false);
   const [locationTrips, setLocationTrips] = useState([]);
   const [tripsLoading, setTripsLoading] = useState(false);
-  const [locationGear, setLocationGear] = useState([]);
-  const [gearLoading, setGearLoading] = useState(false);
-  const [locationTechniques, setLocationTechniques] = useState([]);
-  const [techniquesLoading, setTechniquesLoading] = useState(false);
   
-const speciesContextLocation = isEditing ? draftLocation : location;
+  const memoryCount =
+    (location.photoUrls?.length || 0) +
+    (location.fieldNoteIds?.length || 0) +
+    (location.journalEntryIds?.length || 0);
 
-const speciesContextRegionId =
-  getRegionIdFromKey(speciesContextLocation.regionId) ||
-  speciesContextLocation.regionId;
+const likelySpecies = SPECIES.filter((species) => {
+  const matchesRegion =
+    species.regionIds?.includes(location.regionId) ||
+    species.regions?.includes(location.regionId);
 
-const likelySpecies = getSpeciesForWaterType(
-  speciesContextLocation.waterTypeId,
-  speciesContextRegionId
+  const matchesWater =
+    species.waterTypeIds?.includes(location.waterTypeId) ||
+    species.waterTypes?.includes(location.waterTypeId);
+
+  return matchesRegion && matchesWater;
+});
+
+const observedLikelyCount =
+  location.observedSpeciesIds?.filter((speciesId) =>
+    likelySpecies.some((species) => species.id === speciesId)
+  ).length || 0;
+
+const regionalGear = GEAR.filter(
+  (gear) => !gear.regionIds?.length || gear.regionIds.includes(location.regionId)
 );
+
+const regionalTechniques = TECHNIQUES.filter(
+  (technique) =>
+    !technique.regionIds?.length || technique.regionIds.includes(location.regionId)
+);
+
 
 
 useEffect(() => {
@@ -365,141 +401,6 @@ useEffect(() => {
   };
 }, [location.locationKey]);
 
-useEffect(() => {
-  let isMounted = true;
-
-  async function loadLocationGear() {
-    try {
-      setGearLoading(true);
-
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
-
-      if (userError) throw userError;
-      if (!user) return;
-
-      const { data, error } = await supabase
-        .from("cast_location_gear")
-        .select("id, location_id, gear_key, created_at")
-        .eq("user_id", user.id)
-        .eq("location_id", location.id)
-        .order("created_at", { ascending: true });
-
-      if (error) throw error;
-
-      if (isMounted) setLocationGear(data ?? []);
-    } catch (err) {
-      console.error("Location field kit load error:", err);
-      if (isMounted) setLocationGear([]);
-    } finally {
-      if (isMounted) setGearLoading(false);
-    }
-  }
-
-  loadLocationGear();
-
-  return () => {
-    isMounted = false;
-  };
-}, [location.id]);
-
-useEffect(() => {
-  let isMounted = true;
-
-  async function loadLocationTechniques() {
-    try {
-      setTechniquesLoading(true);
-
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
-
-      if (userError) throw userError;
-      if (!user) return;
-
-      const { data, error } = await supabase
-        .from("cast_location_techniques")
-        .select("id, location_id, technique_key, created_at")
-        .eq("user_id", user.id)
-        .eq("location_id", location.id)
-        .order("created_at", { ascending: true });
-
-      if (error) throw error;
-
-      if (isMounted) setLocationTechniques(data ?? []);
-    } catch (err) {
-      console.error("Location techniques load error:", err);
-      if (isMounted) setLocationTechniques([]);
-    } finally {
-      if (isMounted) setTechniquesLoading(false);
-    }
-  }
-
-  loadLocationTechniques();
-
-  return () => {
-    isMounted = false;
-  };
-}, [location.id]);
-
-
-async function removeGearFromLocation(relationshipId) {
-  try {
-    const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser();
-
-    if (userError) throw userError;
-    if (!user) throw new Error("You must be logged in to update a field kit.");
-
-    const { error } = await supabase
-      .from("cast_location_gear")
-      .delete()
-      .eq("id", relationshipId)
-      .eq("user_id", user.id);
-
-    if (error) throw error;
-
-    setLocationGear((current) =>
-      current.filter((item) => item.id !== relationshipId)
-    );
-  } catch (error) {
-    console.error("Location field kit remove error:", error);
-  }
-}
-
-async function removeTechniqueFromLocation(relationshipId) {
-  try {
-    const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser();
-
-    if (userError) throw userError;
-    if (!user) throw new Error("You must be logged in to update techniques.");
-
-    const { error } = await supabase
-      .from("cast_location_techniques")
-      .delete()
-      .eq("id", relationshipId)
-      .eq("user_id", user.id);
-
-    if (error) throw error;
-
-    setLocationTechniques((current) =>
-      current.filter((item) => item.id !== relationshipId)
-    );
-  } catch (error) {
-    console.error("Location technique remove error:", error);
-  }
-}
-
-
-
 
   return (
     <motion.div
@@ -532,6 +433,12 @@ async function removeTechniqueFromLocation(relationshipId) {
 		  <h2 className="loc-detail-title">{location.name}</h2>
 		)}
 
+        {(isEditing ? draftLocation.notes : location.notes) && (
+  <p className="loc-detail-subtitle">
+    {isEditing ? draftLocation.notes : location.notes}
+  </p>
+)}
+
 		<div className="loc-edit-actions">
 		  {isEditing ? (
 			<>
@@ -557,224 +464,363 @@ async function removeTechniqueFromLocation(relationshipId) {
 
         <div className="loc-stats-row">
           <div className="loc-stat">
-            <p className="loc-stat-label">Region</p>
-            {isEditing ? (
-              <select
-                className="loc-form-input"
-                value={draftLocation.regionId || ""}
-                onChange={(e) => updateDraft("regionId", e.target.value)}
-              >
-                {regionList.map((regionOption) => (
-                  <option
-                    key={regionOption.id || regionOption.key}
-                    value={regionOption.id || regionOption.key}
-                  >
-                    {regionOption.label}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <p className="loc-stat-value">
-                {region?.label || location.regionId || "Unassigned"}
-              </p>
-            )}
-          </div>
+		  <p className="loc-stat-label">Region</p>
+
+		  {isEditing ? (
+			<select
+			  className="loc-form-input"
+			  value={draftLocation.regionId || ""}
+			  onChange={(e) => updateDraft("regionId", e.target.value)}
+			>
+			  {regionList.map((region) => (
+				<option key={region.id || region.key} value={region.id || region.key}>
+				  {region.label}
+				</option>
+			  ))}
+			</select>
+		  ) : (
+			<p className="loc-stat-value">
+			  {region?.label || location.regionId || "Unassigned"}
+			</p>
+		  )}
+		</div>
+
 
           <div className="loc-stat">
-            <p className="loc-stat-label">Water Type</p>
-            {isEditing ? (
-              <select
-                className="loc-form-input"
-                value={draftLocation.waterTypeId || ""}
-                onChange={(e) => updateDraft("waterTypeId", e.target.value)}
-              >
-                {waterTypes.map((waterOption) => (
-                  <option key={waterOption.id} value={waterOption.id}>
-                    {waterOption.label}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <SpeciesChip
-                label={water?.label || location.waterTypeId || "Unassigned"}
-                onClick={water ? () => onOpenWaterType(water.id) : null}
-              />
-            )}
-          </div>
+		  <p className="loc-stat-label">Water Type</p>
+
+		  {isEditing ? (
+			<select
+			  className="loc-form-input"
+			  value={draftLocation.waterTypeId || ""}
+			  onChange={(e) => updateDraft("waterTypeId", e.target.value)}
+			>
+			  {waterTypes.map((water) => (
+				<option key={water.id} value={water.id}>
+				  {water.label}
+				</option>
+			  ))}
+			</select>
+		  ) : (
+			<SpeciesChip
+			  label={water?.label || location.waterTypeId || "Unassigned"}
+			  onClick={water ? () => onOpenWaterType(water.id) : null}
+			/>
+		  )}
+		</div>
+				  
+		  
+		  
 
           <div className="loc-stat">
-            <p className="loc-stat-label">Status</p>
-            {isEditing ? (
-              <button
-                type="button"
-                className={`loc-species-chip ${
-                  draftLocation.isActive !== false ? "active" : ""
-                }`}
-                onClick={() =>
-                  updateDraft("isActive", draftLocation.isActive === false)
-                }
-              >
-                {draftLocation.isActive === false ? "Inactive" : "Active"}
-              </button>
-            ) : (
-              <p className="loc-stat-value">
-                {location.isActive === false ? "Inactive" : "Active"}
-              </p>
-            )}
+            <p className="loc-stat-label">Memories</p>
+            <p className="loc-stat-value">{memoryCount}</p>
           </div>
         </div>
 
-        <SectionBlock label="Relationship">
-          {isEditing ? (
-            <div className="loc-species-row">
-              <button
-                type="button"
-                className={`loc-species-chip ${
-                  draftLocation.isFavorite ? "active" : ""
-                }`}
-                onClick={() =>
-                  updateDraft("isFavorite", !draftLocation.isFavorite)
-                }
-              >
-                {draftLocation.isFavorite ? "★ Favorite" : "☆ Mark as favorite"}
-              </button>
+        <SectionBlock label="Known here">
+		  {isEditing ? (
+			<div className="loc-species-row">
+			  {SPECIES.map((species) => (
+				<button
+				  key={species.id}
+				  type="button"
+				  className={`loc-species-chip ${
+					draftLocation.knownSpeciesIds?.includes(species.id) ? "active" : ""
+				  }`}
+				  onClick={() => toggleArrayValue("knownSpeciesIds", species.id)}
+				>
+				  {species.name}
+				</button>
+			  ))}
+			</div>
+		  ) : (
+			<div className="loc-species-row">
+			  {location.knownSpeciesIds?.length ? (
+				location.knownSpeciesIds.map((speciesId) => {
+				  const species = SPECIES.find((s) => s.id === speciesId);
+
+				  return (
+					<SpeciesChip
+					  key={speciesId}
+					  label={species?.name || speciesId}
+					  onClick={species ? () => onOpenSpecies(species.id) : null}
+					/>
+				  );
+				})
+			  ) : (
+				<p>No documented species added yet.</p>
+			  )}
+			</div>
+		  )}
+		</SectionBlock>
+
+		<SectionBlock label="Likely species">
+		  {likelySpecies.length ? (
+			<>
+			  <p className="loc-discovery-text">
+				{observedLikelyCount} of {likelySpecies.length} likely species observed.
+			  </p>
+
+			  <div className="loc-species-row">
+				{likelySpecies.map((species) => {
+				  const observed = location.observedSpeciesIds?.includes(species.id);
+
+				  return (
+					<span
+					  key={species.id}
+					  className={`loc-species-chip ${
+						observed ? "discovery" : ""
+					  }`}
+					  onClick={() => onOpenSpecies(species.id)}
+					>
+					  {observed ? `✓ ${species.name}` : species.name}
+					</span>
+				  );
+				})}
+			  </div>
+			</>
+		  ) : (
+			<p>No likely species mapped for this region and water type yet.</p>
+		  )}
+		</SectionBlock>
+
+		<SectionBlock label="Observed here">
+		  {isEditing ? (
+			<div className="loc-species-row">
+			  {likelySpecies.map((species) => (
+				<button
+				  key={species.id}
+				  type="button"
+				  className={`loc-species-chip ${
+					draftLocation.observedSpeciesIds?.includes(species.id) ? "active" : ""
+				  }`}
+				  onClick={() => toggleArrayValue("observedSpeciesIds", species.id)}
+				>
+				  {species.name}
+				</button>
+			  ))}
+			</div>
+		  ) : (
+			<div className="loc-species-row">
+			  {location.observedSpeciesIds?.length ? (
+				location.observedSpeciesIds.map((speciesId) => {
+				  const species = SPECIES.find((s) => s.id === speciesId);
+				  return (
+					<SpeciesChip
+					  key={speciesId}
+					  label={species?.name || speciesId}
+					  onClick={species ? () => onOpenSpecies(species.id) : null}
+					/>
+				  );
+				})
+			  ) : (
+				<p>No personal observations recorded yet.</p>
+			  )}
+			</div>
+		  )}
+		</SectionBlock>
+
+
+		<SectionBlock label="Preferred species">
+		  {isEditing ? (
+			<div className="loc-species-row">
+			  {SPECIES.map((species) => (
+				<button
+				  key={species.id}
+				  type="button"
+				  className={`loc-species-chip ${
+					draftLocation.preferredSpeciesIds?.includes(species.id) ? "active" : ""
+				  }`}
+				  onClick={() => toggleArrayValue("preferredSpeciesIds", species.id)}
+				>
+				  {species.name}
+				</button>
+			  ))}
+			</div>
+		  ) : (
+			<div className="loc-species-row">
+			  {location.preferredSpeciesIds?.length ? (
+				location.preferredSpeciesIds.map((speciesId) => {
+				  const species = SPECIES.find((s) => s.id === speciesId);
+
+				  return (
+					<SpeciesChip
+					  key={speciesId}
+					  label={species?.name || speciesId}
+					  onClick={species ? () => onOpenSpecies(species.id) : null}
+					/>
+				  );
+				})
+			  ) : (
+				<p>No preferred species added yet.</p>
+			  )}
+			</div>
+		  )}
+		</SectionBlock>
+
+		<SectionBlock label="Recommended gear">
+		  <div className="loc-species-row">
+			{location.recommendedGearIds?.length ? (
+			  location.recommendedGearIds.map((gearId) => {
+				const gear = GEAR.find((entry) => entry.id === gearId);
+				return (
+				  <SpeciesChip
+					key={gearId}
+					label={gear?.name || gearId}
+					onClick={gear ? () => onOpenGear(gear.id) : null}
+				  />
+				);
+			  })
+			) : (
+			  <p>No recommendations added yet.</p>
+			)}
+		  </div>
+		</SectionBlock>
+
+		<SectionBlock label="My field kit">
+		  {isEditing ? (
+			<>
+			  {Object.entries(GEAR_CATEGORY_LABELS).map(([category, label]) => {
+				const entries = regionalGear.filter((gear) => gear.category === category);
+				if (!entries.length) return null;
+
+				return (
+				  <div key={category} style={{ marginBottom: "0.85rem" }}>
+					<p className="loc-discovery-text">{label}</p>
+					<div className="loc-species-row">
+					  {entries.map((gear) => (
+						<button
+						  key={gear.id}
+						  type="button"
+						  className={`loc-species-chip ${
+							draftLocation.fieldKitGearIds?.includes(gear.id) ? "active" : ""
+						  }`}
+						  onClick={() => toggleArrayValue("fieldKitGearIds", gear.id)}
+						>
+						  {gear.name}
+						</button>
+					  ))}
+					</div>
+				  </div>
+				);
+			  })}
+			</>
+		  ) : (
+			<div className="loc-species-row">
+			  {location.fieldKitGearIds?.length ? (
+				location.fieldKitGearIds.map((gearId) => {
+				  const gear = GEAR.find((g) => g.id === gearId);
+
+				  return (
+					<SpeciesChip
+					  key={gearId}
+					  label={gear?.name || gearId}
+					  onClick={gear ? () => onOpenGear(gear.id) : null}
+					/>
+				  );
+				})
+			  ) : (
+				<p>No gear, bait, rigs, or lures saved for this water yet.</p>
+			  )}
+			</div>
+		  )}
+		</SectionBlock>
+
+		<SectionBlock label="My techniques">
+		  {isEditing ? (
+			<div className="loc-species-row">
+			  {regionalTechniques.map((technique) => (
+				<button
+				  key={technique.id}
+				  type="button"
+				  className={`loc-species-chip ${
+					draftLocation.techniqueIds?.includes(technique.id) ? "active" : ""
+				  }`}
+				  onClick={() => toggleArrayValue("techniqueIds", technique.id)}
+				>
+				  {technique.name}
+				</button>
+			  ))}
+			</div>
+		  ) : (
+			<div className="loc-species-row">
+			  {location.techniqueIds?.length ? (
+				location.techniqueIds.map((techniqueId) => {
+				  const technique = TECHNIQUES.find((entry) => entry.id === techniqueId);
+				  return (
+					<SpeciesChip
+					  key={techniqueId}
+					  label={technique?.name || techniqueId}
+					  onClick={technique ? () => onOpenTechnique(technique.id) : null}
+					/>
+				  );
+				})
+			  ) : (
+				<p>No techniques saved for this water yet.</p>
+			  )}
+			</div>
+		  )}
+		</SectionBlock>
+      
+		<SectionBlock label="Preferred time">
+		  {isEditing ? (
+			<select
+			  className="loc-form-input"
+			  value={draftLocation.preferredTimeStateId || ""}
+			  onChange={(e) => updateDraft("preferredTimeStateId", e.target.value)}
+			>
+			  <option value="">No preferred time yet</option>
+			  {TIME_STATE_OPTIONS.map((time) => (
+				<option key={time.id} value={time.id}>
+				  {time.label}
+				</option>
+			  ))}
+			</select>
+		  ) : location.preferredTimeStateId ? (
+			<p>
+			  {
+				TIME_STATE_OPTIONS.find(
+				  (time) => time.id === location.preferredTimeStateId
+				)?.label || location.preferredTimeStateId
+			  }
+			</p>
+		  ) : (
+			<p>No preferred time added yet.</p>
+		  )}
+		</SectionBlock>
+	  
+          <SectionBlock label="Notes">
+			  {isEditing ? (
+				<textarea
+				  className="loc-form-input loc-textarea"
+				  value={draftLocation.notes || ""}
+				  onChange={(e) => updateDraft("notes", e.target.value)}
+				  placeholder="Best time of day, water behavior, access notes, memories..."
+				/>
+			  ) : location.notes ? (
+				<p>{location.notes}</p>
+			  ) : (
+				<p>No notes added yet.</p>
+			  )}
+			</SectionBlock>
+        
+
+        <SectionBlock label="Photos">
+          {location.photoUrls?.length ? (
+            <div className="loc-chip-row">
+              {location.photoUrls.map((url, i) => (
+                <span key={url || i} className="loc-chip">
+                  Photo {i + 1}
+                </span>
+              ))}
             </div>
           ) : (
-            <p>
-              {location.isFavorite
-                ? "This is one of your favorite waters."
-                : "This location is part of your saved waters."}
-            </p>
+            <p>Photos will live here as this place gathers memories.</p>
           )}
         </SectionBlock>
-
-        <SectionBlock label="About this water">
-          <p className="loc-discovery-text">
-            CAST uses this location&apos;s region and water type to connect it with the Field Guide.
-          </p>
-          <div className="loc-species-row">
-            {likelySpecies.length ? (
-              likelySpecies.map((species) => (
-                <SpeciesChip
-                  key={species.id}
-                  label={species.name}
-                  onClick={() => onOpenSpecies(species.id)}
-                />
-              ))
-            ) : (
-              <p>No species are mapped for this region and water type yet.</p>
-            )}
-          </div>
-        </SectionBlock>
-
-        <SectionBlock label="Notes">
-          {isEditing ? (
-            <textarea
-              className="loc-form-input loc-textarea"
-              value={draftLocation.notes || ""}
-              onChange={(e) => updateDraft("notes", e.target.value)}
-              placeholder="Access notes, water behavior, things worth remembering..."
-            />
-          ) : location.notes ? (
-            <p>{location.notes}</p>
-          ) : (
-            <p>No personal notes added yet.</p>
-          )}
-        </SectionBlock>
-
-		<SectionBlock label="My Field Kit">
-          {gearLoading ? (
-            <p>Gathering the gear you saved for this water...</p>
-          ) : locationGear.length ? (
-            <div className="loc-species-row">
-              {locationGear.map((relationship) => {
-                const gear = GEAR.find((entry) => entry.id === relationship.gear_key);
-
-                return (
-                  <span key={relationship.id} className="loc-species-chip clickable">
-                    <span
-                      onClick={() => gear && onOpenGear(gear.id)}
-                      role={gear ? "button" : undefined}
-                      tabIndex={gear ? 0 : undefined}
-                      onKeyDown={
-                        gear
-                          ? (e) => {
-                              if (e.key === "Enter" || e.key === " ") {
-                                onOpenGear(gear.id);
-                              }
-                            }
-                          : undefined
-                      }
-                    >
-                      {gear?.name || relationship.gear_key}
-                    </span>
-                    <button
-                      type="button"
-                      className="loc-field-kit-remove"
-                      onClick={() => removeGearFromLocation(relationship.id)}
-                      aria-label={`Remove ${gear?.name || relationship.gear_key} from field kit`}
-                    >
-                      ×
-                    </button>
-                  </span>
-                );
-              })}
-            </div>
-          ) : (
-            <p>No gear saved to this location yet.</p>
-          )}
-        </SectionBlock>
-
-        <SectionBlock label="My Techniques">
-          {techniquesLoading ? (
-            <p>Gathering the techniques you saved for this water...</p>
-          ) : locationTechniques.length ? (
-            <div className="loc-species-row">
-              {locationTechniques.map((relationship) => {
-                const technique = TECHNIQUES.find(
-                  (entry) => entry.id === relationship.technique_key
-                );
-
-                return (
-                  <span key={relationship.id} className="loc-species-chip clickable">
-                    <span
-                      onClick={() => technique && onOpenTechnique(technique.id)}
-                      role={technique ? "button" : undefined}
-                      tabIndex={technique ? 0 : undefined}
-                      onKeyDown={
-                        technique
-                          ? (e) => {
-                              if (e.key === "Enter" || e.key === " ") {
-                                onOpenTechnique(technique.id);
-                              }
-                            }
-                          : undefined
-                      }
-                    >
-                      {technique?.name || relationship.technique_key}
-                    </span>
-                    <button
-                      type="button"
-                      className="loc-field-kit-remove"
-                      onClick={() =>
-                        removeTechniqueFromLocation(relationship.id)
-                      }
-                      aria-label={`Remove ${
-                        technique?.name || relationship.technique_key
-                      } from techniques`}
-                    >
-                      ×
-                    </button>
-                  </span>
-                );
-              })}
-            </div>
-          ) : (
-            <p>No techniques saved to this location yet.</p>
-          )}
-        </SectionBlock>
-
-        <SectionBlock label="Recent catches here">
+		
+		<SectionBlock label="Recent catches here">
 		  {catchesLoading ? (
 			<p>Looking through the ledger...</p>
 		  ) : locationCatches.length ? (
@@ -807,9 +853,29 @@ async function removeTechniqueFromLocation(relationshipId) {
 		  )}
 		</SectionBlock>
 
+        <SectionBlock label="Field notes">
+          {location.fieldNoteIds?.length ? (
+            <div className="loc-chip-row">
+              {location.fieldNoteIds.map((id) => (
+                <span key={id} className="loc-chip">{id}</span>
+              ))}
+            </div>
+          ) : (
+            <p>Papa field notes can later be attached to this location.</p>
+          )}
+        </SectionBlock>
 
-
-
+        <SectionBlock label="Journal entries">
+          {location.journalEntryIds?.length ? (
+            <div className="loc-chip-row">
+              {location.journalEntryIds.map((id) => (
+                <span key={id} className="loc-chip">{id}</span>
+              ))}
+            </div>
+          ) : (
+            <p>Reflections from this place can later appear here.</p>
+          )}
+        </SectionBlock>
 
         
       </div>
@@ -823,8 +889,6 @@ function mapLocationFromDb(row) {
     locationKey: row.location_key,
     regionId: row.region_key,
     waterTypeId: row.water_type_key,
-    isActive: row.is_active,
-    isFavorite: row.is_favorite,
   };
 }
 
@@ -1049,51 +1113,19 @@ const atmosphereSignature = {
   }, [routeLocation.state, locations]);
 
 
-async function handleUpdateLocation(updatedLocation) {
-  try {
-    const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser();
+function handleUpdateLocation(updatedLocation) {
+  setLocations((prev) =>
+    saveLocations(
+      prev.map((loc) =>
+        loc.id === updatedLocation.id ? updatedLocation : loc
+      )
+    )
+  );
 
-    if (userError) throw userError;
-    if (!user) throw new Error("No authenticated user found.");
-
-    const { data, error } = await supabase
-      .from("cast_locations")
-      .update({
-        name: updatedLocation.name.trim(),
-        region_key: updatedLocation.regionId,
-        water_type_key: updatedLocation.waterTypeId,
-        notes: updatedLocation.notes?.trim() || null,
-        is_active: updatedLocation.isActive ?? true,
-        is_favorite: updatedLocation.isFavorite ?? false,
-      })
-      .eq("id", updatedLocation.id)
-      .eq("user_id", user.id)
-      .select()
-      .single();
-
-    if (error) throw error;
-
-    const mappedLocation = mapLocationFromDb(data);
-
-    setLocations((prev) =>
-      prev.map((loc) => (loc.id === mappedLocation.id ? mappedLocation : loc))
-    );
-    setSelectedLocation(mappedLocation);
-  } catch (error) {
-    console.error("Update location error:", error);
-  }
+  setSelectedLocation(updatedLocation);
 }
 
-
  
-
-  const visibleLocations = [...locations]
-    .filter((location) => location.isActive !== false)
-    .sort((a, b) => Number(Boolean(b.isFavorite)) - Number(Boolean(a.isFavorite)));
-
   return (
     <CastBackground
       chamberKey="locations"
@@ -1166,17 +1198,7 @@ async function handleUpdateLocation(updatedLocation) {
                   )}
                 </AnimatePresence>
 
-                {locationsLoading && (
-                  <p className="loc-more-hint">Gathering your saved waters...</p>
-                )}
-
-                {!locationsLoading && visibleLocations.length === 0 && (
-                  <p className="loc-more-hint">
-                    No active locations yet. Add a water when you are ready.
-                  </p>
-                )}
-
-                {visibleLocations.map((location) => (
+                {locations.map((location) => (
                   <LocationCard
                     key={location.id}
                     location={location}
@@ -1204,10 +1226,6 @@ async function handleUpdateLocation(updatedLocation) {
 					  state: {
 						section: "species",
 						entryId,
-						returnLocation: {
-						  id: selectedLocation.id,
-						  name: selectedLocation.name,
-						},
 					  },
 					})
 				  }
@@ -1216,35 +1234,17 @@ async function handleUpdateLocation(updatedLocation) {
 					  state: {
 						section: "waters",
 						entryId,
-						returnLocation: {
-						  id: selectedLocation.id,
-						  name: selectedLocation.name,
-						},
 					  },
 					})
 				  }
 				  onOpenGear={(entryId) =>
 					navigate("/field-guide", {
-					  state: {
-						section: "gear",
-						entryId,
-						returnLocation: {
-						  id: selectedLocation.id,
-						  name: selectedLocation.name,
-						},
-					  },
+					  state: { section: "gear", entryId },
 					})
 				  }
 				  onOpenTechnique={(entryId) =>
 					navigate("/field-guide", {
-					  state: {
-						section: "techniques",
-						entryId,
-						returnLocation: {
-						  id: selectedLocation.id,
-						  name: selectedLocation.name,
-						},
-					  },
+					  state: { section: "techniques", entryId },
 					})
 				  }
 				  cardTheme={cardTheme}

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import CastBackground from "../components/CastBackground";
@@ -61,48 +61,11 @@ export default function JournalPage() {
   const [voiceStatus, setVoiceStatus] = useState("idle");
 
   const [entryType, setEntryType] = useState("reflection");
-  const [locationId, setLocationId] = useState("");
-  const [locations, setLocations] = useState([]);
-  const [locationsLoading, setLocationsLoading] = useState(false);
+  const [locationKey, setLocationKey] = useState(null);
 
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
   const hasText = text.trim().length > 0;
-  const hasRequiredLocation =
-    entryType === "reflection" || Boolean(locationId);
   
-  useEffect(() => {
-    const loadLocations = async () => {
-      setLocationsLoading(true);
-
-      try {
-        const {
-          data: { user },
-          error: userError,
-        } = await supabase.auth.getUser();
-
-        if (userError) throw userError;
-        if (!user) return;
-
-        const { data, error } = await supabase
-          .from("cast_locations")
-          .select("id, name")
-          .eq("user_id", user.id)
-          .eq("is_active", true)
-          .order("name", { ascending: true });
-
-        if (error) throw error;
-
-        setLocations(data ?? []);
-      } catch (err) {
-        console.error("Journal location load error:", err);
-      } finally {
-        setLocationsLoading(false);
-      }
-    };
-
-    loadLocations();
-  }, []);
-
   const atmosphere = useAtmosphere("journal", {
   user: profilePacket,
   context: {
@@ -243,7 +206,7 @@ const atmosphericPerception = getAtmosphericPerception({
 		  papa_response: null,
 		  catch_context: todayCatches ?? [],
 		  entry_type: entryType,
-		  location_id: locationId || null,
+		  location_key: locationKey,
 		};
 
       const { data, error } = await supabase
@@ -258,7 +221,6 @@ const atmosphericPerception = getAtmosphericPerception({
       setSaved(true);
       setText("");
       setSelectedPrompt(null);
-      setLocationId("");
     } catch (err) {
       console.error("Journal save error:", err);
       setSaveError(err.message || "Could not save journal entry.");
@@ -295,13 +257,6 @@ const handlePapaResponse = async (line) => {
     setText("");
     setSaveError("");
     setSelectedPrompt(null);
-    setEntryType("reflection");
-    setLocationId("");
-  };
-
-  const handleEntryTypeChange = (type) => {
-    setEntryType(type);
-    setLocationId("");
   };
 
   const catchCount = Array.isArray(lastEntry?.catch_context)
@@ -314,10 +269,10 @@ const journalCopy = {
     placeholder: "What stayed with you from this moment?",
     event: "The user just saved a journal reflection.",
   },
-  field_note: {
+  observation: {
     label: "Field Notes",
     placeholder: "What did you notice about the water, weather, fish, or place?",
-    event: "The user just saved a field note.",
+    event: "The user just saved a field observation.",
   },
 };
 
@@ -388,57 +343,23 @@ const journalCopy = {
 					  ? buttonPrimaryStyle
 					  : buttonSecondaryStyle
 				  }
-				  onClick={() => handleEntryTypeChange("reflection")}
+				  onClick={() => setEntryType("reflection")}
 				>
 				  Reflection
 				</button>
 
 				<button
-				  className={entryType === "field_note" ? "active" : ""}
+				  className={entryType === "observation" ? "active" : ""}
 				  style={
-					entryType === "field_note"
+					entryType === "observation"
 					  ? buttonPrimaryStyle
 					  : buttonSecondaryStyle
 				  }
-				  onClick={() => handleEntryTypeChange("field_note")}
+				  onClick={() => setEntryType("observation")}
 				>
 				  Field Note
 				</button>
 				</div>
-
-                <div className="journal-location-field">
-                  <label htmlFor="journal-location">
-                    Location
-                  </label>
-
-                  <select
-                    id="journal-location"
-                    value={locationId}
-                    onChange={(e) => setLocationId(e.target.value)}
-                    disabled={locationsLoading}
-                    style={inputStyle}
-                  >
-                    {entryType === "reflection" ? (
-                      <option value="">General</option>
-                    ) : (
-                      <option value="">
-                        {locationsLoading ? "Loading locations..." : "Choose a location..."}
-                      </option>
-                    )}
-
-                    {locations.map((location) => (
-                      <option key={location.id} value={location.id}>
-                        {location.name}
-                      </option>
-                    ))}
-                  </select>
-
-                  {entryType === "field_note" && !locationId && !locationsLoading && (
-                    <p className="journal-location-hint">
-                      Choose the water this Field Note belongs to.
-                    </p>
-                  )}
-                </div>
 				                
                 <p className="journal-paper-label">{journalCopy[entryType].label}</p>
 			
@@ -478,7 +399,7 @@ const journalCopy = {
 					  className="journal-save-btn"
 					  style={buttonPrimaryStyle}
                       onClick={handleSave}
-                      disabled={!hasText || !hasRequiredLocation || saving}
+                      disabled={!hasText || saving}
                     >
                       {saving ? "Saving..." : "Save entry →"}
                     </button>

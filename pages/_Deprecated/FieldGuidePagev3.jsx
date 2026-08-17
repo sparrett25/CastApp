@@ -245,7 +245,7 @@ function SimpleCard({ entry, onClick, accentColor, cardTheme, textTheme }) {
 
 
 // ── Water detail ────────────────────────────────────────────────
-function WaterDetail({ water, onBack, onOpenSpecies, onReturnToLocation, returnLocationName, backButtonStyle }) {
+function WaterDetail({ water, onBack, onOpenSpecies, backButtonStyle }) {
   const linkedSpecies = getSpeciesForWaterType(
   water.id,
   water.activeRegionId
@@ -263,16 +263,6 @@ function WaterDetail({ water, onBack, onOpenSpecies, onReturnToLocation, returnL
         <button className="fg-back-btn" onClick={onBack} style={backButtonStyle}>
           ← Waters
         </button>
-
-        {onReturnToLocation && returnLocationName && (
-          <button
-            className="fg-back-btn"
-            onClick={onReturnToLocation}
-            style={backButtonStyle}
-          >
-            ← Back to {returnLocationName}
-          </button>
-        )}
 
         <p className="fg-detail-eyebrow">Field Guide · Waters</p>
         <h2 className="fg-detail-name">{water.label}</h2>
@@ -338,8 +328,6 @@ function SpeciesDetail({
   onOpenWater,
   backButtonStyle,
   regionalWaterTypes,
-  onReturnToLocation,
-  returnLocationName,
 }) {
   
   const linkedWaters = getWatersForSpecies(
@@ -355,16 +343,6 @@ function SpeciesDetail({
   onClick={onBack}
   style={backButtonStyle}
 >← Species</button>
-
-        {onReturnToLocation && returnLocationName && (
-          <button
-            className="fg-back-btn"
-            onClick={onReturnToLocation}
-            style={backButtonStyle}
-          >
-            ← Back to {returnLocationName}
-          </button>
-        )}
       <p className="fg-detail-eyebrow">Field Guide · Species</p>
       <h2 className="fg-detail-name">{species.name}</h2>
       <p className="fg-detail-latin">{species.latin}</p>
@@ -428,8 +406,6 @@ function GearDetail({
   locations,
   savedLocationIds,
   onToggleLocation,
-  onReturnToLocation,
-  returnLocationName,
   backButtonStyle,
 }) {
 	
@@ -442,16 +418,6 @@ function GearDetail({
 	  <button className="fg-back-btn" onClick={onBack} style={backButtonStyle}>
   ← Gear
 </button>
-
-        {onReturnToLocation && returnLocationName && (
-          <button
-            className="fg-back-btn"
-            onClick={onReturnToLocation}
-            style={backButtonStyle}
-          >
-            ← Back to {returnLocationName}
-          </button>
-        )}
       <p className="fg-detail-eyebrow">Field Guide · Gear</p>
       <h2 className="fg-detail-name">{gear.name}</h2>
       <p className="fg-detail-latin">{gear.tagline}</p>
@@ -549,14 +515,9 @@ function TechniqueDetail({
   regionalSpecies,
   regionalWaterTypes,
   regionalGear,
-  locations,
-  savedLocationIds,
-  onToggleLocation,
   onOpenSpecies,
   onOpenWater,
   onOpenGear,
-  onReturnToLocation,
-  returnLocationName,
 }) {
 	
   const linkedSpecies = getSpeciesForTechnique(technique, regionalSpecies);
@@ -570,16 +531,6 @@ function TechniqueDetail({
 	  <button className="fg-back-btn" onClick={onBack} style={backButtonStyle}>
   ← Techniques
 </button>
-
-        {onReturnToLocation && returnLocationName && (
-          <button
-            className="fg-back-btn"
-            onClick={onReturnToLocation}
-            style={backButtonStyle}
-          >
-            ← Back to {returnLocationName}
-          </button>
-        )}
       <p className="fg-detail-eyebrow">Field Guide · Techniques</p>
       <h2 className="fg-detail-name">{technique.name}</h2>
       <p className="fg-detail-latin">{technique.tagline}</p>
@@ -642,32 +593,7 @@ function TechniqueDetail({
   </div>
 </div>
 	  
-	  <div className="fg-section">
-  <p className="fg-section-label">Save to a location</p>
-  <p className="fg-section-body">
-    Remember this technique for a water where you use it or want to try it.
-  </p>
-
-  {locations.length ? (
-    <div className="fg-tags">
-      {locations.map((location) => {
-        const isSaved = savedLocationIds.has(location.id);
-
-        return (
-          <LocationChip
-            key={location.id}
-            label={`${isSaved ? "✓ " : ""}${location.name}`}
-            onClick={() => onToggleLocation(location.id, technique.id)}
-          />
-        );
-      })}
-    </div>
-  ) : (
-    <p className="fg-section-body">No active saved locations yet.</p>
-  )}
-</div>
-
-  <div className="fg-section"><p className="fg-section-label">Scooter's notes</p>{technique.scooterTips.map((tip, i) => <div key={i} className="fg-voice-block scooter"><p className="fg-voice-text">"{tip}"</p></div>)}</div>
+	  <div className="fg-section"><p className="fg-section-label">Scooter's notes</p>{technique.scooterTips.map((tip, i) => <div key={i} className="fg-voice-block scooter"><p className="fg-voice-text">"{tip}"</p></div>)}</div>
       <div className="fg-papa-block"><p className="fg-voice-attr">Papa</p><p className="fg-papa-line">"{technique.papaLine}"</p></div>
 	  </div>
     </motion.div>
@@ -684,20 +610,7 @@ export default function FieldGuidePage() {
   const [view, setView] = useState(null);
   const [locations, setLocations] = useState([]);
   const [locationGear, setLocationGear] = useState([]);
-  const [locationTechniques, setLocationTechniques] = useState([]);
   const { profilePacket } = useProfile();
-
-  const returnLocation = location.state?.returnLocation ?? null;
-
-  function returnToLocation() {
-    if (!returnLocation?.id) return;
-
-    navigate("/locations", {
-      state: {
-        selectedLocationId: returnLocation.id,
-      },
-    });
-  }
   
   const activeRegionKey =
   profilePacket?.region_key ||
@@ -743,7 +656,6 @@ const regionalGear = useMemo(
           if (isMounted) {
             setLocations([]);
             setLocationGear([]);
-            setLocationTechniques([]);
           }
           return;
         }
@@ -751,7 +663,6 @@ const regionalGear = useMemo(
         const [
           { data: locationRows, error: locationsError },
           { data: gearRows, error: gearError },
-          { data: techniqueRows, error: techniquesError },
         ] = await Promise.all([
           supabase
             .from("cast_locations")
@@ -764,16 +675,10 @@ const regionalGear = useMemo(
             .from("cast_location_gear")
             .select("id, location_id, gear_key")
             .eq("user_id", user.id),
-
-          supabase
-            .from("cast_location_techniques")
-            .select("id, location_id, technique_key")
-            .eq("user_id", user.id),
         ]);
 
         if (locationsError) throw locationsError;
         if (gearError) throw gearError;
-        if (techniquesError) throw techniquesError;
 
         if (isMounted) {
           const sortedLocations = [...(locationRows ?? [])].sort((a, b) => {
@@ -785,7 +690,6 @@ const regionalGear = useMemo(
 
           setLocations(sortedLocations);
           setLocationGear(gearRows ?? []);
-          setLocationTechniques(techniqueRows ?? []);
         }
       } catch (error) {
         console.error("Field Guide location kit load error:", error);
@@ -793,7 +697,6 @@ const regionalGear = useMemo(
         if (isMounted) {
           setLocations([]);
           setLocationGear([]);
-          setLocationTechniques([]);
         }
       }
     }
@@ -1001,54 +904,6 @@ const atmosphereSignature = {
       console.error("Field kit update error:", error);
     }
   }
-
-  async function toggleTechniqueForLocation(locationId, techniqueId) {
-    try {
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
-
-      if (userError) throw userError;
-      if (!user) throw new Error("You must be logged in to update a technique.");
-
-      const existing = locationTechniques.find(
-        (item) =>
-          item.location_id === locationId &&
-          item.technique_key === techniqueId
-      );
-
-      if (existing) {
-        const { error } = await supabase
-          .from("cast_location_techniques")
-          .delete()
-          .eq("id", existing.id)
-          .eq("user_id", user.id);
-
-        if (error) throw error;
-
-        setLocationTechniques((current) =>
-          current.filter((item) => item.id !== existing.id)
-        );
-      } else {
-        const { data, error } = await supabase
-          .from("cast_location_techniques")
-          .insert({
-            user_id: user.id,
-            location_id: locationId,
-            technique_key: techniqueId,
-          })
-          .select("id, location_id, technique_key")
-          .single();
-
-        if (error) throw error;
-
-        setLocationTechniques((current) => [...current, data]);
-      }
-    } catch (error) {
-      console.error("Location technique update error:", error);
-    }
-  }
   const section = view?.section ?? null;
   const entry = view?.entry ?? null;
 
@@ -1061,16 +916,6 @@ const atmosphereSignature = {
         .map((item) => item.location_id)
     );
   }, [section, entry?.id, locationGear]);
-
-  const savedLocationIdsForTechnique = useMemo(() => {
-    if (section !== "techniques" || !entry?.id) return new Set();
-
-    return new Set(
-      locationTechniques
-        .filter((item) => item.technique_key === entry.id)
-        .map((item) => item.location_id)
-    );
-  }, [section, entry?.id, locationTechniques]);
 
   const papaContext = {
   page: "fieldGuide",
@@ -1312,8 +1157,6 @@ const atmosphereSignature = {
 				  setView({ section: "waters" });
 				}}
 				backButtonStyle={backButtonStyle}
-				onReturnToLocation={returnLocation ? returnToLocation : null}
-				returnLocationName={returnLocation?.name}
 				onOpenSpecies={(speciesId) => {
 				  const matchedSpecies = SPECIES.find((s) => s.id === speciesId);
 
@@ -1334,8 +1177,6 @@ const atmosphereSignature = {
 			  onBack={backToList}
 			  backButtonStyle={backButtonStyle}
 			  regionalWaterTypes={regionalWaterTypes}
-			  onReturnToLocation={returnLocation ? returnToLocation : null}
-			  returnLocationName={returnLocation?.name}
 			  onOpenWater={(waterId) => {
 				const matchedWater = regionalWaterTypes.find(
 				  (w) => w.id === waterId
@@ -1362,8 +1203,6 @@ const atmosphereSignature = {
   locations={locations}
   savedLocationIds={savedLocationIdsForGear}
   onToggleLocation={toggleGearForLocation}
-  onReturnToLocation={returnLocation ? returnToLocation : null}
-  returnLocationName={returnLocation?.name}
   onOpenSpecies={(speciesId) => {
     const matchedSpecies = regionalSpecies.find((s) => s.id === speciesId);
     if (matchedSpecies) {
@@ -1388,11 +1227,6 @@ const atmosphereSignature = {
   regionalSpecies={regionalSpecies}
   regionalWaterTypes={regionalWaterTypes}
   regionalGear={regionalGear}
-  locations={locations}
-  savedLocationIds={savedLocationIdsForTechnique}
-  onToggleLocation={toggleTechniqueForLocation}
-  onReturnToLocation={returnLocation ? returnToLocation : null}
-  returnLocationName={returnLocation?.name}
   onOpenSpecies={(speciesId) => {
     const matchedSpecies = regionalSpecies.find((s) => s.id === speciesId);
     if (matchedSpecies) {

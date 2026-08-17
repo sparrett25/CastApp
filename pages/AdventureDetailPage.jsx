@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import CastBackground from "../components/CastBackground";
 import PapaSpeaks from "../components/PapaSpeaks";
 
-import grantQuests from "../data/stories/grant/quests.json";
+
 
 import "../styles/pages/adventure.css";
 import "../styles/global/atmosphere.css";

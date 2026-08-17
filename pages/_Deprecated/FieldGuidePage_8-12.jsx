@@ -245,7 +245,7 @@ function SimpleCard({ entry, onClick, accentColor, cardTheme, textTheme }) {
 
 
 // ── Water detail ────────────────────────────────────────────────
-function WaterDetail({ water, onBack, onOpenSpecies, onReturnToLocation, returnLocationName, backButtonStyle }) {
+function WaterDetail({ water, onBack, onOpenSpecies, backButtonStyle }) {
   const linkedSpecies = getSpeciesForWaterType(
   water.id,
   water.activeRegionId
@@ -263,16 +263,6 @@ function WaterDetail({ water, onBack, onOpenSpecies, onReturnToLocation, returnL
         <button className="fg-back-btn" onClick={onBack} style={backButtonStyle}>
           ← Waters
         </button>
-
-        {onReturnToLocation && returnLocationName && (
-          <button
-            className="fg-back-btn"
-            onClick={onReturnToLocation}
-            style={backButtonStyle}
-          >
-            ← Back to {returnLocationName}
-          </button>
-        )}
 
         <p className="fg-detail-eyebrow">Field Guide · Waters</p>
         <h2 className="fg-detail-name">{water.label}</h2>
@@ -338,8 +328,6 @@ function SpeciesDetail({
   onOpenWater,
   backButtonStyle,
   regionalWaterTypes,
-  onReturnToLocation,
-  returnLocationName,
 }) {
   
   const linkedWaters = getWatersForSpecies(
@@ -355,16 +343,6 @@ function SpeciesDetail({
   onClick={onBack}
   style={backButtonStyle}
 >← Species</button>
-
-        {onReturnToLocation && returnLocationName && (
-          <button
-            className="fg-back-btn"
-            onClick={onReturnToLocation}
-            style={backButtonStyle}
-          >
-            ← Back to {returnLocationName}
-          </button>
-        )}
       <p className="fg-detail-eyebrow">Field Guide · Species</p>
       <h2 className="fg-detail-name">{species.name}</h2>
       <p className="fg-detail-latin">{species.latin}</p>
@@ -428,8 +406,6 @@ function GearDetail({
   locations,
   savedLocationIds,
   onToggleLocation,
-  onReturnToLocation,
-  returnLocationName,
   backButtonStyle,
 }) {
 	
@@ -442,16 +418,6 @@ function GearDetail({
 	  <button className="fg-back-btn" onClick={onBack} style={backButtonStyle}>
   ← Gear
 </button>
-
-        {onReturnToLocation && returnLocationName && (
-          <button
-            className="fg-back-btn"
-            onClick={onReturnToLocation}
-            style={backButtonStyle}
-          >
-            ← Back to {returnLocationName}
-          </button>
-        )}
       <p className="fg-detail-eyebrow">Field Guide · Gear</p>
       <h2 className="fg-detail-name">{gear.name}</h2>
       <p className="fg-detail-latin">{gear.tagline}</p>
@@ -555,8 +521,6 @@ function TechniqueDetail({
   onOpenSpecies,
   onOpenWater,
   onOpenGear,
-  onReturnToLocation,
-  returnLocationName,
 }) {
 	
   const linkedSpecies = getSpeciesForTechnique(technique, regionalSpecies);
@@ -570,16 +534,6 @@ function TechniqueDetail({
 	  <button className="fg-back-btn" onClick={onBack} style={backButtonStyle}>
   ← Techniques
 </button>
-
-        {onReturnToLocation && returnLocationName && (
-          <button
-            className="fg-back-btn"
-            onClick={onReturnToLocation}
-            style={backButtonStyle}
-          >
-            ← Back to {returnLocationName}
-          </button>
-        )}
       <p className="fg-detail-eyebrow">Field Guide · Techniques</p>
       <h2 className="fg-detail-name">{technique.name}</h2>
       <p className="fg-detail-latin">{technique.tagline}</p>
@@ -686,18 +640,6 @@ export default function FieldGuidePage() {
   const [locationGear, setLocationGear] = useState([]);
   const [locationTechniques, setLocationTechniques] = useState([]);
   const { profilePacket } = useProfile();
-
-  const returnLocation = location.state?.returnLocation ?? null;
-
-  function returnToLocation() {
-    if (!returnLocation?.id) return;
-
-    navigate("/locations", {
-      state: {
-        selectedLocationId: returnLocation.id,
-      },
-    });
-  }
   
   const activeRegionKey =
   profilePacket?.region_key ||
@@ -1312,8 +1254,6 @@ const atmosphereSignature = {
 				  setView({ section: "waters" });
 				}}
 				backButtonStyle={backButtonStyle}
-				onReturnToLocation={returnLocation ? returnToLocation : null}
-				returnLocationName={returnLocation?.name}
 				onOpenSpecies={(speciesId) => {
 				  const matchedSpecies = SPECIES.find((s) => s.id === speciesId);
 
@@ -1334,8 +1274,6 @@ const atmosphereSignature = {
 			  onBack={backToList}
 			  backButtonStyle={backButtonStyle}
 			  regionalWaterTypes={regionalWaterTypes}
-			  onReturnToLocation={returnLocation ? returnToLocation : null}
-			  returnLocationName={returnLocation?.name}
 			  onOpenWater={(waterId) => {
 				const matchedWater = regionalWaterTypes.find(
 				  (w) => w.id === waterId
@@ -1362,8 +1300,6 @@ const atmosphereSignature = {
   locations={locations}
   savedLocationIds={savedLocationIdsForGear}
   onToggleLocation={toggleGearForLocation}
-  onReturnToLocation={returnLocation ? returnToLocation : null}
-  returnLocationName={returnLocation?.name}
   onOpenSpecies={(speciesId) => {
     const matchedSpecies = regionalSpecies.find((s) => s.id === speciesId);
     if (matchedSpecies) {
@@ -1391,8 +1327,6 @@ const atmosphereSignature = {
   locations={locations}
   savedLocationIds={savedLocationIdsForTechnique}
   onToggleLocation={toggleTechniqueForLocation}
-  onReturnToLocation={returnLocation ? returnToLocation : null}
-  returnLocationName={returnLocation?.name}
   onOpenSpecies={(speciesId) => {
     const matchedSpecies = regionalSpecies.find((s) => s.id === speciesId);
     if (matchedSpecies) {

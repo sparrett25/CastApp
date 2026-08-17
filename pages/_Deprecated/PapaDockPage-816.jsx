@@ -48,14 +48,9 @@ export default function PapaDockPage() {
   const [threadId, setThreadId] = useState(null);
   const [savingThread, setSavingThread] = useState(false);
   const [savedThread, setSavedThread] = useState(false);
-  const [savingNoteKey, setSavingNoteKey] = useState(null);
-  const [savedNoteKeys, setSavedNoteKeys] = useState({});
+  const [savingNoteIndex, setSavingNoteIndex] = useState(null);
+  const [savedNoteIndexes, setSavedNoteIndexes] = useState({});
   const [saveError, setSaveError] = useState("");
-
-  const [locations, setLocations] = useState([]);
-  const [locationsLoading, setLocationsLoading] = useState(false);
-  const [fieldNoteIndex, setFieldNoteIndex] = useState(null);
-  const [fieldNoteLocationId, setFieldNoteLocationId] = useState("");
 
   const recognitionRef = useRef(null);
   const endRef = useRef(null);
@@ -192,47 +187,6 @@ useEffect(() => {
     return user;
   }
 
-  useEffect(() => {
-    let isMounted = true;
-
-    async function loadLocations() {
-      setLocationsLoading(true);
-
-      try {
-        const user = await getCurrentUser();
-
-        const { data, error } = await supabase
-          .from("cast_locations")
-          .select("id, name, location_key")
-          .eq("user_id", user.id)
-          .eq("is_active", true)
-          .order("name", { ascending: true });
-
-        if (error) throw error;
-
-        if (isMounted) {
-          setLocations(data ?? []);
-        }
-      } catch (err) {
-        console.error("Load PapaDock locations error:", err);
-
-        if (isMounted) {
-          setLocations([]);
-        }
-      } finally {
-        if (isMounted) {
-          setLocationsLoading(false);
-        }
-      }
-    }
-
-    loadLocations();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
   async function saveThread() {
     if (savingThread || messages.length <= 1) return;
 
@@ -285,90 +239,36 @@ useEffect(() => {
     }
   }
 
-  async function savePapaNote(
-    message,
-    index,
-    noteType = "whisper",
-    selectedLocationId = ""
-  ) {
+  async function savePapaNote(message, index, noteType = "whisper") {
     if (!message?.text || message.role !== "papa" || message.systemOpening) return;
 
-    const saveKey = `${index}:${noteType}`;
-
-    if (noteType === "field_note" && !selectedLocationId) {
-      setSaveError("Choose a location before saving this Field Note.");
-      return;
-    }
-
     setSaveError("");
-    setSavingNoteKey(saveKey);
+    setSavingNoteIndex(index);
 
     try {
       const user = await getCurrentUser();
 
-      const selectedLocation =
-        noteType === "field_note"
-          ? locations.find((location) => location.id === selectedLocationId)
-          : null;
+      const { error } = await supabase.from("cast_papa_saved_notes").insert({
+        user_id: user.id,
+        source_thread_id: threadId,
+        source_message_id: null,
+        note_type: noteType,
+        title: noteType === "field_note" ? "Papa Field Note" : "Papa Whisper",
+        note_text: message.text,
+        tags: [],
+      });
 
-      const { error: noteError } = await supabase
-        .from("cast_papa_saved_notes")
-        .insert({
-          user_id: user.id,
-          source_thread_id: threadId,
-          source_message_id: null,
-          note_type: noteType,
-          title: noteType === "field_note" ? "Papa Field Note" : "Papa Whisper",
-          note_text: message.text,
-          tags: [],
-          location_id: selectedLocation?.id ?? null,
-          location_key: selectedLocation?.location_key ?? null,
-        });
+      if (error) throw error;
 
-      if (noteError) throw noteError;
-
-      if (noteType === "field_note") {
-        const previousUserMessage =
-          [...messages]
-            .slice(0, index)
-            .reverse()
-            .find((item) => item.role === "user" && item.text?.trim())?.text ?? null;
-
-        const now = new Date();
-        const localDate = new Date(
-          now.getTime() - now.getTimezoneOffset() * 60000
-        )
-          .toISOString()
-          .slice(0, 10);
-
-        const { error: journalError } = await supabase
-          .from("cast_journal_entries")
-          .insert({
-            user_id: user.id,
-            title: "Papa Field Note",
-            prompt_text: previousUserMessage,
-            entry_text: message.text,
-            entry_date: localDate,
-            papa_response: null,
-            entry_type: "field_note",
-            location_id: selectedLocation.id,
-          });
-
-        if (journalError) throw journalError;
-
-        setFieldNoteIndex(null);
-        setFieldNoteLocationId("");
-      }
-
-      setSavedNoteKeys((prev) => ({
+      setSavedNoteIndexes((prev) => ({
         ...prev,
-        [saveKey]: true,
+        [index]: true,
       }));
     } catch (err) {
       console.error("Save Papa note error:", err);
       setSaveError(err.message || "Could not save this Papa note.");
     } finally {
-      setSavingNoteKey(null);
+      setSavingNoteIndex(null);
     }
   }
 
@@ -377,9 +277,7 @@ useEffect(() => {
     setInput("");
     setThreadId(null);
     setSavedThread(false);
-    setSavedNoteKeys({});
-    setFieldNoteIndex(null);
-    setFieldNoteLocationId("");
+    setSavedNoteIndexes({});
     setSaveError("");
   }
 
@@ -638,152 +536,41 @@ signature={
                     {message.role === "papa" &&
                       index > 0 &&
                       !message.systemOpening && (
-                        <>
-                          <div className="papa-dock-bubble-actions">
-                            <button
-                              type="button"
-                              className="papa-dock-save-note-btn"
-                              onClick={() =>
-                                savePapaNote(message, index, "whisper")
-                              }
-                              disabled={
-                                savingNoteKey === `${index}:whisper` ||
-                                savedNoteKeys[`${index}:whisper`]
-                              }
-                              style={buttonSecondaryStyle}
-                            >
-                              {savedNoteKeys[`${index}:whisper`]
-                                ? "Whisper Saved"
-                                : savingNoteKey === `${index}:whisper`
-                                ? "Saving..."
-                                : "Save Whisper"}
-                            </button>
+                        <div className="papa-dock-bubble-actions">
+                          <button
+                            type="button"
+                            className="papa-dock-save-note-btn"
+                            onClick={() =>
+                              savePapaNote(message, index, "whisper")
+                            }
+                            disabled={
+                              savingNoteIndex === index ||
+                              savedNoteIndexes[index]
+                            }
+                            style={buttonSecondaryStyle}
+                          >
+                            {savedNoteIndexes[index]
+                              ? "Saved"
+                              : savingNoteIndex === index
+                              ? "Saving..."
+                              : "Save Whisper"}
+                          </button>
 
-                            <button
-                              type="button"
-                              className="papa-dock-save-note-btn"
-                              onClick={() => {
-                                if (savedNoteKeys[`${index}:field_note`]) return;
-
-                                if (fieldNoteIndex === index) {
-                                  setFieldNoteIndex(null);
-                                  setFieldNoteLocationId("");
-                                } else {
-                                  setFieldNoteIndex(index);
-                                  setFieldNoteLocationId("");
-                                  setSaveError("");
-                                }
-                              }}
-                              disabled={
-                                savingNoteKey === `${index}:field_note` ||
-                                savedNoteKeys[`${index}:field_note`]
-                              }
-                              style={buttonSecondaryStyle}
-                            >
-                              {savedNoteKeys[`${index}:field_note`]
-                                ? "Field Note Saved"
-                                : "Save Field Note"}
-                            </button>
-                          </div>
-
-                          {fieldNoteIndex === index &&
-                            !savedNoteKeys[`${index}:field_note`] && (
-                              <div
-                                className="papa-dock-field-note-location"
-                                style={{
-                                  marginTop: "0.75rem",
-                                  paddingTop: "0.75rem",
-                                  borderTop: `1px solid ${
-                                    bubbleTheme?.border ??
-                                    "rgba(255,255,255,0.12)"
-                                  }`,
-                                }}
-                              >
-                                <label
-                                  htmlFor={`papa-field-note-location-${index}`}
-                                  style={{
-                                    display: "block",
-                                    marginBottom: "0.45rem",
-                                    color: textTheme?.secondary,
-                                  }}
-                                >
-                                  Save this Field Note to
-                                </label>
-
-                                <select
-                                  id={`papa-field-note-location-${index}`}
-                                  value={fieldNoteLocationId}
-                                  onChange={(e) =>
-                                    setFieldNoteLocationId(e.target.value)
-                                  }
-                                  disabled={locationsLoading}
-                                  style={{
-                                    ...inputStyle,
-                                    width: "100%",
-                                    marginBottom: "0.6rem",
-                                  }}
-                                >
-                                  <option value="">
-                                    {locationsLoading
-                                      ? "Loading locations..."
-                                      : "Choose a location..."}
-                                  </option>
-
-                                  {locations.map((location) => (
-                                    <option key={location.id} value={location.id}>
-                                      {location.name}
-                                    </option>
-                                  ))}
-                                </select>
-
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    gap: "0.5rem",
-                                    flexWrap: "wrap",
-                                  }}
-                                >
-                                  <button
-                                    type="button"
-                                    className="papa-dock-save-note-btn"
-                                    onClick={() =>
-                                      savePapaNote(
-                                        message,
-                                        index,
-                                        "field_note",
-                                        fieldNoteLocationId
-                                      )
-                                    }
-                                    disabled={
-                                      !fieldNoteLocationId ||
-                                      savingNoteKey === `${index}:field_note`
-                                    }
-                                    style={buttonPrimaryStyle}
-                                  >
-                                    {savingNoteKey === `${index}:field_note`
-                                      ? "Saving..."
-                                      : "Save to Location"}
-                                  </button>
-
-                                  <button
-                                    type="button"
-                                    className="papa-dock-save-note-btn"
-                                    onClick={() => {
-                                      setFieldNoteIndex(null);
-                                      setFieldNoteLocationId("");
-                                      setSaveError("");
-                                    }}
-                                    disabled={
-                                      savingNoteKey === `${index}:field_note`
-                                    }
-                                    style={buttonSecondaryStyle}
-                                  >
-                                    Cancel
-                                  </button>
-                                </div>
-                              </div>
-                            )}
-                        </>
+                          <button
+                            type="button"
+                            className="papa-dock-save-note-btn"
+                            onClick={() =>
+                              savePapaNote(message, index, "field_note")
+                            }
+                            disabled={
+                              savingNoteIndex === index ||
+                              savedNoteIndexes[index]
+                            }
+                            style={buttonSecondaryStyle}
+                          >
+                            Save Field Note
+                          </button>
+                        </div>
                       )}
                   </div>
                 </motion.div>

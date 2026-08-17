@@ -7,6 +7,7 @@ import PapaMini from "../components/PapaMini";
 import PapaSpeaks from "../components/PapaSpeaks";
 
 import { supabase } from "../lib/supabase";
+import { MY_LOCATIONS } from "../data/myLocations";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
@@ -28,6 +29,14 @@ import {
 } from "../utils/resolveChamberBackground";
 
 
+const LOCATION_OPTIONS = [
+  ...MY_LOCATIONS.map((loc) => ({
+    id: loc.id,
+    label: loc.name,
+  })),
+  { id: "other", label: "Other" },
+];
+
 const QUICK_SPECIES = [
   { id: "bluegill", label: "Bluegill" },
   { id: "largemouth-bass", label: "Largemouth Bass" },
@@ -48,30 +57,17 @@ function NewEntryForm({
   onSave,
   onCancel,
   existingEntries,
-  locations = [],
   cardStyle,
   inputStyle,
   buttonPrimaryStyle,
   buttonSecondaryStyle,
   chipTheme,
 }) {
-  const locationOptions = [
-    ...locations.map((loc) => ({
-      id: loc.location_key,
-      label: loc.name,
-    })),
-    { id: "other", label: "Other" },
-  ];
-
-  const defaultLocation = locationOptions[0] ?? { id: "other", label: "Other" };
-
   const [species, setSpecies] = useState("");
   const [speciesKey, setSpeciesKey] = useState(null);
   const [size, setSize] = useState("");
-  const [location, setLocation] = useState(defaultLocation.label);
-  const [locationKey, setLocationKey] = useState(
-    defaultLocation.id === "other" ? null : defaultLocation.id
-  );
+  const [location, setLocation] = useState(LOCATION_OPTIONS[0]?.label || "");
+  const [locationKey, setLocationKey] = useState(LOCATION_OPTIONS[0]?.id || null);
   const [released, setReleased] = useState(true);
   const [note, setNote] = useState("");
   const [saving, setSaving] = useState(false);
@@ -197,7 +193,7 @@ function NewEntryForm({
 
       <p className="ledger-field-label">Where?</p>
       <div className="ledger-location-row">
-        {locationOptions.map((l) => (
+        {LOCATION_OPTIONS.map((l) => (
           <button
             key={l.id}
             className={`ledger-location-btn ${locationKey === l.id ? "active" : ""}`}
@@ -319,7 +315,7 @@ function EmptyState({ onAdd, cardStyle, buttonPrimaryStyle, textTheme }) {
         style={buttonPrimaryStyle}
         onClick={onAdd}
       >
-        Log your first catch →
+        Log your first trip →
       </button>
     </div>
   );
@@ -329,7 +325,6 @@ export default function CatchLedgerPage() {
   const DEBUG_SCENE = null;
 
   const [entries, setEntries] = useState([]);
-  const [locations, setLocations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [firstSave, setFirstSave] = useState(false);
@@ -416,41 +411,22 @@ const atmosphereSignature = {
 
         if (userError) throw userError;
         if (!user) {
-          if (isMounted) {
-            setEntries([]);
-            setLocations([]);
-          }
+          if (isMounted) setEntries([]);
           return;
         }
 
-        const [entriesResult, locationsResult] = await Promise.all([
-          supabase
-            .from("cast_catch_logs")
-            .select("*")
-            .eq("user_id", user.id)
-            .order("catch_date", { ascending: false }),
-          supabase
-            .from("cast_locations")
-            .select("id, location_key, name, is_active, is_favorite")
-            .eq("user_id", user.id)
-            .eq("is_active", true)
-            .order("is_favorite", { ascending: false })
-            .order("name", { ascending: true }),
-        ]);
+        const { data, error } = await supabase
+          .from("cast_catch_logs")
+          .select("*")
+          .eq("user_id", user.id)
+          .order("catch_date", { ascending: false });
 
-        if (entriesResult.error) throw entriesResult.error;
-        if (locationsResult.error) throw locationsResult.error;
+        if (error) throw error;
 
-        if (isMounted) {
-          setEntries(entriesResult.data ?? []);
-          setLocations(locationsResult.data ?? []);
-        }
+        if (isMounted) setEntries(data ?? []);
       } catch (err) {
         console.error("Catch ledger load error:", err);
-        if (isMounted) {
-          setEntries([]);
-          setLocations([]);
-        }
+        if (isMounted) setEntries([]);
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -582,7 +558,6 @@ const atmosphereSignature = {
             {showForm && (
               <NewEntryForm
                 existingEntries={entries}
-                locations={locations}
                 onSave={handleSave}
                 onCancel={() => setShowForm(false)}
                 cardStyle={cardStyle}

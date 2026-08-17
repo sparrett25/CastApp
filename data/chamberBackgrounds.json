@@ -269,22 +269,22 @@
         "sensoryLine": "Twilight holds the last ember of the day in quiet reflection."
       },
 	  "starry-night": {
-  "index": 108,
-  "label": "Starry Night",
-  "dayPhase": "night",
-  "summary": "Moonlight settles across the water as stars emerge overhead. The world grows quiet, reflective, and spacious.",
-  "emotionalField": [
-    "closure",
-    "remembrance",
-    "companionship",
-    "emotional quiet",
-    "tender stillness"
-  ],
-  "papaTone": "quiet, reflective, and spacious",
-  "uiPacing": "slow",
-  "overlaySummary": "The day has finished its work. Moonlight and starlight settle over the water, inviting reflection, gratitude, and gentle remembrance.",
-  "sensoryLine": "Moonlight drifts across still water while the stars keep quiet company."
-}
+		  "index": 108,
+		  "label": "Starry Night",
+		  "dayPhase": "night",
+		  "summary": "Moonlight settles across the water as stars emerge overhead. The world grows quiet, reflective, and spacious.",
+		  "emotionalField": [
+			"closure",
+			"remembrance",
+			"companionship",
+			"emotional quiet",
+			"tender stillness"
+		  ],
+		  "papaTone": "quiet, reflective, and spacious",
+		  "uiPacing": "slow",
+		  "overlaySummary": "The day has finished its work. Moonlight and starlight settle over the water, inviting reflection, gratitude, and gentle remembrance.",
+		  "sensoryLine": "Moonlight drifts across still water while the stars keep quiet company."
+		}
     },
     "weatherStates": {
       "base": {
@@ -1065,108 +1065,171 @@
 		},
 		"clear-sky": {
 		  "blue-hour-dawn": {
-			"invitations": [ 
-			  
+			"invitations": [
+			  "Notice how the open sky gives the first blue light more room to gather across the water.",
+			  "Look toward the horizon where the earliest warmth begins to meet the cool blue of morning.",
+			  "The pond holds nearly the whole sky before the day has fully arrived. Notice what breaks the reflection.",
+			  "Watch for the smallest movements across the open water. In this quiet light, even a distant ripple has somewhere to be seen.",
+			  "The shoreline remains in shadow while the horizon begins to brighten. Stay with the morning as both exist together."
 			]
 		  },
 
 		  "first-light": {
 			"invitations": [
-			  
+			  "Notice where the first warm light reaches the trees while the water still carries the cooler colors of dawn.",
+			  "Look across the pond as the distant shoreline begins to reveal details that blue hour kept in shadow.",
+			  "Morning light does not arrive everywhere at once. Notice which parts of the landscape receive it first.",
+			  "Watch how the clearer sky allows light and distance to unfold together across the water.",
+			  "The day is becoming visible without becoming hurried. Stay with the small details that return as the light grows."
 			]
 		  },
 
 		  "soft-morning-rise": {
 			"invitations": [
-				
-			  ]
+			  "The morning has opened fully around the pond. Notice how the clear light makes even familiar details feel newly present.",
+			  "Look across the water where a trace of morning mist still rests beneath the open sky.",
+			  "Notice how warmth has reached the shoreline while the pond continues to hold the cool blue of the morning.",
+			  "Let your attention travel from the shaded edge of the water toward the distant horizon. Clear light gives both somewhere to belong.",
+			  "The day is no longer arriving. It is simply here. Stay with the quiet moment before the morning asks anything more of you."
+			]
 		  },
 
 		  "warm-drift": {
 			"invitations": [
-							
-			  ]
+			  "The open sky gives your attention somewhere to wander. Let it move from the nearest shoreline to the farthest thing you can see.",
+			  "Notice how full daylight brings color into everything—the water, the trees, and even the smallest growth along the shore.",
+			  "Look across the pond without searching for anything in particular. Clear light sometimes reveals most when nothing is being sought.",
+			  "The day has settled into its warmth, yet the water still carries the coolness of the sky. Notice how both can belong to the same afternoon.",
+			  "There is nothing arriving and nothing fading yet. Stay for a while in the spacious middle of the day."
+			]
 		  },
 
 		  "golden-dusk": {
 			"invitations": [
-				
-			  ]
+			  "Notice where the lowering light turns the shoreline and trees toward gold while the open water still holds the blue of the sky.",
+			  "Look across the pond and notice how distance changes in the warmer light. Some details sharpen while others begin to soften.",
+			  "Watch for small movements across the water and the brief trails they leave behind. Notice how quickly the surface receives them again.",
+			  "The clear sky gives the remaining daylight room to travel. Follow the light from the highest branches to the water nearest the shore.",
+			  "The day has begun to lean toward evening without leaving yet. Stay for a moment with what becomes visible in that turning."
+			]
 		  },
 		  
 		  "quiet-evening-glow": {
 			"invitations": [
-				
-			  ]
+			  "Notice how much light remains even as evening settles over the pond.",
+			  "Look toward the horizon where the last warmth of the day spreads across both sky and water.",
+			  "The open sky allows evening to arrive slowly. Notice which colors linger after the stronger daylight has passed.",
+			  "Watch how the shoreline begins to darken while the water continues to hold the remaining light.",
+			  "There is no need to hurry the day toward darkness. Stay with the light that is still here."
+			]
 		  },
 		  
 		  "ember-twilight": {
-			"invitations": [ 
-				
-			  ]
+			"invitations": [
+			  "Notice where the last warmth rests along the horizon while the deeper blue of evening gathers above it.",
+			  "Look across the water and notice how it holds both the fading light and the approaching night at once.",
+			  "As the shoreline becomes silhouette, let your attention shift from detail toward shape, distance, and reflection.",
+			  "The first stars can appear before the last color has left the sky. Notice how evening makes room for both.",
+			  "The day does not disappear all at once. Stay with the threshold as light becomes something quieter."
+			]
 		  },
 		  
 		  "starry-night": {
 			"invitations": [
-				
-			  ]
+			  "Look into the open night sky, then down toward the water. Notice how the pond carries some of that distance back to you.",
+			  "The stars appear both above and within the water tonight. Let your attention move slowly between the two.",
+			  "Notice the moonlight resting on the pond, even when the moon itself is outside your view.",
+			  "Without daylight, the shoreline becomes quieter and less defined. Notice what the open sky allows you to see instead.",
+			  "The horizon has widened into night. Stay for a while with the stillness above you and its reflection below."
+			]
 		  }
 		},
 		"first-fog": {
 		  "blue-hour-dawn": {
-			"invitations": [ 
-			  
+			"invitations": [
+			  "Notice how the mist brings your attention toward what is nearest—the dock, the water, and the shoreline beside you.",
+			  "Look toward the far shore without trying to make it clearer. Notice where detail gradually becomes suggestion.",
+			  "In the blue morning fog, water and sky seem to meet without a sharp boundary. Stay with the place where one becomes difficult to separate from the other.",
+			  "Notice what remains distinct within the mist and what has quietly receded from view.",
+			  "The horizon is still there even when you cannot fully see it. Let the morning be as near as it needs to be."
 			]
 		  },
 
 		  "first-light": {
 			"invitations": [
-			  
+			  "Notice how the first light enters the mist without needing to clear it away.",
+			  "Look toward the distant trees as their shapes begin to emerge while their details remain softened.",
+			  "Morning is growing brighter, but the horizon is still quiet. Notice what becomes visible first.",
+			  "Watch how the pale light spreads through the fog and across the water, softening the boundary between illumination and reflection.",
+			  "Not everything becomes clear simply because the light has arrived. Stay with what the morning reveals and what it continues to hold."
 			]
 		  },
 
 		  "soft-morning-rise": {
 			"invitations": [
-				
-			  ]
+			  "Notice how the morning can be fully awake while the distance remains softened by mist.",
+			  "Let your attention rest on something small and nearby—the edge of the dock, a ripple, or something resting on the water.",
+			  "Look outward until detail begins to disappear into the fog. Notice how gently the landscape gives up its edges.",
+			  "The mist quiets the distance without emptying the scene. Notice what becomes more present when the background grows soft.",
+			  "Morning does not need a clear horizon to feel complete. Stay with the world that is visible from where you are."
+			]
 		  },
 
 		  "warm-drift": {
 			"invitations": [
-							
-			  ]
+			  "Notice how the warmer light settles into the mist, giving brightness to the air even where distance remains hidden.",
+			  "Look from the sharply defined dock toward the softened water beyond it. Notice how quickly detail gives way to atmosphere.",
+			  "Let your attention stay nearby for a while—the texture of wood, the edge of the water, or a small movement across its surface.",
+			  "The fog has not lifted with the growing day. Notice how the same mist feels different now that warmth has entered it.",
+			  "Even at the brightest part of the day, the whole landscape does not have to reveal itself. Stay with what is here."
+			]
 		  },
 
 		  "golden-dusk": {
 			"invitations": [
-				
-			  ]
+			  "Notice how the lowering light seems to gather inside the mist, warming the space between you and the distant shore.",
+			  "Look toward the trees that remain only as softened shapes. Notice how evening gives presence to what cannot be seen in detail.",
+			  "Follow the warm light from the nearby dock into the quieter tones of the water and fog beyond.",
+			  "The distant landscape is fading before the nearby one. Notice how evening and mist change the depth of what you can see.",
+			  "Stay with the golden light as it settles into the fog. Nothing needs to become clearer before the day can begin to close."
+			]
 		  },
 		  
 		  "quiet-evening-glow": {
 			"invitations": [
-				
-			  ]
+			  "Notice how evening settles in layers—the darkening shore, the mist above the water, and the remaining color beyond.",
+			  "Look across the pond as distant trees become little more than shapes within the fog.",
+			  "As the larger landscape grows quiet, notice the small things that remain easy to see nearby.",
+			  "The last evening light rests softly in the mist rather than reaching every surface. Notice where brightness still lingers.",
+			  "Let the distance soften with the fading day. There is nothing you need to keep in view."
+			]
 		  },
 		  
 		  "ember-twilight": {
-			"invitations": [ 
-				
-			  ]
+			"invitations": [
+			  "Notice how the mist holds the last color of twilight even as the nearby shore settles into darkness.",
+			  "Look toward the distant trees where their shapes seem to dissolve into the fog rather than disappear all at once.",
+			  "As the first stars become visible above, notice how little of the landscape needs to remain distinct below.",
+			  "Let your attention move between the dark shapes nearby and the softened band of mist across the water.",
+			  "Twilight is fading without the fog ever lifting. Stay with the evening as one kind of visibility quietly gives way to another."
+			]
 		  },
 		  
 		  "starry-night": {
 			"invitations": [
-				
-			  ]
+			  "Notice how the fog stays close to the water while the night sky opens above it.",
+			  "Look from the softened shoreline toward the stars. Distance can disappear in one direction and remain open in another.",
+			  "Watch how moonlight enters the mist, giving shape and brightness to something that softened the landscape all day.",
+			  "Let your attention move between what the fog conceals near the horizon and what the clear night reveals overhead.",
+			  "The mist remains, but the night has opened around it. Stay with both without asking either one to give way."
+			]
 		  }
 		}
 		
 		
 		
 	  }
-	},
-	
+	},	
 	"atmospherePerceptions": {
 	  "central-florida": {
 		"base": {
@@ -1177,10 +1240,7 @@
 		}
 	  }
 	}
-   
-   
-   
-   },
+    },
   "chambers": {
     "authPage": {
       "label": "Login",
@@ -4128,7 +4188,8 @@
           "warm-drift",
           "golden-dusk",
           "quiet-evening-glow",
-          "ember-twilight"
+          "ember-twilight",
+		  "starry-night"
         ],
         "renderedWeatherModifiers": [
           "clear-sky",
@@ -4138,7 +4199,7 @@
 		  "breezy",
           "ember-storm"
         ],
-        "countFormula": "7 time states \u00d7 6 rendered states if base included = 42 Journal atmosphere images.",
+        "countFormula": "8 time states \u00d8 7 rendered states if base included = 56 Journal atmosphere images.",
         "filenamePattern": "{timeIndex}-journal-{timeState}-{weatherState}-v1.webp or .png during render staging"
       }
     }

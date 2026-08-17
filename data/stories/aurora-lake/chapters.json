@@ -1,4 +1,0 @@
-[
-  { "id": "intro", "title": "Even Stillness Moves", "unlocks": ["explore"] },
-  { "id": "explore", "title": "Where the Dragonfly Leads", "unlocks": [] }
-]

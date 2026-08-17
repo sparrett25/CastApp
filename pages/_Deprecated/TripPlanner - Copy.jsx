@@ -15,9 +15,12 @@ import { useProfile } from "../context/ProfileContext";
 import "../styles/pages/trip-planner.css";
 import "../styles/global/atmosphere.css";
 
-import { waterTypes } from "../data/waterTypes";
-import { getRegionIdFromKey } from "../data/regionOptions";
-import { getSpeciesForWaterType } from "../data/speciesHelpers";
+import {
+  getAllLocations,
+  getLocationById,
+  getPrimarySpeciesForLocation,
+  getAdditionalSpeciesForLocation,
+} from "../utils/castData";
 
 import {
   buildPapaPageContext,
@@ -61,24 +64,67 @@ function getDateForOption(option) {
   return null;
 }
 
-function buildChecklist() {
-  return ["Rod and reel", "Tackle box", "Sunscreen", "Water bottle", "Hat"];
+function buildChecklist(waterId, targetId) {
+  const base = ["Rod and reel", "Tackle box", "Sunscreen", "Water bottle", "Hat"];
+  const extras = [];
+
+  if (targetId === "bluegill" || targetId === "redear-sunfish") {
+    extras.push("Small hooks and worms", "Bobber");
+  }
+
+  if (targetId === "largemouth-bass") {
+    extras.push("Soft plastic worms", "Texas rig setup", "Spinnerbait");
+  }
+
+  if (targetId === "channel-catfish") {
+    extras.push("Chicken liver or stink bait", "Bottom rig");
+  }
+
+  if (targetId === "black-crappie") {
+    extras.push("Light jig heads", "Small soft plastics or minnows");
+  }
+
+  if (targetId === "bowfin" || targetId === "gar" || targetId === "sunshine-bass") {
+    extras.push("Heavier leader", "Pliers");
+  }
+
+  if (waterId === "morris-bridge") {
+    extras.push("Bug spray");
+  }
+
+  if (waterId === "hardee-lakes" || waterId === "edward-medard") {
+    extras.push("Polarized sunglasses");
+  }
+
+  return [...extras, ...base];
 }
 
-function mapLocationFromDb(row) {
-  return {
-    ...row,
-    locationKey: row.location_key,
-    regionId: row.region_key,
-    waterTypeId: row.water_type_key,
-    isActive: row.is_active ?? true,
-    isFavorite: row.is_favorite ?? false,
-  };
-}
+function getScooterAdvice(waterId, targetId) {
+  if (waterId === "backyard-pond" && targetId === "bluegill") {
+    return "Start at the shady edge and keep it simple. This pond rewards patience more than distance.";
+  }
 
-function getLocationWaterLabel(location) {
-  const water = waterTypes.find((entry) => entry.id === location?.waterTypeId);
-  return water?.label || location?.waterTypeId || "Saved water";
+  if (waterId === "backyard-pond") {
+    return "This is familiar water. Watch the bank, the shade, and the still pockets before your first cast.";
+  }
+
+  if (waterId === "edward-medard" && targetId === "largemouth-bass") {
+    return "Start around shoreline grass, contour changes, and any cover that breaks the open water. Slow down and let structure guide you.";
+  }
+
+  if (waterId === "edward-medard") {
+    return "This water teaches broad patterning. Look for shoreline grass, flats, and places where structure changes quietly.";
+  }
+
+  if (waterId === "morris-bridge") {
+    return "Read the roots, timber, and current breaks before you cast. Fish here hold where the water gives them an easier place to wait.";
+  }
+
+  if (waterId === "hardee-lakes") {
+    return "Choose your water with intention. Look for attractors, vegetation edges, and the lake that feels most alive today.";
+  }
+
+  return "Read the water before your first cast. Give yourself two minutes just to look.";
 }
 
 function inferWhenIdFromTripDate(tripDate) {
@@ -124,48 +170,15 @@ export default function TripPlanner() {
   const [loadingTrip, setLoadingTrip] = useState(Boolean(isEditing && editingTripId));
   const [saveError, setSaveError] = useState("");
   const [showOtherTargets, setShowOtherTargets] = useState(false);
-  const [locations, setLocations] = useState([]);
-  const [locationsLoading, setLocationsLoading] = useState(true);
 
-  const selectedWater =
-    locations.find((loc) => loc.locationKey === waterId) || null;
+  const allLocations = getAllLocations();
+  const selectedWater = getLocationById(waterId);
 
-  const allLocations = useMemo(() => {
-    return [...locations]
-      .filter((loc) => loc.isActive || loc.locationKey === waterId)
-      .sort((a, b) => {
-        if (a.isFavorite !== b.isFavorite) return a.isFavorite ? -1 : 1;
-        return a.name.localeCompare(b.name);
-      });
-  }, [locations, waterId]);
-
-  const selectedRegionId = selectedWater
-    ? getRegionIdFromKey(selectedWater.regionId) || selectedWater.regionId
-    : null;
-
-  const speciesTargets = useMemo(() => {
-    if (!selectedWater) return [];
-
-    return getSpeciesForWaterType(
-      selectedWater.waterTypeId,
-      selectedRegionId
-    ).map((species) => ({
-      id: species.id,
-      label: species.name,
-      tip:
-        species.scooterTips?.[0] ||
-        species.tagline ||
-        species.description ||
-        "Watch the water and let the conditions shape your approach.",
-      species,
-    }));
-  }, [selectedWater, selectedRegionId]);
-
-  const primaryTargets = speciesTargets.slice(0, 3);
-  const additionalTargets = speciesTargets.slice(3);
+  const primaryTargets = waterId ? getPrimarySpeciesForLocation(waterId, 3) : [];
+  const additionalTargets = waterId ? getAdditionalSpeciesForLocation(waterId, 3) : [];
 
   const selectedTarget =
-    speciesTargets.find((target) => target.id === targetId) || null;
+    [...primaryTargets, ...additionalTargets].find((t) => t.id === targetId) || null;
 
   const selectedDuration = DURATIONS.find((d) => d.id === durationId);
   const selectedWhen = WHEN_OPTIONS.find((w) => w.id === whenId);
@@ -223,51 +236,6 @@ const atmospherePacket = buildAtmospherePacket({
   const inputStyle = styles.inputStyle ?? {};
   const transparentButtonStyle = styles.transparentButtonStyle ?? {};
   const textTheme = ui.text ?? {};
-
-  useEffect(() => {
-    let isMounted = true;
-
-    async function loadLocations() {
-      try {
-        setLocationsLoading(true);
-
-        const {
-          data: { user },
-          error: userError,
-        } = await supabase.auth.getUser();
-
-        if (userError) throw userError;
-
-        if (!user) {
-          if (isMounted) setLocations([]);
-          return;
-        }
-
-        const { data, error } = await supabase
-          .from("cast_locations")
-          .select("*")
-          .eq("user_id", user.id)
-          .order("created_at", { ascending: true });
-
-        if (error) throw error;
-
-        if (isMounted) {
-          setLocations((data ?? []).map(mapLocationFromDb));
-        }
-      } catch (err) {
-        console.error("Trip planner locations load error:", err);
-        if (isMounted) setLocations([]);
-      } finally {
-        if (isMounted) setLocationsLoading(false);
-      }
-    }
-
-    loadLocations();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -396,16 +364,14 @@ const atmospherePacket = buildAtmospherePacket({
       const whenLabel =
         whenId === "custom" ? formatTripDate(customDate) : selectedWhen?.label;
 
-      const checklist = buildChecklist();
-      const scooterAdvice =
-        selectedTarget?.tip ||
-        "Read the water before your first cast. Give yourself two minutes just to look.";
+      const checklist = buildChecklist(waterId, targetId);
+      const scooterAdvice = getScooterAdvice(waterId, targetId);
 
       const payload = {
         user_id: user.id,
         title: selectedWater?.name || "Planned Trip",
         location: selectedWater?.name || "",
-        location_key: selectedWater?.locationKey || null,
+        location_key: selectedWater?.id || null,
         trip_date: resolvedDate || null,
         timing_label: whenLabel || null,
         target_species: selectedTarget ? [selectedTarget.label] : [],
@@ -576,40 +542,22 @@ const atmospherePacket = buildAtmospherePacket({
                 <p className="trip-question">Where are you fishing?</p>
 
                 <div className="trip-options vertical">
-                  {locationsLoading ? (
-                    <p className="trip-target-tip" style={{ color: textTheme.secondary }}>
-                      Looking through your saved waters...
-                    </p>
-                  ) : allLocations.length ? (
-                    allLocations.map((loc) => (
-                      <button
-                        key={loc.id}
-                        className={`trip-option-row ${
-                          waterId === loc.locationKey ? "active" : ""
-                        }`}
-                        style={
-                          waterId === loc.locationKey ? buttonPrimaryStyle : cardStyle
-                        }
-                        onClick={() => setWaterId(loc.locationKey)}
+                  {allLocations.map((loc) => (
+                    <button
+                      key={loc.id}
+                      className={`trip-option-row ${waterId === loc.id ? "active" : ""}`}
+                      style={waterId === loc.id ? buttonPrimaryStyle : cardStyle}
+                      onClick={() => setWaterId(loc.id)}
+                    >
+                      <span className="trip-option-row-label">{loc.name}</span>
+                      <span
+                        className="trip-option-row-note"
+                        style={{ color: textTheme.secondary }}
                       >
-                        <span className="trip-option-row-label">
-                          {loc.isFavorite ? "★ " : ""}
-                          {loc.name}
-                        </span>
-                        <span
-                          className="trip-option-row-note"
-                          style={{ color: textTheme.secondary }}
-                        >
-                          {getLocationWaterLabel(loc)}
-                          {!loc.isActive ? " · Inactive" : ""}
-                        </span>
-                      </button>
-                    ))
-                  ) : (
-                    <p className="trip-target-tip" style={{ color: textTheme.secondary }}>
-                      No active locations yet. Add a water from Locations first.
-                    </p>
-                  )}
+                        {loc.tagline || loc.short_intro || loc.location_type_label}
+                      </span>
+                    </button>
+                  ))}
                 </div>
 
                 <button
@@ -641,12 +589,6 @@ const atmospherePacket = buildAtmospherePacket({
                 </button>
 
                 <p className="trip-question">What are you after?</p>
-
-                {speciesTargets.length === 0 && (
-                  <p className="trip-target-tip" style={{ color: textTheme.secondary }}>
-                    No species are mapped for this region and water type yet.
-                  </p>
-                )}
 
                 <div className="trip-options">
                   {primaryTargets.map((t) => (

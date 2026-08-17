@@ -6,16 +6,15 @@ import ChamberLayout from "../components/ChamberLayout";
 import PapaMini from "../components/PapaMini";
 import "../styles/pages/locations.css";
 import "../styles/global/atmosphere.css";
+import { SPECIES } from "../data/species";
 import { GEAR } from "../data/gear";
-import { TECHNIQUES } from "../data/techniques";
 import { waterTypes } from "../data/waterTypes";
-import { REGION_OPTIONS, getRegionIdFromKey } from "../data/regionOptions";
+import { REGION_OPTIONS } from "../data/regionOptions";
 import { getScene } from "../atmosphere/sceneBuilder";
 import { useAtmosphere } from "../atmosphere/useAtmosphere";
 import { useProfile } from "../context/ProfileContext";
 import { supabase } from "../lib/supabase";
 import { buildAtmospherePacket } from "../atmosphere/buildAtmospherePacket";
-import { getSpeciesForWaterType } from "../data/speciesHelpers";
 import {
   getAtmosphereRegionKey,
   getAtmosphericInvitations,
@@ -225,7 +224,6 @@ function LocationDetail({
   onOpenSpecies,
   onOpenWaterType,
   onOpenGear,
-  onOpenTechnique,
   onUpdateLocation,
   cardTheme,
   textTheme,
@@ -268,19 +266,20 @@ function saveEdits() {
   const [tripsLoading, setTripsLoading] = useState(false);
   const [locationGear, setLocationGear] = useState([]);
   const [gearLoading, setGearLoading] = useState(false);
-  const [locationTechniques, setLocationTechniques] = useState([]);
-  const [techniquesLoading, setTechniquesLoading] = useState(false);
   
 const speciesContextLocation = isEditing ? draftLocation : location;
 
-const speciesContextRegionId =
-  getRegionIdFromKey(speciesContextLocation.regionId) ||
-  speciesContextLocation.regionId;
+const likelySpecies = SPECIES.filter((species) => {
+  const matchesRegion =
+    species.regionIds?.includes(speciesContextLocation.regionId) ||
+    species.regions?.includes(speciesContextLocation.regionId);
 
-const likelySpecies = getSpeciesForWaterType(
-  speciesContextLocation.waterTypeId,
-  speciesContextRegionId
-);
+  const matchesWater =
+    species.waterTypeIds?.includes(speciesContextLocation.waterTypeId) ||
+    species.waterTypes?.includes(speciesContextLocation.waterTypeId);
+
+  return matchesRegion && matchesWater;
+});
 
 
 useEffect(() => {
@@ -405,47 +404,6 @@ useEffect(() => {
   };
 }, [location.id]);
 
-useEffect(() => {
-  let isMounted = true;
-
-  async function loadLocationTechniques() {
-    try {
-      setTechniquesLoading(true);
-
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
-
-      if (userError) throw userError;
-      if (!user) return;
-
-      const { data, error } = await supabase
-        .from("cast_location_techniques")
-        .select("id, location_id, technique_key, created_at")
-        .eq("user_id", user.id)
-        .eq("location_id", location.id)
-        .order("created_at", { ascending: true });
-
-      if (error) throw error;
-
-      if (isMounted) setLocationTechniques(data ?? []);
-    } catch (err) {
-      console.error("Location techniques load error:", err);
-      if (isMounted) setLocationTechniques([]);
-    } finally {
-      if (isMounted) setTechniquesLoading(false);
-    }
-  }
-
-  loadLocationTechniques();
-
-  return () => {
-    isMounted = false;
-  };
-}, [location.id]);
-
-
 async function removeGearFromLocation(relationshipId) {
   try {
     const {
@@ -471,33 +429,6 @@ async function removeGearFromLocation(relationshipId) {
     console.error("Location field kit remove error:", error);
   }
 }
-
-async function removeTechniqueFromLocation(relationshipId) {
-  try {
-    const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser();
-
-    if (userError) throw userError;
-    if (!user) throw new Error("You must be logged in to update techniques.");
-
-    const { error } = await supabase
-      .from("cast_location_techniques")
-      .delete()
-      .eq("id", relationshipId)
-      .eq("user_id", user.id);
-
-    if (error) throw error;
-
-    setLocationTechniques((current) =>
-      current.filter((item) => item.id !== relationshipId)
-    );
-  } catch (error) {
-    console.error("Location technique remove error:", error);
-  }
-}
-
 
 
 
@@ -722,55 +653,6 @@ async function removeTechniqueFromLocation(relationshipId) {
             </div>
           ) : (
             <p>No gear saved to this location yet.</p>
-          )}
-        </SectionBlock>
-
-        <SectionBlock label="My Techniques">
-          {techniquesLoading ? (
-            <p>Gathering the techniques you saved for this water...</p>
-          ) : locationTechniques.length ? (
-            <div className="loc-species-row">
-              {locationTechniques.map((relationship) => {
-                const technique = TECHNIQUES.find(
-                  (entry) => entry.id === relationship.technique_key
-                );
-
-                return (
-                  <span key={relationship.id} className="loc-species-chip clickable">
-                    <span
-                      onClick={() => technique && onOpenTechnique(technique.id)}
-                      role={technique ? "button" : undefined}
-                      tabIndex={technique ? 0 : undefined}
-                      onKeyDown={
-                        technique
-                          ? (e) => {
-                              if (e.key === "Enter" || e.key === " ") {
-                                onOpenTechnique(technique.id);
-                              }
-                            }
-                          : undefined
-                      }
-                    >
-                      {technique?.name || relationship.technique_key}
-                    </span>
-                    <button
-                      type="button"
-                      className="loc-field-kit-remove"
-                      onClick={() =>
-                        removeTechniqueFromLocation(relationship.id)
-                      }
-                      aria-label={`Remove ${
-                        technique?.name || relationship.technique_key
-                      } from techniques`}
-                    >
-                      ×
-                    </button>
-                  </span>
-                );
-              })}
-            </div>
-          ) : (
-            <p>No techniques saved to this location yet.</p>
           )}
         </SectionBlock>
 
@@ -1204,10 +1086,6 @@ async function handleUpdateLocation(updatedLocation) {
 					  state: {
 						section: "species",
 						entryId,
-						returnLocation: {
-						  id: selectedLocation.id,
-						  name: selectedLocation.name,
-						},
 					  },
 					})
 				  }
@@ -1216,10 +1094,6 @@ async function handleUpdateLocation(updatedLocation) {
 					  state: {
 						section: "waters",
 						entryId,
-						returnLocation: {
-						  id: selectedLocation.id,
-						  name: selectedLocation.name,
-						},
 					  },
 					})
 				  }
@@ -1228,22 +1102,6 @@ async function handleUpdateLocation(updatedLocation) {
 					  state: {
 						section: "gear",
 						entryId,
-						returnLocation: {
-						  id: selectedLocation.id,
-						  name: selectedLocation.name,
-						},
-					  },
-					})
-				  }
-				  onOpenTechnique={(entryId) =>
-					navigate("/field-guide", {
-					  state: {
-						section: "techniques",
-						entryId,
-						returnLocation: {
-						  id: selectedLocation.id,
-						  name: selectedLocation.name,
-						},
 					  },
 					})
 				  }

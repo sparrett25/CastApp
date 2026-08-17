@@ -1204,10 +1204,6 @@ async function handleUpdateLocation(updatedLocation) {
 					  state: {
 						section: "species",
 						entryId,
-						returnLocation: {
-						  id: selectedLocation.id,
-						  name: selectedLocation.name,
-						},
 					  },
 					})
 				  }
@@ -1216,10 +1212,6 @@ async function handleUpdateLocation(updatedLocation) {
 					  state: {
 						section: "waters",
 						entryId,
-						returnLocation: {
-						  id: selectedLocation.id,
-						  name: selectedLocation.name,
-						},
 					  },
 					})
 				  }
@@ -1228,10 +1220,6 @@ async function handleUpdateLocation(updatedLocation) {
 					  state: {
 						section: "gear",
 						entryId,
-						returnLocation: {
-						  id: selectedLocation.id,
-						  name: selectedLocation.name,
-						},
 					  },
 					})
 				  }
@@ -1240,10 +1228,6 @@ async function handleUpdateLocation(updatedLocation) {
 					  state: {
 						section: "techniques",
 						entryId,
-						returnLocation: {
-						  id: selectedLocation.id,
-						  name: selectedLocation.name,
-						},
 					  },
 					})
 				  }

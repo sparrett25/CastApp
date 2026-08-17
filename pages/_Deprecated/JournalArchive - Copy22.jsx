@@ -66,23 +66,6 @@ function EntryCard({
         {formatDate(entry.entry_date)}
       </p>
 
-      <p
-        className="archive-entry-context"
-        style={{
-          color: textTheme?.secondary,
-          margin: "0.35rem 0 0.85rem",
-          fontSize: "0.78rem",
-          letterSpacing: "0.08em",
-          textTransform: "uppercase",
-        }}
-      >
-        {entry.entry_type === "field_note" || entry.entry_type === "observation"
-          ? "Field Note"
-          : "Reflection"}
-        {" • "}
-        {entry.location?.name || "General"}
-      </p>
-
       <p className="archive-text" style={{ color: textTheme?.primary }}>
         {expanded ? fullText : preview}
       </p>
@@ -115,7 +98,6 @@ export default function JournalArchive() {
 
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState("all");
 
   const atmosphere = useAtmosphere("journal", {
   user: profilePacket,
@@ -208,13 +190,7 @@ const atmosphericPerception = getAtmosphericPerception({
 
         const { data, error } = await supabase
           .from("cast_journal_entries")
-          .select(`
-            *,
-            location:cast_locations!cast_journal_entries_location_id_fkey (
-              id,
-              name
-            )
-          `)
+          .select("*")
           .eq("user_id", user.id)
           .order("entry_date", { ascending: false });
 
@@ -235,24 +211,6 @@ const atmosphericPerception = getAtmosphericPerception({
       isMounted = false;
     };
   }, []);
-
-  const filteredEntries = entries.filter((entry) => {
-    if (filter === "reflection") {
-      return !entry.entry_type || entry.entry_type === "reflection";
-    }
-
-    if (filter === "field_note") {
-      return (
-        entry.entry_type === "field_note" ||
-        entry.entry_type === "observation"
-      );
-    }
-
-    return true;
-  });
-
-  const filteredEmptyLabel =
-    filter === "reflection" ? "No reflections yet." : "No Field Notes yet.";
 
   const papaContext = {
     page: "journal",
@@ -345,80 +303,19 @@ const atmosphericPerception = getAtmosphericPerception({
               </button>
             </div>
           ) : (
-            <>
-              <div
-                className="archive-filter-row"
-                style={{
-                  display: "flex",
-                  gap: "0.65rem",
-                  margin: "0 0 1.25rem",
-                }}
-              >
-                <button
-                  style={{
-                    ...(filter === "all"
-                      ? buttonPrimaryStyle
-                      : buttonSecondaryStyle),
-                    flex: 1,
-                  }}
-                  onClick={() => setFilter("all")}
-                >
-                  All
-                </button>
-
-                <button
-                  style={{
-                    ...(filter === "reflection"
-                      ? buttonPrimaryStyle
-                      : buttonSecondaryStyle),
-                    flex: 1,
-                  }}
-                  onClick={() => setFilter("reflection")}
-                >
-                  Reflections
-                </button>
-
-                <button
-                  style={{
-                    ...(filter === "field_note"
-                      ? buttonPrimaryStyle
-                      : buttonSecondaryStyle),
-                    flex: 1,
-                  }}
-                  onClick={() => setFilter("field_note")}
-                >
-                  Field Notes
-                </button>
-              </div>
-
-              {filteredEntries.length === 0 ? (
-                <div className="archive-empty" style={cardStyle}>
-                  <p className="archive-empty-title">{filteredEmptyLabel}</p>
-                  <p
-                    className="archive-empty-sub"
-                    style={{ color: textTheme?.secondary }}
-                  >
-                    {filter === "reflection"
-                      ? "Reflections will gather here as you write them."
-                      : "Field Notes will gather here as you record observations from the water."}
-                  </p>
-                </div>
-              ) : (
-                <div className="archive-list">
-                  {filteredEntries.map((entry, i) => (
-                    <EntryCard
-                      key={entry.id}
-                      entry={entry}
-                      index={i}
-                      cardStyle={cardStyle}
-                      buttonSecondaryStyle={buttonSecondaryStyle}
-                      bubbleTheme={bubbleTheme}
-                      textTheme={textTheme}
-                    />
-                  ))}
-                </div>
-              )}
-            </>
+            <div className="archive-list">
+              {entries.map((entry, i) => (
+                <EntryCard
+                  key={entry.id}
+                  entry={entry}
+                  index={i}
+                  cardStyle={cardStyle}
+                  buttonSecondaryStyle={buttonSecondaryStyle}
+                  bubbleTheme={bubbleTheme}
+                  textTheme={textTheme}
+                />
+              ))}
+            </div>
           )}
         </div>
       </ChamberLayout>
