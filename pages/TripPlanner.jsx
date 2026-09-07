@@ -402,24 +402,26 @@ const atmospherePacket = buildAtmospherePacket({
         "Read the water before your first cast. Give yourself two minutes just to look.";
 
       const payload = {
-        user_id: user.id,
-        title: selectedWater?.name || "Planned Trip",
-        location: selectedWater?.name || "",
-        location_key: selectedWater?.locationKey || null,
-        trip_date: resolvedDate || null,
-        timing_label: whenLabel || null,
-        target_species: selectedTarget ? [selectedTarget.label] : [],
-        target_species_keys: selectedTarget ? [selectedTarget.id] : [],
-        duration_label: selectedDuration
-          ? `${selectedDuration.label} · ${selectedDuration.sub}`
-          : null,
-        checklist_items: checklist,
-        scooter_note: scooterAdvice,
-        papa_note:
-          existingTrip?.papa_note || "The water has a way of speaking if we listen.",
-        summary_text: `Targeting ${selectedTarget?.label} · ${selectedDuration?.sub}`,
-        status: existingTrip?.status || "planned",
-      };
+		  user_id: user.id,
+		  title: selectedWater?.name || "Planned Trip",
+		  location: selectedWater?.name || "",
+		  location_key: selectedWater?.locationKey || null,
+		  location_id: selectedWater?.id || null,
+
+		  trip_date: resolvedDate || null,
+		  timing_label: whenLabel || null,
+		  target_species: selectedTarget ? [selectedTarget.label] : [],
+		  target_species_keys: selectedTarget ? [selectedTarget.id] : [],
+		  duration_label: selectedDuration
+			? `${selectedDuration.label} · ${selectedDuration.sub}`
+			: null,
+		  checklist_items: checklist,
+		  scooter_note: scooterAdvice,
+		  papa_note:
+			existingTrip?.papa_note || "The water has a way of speaking if we listen.",
+		  summary_text: `Targeting ${selectedTarget?.label} · ${selectedDuration?.sub}`,
+		  status: existingTrip?.status || "planned",
+		};
 
       let response;
 

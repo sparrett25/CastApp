@@ -49,29 +49,39 @@ function NewEntryForm({
   onCancel,
   existingEntries,
   locations = [],
+  atmospherePacket,
   cardStyle,
   inputStyle,
   buttonPrimaryStyle,
   buttonSecondaryStyle,
   chipTheme,
 }) {
+  
   const locationOptions = [
-    ...locations.map((loc) => ({
-      id: loc.location_key,
-      label: loc.name,
-    })),
-    { id: "other", label: "Other" },
-  ];
+  ...locations.map((loc) => ({
+    id: loc.id,
+    key: loc.location_key,
+    label: loc.name,
+  })),
+  { id: "other", key: null, label: "Other" },
+];
 
   const defaultLocation = locationOptions[0] ?? { id: "other", label: "Other" };
 
   const [species, setSpecies] = useState("");
   const [speciesKey, setSpeciesKey] = useState(null);
   const [size, setSize] = useState("");
+  
   const [location, setLocation] = useState(defaultLocation.label);
-  const [locationKey, setLocationKey] = useState(
+
+  const [locationId, setLocationId] = useState(
     defaultLocation.id === "other" ? null : defaultLocation.id
   );
+
+  const [locationKey, setLocationKey] = useState(
+    defaultLocation.id === "other" ? null : defaultLocation.key
+  );
+  
   const [released, setReleased] = useState(true);
   const [note, setNote] = useState("");
   const [saving, setSaving] = useState(false);
@@ -97,7 +107,8 @@ function NewEntryForm({
 
   function handleLocationPick(opt) {
     setLocation(opt.label);
-    setLocationKey(opt.id === "other" ? null : opt.id);
+    setLocationId(opt.id === "other" ? null : opt.id);
+    setLocationKey(opt.id === "other" ? null : opt.key);
   }
 
   async function handleSave() {
@@ -120,18 +131,24 @@ function NewEntryForm({
         !isNoCatch && !existingEntries.some((entry) => !entry.is_no_catch);
 
       const payload = {
-        user_id: user.id,
-        species: species.trim(),
-        species_key: isNoCatch ? null : speciesKey,
-        location,
-        location_key: locationKey,
-        size_text: size.trim() || null,
-        kept_or_released: isNoCatch ? null : released ? "released" : "kept",
-        notes: note.trim() || null,
-        catch_date: entryDate,
-        is_first_catch: isFirstCatch,
-        is_no_catch: isNoCatch,
-      };
+		  user_id: user.id,
+		  species: species.trim(),
+		  species_key: isNoCatch ? null : speciesKey,
+
+		  location,
+		  location_id: locationId,
+		  location_key: locationKey,
+
+		  size_text: size.trim() || null,
+		  kept_or_released: isNoCatch ? null : released ? "released" : "kept",
+		  notes: note.trim() || null,
+		  catch_date: entryDate,
+		  is_first_catch: isFirstCatch,
+		  is_no_catch: isNoCatch,
+
+		  time_state_key: atmospherePacket?.timeState || null,
+		  weather_state_key: atmospherePacket?.weatherState || null,
+		};
 
       const { data, error } = await supabase
         .from("cast_catch_logs")
@@ -200,8 +217,10 @@ function NewEntryForm({
         {locationOptions.map((l) => (
           <button
             key={l.id}
-            className={`ledger-location-btn ${locationKey === l.id ? "active" : ""}`}
-			style={chipStyle(locationKey === l.id)}
+            className={`ledger-location-btn ${
+			locationId === l.id ? "active" : ""
+			}`}
+			style={chipStyle(locationId === l.id)}
             onClick={() => handleLocationPick(l)}
           >
             {l.label}
@@ -581,16 +600,17 @@ const atmosphereSignature = {
           <AnimatePresence>
             {showForm && (
               <NewEntryForm
-                existingEntries={entries}
-                locations={locations}
-                onSave={handleSave}
-                onCancel={() => setShowForm(false)}
-                cardStyle={cardStyle}
-                inputStyle={inputStyle}
-                buttonPrimaryStyle={buttonPrimaryStyle}
-                buttonSecondaryStyle={buttonSecondaryStyle}
-                chipTheme={chipTheme}
-              />
+				  existingEntries={entries}
+				  locations={locations}
+				  atmospherePacket={atmospherePacket}
+				  onSave={handleSave}
+				  onCancel={() => setShowForm(false)}
+				  cardStyle={cardStyle}
+				  inputStyle={inputStyle}
+				  buttonPrimaryStyle={buttonPrimaryStyle}
+				  buttonSecondaryStyle={buttonSecondaryStyle}
+				  chipTheme={chipTheme}
+				/>
             )}
           </AnimatePresence>
 

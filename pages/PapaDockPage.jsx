@@ -311,54 +311,62 @@ useEffect(() => {
           ? locations.find((location) => location.id === selectedLocationId)
           : null;
 
-      const { error: noteError } = await supabase
-        .from("cast_papa_saved_notes")
-        .insert({
-          user_id: user.id,
-          source_thread_id: threadId,
-          source_message_id: null,
-          note_type: noteType,
-          title: noteType === "field_note" ? "Papa Field Note" : "Papa Whisper",
-          note_text: message.text,
-          tags: [],
-          location_id: selectedLocation?.id ?? null,
-          location_key: selectedLocation?.location_key ?? null,
-        });
+     
+if (noteType !== "field_note") {
+  const { error: noteError } = await supabase
+    .from("cast_papa_saved_notes")
+    .insert({
+      user_id: user.id,
+      source_thread_id: threadId,
+      source_message_id: null,
+      note_type: noteType,
+      title: "Papa Whisper",
+      note_text: message.text,
+      tags: [],
+      location_id: null,
+      location_key: null,
+    });
 
-      if (noteError) throw noteError;
+  if (noteError) throw noteError;
+}
 
       if (noteType === "field_note") {
-        const previousUserMessage =
-          [...messages]
-            .slice(0, index)
-            .reverse()
-            .find((item) => item.role === "user" && item.text?.trim())?.text ?? null;
+  const previousUserMessage =
+    [...messages]
+      .slice(0, index)
+      .reverse()
+      .find((item) => item.role === "user" && item.text?.trim())?.text ?? null;
 
-        const now = new Date();
-        const localDate = new Date(
-          now.getTime() - now.getTimezoneOffset() * 60000
-        )
-          .toISOString()
-          .slice(0, 10);
+  const now = new Date();
+  const localDate = new Date(
+    now.getTime() - now.getTimezoneOffset() * 60000
+  )
+    .toISOString()
+    .slice(0, 10);
 
-        const { error: journalError } = await supabase
-          .from("cast_journal_entries")
-          .insert({
-            user_id: user.id,
-            title: "Papa Field Note",
-            prompt_text: previousUserMessage,
-            entry_text: message.text,
-            entry_date: localDate,
-            papa_response: null,
-            entry_type: "field_note",
-            location_id: selectedLocation.id,
-          });
+  const { error: journalError } = await supabase
+    .from("cast_journal_entries")
+    .insert({
+      user_id: user.id,
+      title: "Papa Field Note",
+      prompt_text: previousUserMessage,
+      entry_text: message.text,
+      entry_date: localDate,
+      papa_response: null,
+      entry_type: "field_note",
+      location_id: selectedLocation.id,
+      time_state_key: atmospherePacket?.timeState || null,
+      weather_state_key: atmospherePacket?.weatherState || null,
+    });
 
-        if (journalError) throw journalError;
+  if (journalError) throw journalError;
 
-        setFieldNoteIndex(null);
-        setFieldNoteLocationId("");
-      }
+  setFieldNoteIndex(null);
+  setFieldNoteLocationId("");
+}
+
+
+
 
       setSavedNoteKeys((prev) => ({
         ...prev,

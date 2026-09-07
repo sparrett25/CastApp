@@ -51,9 +51,17 @@ function TripCard({
   onView,
   onEdit,
   onDelete,
+  onResolve,
   chipStyle,
 }) {
-  const targetLabel = getTargetLabel(trip);
+	
+	
+const targetLabel = getTargetLabel(trip);
+
+const isUnresolved =
+  trip.status === "planned" &&
+  trip.trip_date &&
+  trip.trip_date < getTodayKey();
 
   
   return (
@@ -80,21 +88,50 @@ function TripCard({
         </span>
       </div>
 
+
       {trip.scooter_note && (
         <p className="trip-ledger-note">“{trip.scooter_note}”</p>
       )}
 
-      <div className="trip-ledger-actions">
-        <button style={primaryButtonStyle} onClick={() => onView(trip)}>
-          View
-        </button>
 
-        
+ {isUnresolved ? (
+  <div className="trip-ledger-resolution">
+    <p
+      className="trip-ledger-resolution-question"
+      style={{ color: mutedTextColor }}
+    >
+      Did this trip happen?
+    </p>
 
-        <button style={secondaryButtonStyle} onClick={() => onDelete(trip)}>
-          Remove
-        </button>
-      </div>
+    <div className="trip-ledger-actions">
+      <button
+        style={primaryButtonStyle}
+        onClick={() => onResolve(trip, "completed")}
+      >
+        Yes, I went
+      </button>
+
+      <button
+        style={secondaryButtonStyle}
+        onClick={() => onResolve(trip, "canceled")}
+      >
+        No, I didn't
+      </button>
+    </div>
+  </div>
+) : (
+  <div className="trip-ledger-actions">
+    <button style={primaryButtonStyle} onClick={() => onView(trip)}>
+      View
+    </button>
+
+    <button style={secondaryButtonStyle} onClick={() => onDelete(trip)}>
+      Remove
+    </button>
+  </div>
+)}
+	  
+	  
     </article>
   );
 }
@@ -241,10 +278,10 @@ const displayName =
 
     trips.forEach((trip) => {
       const isCompleted = trip.status === "completed";
-      const isCancelled = trip.status === "cancelled";
+      const isCanceled = trip.status === "canceled";
       const isPastDate = trip.trip_date && trip.trip_date < today;
 
-      if (isCompleted || isCancelled || isPastDate) {
+      if (isCompleted || isCanceled || isPastDate) {
         past.push(trip);
       } else {
         upcoming.push(trip);
@@ -286,6 +323,28 @@ const displayName =
   function handleEdit(trip) {
     nav("/plan-trip", { state: { mode: "edit", tripId: trip.id } });
   }
+
+async function handleResolveTrip(trip, status) {
+  try {
+    const { data, error } = await supabase
+      .from("cast_trip_plans")
+      .update({ status })
+      .eq("id", trip.id)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    setTrips((current) =>
+      current.map((item) =>
+        item.id === trip.id ? data : item
+      )
+    );
+  } catch (err) {
+    console.error("Trip resolution error:", err);
+    setLedgerError(err.message || "Could not update trip.");
+  }
+}
 
   async function handleDelete(trip) {
     const confirmed = window.confirm(
@@ -426,21 +485,22 @@ const displayName =
             <div className="trip-ledger-list">
               {visibleTrips.map((trip) => (
                 <TripCard
-                  key={trip.id}
-                  trip={trip}
-                  type={activeFilter}
-                  cardStyle={{
-                    ...cardStyle,
-                    opacity: deletingId === trip.id ? 0.55 : 1,
-                  }}
-				  chipStyle={chipStyle}
-                  primaryButtonStyle={primaryButtonStyle}
-                  secondaryButtonStyle={secondaryButtonStyle}
-                  mutedTextColor={textTheme?.secondary}
-                  onView={handleView}
-                  onEdit={handleEdit}
-                  onDelete={handleDelete}
-                />
+  key={trip.id}
+  trip={trip}
+  type={activeFilter}
+  cardStyle={{
+    ...cardStyle,
+    opacity: deletingId === trip.id ? 0.55 : 1,
+  }}
+  chipStyle={chipStyle}
+  primaryButtonStyle={primaryButtonStyle}
+  secondaryButtonStyle={secondaryButtonStyle}
+  mutedTextColor={textTheme?.secondary}
+  onView={handleView}
+  onEdit={handleEdit}
+  onDelete={handleDelete}
+  onResolve={handleResolveTrip}
+/>
               ))}
             </div>
           )}

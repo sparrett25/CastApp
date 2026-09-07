@@ -264,12 +264,24 @@ function saveEdits() {
 
   const [locationCatches, setLocationCatches] = useState([]);
   const [catchesLoading, setCatchesLoading] = useState(false);
+
   const [locationTrips, setLocationTrips] = useState([]);
   const [tripsLoading, setTripsLoading] = useState(false);
+
+  const [locationJournalEntries, setLocationJournalEntries] = useState([]);
+  const [journalLoading, setJournalLoading] = useState(false);
+
+  const [nextTrip, setNextTrip] = useState(null);
+  
+  const [memoryFilter, setMemoryFilter] = useState("all");
+  
+  const [isExploringMemory, setIsExploringMemory] = useState(false);
+  
   const [locationGear, setLocationGear] = useState([]);
   const [gearLoading, setGearLoading] = useState(false);
   const [locationTechniques, setLocationTechniques] = useState([]);
   const [techniquesLoading, setTechniquesLoading] = useState(false);
+  
   
 const speciesContextLocation = isEditing ? draftLocation : location;
 
@@ -299,12 +311,12 @@ useEffect(() => {
       if (!user) return;
 
       const { data, error } = await supabase
-        .from("cast_catch_logs")
-        .select("*")
-        .eq("user_id", user.id)
-        .eq("location_key", location.locationKey)
-        .order("catch_date", { ascending: false })
-        .limit(2);
+	  .from("cast_catch_logs")
+	  .select("*")
+	  .eq("user_id", user.id)
+	  .eq("location_id", location.id)
+	  .order("catch_date", { ascending: false })
+	  .order("created_at", { ascending: false });
 
       if (error) throw error;
 
@@ -322,7 +334,7 @@ useEffect(() => {
   return () => {
     isMounted = false;
   };
-}, [location.locationKey]);
+}, [location.id]);
 
 useEffect(() => {
   let isMounted = true;
@@ -340,16 +352,34 @@ useEffect(() => {
       if (!user) return;
 
       const { data, error } = await supabase
-        .from("cast_trip_plans")
-        .select("*")
-        .eq("user_id", user.id)
-        .eq("location_key", location.locationKey)
-        .order("trip_date", { ascending: false })
-        .limit(2);
+  .from("cast_trip_plans")
+  .select("*")
+  .eq("user_id", user.id)
+  .eq("location_id", location.id)
+  .order("trip_date", { ascending: false })
+  .order("created_at", { ascending: false });
 
       if (error) throw error;
 
-      if (isMounted) setLocationTrips(data ?? []);
+      if (isMounted) {
+		  const trips = data ?? [];
+		  const today = new Date().toISOString().split("T")[0];
+
+		  setLocationTrips(trips);
+
+		  const upcoming = trips
+			.filter(
+			  (trip) =>
+				trip.status === "planned" &&
+				trip.trip_date &&
+				trip.trip_date >= today
+			)
+			.sort((a, b) => a.trip_date.localeCompare(b.trip_date));
+
+		  setNextTrip(upcoming[0] ?? null);
+		}
+	  
+	  
     } catch (err) {
       console.error("Location trips load error:", err);
       if (isMounted) setLocationTrips([]);
@@ -363,7 +393,57 @@ useEffect(() => {
   return () => {
     isMounted = false;
   };
-}, [location.locationKey]);
+}, [location.id]);
+
+
+useEffect(() => {
+  let isMounted = true;
+
+  async function loadLocationJournalEntries() {
+    try {
+      setJournalLoading(true);
+
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+
+      if (userError) throw userError;
+      if (!user) return;
+
+      const { data, error } = await supabase
+        .from("cast_journal_entries")
+        .select("*")
+        .eq("user_id", user.id)
+        .eq("location_id", location.id)
+        .order("entry_date", { ascending: false })
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+
+      if (isMounted) {
+        setLocationJournalEntries(data ?? []);
+      }
+    } catch (err) {
+      console.error("Location journal load error:", err);
+
+      if (isMounted) {
+        setLocationJournalEntries([]);
+      }
+    } finally {
+      if (isMounted) {
+        setJournalLoading(false);
+      }
+    }
+  }
+
+  loadLocationJournalEntries();
+
+  return () => {
+    isMounted = false;
+  };
+}, [location.id]);
+
 
 useEffect(() => {
   let isMounted = true;
@@ -498,8 +578,64 @@ async function removeTechniqueFromLocation(relationshipId) {
   }
 }
 
+const locationMemory = [
+  ...locationCatches.map((entry) => ({
+    type: "catch",
+    id: entry.id,
+    date: entry.catch_date,
+    createdAt: entry.created_at,
+    data: entry,
+  })),
+
+  ...locationTrips
+    .filter((trip) => trip.status === "completed")
+    .map((trip) => ({
+      type: "trip",
+      id: trip.id,
+      date: trip.trip_date,
+      createdAt: trip.created_at,
+      data: trip,
+    })),
+
+  ...locationJournalEntries.map((entry) => ({
+    type: entry.entry_type === "field_note" ? "field_note" : "reflection",
+    id: entry.id,
+    date: entry.entry_date,
+    createdAt: entry.created_at,
+    data: entry,
+  })),
+].sort((a, b) => {
+  const dateCompare = (b.date || "").localeCompare(a.date || "");
+
+  if (dateCompare !== 0) return dateCompare;
+
+  return (b.createdAt || "").localeCompare(a.createdAt || "");
+});
 
 
+const filteredLocationMemory =
+  memoryFilter === "all"
+    ? locationMemory
+    : locationMemory.filter((item) => item.type === memoryFilter);
+
+const recentLocationMemory = locationMemory.slice(0, 5);
+
+const displayedLocationMemory = isExploringMemory
+  ? filteredLocationMemory
+  : recentLocationMemory;
+
+const memoryLoading =
+  catchesLoading || tripsLoading || journalLoading;
+
+function formatMemoryDate(dateString) {
+  if (!dateString) return "Date not recorded";
+
+  return new Date(`${dateString}T12:00:00`).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
 
   return (
     <motion.div
@@ -667,20 +803,23 @@ async function removeTechniqueFromLocation(relationshipId) {
           </div>
         </SectionBlock>
 
-        <SectionBlock label="Notes">
-          {isEditing ? (
-            <textarea
-              className="loc-form-input loc-textarea"
-              value={draftLocation.notes || ""}
-              onChange={(e) => updateDraft("notes", e.target.value)}
-              placeholder="Access notes, water behavior, things worth remembering..."
-            />
-          ) : location.notes ? (
-            <p>{location.notes}</p>
-          ) : (
-            <p>No personal notes added yet.</p>
-          )}
-        </SectionBlock>
+        <SectionBlock label="Field Notes">
+		  <p className="loc-discovery-text">
+			Observations saved from your Journal or conversations with Papa become
+			part of this water&apos;s memory.
+		  </p>
+
+		  <button
+			type="button"
+			className="loc-new-btn"
+			onClick={() => {
+			  setMemoryFilter("field_note");
+			  setIsExploringMemory(true);
+			}}
+		  >
+			View Field Notes
+		  </button>
+		</SectionBlock>
 
 		<SectionBlock label="My Field Kit">
           {gearLoading ? (
@@ -774,44 +913,159 @@ async function removeTechniqueFromLocation(relationshipId) {
           )}
         </SectionBlock>
 
-        <SectionBlock label="Recent catches here">
-		  {catchesLoading ? (
-			<p>Looking through the ledger...</p>
-		  ) : locationCatches.length ? (
+		{nextTrip && (
+		  <SectionBlock label="Next Trip">
 			<div className="loc-chip-row">
-			  {locationCatches.map((entry) => (
-				<span key={entry.id} className="loc-chip">
-				  {entry.species} · {new Date(entry.catch_date).toLocaleDateString()}
-				</span>
-			  ))}
+			  <span className="loc-chip">
+				{nextTrip.timing_label ||
+				  formatMemoryDate(nextTrip.trip_date)}
+				{" · "}
+				{nextTrip.target_species?.[0] || "Whatever bites"}
+				{nextTrip.duration_label
+				  ? ` · ${nextTrip.duration_label}`
+				  : ""}
+			  </span>
 			</div>
-		  ) : (
-			<p>No catches logged here yet.</p>
-		  )}
-		</SectionBlock>
-
-		<SectionBlock label="Trips planned here">
-		  {tripsLoading ? (
-			<p>Looking through planned waters...</p>
-		  ) : locationTrips.length ? (
-			<div className="loc-chip-row">
-			  {locationTrips.map((trip) => (
-				<span key={trip.id} className="loc-chip">
-				  {trip.timing_label || trip.trip_date || "Planned trip"} ·{" "}
-				  {trip.target_species?.[0] || "Whatever bites"}
-				</span>
-			  ))}
-			</div>
-		  ) : (
-			<p>No trips planned here yet.</p>
-		  )}
-		</SectionBlock>
+		  </SectionBlock>
+		)}
 
 
+<SectionBlock label="Location Memory">
+  
+  {isExploringMemory && (
+  <div className="loc-species-row" style={{ marginBottom: "1rem" }}>
+    {[
+      ["all", "All"],
+      ["trip", "Trips"],
+      ["catch", "Catches"],
+      ["field_note", "Field Notes"],
+      ["reflection", "Reflections"],
+    ].map(([value, label]) => (
+      <button
+        key={value}
+        type="button"
+        className={`loc-species-chip ${
+          memoryFilter === value ? "active" : ""
+        }`}
+        onClick={() => setMemoryFilter(value)}
+      >
+        {label}
+      </button>
+    ))}
+  </div>
+)}
 
+  {memoryLoading ? (
+    <p>Gathering what this water remembers...</p>
+  ) : displayedLocationMemory.length ? (
+    <div className="loc-memory-list">
+      {displayedLocationMemory.map((memory) => (
+        <div
+          key={`${memory.type}-${memory.id}`}
+          className="loc-memory-item"
+        >
+          <p className="loc-card-eyebrow">
+            {memory.type === "catch"
+              ? "Catch"
+              : memory.type === "trip"
+              ? "Trip"
+              : memory.type === "field_note"
+              ? "Field Note"
+              : "Reflection"}
+            {" · "}
+            {formatMemoryDate(memory.date)}
+          </p>
 
+          {memory.type === "catch" && (
+            <>
+              <p>
+                <strong>
+                  {memory.data.is_no_catch
+                    ? "Nothing today"
+                    : memory.data.species}
+                </strong>
+                {memory.data.size_text
+                  ? ` · ${memory.data.size_text}`
+                  : ""}
+              </p>
 
-        
+              {memory.data.notes && (
+                <p className="loc-discovery-text">
+                  {memory.data.notes}
+                </p>
+              )}
+            </>
+          )}
+
+          {memory.type === "trip" && (
+            <>
+              <p>
+                <strong>Trip to {location.name}</strong>
+              </p>
+
+              <p className="loc-discovery-text">
+                {memory.data.target_species?.[0]
+                  ? `Targeting ${memory.data.target_species[0]}`
+                  : "Whatever bites"}
+                {memory.data.duration_label
+                  ? ` · ${memory.data.duration_label}`
+                  : ""}
+              </p>
+            </>
+          )}
+
+          {(memory.type === "field_note" ||
+            memory.type === "reflection") && (
+            <p className="loc-discovery-text">
+              {memory.data.entry_text}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  ) : (
+    <p>
+  {isExploringMemory && memoryFilter !== "all"
+    ? "No memories of this kind have been saved for this water yet."
+    : "This water is still waiting for its first memory."}
+</p>
+  )}
+  
+  {!memoryLoading && locationMemory.length > 0 && (
+  <div
+    className="loc-edit-actions"
+    style={{ marginTop: "1.25rem" }}
+  >
+    {isExploringMemory ? (
+      <button
+        type="button"
+        className="loc-new-btn"
+        onClick={() => {
+          setIsExploringMemory(false);
+          setMemoryFilter("all");
+        }}
+      >
+        ← Recent Memory
+      </button>
+    ) : (
+      <button
+        type="button"
+        className="loc-new-btn"
+        onClick={() => {
+          setMemoryFilter("all");
+          setIsExploringMemory(true);
+        }}
+      >
+        Explore Location Memory
+      </button>
+    )}
+  </div>
+)}
+
+</SectionBlock>
+      
+
+		        
       </div>
     </motion.div>
   );

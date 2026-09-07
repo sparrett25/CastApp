@@ -244,6 +244,9 @@ const atmosphericPerception = getAtmosphericPerception({
 		  catch_context: todayCatches ?? [],
 		  entry_type: entryType,
 		  location_id: locationId || null,
+
+		  time_state_key: atmospherePacket?.timeState || null,
+		  weather_state_key: atmospherePacket?.weatherState || null,
 		};
 
       const { data, error } = await supabase
