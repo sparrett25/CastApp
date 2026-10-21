@@ -1,7 +1,7 @@
 // src/services/weatherService.js
 import { normalizeWeatherState } from "../atmosphere/normalizeWeatherState";
 
-const CACHE_MINUTES = 30;
+const CACHE_MINUTES = 10;
 const CACHE_KEY_PREFIX = "cast_weather_snapshot_";
 
 function isFresh(snapshot) {
@@ -48,7 +48,9 @@ async function fetchCurrentWeather(zipCode) {
   const data = await res.json();
   const state = normalizeWeatherState(data.current);
 
-localStorage.removeItem("cast_weather_snapshot_33579");
+console.log("CAST weather ZIP:", zipCode);
+console.log("CAST weather raw:", data.current);
+console.log("CAST normalized weather:", state);
 
   return {
     zipCode,
@@ -59,13 +61,19 @@ localStorage.removeItem("cast_weather_snapshot_33579");
   };
 }
 
+
+
+
 export async function getLiveWeatherSnapshot(zipCode) {
   if (!zipCode || zipCode.length !== 5) return null;
 
   const cacheKey = `${CACHE_KEY_PREFIX}${zipCode}`;
   const cached = JSON.parse(localStorage.getItem(cacheKey) || "null");
 
-  if (isFresh(cached)) return cached;
+  if (isFresh(cached)) {
+  console.log("CAST weather cache hit:", cached);
+  return cached;
+}
 
   const snapshot = await fetchCurrentWeather(zipCode);
   localStorage.setItem(cacheKey, JSON.stringify(snapshot));
