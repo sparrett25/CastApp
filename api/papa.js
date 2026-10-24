@@ -322,7 +322,7 @@ Tell them a story.`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "gpt-5-mini",
+        model: "gpt-6.1-sol",
         instructions,
         input: inputText,
       }),
